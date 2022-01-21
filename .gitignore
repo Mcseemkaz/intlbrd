@@ -19,9 +19,12 @@ dist/
 # Package files
 *.jar
 
+#Selenide
+build/
+
 # Maven
 target/
-dist/
+out/
 
 # JetBrains IDE
 .idea/
