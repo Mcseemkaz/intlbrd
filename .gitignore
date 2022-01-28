@@ -7,6 +7,9 @@
 node_modules/
 dist/
 
+#Allure Report
+.allure/
+
 # Compiled Java class files
 *.class
 

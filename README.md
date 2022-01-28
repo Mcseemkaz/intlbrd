@@ -22,7 +22,10 @@ In order to configure a test execution change options in the file : /src/test/re
 * user_login - specify user credential email for login in the app
 * user_pass - specify user credential password for login in the app
 
-## Reports [TBD]
+## Reports
+The project has integrated Allure Report for seeing the full info.
+- For creating Allure report after the test execution needs to run the command : `./mvnw allure:report`
+- For starting a web server with Allure report on localhost needs to run the command: `./mvnw allure:serve`
 
 ## Notes
 * There is no need to add external Selenium webdriver - the project uses Selenide Wrapper for the webdrivers 
