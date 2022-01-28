@@ -13,12 +13,14 @@ public class DemoTest extends IBNextAbstractTest {
     }
 
     @Test
+    @DisplayName("Test Demo ConnectionMoodle")
     public void testConnectionMoodle() {
         loginAppUI(USER_LOGIN, USER_PASS);
         connectionMoodleUI();
     }
 
     @Test
+    @DisplayName("Test Demo Add ConnectionMoodle")
     public void testAddConnectionMoodle() {
         loginAppUI(USER_LOGIN, USER_PASS);
         addConnectionMoodleUI();
