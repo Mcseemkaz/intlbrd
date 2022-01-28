@@ -9,4 +9,16 @@ public class DemoTest extends IBNextAbstractTest {
     public void testLoginApp() {
         loginAppUI(USER_LOGIN, USER_PASS);
     }
+
+    @Test
+    public void testConnectionMoodle() {
+        loginAppUI(USER_LOGIN, USER_PASS);
+        connectionMoodleUI();
+    }
+
+    @Test
+    public void testAddConnectionMoodle() {
+        loginAppUI(USER_LOGIN, USER_PASS);
+        addConnectionMoodleUI();
+    }
 }
