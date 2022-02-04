@@ -1,7 +1,7 @@
 package net.intelliboard.next;
 
 import com.codeborne.selenide.Condition;
-import net.intelliboard.next.services.pages.*;
+import net.intelliboard.next.services.pages.LoginPage;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ public class IBNextAbstractTest extends AbstractTest {
     protected static String MAIN_URL;
     protected static String USER_LOGIN;
     protected static String USER_PASS;
-    protected static String MOODLE_LMS_NAME;
     protected static String MOODLE_CLIENT_ID;
     protected static String MOODLE_LMS_URL;
 
@@ -22,7 +21,6 @@ public class IBNextAbstractTest extends AbstractTest {
             MAIN_URL = propertiesGetValue.getPropertyValue("base_url");
             USER_LOGIN = propertiesGetValue.getPropertyValue("user_login");
             USER_PASS = propertiesGetValue.getPropertyValue("user_pass");
-            MOODLE_LMS_NAME = propertiesGetValue.getPropertyValue("moodel_lms_name");
             MOODLE_CLIENT_ID = propertiesGetValue.getPropertyValue("moodel_client_id");
             MOODLE_LMS_URL = propertiesGetValue.getPropertyValue("moodel_lms_url");
         } catch (IOException e) {
