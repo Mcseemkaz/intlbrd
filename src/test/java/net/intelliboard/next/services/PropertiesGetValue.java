@@ -12,13 +12,16 @@ public class PropertiesGetValue {
     public String getPropertyValue(String key) throws IOException {
 
         try {
+            String configFileName = "./%s-config.properties";
+            String EnvironmentName = System.getProperty("TestEnvironment");
+            configFileName = String.format(configFileName, EnvironmentName);
+
             Properties prop = new Properties();
-            String propFileName = "config.properties";
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            inputStream = getClass().getClassLoader().getResourceAsStream(configFileName);
             if (inputStream != null) {
                 prop.load(inputStream);
             } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+                throw new FileNotFoundException("property file '" + configFileName + "' not found in the classpath");
             }
 
             result = prop.getProperty(key);
