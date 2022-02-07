@@ -88,6 +88,7 @@
                         </property>
                     </systemProperties>
                     <systemPropertyVariables>
+                        <TestEnvironment>stage</TestEnvironment>
                         <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
