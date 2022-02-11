@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.pages.ConnectionIntegrationPage.CREATE_MOODLE_CONNECTION;
+import static net.intelliboard.next.services.IBNextURLs.CREATE_MOODLE_CONNECTION;
 
 public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
@@ -27,7 +27,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         ConnectionDataPage connectionDataPage = new ConnectionDataPage();
 
         String lmsMoodleName = DataGenerator.getRandomString();
-        open(MAIN_URL.concat(CREATE_MOODLE_CONNECTION));
+        open(CREATE_MOODLE_CONNECTION);
         createConnectionPage.createMoodleConnection(lmsMoodleName, MOODLE_CLIENT_ID, MOODLE_LMS_URL);
         $x("//header").shouldBe(Condition.visible);
         lmsFilterSettingPage.saveFilterSettings();

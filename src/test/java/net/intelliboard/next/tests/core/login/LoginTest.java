@@ -2,6 +2,7 @@ package net.intelliboard.next.tests.core.login;
 
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.LoginPage;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ public class LoginTest extends IBNextAbstractTest {
     @DisplayName("SP-T24: Verify validation of entering an invalid email address")
     public void testCheckInvalidEmailSPT24() {
         LoginPage loginPage = new LoginPage();
-        open(MAIN_URL);
+        open(IBNextURLs.MAIN_URL);
         loginPage.loginField.setValue(DataGenerator.getRandomValidEmail());
         loginPage.buttonSubmit.click();
         $x("//ul[@class='notifications']//div[contains(@class, 'error')]/div[contains(@class, 'info-block')]")
@@ -38,7 +39,7 @@ public class LoginTest extends IBNextAbstractTest {
     @DisplayName("SP-T36: Verify validation of entering an invalid password")
     public void testCheckInvalidPassword() {
         LoginPage loginPage = new LoginPage();
-        open(MAIN_URL);
+        open(IBNextURLs.MAIN_URL);
         loginPage.loginField.setValue(USER_LOGIN);
         loginPage.buttonSubmit.click();
         loginPage.passwordField.setValue(DataGenerator.getRandomString());

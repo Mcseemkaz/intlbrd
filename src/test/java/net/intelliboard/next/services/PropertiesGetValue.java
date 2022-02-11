@@ -25,7 +25,7 @@ public class PropertiesGetValue {
             }
 
             result = prop.getProperty(key);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Exception: " + e);
         } finally {
             inputStream.close();
