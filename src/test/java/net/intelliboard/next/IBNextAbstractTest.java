@@ -16,7 +16,13 @@ public class IBNextAbstractTest extends AbstractTest {
     protected static String MOODLE_CLIENT_ID;
     protected static String MOODLE_LMS_URL;
     protected static String SIGNUP_INVITE_REGISTRATION_CODE;
-
+    protected static String CANVAS_CLIENT_ID;
+    protected static String CANVAS_LMS_URL;
+    protected static String CANVAS_CLIENT_SECRET;
+    protected static String CANVAS_DATA_CLIENT_ID;
+    protected static String CANVAS_DATA_CLIENT_SECRET;
+    protected static String CANVAS_USER_LOGIN;
+    protected static String CANVAS_USER_PASS;
 
     static {
         try {
@@ -25,6 +31,13 @@ public class IBNextAbstractTest extends AbstractTest {
             SIGNUP_INVITE_REGISTRATION_CODE = propertiesGetValue.getPropertyValue("invite_code");
             MOODLE_CLIENT_ID = propertiesGetValue.getPropertyValue("moodel_client_id");
             MOODLE_LMS_URL = propertiesGetValue.getPropertyValue("moodel_lms_url");
+            CANVAS_CLIENT_ID = propertiesGetValue.getPropertyValue("canvas_client_id");
+            CANVAS_LMS_URL = propertiesGetValue.getPropertyValue("canvas_lms_url");
+            CANVAS_CLIENT_SECRET = propertiesGetValue.getPropertyValue("canvas_client_secret");
+            CANVAS_DATA_CLIENT_ID = propertiesGetValue.getPropertyValue("canvas_data_client_id");
+            CANVAS_DATA_CLIENT_SECRET = propertiesGetValue.getPropertyValue("canvas_data_client_secret");
+            CANVAS_USER_LOGIN = propertiesGetValue.getPropertyValue("canvas_user_login");
+            CANVAS_USER_PASS = propertiesGetValue.getPropertyValue("canvas_user_pass");
         } catch (IOException e) {
             e.printStackTrace();
         }
