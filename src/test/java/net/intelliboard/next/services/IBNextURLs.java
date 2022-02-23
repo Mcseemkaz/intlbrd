@@ -27,6 +27,10 @@ public class IBNextURLs {
     public static final String CREATE_CONNECTION = MAIN_URL + "/connections/create";
     public static final String CREATE_MOODLE_CONNECTION = CREATE_CONNECTION + "/1";
     public static final String CREATE_CANVAS_CONNECTION = CREATE_CONNECTION + "/2";
+    public static final String CREATE_BLACKBOARD_CONNECTION = CREATE_CONNECTION + "/3";
+
+    //All Connections
+    public static final String ALL_CONNECTIONS = MAIN_URL + "/connections";
 
     // Login Canvas Page
     public static final String LOGIN_CANVAS_PAGE = CANVAS_MAIN_URL + "/login/canvas";

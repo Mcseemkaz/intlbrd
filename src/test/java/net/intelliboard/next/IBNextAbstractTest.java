@@ -23,6 +23,8 @@ public class IBNextAbstractTest extends AbstractTest {
     protected static String CANVAS_DATA_CLIENT_SECRET;
     protected static String CANVAS_USER_LOGIN;
     protected static String CANVAS_USER_PASS;
+    protected static String BLACKBOARD_CLIENT_ID;
+    protected static String BLACKBOARD_LMS_URL;
 
     static {
         try {
@@ -38,6 +40,8 @@ public class IBNextAbstractTest extends AbstractTest {
             CANVAS_DATA_CLIENT_SECRET = propertiesGetValue.getPropertyValue("canvas_data_client_secret");
             CANVAS_USER_LOGIN = propertiesGetValue.getPropertyValue("canvas_user_login");
             CANVAS_USER_PASS = propertiesGetValue.getPropertyValue("canvas_user_pass");
+            BLACKBOARD_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_lms_url");
+            BLACKBOARD_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_client_id");
         } catch (IOException e) {
             e.printStackTrace();
         }

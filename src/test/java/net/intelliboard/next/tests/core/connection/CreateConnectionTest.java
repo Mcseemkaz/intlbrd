@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
+import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNECTION;
 import static net.intelliboard.next.services.IBNextURLs.CREATE_MOODLE_CONNECTION;
 import static net.intelliboard.next.services.IBNextURLs.CREATE_CANVAS_CONNECTION;
 
@@ -61,5 +62,27 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .saveFilterSettings();
 
         connectionDataPage.deleteConnection(lmsCanvasName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T91")})
+    @DisplayName("SP-T91: Creating of Blackboard connection")
+    public void testCreateBlackboardConntectionSPT91() {
+        loginAppUI(USER_LOGIN, USER_PASS);
+
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        ConnectionDataPage connectionDataPage = new ConnectionDataPage();
+        LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
+
+        String lmsBlackboardName = DataGenerator.getRandomString();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+
+        createConnectionPage.createBlackboardConnection(lmsBlackboardName, BLACKBOARD_CLIENT_ID, BLACKBOARD_LMS_URL);
+        $x("//header").shouldBe(Condition.visible);
+        lmsFilterSettingPage.saveFilterSettings();
+        $x("//a[contains (text(), '" + lmsBlackboardName + "')]").exists();
+
+        connectionDataPage.deleteConnection(lmsBlackboardName);
     }
 }
