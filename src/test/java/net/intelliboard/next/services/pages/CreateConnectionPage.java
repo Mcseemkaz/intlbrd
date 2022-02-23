@@ -30,4 +30,11 @@ public class CreateConnectionPage {
         dataClientSecretField.setValue(dataClientSecret);
         buttonContinue.click();
     }
+
+    public void createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
+        lmsNameField.setValue(lmsName);
+        clientIdField.setValue(clientId);
+        lmsUrlField.setValue(lmsUrl);
+        buttonContinue.click();
+    }
 }
