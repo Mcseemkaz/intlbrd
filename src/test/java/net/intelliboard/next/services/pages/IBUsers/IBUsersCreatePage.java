@@ -6,7 +6,6 @@ import net.intelliboard.next.services.IBNextURLs;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-
 public class IBUsersCreatePage {
 
     public static IBUsersCreatePage init() {
@@ -14,7 +13,6 @@ public class IBUsersCreatePage {
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']//form").shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.USERS_CREATE_PAGE);
-//        assertThat(WebDriverRunner.getWebDriver().getCurrentUrl()).isEqualTo(IBNextURLs.USERS_CREATE_PAGE);
         return new IBUsersCreatePage();
     }
 
@@ -26,6 +24,18 @@ public class IBUsersCreatePage {
     public IBUsersCreatePage selectRole(CreateIBUsersFormRolesTypeEnum role) {
         $x("//div[@name='role']//button").click();
         $x("//strong[text()='" + role.value + "']")
+                .click();
+        return this;
+    }
+
+    public IBUsersCreatePage selectConnection() {
+        $x("//input[contains (@id, 'connections') and following-sibling::label[@class='label-text']]")
+                .click();
+        return this;
+    }
+
+    public IBUsersCreatePage selectConnection(String connectionName) {
+        $x("//input[contains (@id, 'connections') and following-sibling::label[text()='" + connectionName + "']]")
                 .click();
         return this;
     }

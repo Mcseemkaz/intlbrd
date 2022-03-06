@@ -25,8 +25,6 @@ public class UserRegistrationTest extends IBNextAbstractTest {
         open(IBNextURLs.MAIN_URL);
         LoginPage loginPage = new LoginPage();
         loginPage.goToRegistartion()
-                .fillInInviteCode(SIGNUP_INVITE_REGISTRATION_CODE)
-                .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, email)

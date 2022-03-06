@@ -10,19 +10,19 @@ import static org.assertj.core.api.Assertions.*;
 
 public class SignUpInvitePage {
 
-    public static SignUpInvitePage init(){
+    public static SignUpInvitePage init() {
         $x("//div[contains (@class,'signup-page')]").shouldBe(Condition.visible);
         String currentURL = WebDriverRunner.getWebDriver().getCurrentUrl();
-        assertThat(currentURL).isEqualTo(IBNextURLs.SIGNUP_INVITATION_PAGE);
+        assertThat(currentURL).isEqualTo(IBNextURLs.SIGNUP_PAGE);
         return new SignUpInvitePage();
     }
 
-    public SignUpFormPage continueRegistration(){
+    public SignUpFormPage continueRegistration() {
         $x("//button[@type='submit']").click();
         return SignUpFormPage.init();
     }
 
-    public SignUpInvitePage fillInInviteCode(String inviteCode){
+    public SignUpInvitePage fillInInviteCode(String inviteCode) {
         $x("//input[@id='invite_code']").setValue(inviteCode);
         return this;
     }

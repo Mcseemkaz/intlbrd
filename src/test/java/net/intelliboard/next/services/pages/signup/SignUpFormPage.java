@@ -26,13 +26,15 @@ public class SignUpFormPage {
     }
 
     public void submitForm() {
+        String winHandleBefore = WebDriverRunner.getWebDriver().getWindowHandle();
         $x("//button[@type='submit']").click();
-        $x("//div[contains(@class, 'congrats')]//h2[contains(@class, 'text-success')]")
+        WebDriverRunner.getWebDriver().switchTo().window(winHandleBefore);
+        $x("//div[contains(@class, 'congrats')]//h2[text()]")
                 .shouldBe(Condition.visible);
     }
 
     public SignUpFormPage agreeTermsPolicy() {
-        $x("//input[@id='terms_of_use_agreement']").click();
+        $x("//label[@for='terms_of_use_agreement']").click();
         return this;
     }
 }
