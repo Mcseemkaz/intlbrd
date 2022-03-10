@@ -18,19 +18,19 @@ public class LoginTest extends IBNextAbstractTest {
     @Test
     @DisplayName("SP-T22: Verify success login to IB Next")
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T22")})
-    public void testLoginAppSPT22() {
+    public void testLoginApp() {
         loginAppUI(USER_LOGIN, USER_PASS);
     }
 
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T24")})
     @DisplayName("SP-T24: Verify validation of entering an invalid email address")
-    public void testCheckInvalidEmailSPT24() {
+    public void testCheckInvalidEmail() {
         LoginPage loginPage = new LoginPage();
         open(IBNextURLs.MAIN_URL);
         loginPage.loginField.setValue(DataGenerator.getRandomValidEmail());
         loginPage.buttonSubmit.click();
-        $x("//ul[@class='notifications']//div[contains(@class, 'error')]/div[contains(@class, 'info-block')]")
+        $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-email']]")
                 .shouldBe(Condition.visible);
     }
 
@@ -44,9 +44,7 @@ public class LoginTest extends IBNextAbstractTest {
         loginPage.buttonSubmit.click();
         loginPage.passwordField.setValue(DataGenerator.getRandomString());
         loginPage.buttonSubmit.click();
-        $x("//div[contains (@class, 'form-group') and ./input[@id='login-email'] ]")
-                .shouldHave(Condition.cssClass("has-error"));
-        $x("//div[contains (@class, 'form-group') and ./input[@id='login-email'] ]/span[@class='help-block']")
+        $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-password']]")
                 .shouldBe(Condition.visible);
     }
 }
