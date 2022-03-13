@@ -1,12 +1,22 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUsersPage {
+
+    //Page Elements
+    @Getter
+    public ElementsCollection passwordErrors = $$x("//span[contains(@class,'help-block-error')]");
+    @Getter
+    public SelenideElement emailError = $x("//div[contains(@class,'has-error')]//span[@class='help-block ']");
 
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
@@ -32,9 +42,35 @@ public class IBUsersPage {
                 .click();
         $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a")
                 .click();
-        $x("//div[@class='modal-content']//a[contains(@class, 'app-button')]").shouldBe(Condition.visible)
-                .click();
+        deleteSelectedUserPromtModal(true);
         $x("//span[contains(text(),'\"+userFirstName+\"')]").shouldNotBe(Condition.visible);
         return this;
     }
+
+    public IBUsersPage checkedUserByName(String firstUserName) {
+        $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td")
+                .click();
+        return this;
+    }
+
+    public IBUsersPage deleteSelectedUsersByActionDropdown() {
+        $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]").click();
+        $x("((//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]//a)[2]").click();
+        deleteSelectedUserPromtModal(true);
+        return this;
+    }
+
+    public IBUsersPage deleteSelectedUserPromtModal(boolean yesORno) {
+        $x("//div[@class='modal-content']").shouldBe(Condition.visible);
+        if (yesORno) {
+            $x("//div[@class='modal-content']//button[contains(@class, 'error')]").shouldBe(Condition.visible)
+                    .click();
+        } else {
+            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible)
+                    .click();
+        }
+        $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
+        return this;
+    }
+
 }
