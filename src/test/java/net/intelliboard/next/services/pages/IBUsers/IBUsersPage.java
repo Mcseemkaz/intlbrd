@@ -18,6 +18,11 @@ public class IBUsersPage {
     @Getter
     public SelenideElement emailError = $x("//div[contains(@class,'has-error')]//span[@class='help-block ']");
 
+    private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
+    private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a");
+    private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
+
+
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
@@ -28,8 +33,7 @@ public class IBUsersPage {
 
     public IBUsersCreatePage openIBUserCreatePage() {
         $x("//button[@type=\'submit\']").click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
-                .shouldBe(Condition.visible).click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]").shouldBe(Condition.visible).click();
         return IBUsersCreatePage.init();
     }
 
@@ -38,18 +42,22 @@ public class IBUsersPage {
     }
 
     public IBUsersPage deleteUser(String userFirstName) {
-        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
-                .click();
-        $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a")
-                .click();
+        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]").click();
+        userActionDropdownDeleteOption.click();
         deleteSelectedUserPromtModal(true);
         $x("//span[contains(text(),'\"+userFirstName+\"')]").shouldNotBe(Condition.visible);
         return this;
     }
 
+    public IBUsersPage deleteUser() {
+        $x("(//td/following-sibling::td//button[contains(@class,'dropdown-toggle')])[1]").click();
+        userActionDropdownDeleteOption.click();
+        deleteSelectedUserPromtModal(true);
+        return this;
+    }
+
     public IBUsersPage checkedUserByName(String firstUserName) {
-        $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td")
-                .click();
+        $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td").click();
         return this;
     }
 
@@ -63,14 +71,33 @@ public class IBUsersPage {
     public IBUsersPage deleteSelectedUserPromtModal(boolean yesORno) {
         $x("//div[@class='modal-content']").shouldBe(Condition.visible);
         if (yesORno) {
-            $x("//div[@class='modal-content']//button[contains(@class, 'error')]").shouldBe(Condition.visible)
-                    .click();
+            $x("//div[@class='modal-content']//a[contains(@class, 'error')]").shouldBe(Condition.visible).click();
         } else {
-            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible)
-                    .click();
+            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible).click();
         }
         $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
         return this;
     }
 
+    //TODO MO - add Enum for attributes scaling
+    public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
+        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
+        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']").click();
+        return IBUsersPage.init();
+    }
+
+    //TODO MO - add Enum for pagination
+    public IBUsersPage changePaginationPage(String nextOrPrev) {
+        paginationBlock.shouldBe(Condition.visible);
+        $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
+        return IBUsersPage.init();
+    }
+
+    public boolean isPaginationPresented() {
+        return paginationBlock.isDisplayed();
+    }
+
+    public boolean isFirstUserPresented() {
+        return firstUserRow.isDisplayed();
+    }
 }

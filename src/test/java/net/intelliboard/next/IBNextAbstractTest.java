@@ -60,7 +60,6 @@ public class IBNextAbstractTest extends AbstractTest {
 
         open(IBNextURLs.LOGIN_PAGE);
         loginPage.loginField.setValue(userLogin);
-        loginPage.buttonSubmit.click();
         loginPage.passwordField.shouldBe(Condition.visible).setValue(userPass);
         loginPage.buttonSubmit.click();
         $x("//header").shouldBe(Condition.visible);
