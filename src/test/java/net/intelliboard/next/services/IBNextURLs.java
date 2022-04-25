@@ -41,5 +41,9 @@ public class IBNextURLs {
 
     // LoginOauth2 Confirm Page  /login/oauth2/confirm
     public static final String LOGIN_OAUTH2_CONFIRM_PAGE = CANVAS_MAIN_URL + "/login/oauth2/confirm";
+
+    //My Inteliiboard Page
+    public static final String MY_INTELLIBOARD_PAGE = MAIN_URL + "/data-sets";
+
 }
 
