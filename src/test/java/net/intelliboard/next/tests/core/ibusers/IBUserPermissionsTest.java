@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 public class IBUserPermissionsTest extends IBNextAbstractTest {
 
-
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T612")})
     @DisplayName("SP-T612: Disappearing of buttons when admin permissions for IB user turn off")

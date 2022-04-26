@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -47,6 +48,15 @@ public class MyIntelliBoardPage {
                 .click($x("//div[contains (@class,'dropdown-body')]//a[ .//ion-icon[@name='eye-outline']]"))
                 .perform();
         return this;
+    }
+
+    public DashboardPage openEdit(int numberDashboard) {
+        Selenide.actions()
+                .moveToElement($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item')]//span[@class='dropdown-trigger']//span[@class='action-item']"))
+                .click($x("//div[contains (@class,'dropdown-body')]//a[ .//ion-icon[@name='create-outline']]"))
+                .perform();
+        return DashboardPage.init();
     }
 
     public String getNameofDasnboardByOrderNumber(int number) {

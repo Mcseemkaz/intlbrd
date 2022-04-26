@@ -3,6 +3,8 @@ package net.intelliboard.next.tests.builder.my_intelliboard;
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
+import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
@@ -132,6 +134,29 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         String ag = $x("//div[contains (@class,'data-set-title')]").getText();
 
         assertThat($x("//div[contains (@class,'data-set-title')]").getText().equals(dashboardName))
+                .isTrue();
+    }
+
+    @Test
+    @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T621")})
+    @DisplayName("SP-T621: Check \"Edit\" in action button on MyIntelliboard page\n")
+    public void checkEditByActionButton() {
+        int numberOfDashboard = 1;
+
+        loginAppUI(USER_LOGIN, USER_PASS);
+
+        HeaderObject.init().openMyIntelliBoardPage();
+        MyIntelliBoardPage my = MyIntelliBoardPage.init();
+
+        //Open Dashboard
+        String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
+        my.openEdit(numberOfDashboard);
+        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
+        ibNextAbstractTest.waitForPageLoaded();
+
+        String ag = CreateDashboardPage.init().getTitileName();
+
+        assertThat(ag.equals(dashboardName))
                 .isTrue();
     }
 }

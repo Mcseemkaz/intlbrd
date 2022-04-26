@@ -17,7 +17,7 @@ public abstract class AbstractTest {
     @BeforeEach
     public void setUp() throws IOException {
         Configuration.browser = propertiesGetValue.getPropertyValue("browser");
-        Configuration.timeout = 10000;
+        Configuration.timeout = 20000;
         Configuration.browserSize = "1600x1200";
         if (WebDriverRunner.isFirefox()) {
             WebDriverManager.firefoxdriver().driverVersion("0.30.0").setup();
