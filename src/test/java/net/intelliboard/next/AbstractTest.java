@@ -2,6 +2,7 @@ package net.intelliboard.next;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import net.intelliboard.next.services.PropertiesGetValue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,9 @@ public abstract class AbstractTest {
         Configuration.browser = propertiesGetValue.getPropertyValue("browser");
         Configuration.timeout = 10000;
         Configuration.browserSize = "1600x1200";
+        if (WebDriverRunner.isFirefox()) {
+            WebDriverManager.firefoxdriver().driverVersion("0.30.0").setup();
+        }
         WebDriverRunner.clearBrowserCache();
     }
 

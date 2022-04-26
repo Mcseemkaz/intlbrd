@@ -59,10 +59,13 @@ public class IBNextAbstractTest extends AbstractTest {
         LoginPage loginPage = new LoginPage();
 
         open(IBNextURLs.LOGIN_PAGE);
+        waitPage();
         loginPage.loginField.setValue(userLogin);
         loginPage.passwordField.shouldBe(Condition.visible).setValue(userPass);
+        waitPage();
         loginPage.buttonSubmit.click();
-        $x("//header").shouldBe(Condition.visible);
+        waitPage();
+        $x("//header").shouldBe(Condition.visible, Duration.ofSeconds(100));
     }
 
     public Object checkPageURL(String expectedURL) {
@@ -92,5 +95,20 @@ public class IBNextAbstractTest extends AbstractTest {
             assertThat(false).as("Timeout waiting for Page Load Request to complete.");
         }
         return this;
+    }
+
+    public static void waitPage() {
+
+        WebDriver driver = WebDriverRunner.getWebDriver();
+
+        try {
+            Thread.sleep(1000);
+            WebDriverWait waitForLoad = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(10));
+            waitForLoad.until(
+                    webDriver -> (((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete")
+                            && ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active === 0"))));
+        } catch (Throwable error) {
+            assertThat(false).as("Timeout waiting for Page Load Request to complete.");
+        }
     }
 }

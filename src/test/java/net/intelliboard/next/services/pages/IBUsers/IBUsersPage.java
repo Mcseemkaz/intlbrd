@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUsersPage {
 
+
     //Page Elements
     @Getter
     public ElementsCollection passwordErrors = $$x("//span[contains(@class,'help-block-error')]");
@@ -20,7 +21,10 @@ public class IBUsersPage {
 
     private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
     private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a");
+    private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[1]//a");
+
     private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
+    private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
 
 
     public static IBUsersPage init() {
@@ -42,7 +46,8 @@ public class IBUsersPage {
     }
 
     public IBUsersPage deleteUser(String userFirstName) {
-        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]").click();
+        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+                .click();
         userActionDropdownDeleteOption.click();
         deleteSelectedUserPromtModal(true);
         $x("//span[contains(text(),'\"+userFirstName+\"')]").shouldNotBe(Condition.visible);
@@ -56,13 +61,20 @@ public class IBUsersPage {
         return this;
     }
 
+    public IBUsersPage logInSelectedUsers(String userFirstName) {
+        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+                .click();
+        userActionLogInOption.click();
+        return this;
+    }
+
     public IBUsersPage checkedUserByName(String firstUserName) {
         $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td").click();
         return this;
     }
 
     public IBUsersPage deleteSelectedUsersByActionDropdown() {
-        $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]").click();
+        userActionDropdownMenu.click();
         $x("((//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]//a)[2]").click();
         deleteSelectedUserPromtModal(true);
         return this;
