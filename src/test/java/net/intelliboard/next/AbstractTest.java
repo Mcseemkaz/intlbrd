@@ -26,21 +26,26 @@ public abstract class AbstractTest {
                 cap.setBrowserName("chrome");
                 cap.setVersion("99.0");
                 cap.setCapability("enableVNC", true);
-                cap.setCapability("enableVideo", true);
+                cap.setCapability("enableVideo", false);
                 Configuration.browserCapabilities = cap;
                 Configuration.remote = "http://localhost:4444/wd/hub";
+                break;
 
             case "chrome":
+                Configuration.browser = "chrome";
+                break;
 
+            case "firefox":
+                Configuration.browser = "firefox";
+                WebDriverManager.firefoxdriver().driverVersion("0.30.0").setup();
+                break;
+
+            default:
         }
-
-//        Configuration.browser = propertiesGetValue.getPropertyValue("browser");
-        Configuration.timeout = 20000;
-        Configuration.browserSize = "1600x1200";
-//        if (WebDriverRunner.isFirefox()) {
-//            WebDriverManager.firefoxdriver().driverVersion("0.30.0").setup();
-//        }
         WebDriverRunner.clearBrowserCache();
+        Configuration.browserSize = "1600x1200";
+        Configuration.timeout = 20000;
+
     }
 
     @AfterEach
