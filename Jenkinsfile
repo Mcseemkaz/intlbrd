@@ -1,21 +1,34 @@
 pipeline {
-    agent { docker { image 'ovsukmaksim/docker-java:latest' } }
+    agent any
     stages {
-        stage('check java') {
+        stage('Pull browser') {
             steps {
-                sh 'java -version'
+                sh ('docker pull selenoid/vnc_chrome:99.0 && docker ps')
             }
         }
-        stage('check docker') {
-                    steps {
-                        sh 'docker-compose --version'
-                    }
-                }
 
-        stage('check docker-compose config') {
-                    steps {
-                        sh 'cd docker && IPADDRESS=$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p') && echo "IPADDRESS=$IPADDRESS" > .env && cat .env && docker-compose config'
+        stage('Run selenoid') {
+            steps {
+                catchError {
+                    script {
+                     	    sh ('docker run -d --rm --name selenoid -p 4444:4444 -v //var/run/docker.sock:/var/run/docker.sock -v ${PWD}/docker:/etc/selenoid:ro aerokube/selenoid:latest-release')
+                            }
+                       	}
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                script{
+                    sh ('./mvnw -Dgroups="${testGroup}"')
                     }
+               }
+        }
+
+    }
+    post {
+        always {
+                sh ('docker ps && docker stop selenoid')
         }
     }
 }
