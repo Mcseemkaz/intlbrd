@@ -1,4 +1,4 @@
-package net.intelliboard.next.tests.core.ibusers;
+package net.intelliboard.next.tests.core.ibusers.permissions;
 
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;

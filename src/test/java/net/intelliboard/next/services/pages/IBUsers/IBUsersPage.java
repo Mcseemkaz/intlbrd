@@ -41,6 +41,12 @@ public class IBUsersPage {
         return IBUsersCreatePage.init();
     }
 
+    public IBUsersSyncPage openIBUserSyncPage() {
+        $x("//button[@type=\'submit\']").click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]").shouldBe(Condition.visible).click();
+        return IBUsersSyncPage.init();
+    }
+
     public boolean getUserByName(String nameIBUser) {
         return $x("//span[contains (text(),'" + nameIBUser + "')]").is(Condition.visible);
     }

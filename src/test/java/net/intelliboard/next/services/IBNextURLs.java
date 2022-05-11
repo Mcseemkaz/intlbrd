@@ -22,6 +22,7 @@ public class IBNextURLs {
     //Users
     public static final String USERS_PAGE = MAIN_URL + "/users";
     public static final String USERS_CREATE_PAGE = USERS_PAGE + "/create";
+    public static final String USERS_SYNC_PAGE = USERS_PAGE + "/sync";
 
     // Sign Up Page
     public static final String SIGNUP_PAGE = MAIN_URL + "/signup";

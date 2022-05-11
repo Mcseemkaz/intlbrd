@@ -1,4 +1,4 @@
-package net.intelliboard.next.tests.core.ibusers;
+package net.intelliboard.next.tests.core.ibusers.addnew;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
