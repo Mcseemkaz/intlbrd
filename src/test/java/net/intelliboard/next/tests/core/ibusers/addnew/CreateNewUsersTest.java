@@ -1,8 +1,7 @@
-package net.intelliboard.next.tests.core.ibusers;
+package net.intelliboard.next.tests.core.ibusers.addnew;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static com.codeborne.selenide.Selenide.$$x;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateNewUsersTest extends IBNextAbstractTest {
@@ -248,7 +246,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal")})
-    @DisplayName("SP-TXXX: Create User with already registered email")
+    @DisplayName("SP-T112: Create User with already registered email")
     public void testCreateUserWithAlreadyReisteredEmail() {
 
         loginAppUI(USER_LOGIN, USER_PASS);
@@ -295,4 +293,48 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .isFalse().as("User has been created with has already registered EMAIL");
 
     }
+
+    @Test
+    @Tags(value = {@Tag("SP-T116")})
+    @DisplayName("SP-T116: Scaling the number of users")
+    public void testScalingNumberUsers() {
+
+        //Create new users
+        loginAppUI(USER_LOGIN, USER_PASS);
+        HeaderObject header = HeaderObject.init();
+        IBUsersPage ibUsersPage = IBUsersPage.init();
+
+        // Delete exist users
+        while (ibUsersPage.isFirstUserPresented()) {
+            ibUsersPage.deleteUser();
+        }
+
+        // Add users for schecking pagination
+        int users = 12;
+        for (int i = 0; i < users; i++) {
+            header
+                    .openDropDownMenu()
+                    .openMyIBUsersPage()
+                    .openIBUserCreatePage()
+                    .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                    .selectConnection()
+                    .submitUserCreateForm();
+        }
+
+        ibUsersPage.changePaginationPage("next");
+        ibUsersPage.changeScalingUsersPerPage(25);
+
+        assertThat(ibUsersPage.isPaginationPresented())
+                .isFalse()
+                .as("Pagination is broken");
+
+        while (ibUsersPage.isFirstUserPresented())
+            ibUsersPage.deleteUser();
+    }
 }
+

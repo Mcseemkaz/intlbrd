@@ -12,11 +12,20 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUsersPage {
 
+
     //Page Elements
     @Getter
     public ElementsCollection passwordErrors = $$x("//span[contains(@class,'help-block-error')]");
     @Getter
     public SelenideElement emailError = $x("//div[contains(@class,'has-error')]//span[@class='help-block ']");
+
+    private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
+    private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a");
+    private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[1]//a");
+
+    private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
+    private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
+
 
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
@@ -28,9 +37,14 @@ public class IBUsersPage {
 
     public IBUsersCreatePage openIBUserCreatePage() {
         $x("//button[@type=\'submit\']").click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
-                .shouldBe(Condition.visible).click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]").shouldBe(Condition.visible).click();
         return IBUsersCreatePage.init();
+    }
+
+    public IBUsersSyncPage openIBUserSyncPage() {
+        $x("//button[@type=\'submit\']").click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]").shouldBe(Condition.visible).click();
+        return IBUsersSyncPage.init();
     }
 
     public boolean getUserByName(String nameIBUser) {
@@ -40,21 +54,33 @@ public class IBUsersPage {
     public IBUsersPage deleteUser(String userFirstName) {
         $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
                 .click();
-        $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a")
-                .click();
+        userActionDropdownDeleteOption.click();
         deleteSelectedUserPromtModal(true);
         $x("//span[contains(text(),'\"+userFirstName+\"')]").shouldNotBe(Condition.visible);
         return this;
     }
 
-    public IBUsersPage checkedUserByName(String firstUserName) {
-        $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td")
+    public IBUsersPage deleteUser() {
+        $x("(//td/following-sibling::td//button[contains(@class,'dropdown-toggle')])[1]").click();
+        userActionDropdownDeleteOption.click();
+        deleteSelectedUserPromtModal(true);
+        return this;
+    }
+
+    public IBUsersPage logInSelectedUsers(String userFirstName) {
+        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
                 .click();
+        userActionLogInOption.click();
+        return this;
+    }
+
+    public IBUsersPage checkedUserByName(String firstUserName) {
+        $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td").click();
         return this;
     }
 
     public IBUsersPage deleteSelectedUsersByActionDropdown() {
-        $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]").click();
+        userActionDropdownMenu.click();
         $x("((//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]//a)[2]").click();
         deleteSelectedUserPromtModal(true);
         return this;
@@ -63,14 +89,33 @@ public class IBUsersPage {
     public IBUsersPage deleteSelectedUserPromtModal(boolean yesORno) {
         $x("//div[@class='modal-content']").shouldBe(Condition.visible);
         if (yesORno) {
-            $x("//div[@class='modal-content']//button[contains(@class, 'error')]").shouldBe(Condition.visible)
-                    .click();
+            $x("//div[@class='modal-content']//a[contains(@class, 'error')]").shouldBe(Condition.visible).click();
         } else {
-            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible)
-                    .click();
+            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible).click();
         }
         $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
         return this;
     }
 
+    //TODO MO - add Enum for attributes scaling
+    public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
+        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
+        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']").click();
+        return IBUsersPage.init();
+    }
+
+    //TODO MO - add Enum for pagination
+    public IBUsersPage changePaginationPage(String nextOrPrev) {
+        paginationBlock.shouldBe(Condition.visible);
+        $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
+        return IBUsersPage.init();
+    }
+
+    public boolean isPaginationPresented() {
+        return paginationBlock.isDisplayed();
+    }
+
+    public boolean isFirstUserPresented() {
+        return firstUserRow.isDisplayed();
+    }
 }

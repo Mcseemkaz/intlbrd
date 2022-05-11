@@ -22,6 +22,7 @@ public class IBNextURLs {
     //Users
     public static final String USERS_PAGE = MAIN_URL + "/users";
     public static final String USERS_CREATE_PAGE = USERS_PAGE + "/create";
+    public static final String USERS_SYNC_PAGE = USERS_PAGE + "/sync";
 
     // Sign Up Page
     public static final String SIGNUP_PAGE = MAIN_URL + "/signup";
@@ -41,5 +42,9 @@ public class IBNextURLs {
 
     // LoginOauth2 Confirm Page  /login/oauth2/confirm
     public static final String LOGIN_OAUTH2_CONFIRM_PAGE = CANVAS_MAIN_URL + "/login/oauth2/confirm";
+
+    //My Inteliiboard Page
+    public static final String MY_INTELLIBOARD_PAGE = MAIN_URL + "/data-sets";
+
 }
 
