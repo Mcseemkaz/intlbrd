@@ -21,6 +21,9 @@ dist/
 
 # Package files
 *.jar
+#Docker
+docker/logs
+docker/video
 
 #Selenide
 build/

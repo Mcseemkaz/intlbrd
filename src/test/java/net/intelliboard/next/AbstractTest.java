@@ -17,6 +17,7 @@ public abstract class AbstractTest {
 
     @BeforeEach
     public void setUp() throws IOException {
+
         switch (propertiesGetValue.getPropertyValue("browser")) {
 
             case "remote":
@@ -44,6 +45,7 @@ public abstract class AbstractTest {
         WebDriverRunner.clearBrowserCache();
         Configuration.browserSize = "1600x1200";
         Configuration.timeout = 20000;
+
     }
 
     @AfterEach
