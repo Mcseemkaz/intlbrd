@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
-import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
@@ -154,7 +153,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
 
-        String ag = CreateDashboardPage.init().getTitileName();
+        String ag = CreateDashboardPage.init().getTitleName();
 
         assertThat(ag.equals(dashboardName))
                 .isTrue();

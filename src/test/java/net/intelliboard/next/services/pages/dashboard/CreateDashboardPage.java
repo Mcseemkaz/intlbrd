@@ -53,21 +53,21 @@ public class CreateDashboardPage {
     }
 
     //TODO [MO] Make it generic with enum as blocks
-    public CreateDashboardPage addTextblock() {
+    public CreateDashboardPage addTextBlock() {
         Selenide.actions()
                 .dragAndDrop(textBlock, dashboardMain)
                 .perform();
         return this;
     }
 
-    public DashboardPage saveAndPublischDashboard() {
+    public DashboardPage saveAndPublishDashboard() {
         $x("//div[@class='vue-portal-target']//button[contains(@class,'primary')]")
                 .shouldBe(Condition.enabled)
                 .click();
         return DashboardPage.init();
     }
 
-    public String getTitileName() {
+    public String getTitleName() {
         return dashboardTitle.getText();
     }
 

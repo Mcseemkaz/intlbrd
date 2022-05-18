@@ -47,8 +47,13 @@ public class IBUsersPage {
         return IBUsersSyncPage.init();
     }
 
-    public boolean getUserByName(String nameIBUser) {
+    public boolean isUserPresents(String nameIBUser) {
         return $x("//span[contains (text(),'" + nameIBUser + "')]").is(Condition.visible);
+    }
+
+    public boolean areUsersPresents() {
+        return $x("//div[@class='table-empty']")
+                .isDisplayed();
     }
 
     public IBUsersPage deleteUser(String userFirstName) {
@@ -79,6 +84,11 @@ public class IBUsersPage {
         return this;
     }
 
+    public IBUsersPage checkedAllUsers() {
+        $x("//table//thead//th[contains (@class,'table-checkbox')]//div").click();
+        return this;
+    }
+
     public IBUsersPage deleteSelectedUsersByActionDropdown() {
         userActionDropdownMenu.click();
         $x("((//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]//a)[2]").click();
@@ -89,9 +99,13 @@ public class IBUsersPage {
     public IBUsersPage deleteSelectedUserPromtModal(boolean yesORno) {
         $x("//div[@class='modal-content']").shouldBe(Condition.visible);
         if (yesORno) {
-            $x("//div[@class='modal-content']//a[contains(@class, 'error')]").shouldBe(Condition.visible).click();
+            $x("//div[@class='modal-content']//button[@type='submit' and contains(@class, 'error')]")
+                    .shouldBe(Condition.visible)
+                    .click();
         } else {
-            $x("//div[@class='modal-content']//button[contains (@class,'default')]").shouldBe(Condition.visible).click();
+            $x("//div[@class='modal-content']//button[contains (@class,'default')]")
+                    .shouldBe(Condition.visible)
+                    .click();
         }
         $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
         return this;
@@ -100,11 +114,13 @@ public class IBUsersPage {
     //TODO MO - add Enum for attributes scaling
     public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
         $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
-        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']").click();
+        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']")
+                .click();
         return IBUsersPage.init();
     }
 
     //TODO MO - add Enum for pagination
+    // "next" "prev"
     public IBUsersPage changePaginationPage(String nextOrPrev) {
         paginationBlock.shouldBe(Condition.visible);
         $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
@@ -118,4 +134,5 @@ public class IBUsersPage {
     public boolean isFirstUserPresented() {
         return firstUserRow.isDisplayed();
     }
-}
+
+    }

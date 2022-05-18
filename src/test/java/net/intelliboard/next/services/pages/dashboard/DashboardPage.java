@@ -10,7 +10,9 @@ public class DashboardPage {
     private SelenideElement dashboardTitle = $x("//div[contains(@class, 'left-sub-menu')]//h3");
 
     public static DashboardPage init() {
-        $x("//div[contains(@class,'page-body')]").shouldBe(Condition.visible);
+        $x("//div[contains(@class,'page-body')]")
+                .shouldBe(Condition.visible);
+
         return new DashboardPage();
     }
 

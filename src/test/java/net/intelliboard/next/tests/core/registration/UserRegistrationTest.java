@@ -3,7 +3,7 @@ package net.intelliboard.next.tests.core.registration;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
-import net.intelliboard.next.services.pages.LoginPage;
+import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -24,7 +24,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
 
         open(IBNextURLs.MAIN_URL);
         LoginPage loginPage = new LoginPage();
-        loginPage.goToRegistartion()
+        loginPage.goToRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, email)

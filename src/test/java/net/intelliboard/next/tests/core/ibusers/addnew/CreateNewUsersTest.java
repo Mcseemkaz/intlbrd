@@ -48,7 +48,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
 
         // Assertion
-        assertThat(IBUsersPage.init().getUserByName(firstName + " " + lastName))
+        assertThat(IBUsersPage.init().isUserPresents(firstName + " " + lastName))
                 .isTrue()
                 .as(String.format("User with name %s is not existed", firstName));
 
@@ -181,7 +181,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
         IBUsersPage.init().deleteUser(firstName);
 
         // Assertion
-        assertThat(IBUsersPage.init().getUserByName(firstName + " " + lastName))
+        assertThat(IBUsersPage.init().isUserPresents(firstName + " " + lastName))
                 .isFalse()
                 .as(String.format("User with name %s is existed and isn't deleted", firstName));
     }
@@ -234,12 +234,12 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .deleteSelectedUsersByActionDropdown();
 
         //Verify deleting User#1
-        assertThat(IBUsersPage.init().getUserByName(firstName1))
+        assertThat(IBUsersPage.init().isUserPresents(firstName1))
                 .isFalse()
                 .as(String.format("IB User with name %s has not been deleted", firstName1));
 
         //Verify deleting User#2
-        assertThat(IBUsersPage.init().getUserByName(firstName2))
+        assertThat(IBUsersPage.init().isUserPresents(firstName2))
                 .isFalse()
                 .as(String.format("IB User with name %s has not been deleted", firstName2));
     }
