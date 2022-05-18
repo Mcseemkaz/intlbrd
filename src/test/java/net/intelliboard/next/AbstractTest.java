@@ -19,7 +19,7 @@ import java.io.IOException;
 @ExtendWith(TestsWatcherImpl.class)
 public abstract class AbstractTest {
 
-    protected static PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
+    public static PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
     private static final Logger LOGGER = Logger.getLogger("AbstractTest");
     @BeforeEach
     public void setUp(TestInfo testInfo) throws IOException {

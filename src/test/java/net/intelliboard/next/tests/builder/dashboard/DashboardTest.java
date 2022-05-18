@@ -84,8 +84,8 @@ public class DashboardTest extends IBNextAbstractTest {
         HeaderObject.init()
                 .openCreateDashboard()
                 .changeNameAndDescription(dashboardName, dashboardDescription)
-                .addTextblock()
-                .saveAndPublischDashboard();
+                .addTextBlock()
+                .saveAndPublishDashboard();
 
         assertThat(DashboardPage.init().getDashboardTitle().equals(dashboardName));
     }
@@ -103,8 +103,8 @@ public class DashboardTest extends IBNextAbstractTest {
         HeaderObject.init()
                 .openCreateDashboard()
                 .changeNameAndDescription(dashboardName, dashboardDescription)
-                .addTextblock()
-                .saveAndPublischDashboard();
+                .addTextBlock()
+                .saveAndPublishDashboard();
 
         DashboardPage dashboardPage = DashboardPage.init();
 
