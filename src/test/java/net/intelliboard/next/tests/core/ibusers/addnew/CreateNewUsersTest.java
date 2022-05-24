@@ -334,7 +334,9 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .as("Pagination is broken");
 
         while (ibUsersPage.isFirstUserPresented())
-            ibUsersPage.deleteUser();
+            ibUsersPage
+                    .checkedAllUsers()
+                    .deleteSelectedUsersByActionDropdown();
     }
 }
 
