@@ -3,10 +3,10 @@ package net.intelliboard.next.tests.core.connection;
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
-import net.intelliboard.next.services.pages.CreateConnectionPage;
-import net.intelliboard.next.services.pages.LmsFilterSettingPage;
-import net.intelliboard.next.services.pages.ConnectionsListPage;
-import net.intelliboard.next.services.pages.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
+import net.intelliboard.next.services.pages.connections.LmsFilterSettingPage;
+import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
+import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -65,7 +65,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T599")})
-    @DisplayName("SP-T599: Creating a Classroom connection")
+    @DisplayName("SP-T599: Creating a Blackboard connection")
     public void testCreateBlackboardConnection() {
         loginAppUI(USER_LOGIN, USER_PASS);
 
@@ -106,5 +106,77 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         connectionsListPage
                 .deleteConnection(lmsZoomName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T103")})
+    @DisplayName("SP-T103: Creating of D2L connection")
+    public void testCreateD2LConnection() {
+
+        loginAppUI(USER_LOGIN, USER_PASS);
+        open(CREATE_D2L_CONNECTION);
+        String lmsD2LName = "D2L_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createD2LConnection(lmsD2LName, CreateConnectionPage.D2L_URL, CreateConnectionPage.D2L_CLIENT_ID,
+                        CreateConnectionPage.D2L_CLIENT_SECRET, CreateConnectionPage.D2L_USER_LOGIN, CreateConnectionPage.D2L_USER_PASS);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(lmsD2LName);
+
+        assertThat(connectionsListPage.isConnectionExist(lmsD2LName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", lmsD2LName));
+
+        connectionsListPage
+                .deleteConnection(lmsD2LName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T104")})
+    @DisplayName("SP-T104: Creating of Ilias connection")
+    public void testCreateIliasConnection() {
+
+        loginAppUI(USER_LOGIN, USER_PASS);
+        open(CREATE_ILIAS_CONNECTION);
+        String lmsILIASName = "ILIAS_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createILIASConnection(lmsILIASName, CreateConnectionPage.ILIAS_URL, CreateConnectionPage.ILIAS_TOKEN,
+                        CreateConnectionPage.ILIAS_KEY);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(lmsILIASName);
+
+        assertThat(connectionsListPage.isConnectionExist(lmsILIASName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", lmsILIASName));
+
+        connectionsListPage
+                .deleteConnection(lmsILIASName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T823")})
+    @DisplayName("SP-T823: Creating of SAKAI connection")
+    public void testCreateSAKAIConnection() {
+
+        loginAppUI(USER_LOGIN, USER_PASS);
+        open(CREATE_SAKAI_CONNECTION);
+        String lmsSAKAIName = "SAKAI_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createSAKAIConnection(lmsSAKAIName, CreateConnectionPage.SAKAI_URL, CreateConnectionPage.SAKAI_TOKEN,
+                        CreateConnectionPage.SAKAI_KEY);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(lmsSAKAIName);
+
+        assertThat(connectionsListPage.isConnectionExist(lmsSAKAIName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", lmsSAKAIName));
+
+        connectionsListPage
+                .deleteConnection(lmsSAKAIName);
     }
 }

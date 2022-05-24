@@ -99,9 +99,18 @@ public class IBUsersPage {
     public IBUsersPage deleteSelectedUserPromtModal(boolean yesORno) {
         $x("//div[@class='modal-content']").shouldBe(Condition.visible);
         if (yesORno) {
-            $x("//div[@class='modal-content']//button[@type='submit' and contains(@class, 'error')]")
-                    .shouldBe(Condition.visible)
-                    .click();
+
+            /*
+             There some different modals for delete prompt for deleting from context menu and action menu.
+             "Yes" button has two selectors.
+             */
+            if ($x("//div[@class='modal-content']//a[contains(@class, 'error')]").exists()) {
+                $x("//div[@class='modal-content']//a[contains(@class, 'error')]")
+                        .click();
+            } else {
+                $x("//div[@class='modal-content']//button[@type='submit' and contains(@class, 'error')]")
+                        .click();
+            }
         } else {
             $x("//div[@class='modal-content']//button[contains (@class,'default')]")
                     .shouldBe(Condition.visible)
@@ -135,4 +144,4 @@ public class IBUsersPage {
         return firstUserRow.isDisplayed();
     }
 
-    }
+}

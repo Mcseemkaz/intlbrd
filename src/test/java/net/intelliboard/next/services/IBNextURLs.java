@@ -33,7 +33,10 @@ public class IBNextURLs {
     public static final String CREATE_MOODLE_CONNECTION = CREATE_CONNECTION + "/1";
     public static final String CREATE_CANVAS_CONNECTION = CREATE_CONNECTION + "/2";
     public static final String CREATE_BLACKBOARD_CONNECTION = CREATE_CONNECTION + "/3";
+    public static final String CREATE_D2L_CONNECTION = CREATE_CONNECTION + "/4";
     public static final String CREATE_ZOOM_CONNECTION = CREATE_CONNECTION + "/9";
+    public static final String CREATE_ILIAS_CONNECTION = CREATE_CONNECTION + "/16";
+    public static final String CREATE_SAKAI_CONNECTION = CREATE_CONNECTION + "/18";
 
     //All Connections
     public static final String ALL_CONNECTIONS = MAIN_URL + "/connections";

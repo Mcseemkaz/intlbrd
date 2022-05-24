@@ -39,7 +39,8 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                 .selectFirstLMSUser();
 
         IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
-        String selectedLMSUser = ibUsersSyncPage.getNameSelectedLMSUser();
+        String selectedLMSUser =
+                ibUsersSyncPage.getNameSelectedLMSUser().substring(0, 5);
         ibUsersSyncPage.syncUsers();
 
         open(IBNextURLs.USERS_PAGE);

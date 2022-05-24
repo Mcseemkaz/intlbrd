@@ -3,7 +3,6 @@ package net.intelliboard.next;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.services.IBNextURLs;
-import net.intelliboard.next.services.pages.CreateConnectionPage;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
