@@ -29,6 +29,7 @@ pipeline {
     post {
         always {
                 sh ('docker ps && docker stop selenoid')
+                sh ('./mvnw allure:report')
         }
     }
 }
