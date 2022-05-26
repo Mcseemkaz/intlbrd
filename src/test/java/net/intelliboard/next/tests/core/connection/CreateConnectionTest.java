@@ -21,8 +21,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83")})
     @DisplayName("SP-T83: Creating of Moodle connection")
-    public void testCreateMoodleConntectionSPT83() {
-        loginAppUI(USER_LOGIN, USER_PASS);
+    public void testCreateMoodleConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
@@ -40,8 +39,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T89")})
     @DisplayName("SP-T89: Creating of Canvas connection")
-    public void testCreateCanvasConntectionSPT89() {
-        loginAppUI(USER_LOGIN, USER_PASS);
+    public void testCreateCanvasConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         ConnectionsListPage connectionsListPage = new ConnectionsListPage();
@@ -67,7 +65,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("high"), @Tag("SP-T599")})
     @DisplayName("SP-T599: Creating a Blackboard connection")
     public void testCreateBlackboardConnection() {
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         ConnectionsListPage connectionsListPage = new ConnectionsListPage();
@@ -90,8 +87,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T106: Creating of Zoom independent connection")
     public void testCreateZoomConnection() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
-        open(CREATE_ZOOM_CONNECTION);
+       open(CREATE_ZOOM_CONNECTION);
         String lmsZoomName = "Zoom_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createZoomConnection(lmsZoomName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET);
@@ -113,7 +109,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T103: Creating of D2L connection")
     public void testCreateD2LConnection() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         open(CREATE_D2L_CONNECTION);
         String lmsD2LName = "D2L_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -137,7 +132,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T104: Creating of Ilias connection")
     public void testCreateIliasConnection() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         open(CREATE_ILIAS_CONNECTION);
         String lmsILIASName = "ILIAS_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -161,7 +155,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T823: Creating of SAKAI connection")
     public void testCreateSAKAIConnection() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         open(CREATE_SAKAI_CONNECTION);
         String lmsSAKAIName = "SAKAI_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()

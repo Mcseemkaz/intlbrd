@@ -27,7 +27,6 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @DisplayName("SP-T113: Adding new IB user via syncing")
     public void testAddingIBUserBySync(CreateIBUsersFormRolesTypeEnum roles) {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         header
@@ -54,7 +53,6 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @DisplayName("SP-T121: Deleting synced user")
     public void testDeleteIBUserSynced() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         header
@@ -81,8 +79,6 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122")})
     @DisplayName("SP-T121: Deleting several synced users")
     public void testDeleteSeveralIBUserSynced() {
-
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         List<String> users = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -118,7 +114,6 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @DisplayName("SP-T384: Adding all available users by syncing")
     public void testAddAndDeleteAllIBUserSynced() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         header

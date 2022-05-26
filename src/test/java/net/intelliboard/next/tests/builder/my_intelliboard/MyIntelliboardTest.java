@@ -20,7 +20,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T589")})
     @DisplayName("SP-T589: Report title")
     public void checkReportTitle() {
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         HeaderObject.init().openMyIntelliBoardPage();
 
@@ -35,7 +34,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     public void checkSearchByTitle() throws InterruptedException {
 
         String dashboardName = "Untitled";
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
@@ -53,7 +51,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     public void checkSearchByTitleNoResult() throws InterruptedException {
 
         String dashboardName = DataGenerator.getRandomString();
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
@@ -72,8 +69,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @DisplayName("SP-T629: Favorite / Unfavorite Dashboard")
     public void checkFavoriteUnfavoriteDashboard() throws InterruptedException {
         int numberOfDashboard = 1;
-
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
@@ -96,8 +91,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     public void checkViewByActionButton() throws InterruptedException {
         int numberOfDashboard = 1;
 
-        loginAppUI(USER_LOGIN, USER_PASS);
-
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
@@ -119,8 +112,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     public void checkSetAsDefaultActionButton() throws InterruptedException {
         int numberOfDashboard = 1;
 
-        loginAppUI(USER_LOGIN, USER_PASS);
-
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
@@ -141,8 +132,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @DisplayName("SP-T621: Check \"Edit\" in action button on MyIntelliboard page\n")
     public void checkEditByActionButton() {
         int numberOfDashboard = 1;
-
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();

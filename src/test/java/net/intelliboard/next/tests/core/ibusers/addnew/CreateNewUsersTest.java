@@ -27,7 +27,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T111: Adding new IB user with button \"Create one\"")
     public void testCreateNewIBUser(CreateIBUsersFormRolesTypeEnum roles) {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         String firstName = DataGenerator.getRandomString();
@@ -61,8 +60,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - EMAIL")
     public void testCreateIBUserInvalidField_EMAIL() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
-
         HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
@@ -83,8 +80,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - FIRST_NAME")
     public void testCreateIBUserInvalidField_FIRST_NAME() {
-
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -107,8 +102,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - LAST_NAME")
     public void testCreateIBUserInvalidField_LAST_NAME() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
-
         HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
@@ -129,8 +122,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - PASSWORD")
     public void testCreateIBUserInvalidField_PASSWORD() {
-
-        loginAppUI(USER_LOGIN, USER_PASS);
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -158,7 +149,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T118: Deleting created user")
     public void testDeleteCreatedIBUser() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         String firstName = DataGenerator.getRandomString();
@@ -191,7 +181,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T119: Deleting several created users")
     public void testDeleteFewCreatedIBUsers() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         String firstName1 = DataGenerator.getRandomString();
@@ -249,7 +238,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T112: Create User with already registered email")
     public void testCreateUserWithAlreadyReisteredEmail() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         String firstName1 = DataGenerator.getRandomString();
@@ -300,7 +288,6 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     public void testScalingNumberUsers() {
 
         //Create new users
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
         IBUsersPage ibUsersPage = IBUsersPage.init();
 
@@ -309,7 +296,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
             ibUsersPage.deleteUser();
         }
 
-        // Add users for schecking pagination
+        // Add users for checking pagination
         int users = 12;
         for (int i = 0; i < users; i++) {
             header

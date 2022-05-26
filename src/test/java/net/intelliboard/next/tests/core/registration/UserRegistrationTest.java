@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.registration;
 
+import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -17,14 +18,15 @@ public class UserRegistrationTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T35"), @Tag("smoke")})
     @DisplayName("SP-T35: Successful user registration")
-    public void testUserSuccesRegistration() throws InterruptedException {
+    public void testUserSuccessRegistration() throws InterruptedException {
 
         String email = DataGenerator.getRandomValidEmail();
         String password = DataGenerator.getRandomValidPassword();
+        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
 
         open(IBNextURLs.MAIN_URL);
-        LoginPage loginPage = new LoginPage();
-        loginPage.goToRegistration()
+        LoginPage.init()
+                .goToRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, email)
