@@ -145,7 +145,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T118")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T118"), @Tag("health")})
     @DisplayName("SP-T118: Deleting created user")
     public void testDeleteCreatedIBUser() {
 

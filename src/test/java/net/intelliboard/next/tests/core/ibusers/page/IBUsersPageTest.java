@@ -16,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class IBUsersPageTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T116")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T116"), @Tag("health")})
     @DisplayName("SP-T116: Scaling the number of users")
     public void testScalingPerPageIBUsers() {
 

@@ -67,7 +67,7 @@ public class LoginTest extends IBNextAbstractTest {
 
     @Test
     @DisplayName("SP-TXXX: Logout from the app")
-    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-TXXX")})
+    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-TXXX"), @Tag("health")})
     public void testLogout() {
         HeaderObject
                 .init()
