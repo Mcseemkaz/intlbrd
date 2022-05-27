@@ -18,7 +18,6 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
     @DisplayName("SP-T612: Disappearing of buttons when admin permissions for IB user turn off")
     public void testDisappearingButtonsAdminPermissionOff() throws InterruptedException {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         String firstName = DataGenerator.getRandomString();
@@ -37,15 +36,9 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
                 .selectConnection()
                 .submitUserCreateForm();
 
-
         IBUsersPage.init()
                 .logInSelectedUsers(firstName);
 
-
-
-        Thread.sleep(5000);
-
-        //Clean Up
-//        IBUsersPage.init().deleteUser(firstName);
+        waitForPageLoaded();
     }
 }

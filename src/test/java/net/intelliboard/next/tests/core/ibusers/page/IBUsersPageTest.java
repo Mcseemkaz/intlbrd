@@ -20,7 +20,6 @@ public class IBUsersPageTest extends IBNextAbstractTest {
     @DisplayName("SP-T116: Scaling the number of users")
     public void testScalingPerPageIBUsers() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         header
@@ -37,7 +36,6 @@ public class IBUsersPageTest extends IBNextAbstractTest {
     @DisplayName("SP-T116: Pagination at IB users page work correctly")
     public void testPaginationIBUsers() {
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject header = HeaderObject.init();
 
         header

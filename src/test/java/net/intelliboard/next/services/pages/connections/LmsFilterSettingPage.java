@@ -3,6 +3,8 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class LmsFilterSettingPage {
@@ -11,7 +13,7 @@ public class LmsFilterSettingPage {
 
     public static LmsFilterSettingPage init() {
         $x("//div[contains (@class,'content-header')]")
-                .shouldBe(Condition.visible);
+                .shouldBe(Condition.visible, Duration.ofSeconds(100));
         return new LmsFilterSettingPage();
     }
 

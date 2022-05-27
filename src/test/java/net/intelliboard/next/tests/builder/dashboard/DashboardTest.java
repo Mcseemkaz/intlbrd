@@ -19,7 +19,6 @@ public class DashboardTest extends IBNextAbstractTest {
         String dashboardName = DataGenerator.getRandomString();
         String dashboardDescription = DataGenerator.getRandomString();
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject.init()
                 .openMyIntelliBoardPage();
         HeaderObject.init()
@@ -33,7 +32,6 @@ public class DashboardTest extends IBNextAbstractTest {
     public void testCreateDashboardCheckNameMandatory() {
         String dashboardDescription = DataGenerator.getRandomString();
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject.init()
                 .openMyIntelliBoardPage();
         HeaderObject.init()
@@ -54,7 +52,6 @@ public class DashboardTest extends IBNextAbstractTest {
         String dashboardName = DataGenerator.getRandomString();
         String dashboardDescription = DataGenerator.getRandomString();
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject.init()
                 .openMyIntelliBoardPage();
         HeaderObject.init()
@@ -76,7 +73,6 @@ public class DashboardTest extends IBNextAbstractTest {
         String dashboardName = DataGenerator.getRandomString();
         String dashboardDescription = DataGenerator.getRandomString();
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject.init()
                 .openMyIntelliBoardPage();
         HeaderObject.init()
@@ -88,6 +84,7 @@ public class DashboardTest extends IBNextAbstractTest {
         assertThat(DashboardPage.init().getDashboardTitle().equals(dashboardName));
     }
 
+    @Disabled
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T162")})
     @DisplayName("SP-T162: Delete Dashboard from Edit Page")
@@ -95,7 +92,6 @@ public class DashboardTest extends IBNextAbstractTest {
         String dashboardName = DataGenerator.getRandomString();
         String dashboardDescription = DataGenerator.getRandomString();
 
-        loginAppUI(USER_LOGIN, USER_PASS);
         HeaderObject.init()
                 .openMyIntelliBoardPage();
         HeaderObject.init()

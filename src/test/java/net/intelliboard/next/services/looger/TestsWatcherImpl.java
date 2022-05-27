@@ -1,5 +1,6 @@
-package net.intelliboard.next.services;
+package net.intelliboard.next.services.looger;
 
+import net.intelliboard.next.services.ConsoleColors;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
