@@ -19,7 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T83")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
     @DisplayName("SP-T83: Creating of Moodle connection")
     public void testCreateMoodleConnection() {
 

@@ -49,7 +49,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121"), @Tag("health")})
     @DisplayName("SP-T121: Deleting synced user")
     public void testDeleteIBUserSynced() {
 
