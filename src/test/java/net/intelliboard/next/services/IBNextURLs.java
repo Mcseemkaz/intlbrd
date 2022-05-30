@@ -6,7 +6,6 @@ public class IBNextURLs {
 
     public static String MAIN_URL;
     public static String CANVAS_MAIN_URL;
-
     static {
         try {
             MAIN_URL = new PropertiesGetValue().getPropertyValue("base_url");
@@ -15,6 +14,7 @@ public class IBNextURLs {
             e.printStackTrace();
         }
     }
+
 
     //Login Page
     public static final String LOGIN_PAGE = MAIN_URL + "/login";
@@ -50,5 +50,7 @@ public class IBNextURLs {
     //My Intelliboard Page
     public static final String MY_INTELLIBOARD_PAGE = MAIN_URL + "/data-sets";
 
+    //In-Form Page
+    public static final String INFORM_LIST_PAGE = MAIN_URL + "/in-form";
 }
 
