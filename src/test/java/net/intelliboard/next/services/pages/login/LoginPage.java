@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.signup.SignUpFormPage;
+import net.intelliboard.next.services.pages.signup.SignUpInvitePage;
 
 import java.time.Duration;
 
@@ -36,9 +37,9 @@ public class LoginPage {
         return this;
     }
 
-    public SignUpFormPage goToRegistration() {
+    public SignUpInvitePage goToRegistration() {
         $x("//a[contains (@class,'signup')]").click();
-        return SignUpFormPage.init();
+        return SignUpInvitePage.init();
     }
 
     public void submitForm() {
