@@ -1,5 +1,6 @@
 package net.intelliboard.next;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
@@ -36,11 +37,13 @@ public abstract class AbstractTest {
     @AfterEach
     public void tearDown(TestInfo testInfo) {
         LOGGER.info(String.format("Test finished : %s", testInfo.getDisplayName()));
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
         WebDriverRunner.driver().close();
     }
 
     @AfterAll
-    public static void rumpUp() {
+    public static void wrapUp() {
         System.out.println(String.format("--------------------- %sTEST RESULTS%s -----------------------------", ConsoleColors.BLACK_BACKGROUND, ConsoleColors.RESET));
         TestsWatcherImpl.testResultsStatus.forEach((k, v) -> System.out.println(String.format("| %s | %s |", k, v)));
         System.out.println("----------------------------------------------------------------");
