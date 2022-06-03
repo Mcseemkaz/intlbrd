@@ -1,5 +1,6 @@
 package net.intelliboard.next.services.login;
 
+import com.codeborne.selenide.Selenide;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -28,10 +29,17 @@ public class LoginService extends IBNextAbstractTest {
     public static void loginAppUI(String userLogin, String userPass) {
 
         open(IBNextURLs.LOGIN_PAGE);
+        clearCookiesAndRefresh();
 
         LoginPage.init()
                 .fillInLoginFiled(userLogin)
                 .fillInPassFiled(userPass)
                 .submitForm();
+    }
+
+    private static void clearCookiesAndRefresh() {
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
+        Selenide.refresh();
     }
 }
