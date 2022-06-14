@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.core.registration;
 
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.PropertiesGetValue;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.open;
 
+@Feature("Sign Up")
 public class UserRegistrationTest extends IBNextAbstractTest {
 
     @Test

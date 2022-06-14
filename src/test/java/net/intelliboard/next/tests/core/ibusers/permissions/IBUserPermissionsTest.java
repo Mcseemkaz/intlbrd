@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.permissions;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEnum;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+@Feature("IBUser")
 public class IBUserPermissionsTest extends IBNextAbstractTest {
 
     @Test

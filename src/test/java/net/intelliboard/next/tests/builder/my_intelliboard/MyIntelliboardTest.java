@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.builder.my_intelliboard;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+@Feature("MyIntelliboard")
 public class MyIntelliboardTest extends IBNextAbstractTest {
 
     @Test

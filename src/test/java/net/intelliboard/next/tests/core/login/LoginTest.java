@@ -2,6 +2,7 @@ package net.intelliboard.next.tests.core.login;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
-@Tag("Login")
+@Feature("Login")
 public class LoginTest extends IBNextAbstractTest {
 
     @Test

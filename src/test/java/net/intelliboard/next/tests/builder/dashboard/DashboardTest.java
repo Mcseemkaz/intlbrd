@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.builder.dashboard;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Feature("Dashboard")
 public class DashboardTest extends IBNextAbstractTest {
 
     @Test

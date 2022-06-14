@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.in_form;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -14,6 +15,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("InForm")
 public class InFromTest extends IBNextAbstractTest {
 
     @ParameterizedTest

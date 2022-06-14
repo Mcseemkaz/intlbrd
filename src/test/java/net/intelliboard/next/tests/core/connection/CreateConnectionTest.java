@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.core.connection;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
@@ -17,6 +18,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("Create Connections")
 public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
