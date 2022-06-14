@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.page;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("IBUser")
 public class IBUsersPageTest extends IBNextAbstractTest {
 
     @Test

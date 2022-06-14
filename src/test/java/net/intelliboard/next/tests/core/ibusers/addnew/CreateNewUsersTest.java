@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.core.ibusers.addnew;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -19,6 +20,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Feature("IBUser")
 public class CreateNewUsersTest extends IBNextAbstractTest {
 
     @ParameterizedTest

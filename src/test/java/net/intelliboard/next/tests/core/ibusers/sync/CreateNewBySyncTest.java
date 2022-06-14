@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.sync;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
@@ -19,6 +20,7 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("IBUser")
 public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @ParameterizedTest
