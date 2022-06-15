@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import net.intelliboard.next.IBNextAbstractTest;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -93,11 +94,11 @@ public class CreateConnectionPage {
         return new CreateConnectionPage();
     }
 
-    public void createMoodleConnection(String lmsName, String clientId, String lmsUrl) {
+    public void createMoodleConnection(String lmsName, String clientId, String lmsUrl) throws InterruptedException {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);
-        buttonContinue.click();
+        submitForm();
     }
 
     public void createCanvasConnection(String lmsName, String clientId, String lmsUrl, String clientSecret,
@@ -108,21 +109,22 @@ public class CreateConnectionPage {
         clientSecretField.setValue(clientSecret);
         dataClientIdField.setValue(dataClientId);
         dataClientSecretField.setValue(dataClientSecret);
-        buttonContinue.click();
+        submitForm();
     }
 
     public void createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);
-        buttonContinue.click();
+        submitForm();
     }
 
     public ConnectionsListPage createZoomConnection(String lmsName, String zoomToken, String zoomSecret) {
         lmsNameField.setValue(lmsName);
         zoomTokenField.setValue(zoomToken);
         zoomTokenSecret.setValue(zoomSecret);
-        buttonContinue.click();
+        submitForm();
+
         LmsFilterSettingPage.init().saveFilterSettings();
         return ConnectionsListPage.init();
     }
@@ -133,7 +135,7 @@ public class CreateConnectionPage {
         lmsUrlField.setValue(D2LUrl);
         d2lId.setValue(D2LId);
         d2lSecret.setValue(D2LSecret);
-        buttonContinue.click();
+        submitForm();
 
         return LoginD2LPage
                 .init()
@@ -148,7 +150,7 @@ public class CreateConnectionPage {
         lmsUrlField.setValue(IliasUrl);
         dataClientIdField.setValue(IliasToken);
         dataClientSecretField.setValue(IliasKey);
-        buttonContinue.click();
+        submitForm();
 
         return LmsFilterSettingPage
                 .init()
@@ -160,10 +162,20 @@ public class CreateConnectionPage {
         lmsNameField.setValue(lmsName);
         lmsUrlField.setValue(SAKAIUrl);
         sakaiTokenField.setValue(SAKAIToken);
-        buttonContinue.click();
+        submitForm();
 
         return LmsFilterSettingPage
                 .init()
                 .saveFilterSettings();
+    }
+
+    private void waitForValidation() {
+        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
+        ibNextAbstractTest.waitForPageLoaded();
+    }
+
+    private void submitForm() {
+        waitForValidation();
+        buttonContinue.click();
     }
 }
