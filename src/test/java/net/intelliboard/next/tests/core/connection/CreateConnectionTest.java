@@ -23,7 +23,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
     @DisplayName("SP-T83: Creating of Moodle connection")
-    public void testCreateMoodleConnection() {
+    public void testCreateMoodleConnection() throws InterruptedException{
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
