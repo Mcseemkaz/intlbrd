@@ -5,12 +5,15 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class ConnectionsListPage {
 
     private SelenideElement buttonDelete = $x("//div //ul /li /a[contains(text(), 'Delete')]");
+    private SelenideElement buttonEdit = $x("//li/a[contains (@href,'/edit')]");
 
     public static ConnectionsListPage init() {
         $x("//h2[contains (text(),'Connections')]")
@@ -44,5 +47,19 @@ public class ConnectionsListPage {
         SelenideElement isConnection = $x("//a[contains(text(),'" + connectionName + "')]" +
                 "/ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]");
         return isConnection.exists();
+    }
+
+    public EditConnectionPage editConnection(String connectionName) {
+        findConnectionByName(connectionName);
+        $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
+                .click();
+        buttonEdit.click();
+        return EditConnectionPage.init();
+    }
+
+    public boolean checkLastProcessing(String connectionName, LocalDateTime date) {
+        findConnectionByName(connectionName);
+        String processingDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[contains(text(),'" + processingDate + "')]").exists();
     }
 }
