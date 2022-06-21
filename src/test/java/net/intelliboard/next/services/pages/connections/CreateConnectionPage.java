@@ -94,11 +94,12 @@ public class CreateConnectionPage {
         return new CreateConnectionPage();
     }
 
-    public void createMoodleConnection(String lmsName, String clientId, String lmsUrl) throws InterruptedException {
+    public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl) throws InterruptedException {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);
         submitForm();
+        return LmsFilterSettingPage.init();
     }
 
     public void createCanvasConnection(String lmsName, String clientId, String lmsUrl, String clientSecret,

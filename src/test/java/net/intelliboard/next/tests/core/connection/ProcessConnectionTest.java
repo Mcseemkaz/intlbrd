@@ -38,4 +38,25 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1118")})
+    @DisplayName("SP-T1118: Processing Moodle connection")
+    public void testProcessConnectionMoodle() throws InterruptedException {
+        open(CREATE_MOODLE_CONNECTION);
+        String connectionName = "Moodle_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createMoodleConnection(connectionName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }
