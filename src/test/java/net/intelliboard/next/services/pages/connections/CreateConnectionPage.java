@@ -113,11 +113,12 @@ public class CreateConnectionPage {
         submitForm();
     }
 
-    public void createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
+    public LmsFilterSettingPage createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);
         submitForm();
+        return LmsFilterSettingPage.init();
     }
 
     public ConnectionsListPage createZoomConnection(String lmsName, String zoomToken, String zoomSecret) {
