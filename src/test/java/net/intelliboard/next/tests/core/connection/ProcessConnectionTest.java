@@ -90,4 +90,25 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1112")})
+    @DisplayName("SP-T1112: Processing Blackboard connection")
+    public void testProcessConnectionBlackboard() throws InterruptedException {
+        open(CREATE_BLACKBOARD_CONNECTION);
+        String connectionName = "Blackboard_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createBlackboardConnection(connectionName, CreateConnectionPage.BLACKBOARD_CLIENT_ID, CreateConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }

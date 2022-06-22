@@ -72,7 +72,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         ConnectionsListPage connectionsListPage = new ConnectionsListPage();
         LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
 
-        String lmsBlackboardName = "CLASSROOM_" + DataGenerator.getRandomString();
+        String lmsBlackboardName = "Blackboard_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
