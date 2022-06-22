@@ -111,4 +111,24 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1121")})
+    @DisplayName("SP-T1121: Processing Zoom connection")
+    public void testProcessConnectionZoom() throws InterruptedException {
+        open(CREATE_ZOOM_CONNECTION);
+        String connectionName = "Zoom_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createZoomConnection(connectionName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET)
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }
