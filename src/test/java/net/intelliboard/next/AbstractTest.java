@@ -30,7 +30,7 @@ public abstract class AbstractTest {
         WebDriverService driver = new WebDriverService();
         driver.initWebDriver(propertiesGetValue.getPropertyValue("browser"),
                 Integer.valueOf(propertiesGetValue.getPropertyValue("timeout")),
-                propertiesGetValue.getPropertyValue("resolution"));
+                propertiesGetValue.getPropertyValue("resolution"), testInfo);
         LoginCookieHandler.run();
     }
 
