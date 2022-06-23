@@ -152,4 +152,25 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1105")})
+    @DisplayName("SP-T1105: Processing Sakai connection")
+    public void testProcessConnectionSakai() throws InterruptedException {
+        open(CREATE_SAKAI_CONNECTION);
+        String connectionName = "Sakai_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createSAKAIConnection(connectionName, CreateConnectionPage.SAKAI_URL, CreateConnectionPage.SAKAI_TOKEN,
+                        CreateConnectionPage.SAKAI_KEY)
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }
