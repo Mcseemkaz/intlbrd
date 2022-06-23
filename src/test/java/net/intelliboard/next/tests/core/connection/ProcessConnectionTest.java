@@ -69,8 +69,8 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         open(CREATE_CANVAS_CONNECTION);
         String connectionName = "Canvas_" + DataGenerator.getRandomString();
         CreateConnectionPage.init().
-        createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+                createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
         $x("//a[contains (text(), '" + connectionName + "')]").exists();
 
         LoginCanvasPage.init()
@@ -120,6 +120,27 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         String connectionName = "Zoom_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createZoomConnection(connectionName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET)
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1122")})
+    @DisplayName("SP-T1122: Processing Ilias connection")
+    public void testProcessConnectionIlyas() throws InterruptedException {
+        open(CREATE_ILIAS_CONNECTION);
+        String connectionName = "Ilias_" + DataGenerator.getRandomString();
+        CreateConnectionPage.init()
+                .createILIASConnection(connectionName, CreateConnectionPage.ILIAS_URL, CreateConnectionPage.ILIAS_TOKEN,
+                        CreateConnectionPage.ILIAS_KEY)
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
