@@ -13,5 +13,4 @@ public enum CreateIBUsersFormFieldTypeEnum {
     CreateIBUsersFormFieldTypeEnum(String value) {
         this.value = value;
     }
-
 }

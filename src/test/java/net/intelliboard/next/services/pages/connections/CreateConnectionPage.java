@@ -37,7 +37,8 @@ public class CreateConnectionPage {
     public static String SAKAI_URL;
     public static String SAKAI_TOKEN;
     public static String SAKAI_KEY;
-
+    public static String ELLUCIAN_BANNER_KEY;
+    public static String ELLUCIAN_COLLEUGUE_KEY;
 
     static {
         try {
@@ -66,13 +67,13 @@ public class CreateConnectionPage {
             CreateConnectionPage.SAKAI_URL = propertiesGetValue.getPropertyValue("sakai_url");
             CreateConnectionPage.SAKAI_TOKEN = propertiesGetValue.getPropertyValue("sakai_token");
             CreateConnectionPage.SAKAI_KEY = propertiesGetValue.getPropertyValue("sakai_key");
-
+            CreateConnectionPage.ELLUCIAN_BANNER_KEY = propertiesGetValue.getPropertyValue("ellucian_banner");
+            CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY = propertiesGetValue.getPropertyValue("ellucian_colleugue");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     private SelenideElement lmsNameField = $x("//input[@id=\"lmsName\"]");
     private SelenideElement clientIdField = $x("//input[@id=\"clientId\"]");
@@ -86,7 +87,6 @@ public class CreateConnectionPage {
     private SelenideElement d2lId = $x("//input[@name='client_id']");
     private SelenideElement d2lSecret = $x("//input[@name='client_secret']");
     private SelenideElement sakaiTokenField = $x("//input[@id='clientId']");
-
 
     public static CreateConnectionPage init() {
         $x("//form[contains (@id,'create-connection-form')]")
@@ -176,7 +176,7 @@ public class CreateConnectionPage {
         ibNextAbstractTest.waitForPageLoaded();
     }
 
-    private void submitForm() {
+    public void submitForm() {
         waitForValidation();
         buttonContinue.click();
     }

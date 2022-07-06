@@ -62,4 +62,10 @@ public class ConnectionsListPage {
         String processingDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[contains(text(),'" + processingDate + "')]").exists();
     }
+
+    public boolean checkIntegration(ConnectionIntegrationType integration, String connectionName){
+        findConnectionByName(connectionName);
+        return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'"+integration.value+"')]]")
+                .exists();
+    }
 }
