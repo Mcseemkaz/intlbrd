@@ -94,7 +94,7 @@ public class CreateConnectionPage {
         return new CreateConnectionPage();
     }
 
-    public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl) throws InterruptedException {
+    public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl)  {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);

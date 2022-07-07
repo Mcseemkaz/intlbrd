@@ -20,6 +20,16 @@ import java.io.IOException;
 public abstract class AbstractTest {
 
     public static PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
+    public static Long WAIT_TIMEOUT_LONG;
+
+    static {
+        try {
+            WAIT_TIMEOUT_LONG = Long.parseLong(AbstractTest.propertiesGetValue.getPropertyValue("waiting_time_seconds"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static final Logger LOGGER = Logger.getLogger("AbstractTest");
 
     @BeforeEach
