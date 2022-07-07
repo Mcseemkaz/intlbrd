@@ -4,10 +4,7 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
-import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
-import net.intelliboard.next.services.pages.connections.LmsFilterSettingPage;
-import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
-import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -23,13 +20,13 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
     @DisplayName("SP-T83: Creating of Moodle connection")
-    public void testCreateMoodleConnection() throws InterruptedException{
+    public void testCreateMoodleConnection() throws InterruptedException {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
         ConnectionsListPage connectionsListPage = new ConnectionsListPage();
 
-        String lmsMoodleName = DataGenerator.getRandomString();
+        String lmsMoodleName = "Moodle" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
         createConnectionPage.createMoodleConnection(lmsMoodleName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL);
         $x("//header").shouldBe(Condition.visible);
@@ -46,7 +43,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         ConnectionsListPage connectionsListPage = new ConnectionsListPage();
 
-        String lmsCanvasName = DataGenerator.getRandomString();
+        String lmsCanvasName = "Canvas" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(lmsCanvasName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
@@ -89,7 +86,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T106: Creating of Zoom independent connection")
     public void testCreateZoomConnection() {
 
-       open(CREATE_ZOOM_CONNECTION);
+        open(CREATE_ZOOM_CONNECTION);
         String lmsZoomName = "Zoom_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createZoomConnection(lmsZoomName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET);
@@ -173,5 +170,77 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         connectionsListPage
                 .deleteConnection(lmsSAKAIName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T814")})
+    @DisplayName("SP-T814: Creating of Ellucian Colleague Sub-connection")
+    public void testCreateEllucianColleagueSubConnection() {
+
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Canvas" + DataGenerator.getRandomString();
+
+        open(CREATE_CANVAS_CONNECTION);
+        createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
+                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        $x("//a[contains (text(), '" + connectionName + "')]").exists();
+
+        LoginCanvasPage.init()
+                .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
+                .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
+                .loginInCanvas()
+                .confirmAuthorize()
+                .saveFilterSettings();
+
+        open(CREATE_ELLUCIAN_COLLEAGUE_CONNECTION);
+
+        EllucianConnectionPage.init()
+                .selectConnection(connectionName)
+                .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY)
+                .submitForm();
+
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.ELLUCIAN_COLLEAGUE, connectionName))
+                .isTrue()
+                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationType.ELLUCIAN_COLLEAGUE));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T814 2")})
+    @DisplayName("SP-T814 2: Creating of Ellucian Banner Sub-connection")
+    public void testCreateEllucianBannerSubConnection() {
+
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Canvas" + DataGenerator.getRandomString();
+
+        open(CREATE_CANVAS_CONNECTION);
+        createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
+                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        $x("//a[contains (text(), '" + connectionName + "')]").exists();
+
+        LoginCanvasPage.init()
+                .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
+                .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
+                .loginInCanvas()
+                .confirmAuthorize()
+                .saveFilterSettings();
+
+        open(CREATE_ELLUCIAN_BANNER_CONNECTION);
+
+        EllucianConnectionPage.init()
+                .selectConnection(connectionName)
+                .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_BANNER_KEY)
+                .submitForm();
+
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.ELLUCIAN_COLLEAGUE, connectionName))
+                .isTrue()
+                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationType.ELLUCIAN_COLLEAGUE));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
     }
 }
