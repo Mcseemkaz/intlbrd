@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -63,9 +64,9 @@ public class ConnectionsListPage {
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[contains(text(),'" + processingDate + "')]").exists();
     }
 
-    public boolean checkIntegration(ConnectionIntegrationType integration, String connectionName){
+    public boolean checkIntegration(ConnectionIntegrationType integration, String connectionName) {
         findConnectionByName(connectionName);
-        return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'"+integration.value+"')]]")
+        return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'" + integration.value + "')]]")
                 .exists();
     }
 }
