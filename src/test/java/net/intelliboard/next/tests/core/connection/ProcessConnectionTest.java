@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 
+@Tag("Connection_Processing")
 public class ProcessConnectionTest extends IBNextAbstractTest {
 
     @Test
@@ -39,6 +40,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         open(ALL_CONNECTIONS);
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
+
     }
 
     @Test
