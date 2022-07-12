@@ -35,7 +35,8 @@ public abstract class AbstractTest {
     @BeforeEach
     public void setUp(TestInfo testInfo) throws IOException {
 
-        LOGGER.info(String.format("Test started : %s", testInfo.getDisplayName()));
+        System.out.println(String.format("Test started : %s", testInfo.getDisplayName()));
+//        LOGGER.info(String.format("Test started : %s", testInfo.getDisplayName()));
 
         WebDriverService driver = new WebDriverService();
         driver.initWebDriver(propertiesGetValue.getPropertyValue("browser"),
@@ -46,7 +47,8 @@ public abstract class AbstractTest {
 
     @AfterEach
     public void tearDown(TestInfo testInfo) {
-        LOGGER.info(String.format("Test finished : %s", testInfo.getDisplayName()));
+        System.out.println(String.format("Test finished : %s", testInfo.getDisplayName()));
+//        LOGGER.info(String.format("Test finished : %s", testInfo.getDisplayName()));
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
         WebDriverRunner.driver().close();
