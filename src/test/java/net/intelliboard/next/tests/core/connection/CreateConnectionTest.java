@@ -243,4 +243,24 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .init()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1248")})
+    @DisplayName("SP-T1248: Create Totara connection")
+    public void testCreate() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Totara_" + DataGenerator.getRandomString();
+
+        open(CREATE_TOTARA_CONNECTION);
+
+        createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY);
+
+        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
 }
