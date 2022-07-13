@@ -39,6 +39,8 @@ public class CreateConnectionPage {
     public static String SAKAI_KEY;
     public static String ELLUCIAN_BANNER_KEY;
     public static String ELLUCIAN_COLLEUGUE_KEY;
+    public static String TOTARA_URL;
+    public static String TOTARA_KEY;
 
     static {
         try {
@@ -69,6 +71,8 @@ public class CreateConnectionPage {
             CreateConnectionPage.SAKAI_KEY = propertiesGetValue.getPropertyValue("sakai_key");
             CreateConnectionPage.ELLUCIAN_BANNER_KEY = propertiesGetValue.getPropertyValue("ellucian_banner");
             CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY = propertiesGetValue.getPropertyValue("ellucian_colleugue");
+            CreateConnectionPage.TOTARA_URL = propertiesGetValue.getPropertyValue("totara_url");
+            CreateConnectionPage.TOTARA_KEY = propertiesGetValue.getPropertyValue("totara_token");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,6 +168,17 @@ public class CreateConnectionPage {
         lmsNameField.setValue(lmsName);
         lmsUrlField.setValue(SAKAIUrl);
         sakaiTokenField.setValue(SAKAIToken);
+        submitForm();
+
+        return LmsFilterSettingPage
+                .init()
+                .saveFilterSettings();
+    }
+
+    public ConnectionsListPage createTOTARAConnection(String lmsName, String TOTARAUrl, String TOTARAToken) {
+        lmsNameField.setValue(lmsName);
+        lmsUrlField.setValue(TOTARAUrl);
+        clientIdField.setValue(TOTARAToken);
         submitForm();
 
         return LmsFilterSettingPage
