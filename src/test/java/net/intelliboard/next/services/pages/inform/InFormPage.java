@@ -38,7 +38,6 @@ public class InFormPage {
     private InFormPage openActionMenu(String tableName) {
         $x("//tr[ ./td[text()='" + tableName + "']]//td[contains (@class, 'actions-cell')]")
                 .click();
-//                $x("//td[contains (@class, 'actions-cell')]").click();
         return this;
     }
 
@@ -51,16 +50,22 @@ public class InFormPage {
     }
 
     private InFormPage confirmDelete() {
-        SelenideElement confirmationPopup = $x("//div[contains (@class,'in-form-table-delete-popup')]");
-        confirmationPopup.shouldBe(Condition.visible);
-        $x("//button[contains (@class, 'success')]").click();
-        confirmationPopup.shouldNotBe(Condition.visible);
+
+//        ConfirmationDeleteFormPopup confirmationDeleteFormPopup = new ConfirmationDeleteFormPopup();
+
+//        if (confirmationDeleteFormPopup.isConfirmationDeleteFormPopupExist()) {
+        ConfirmationDeleteFormPopup
+                    .init()
+                    .submitFormDeletion();
+
+
+        ConfirmationDeletePopup
+                .init()
+                .submitDeletion();
         return this;
     }
 
     public boolean isTableExist(String tableName) {
         return getTableElement(tableName).exists();
     }
-
-
 }

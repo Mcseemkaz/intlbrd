@@ -24,7 +24,7 @@ public class InFromTest extends IBNextAbstractTest {
     @DisplayName("SP-T89: Create Inform table")
     public void createInformTableTest(InFormColumnType value) throws InterruptedException {
 
-        String tableName = DataGenerator.getRandomString() + "TestAQA";
+        String tableName = DataGenerator.getRandomString() + " TestAQA";
 
         open(IBNextURLs.INFORM_LIST_PAGE);
 
