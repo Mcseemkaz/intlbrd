@@ -44,6 +44,7 @@ public class IBNextURLs {
     public static final String CREATE_ELLUCIAN_COLLEAGUE_CONNECTION = ALL_INTEGRATIONS + "/12";
     public static final String CREATE_ILIAS_CONNECTION = CREATE_CONNECTION + "/16";
     public static final String CREATE_SAKAI_CONNECTION = CREATE_CONNECTION + "/18";
+    public static final String CREATE_MWP_MOODLE_CONNECTION = CREATE_CONNECTION + "/20";
     public static final String CREATE_TOTARA_CONNECTION = CREATE_CONNECTION + "/21";
 
     // Login Canvas Page

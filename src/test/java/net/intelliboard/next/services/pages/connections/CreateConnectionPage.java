@@ -41,6 +41,11 @@ public class CreateConnectionPage {
     public static String ELLUCIAN_COLLEUGUE_KEY;
     public static String TOTARA_URL;
     public static String TOTARA_KEY;
+    public static String MWP_URL;
+    public static String MWP_KEY;
+    public static String MWP_W_URL;
+    public static String MWP_W_KEY;
+
 
     static {
         try {
@@ -73,6 +78,10 @@ public class CreateConnectionPage {
             CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY = propertiesGetValue.getPropertyValue("ellucian_colleugue");
             CreateConnectionPage.TOTARA_URL = propertiesGetValue.getPropertyValue("totara_url");
             CreateConnectionPage.TOTARA_KEY = propertiesGetValue.getPropertyValue("totara_token");
+            CreateConnectionPage.MWP_URL = propertiesGetValue.getPropertyValue("mwp_url");
+            CreateConnectionPage.MWP_KEY = propertiesGetValue.getPropertyValue("mwp_token");
+            CreateConnectionPage.MWP_W_URL = propertiesGetValue.getPropertyValue("mwp_workspace_url");
+            CreateConnectionPage.MWP_W_KEY = propertiesGetValue.getPropertyValue("mwp_workspace_token");
 
         } catch (IOException e) {
             e.printStackTrace();
