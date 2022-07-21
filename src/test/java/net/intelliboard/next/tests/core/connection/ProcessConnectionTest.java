@@ -175,4 +175,26 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1251")})
+    @DisplayName("SP-T1251: Processing Totara connection")
+    public void testProcessConnectionTotara() throws InterruptedException {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Totara_" + DataGenerator.getRandomString();
+
+        open(CREATE_TOTARA_CONNECTION);
+
+        createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY)
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }
