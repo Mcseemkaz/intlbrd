@@ -197,4 +197,50 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1252")})
+    @DisplayName("SP-T1252: Process MWP moodle.intelliboard connection")
+    public void testProcessConnectionMWPMoodle() throws InterruptedException {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "MWP_Moodle_" + DataGenerator.getRandomString();
+
+        open(CREATE_MWP_MOODLE_CONNECTION);
+
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1253")})
+    @DisplayName("SP-T1253: Process MWP moodleworkplace.intelliboard connection")
+    public void testProcessConnectionMWPWorkspace() throws InterruptedException {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "MWP_Workspace_" + DataGenerator.getRandomString();
+
+        open(CREATE_MWP_MOODLE_CONNECTION);
+
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
 }
