@@ -247,13 +247,55 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1248")})
     @DisplayName("SP-T1248: Create Totara connection")
-    public void testCreate() {
+    public void testCreateTotaraConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "Totara_" + DataGenerator.getRandomString();
 
         open(CREATE_TOTARA_CONNECTION);
 
         createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY);
+
+        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1250")})
+    @DisplayName("SP-T1250: Create MWP connection for moodle.intelliboard")
+    public void testCreateMWPConnectionMoodle() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "MWP_Moodle_" + DataGenerator.getRandomString();
+
+        open(CREATE_MWP_MOODLE_CONNECTION);
+
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL)
+                .saveFilterSettings();
+
+        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1249")})
+    @DisplayName("SP-T1249: Create MWP connection for moodleworkplace.intelliboard")
+    public void testCreateMWPWorkspaceConnectionMoodle() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "MWP_MoodleWorkspace_" + DataGenerator.getRandomString();
+
+        open(CREATE_MWP_MOODLE_CONNECTION);
+
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL)
+                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
