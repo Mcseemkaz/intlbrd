@@ -158,4 +158,68 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T161")})
+    @DisplayName("SP-T161: Сhange report's Title and Description in Settings")
+    public void testChangeTitleDescriptionReport() {
+
+        String connectionName = "Automation Canvans";
+        String reportName = "AQA Report" + DataGenerator.getRandomString();
+        String reportNameUPD = reportName + "_UPD_" + DataGenerator.getRandomString();
+
+        open(MAIN_URL);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+        HeaderObject.init()
+                .createReport()
+                .fillName(reportName)
+                .fillDescription(DataGenerator.getRandomString())
+                .proceedNext()
+                .selectReportType(ReportTypeEnum.TABLE)
+                .proceedNext()
+                .selectLMSType(ConnectionsTypeEnum.CANVAS)
+                .proceedNext()
+                .goToReport();
+
+        BuilderRightSideBarLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ReportBuilderMainPage
+                .init()
+                .saveReportToDashboard();
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+
+        MyIntelliBoardPage.init()
+                .openEditReport(reportName)
+                .openSettingsModal()
+                .fillInName(reportNameUPD)
+                .fillInDescription(DataGenerator.getRandomString())
+                .continueToPreview()
+                .saveReportToDashboard();
+
+        // Clean-up
+        open(MY_INTELLIBOARD_PAGE);
+
+        MyIntelliBoardPage
+                .init()
+                .deleteReport(reportNameUPD)
+                .confirmDeletion();
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportNameUPD)).isFalse();
+    }
 }
