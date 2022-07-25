@@ -20,12 +20,13 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Tag("Create Report")
 public class CreateReportsTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T154")})
     @DisplayName("SP-T154: Short way to create report")
-    public void testCreateTableReport() throws InterruptedException {
+    public void testCreateTableReport() {
 
         String connectionName = "Automation Canvans";
         String reportName = "Untitled Report";
@@ -67,7 +68,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T153")})
     @DisplayName("SP-T153: Create report (long way)")
-    public void testCreateTableReportLongWay() throws InterruptedException {
+    public void testCreateTableReportLongWay() {
         String connectionName = "Automation Canvans";
         String reportName = "AQA-" + DataGenerator.getRandomString();
 
@@ -85,6 +86,53 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .selectReportType(ReportTypeEnum.TABLE)
                 .proceedNext()
                 .selectLMSType(ConnectionsTypeEnum.CANVAS)
+                .proceedNext()
+                .goToReport();
+
+        BuilderRightSideBarLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+
+        ReportBuilderMainPage
+                .init()
+                .saveReportToDashboard();
+
+        //Clean-up
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+
+        MyIntelliBoardPage
+                .init()
+                .deleteReport(reportName)
+                .confirmDeletion();
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1255")})
+    @DisplayName("SP-T1255: Create report on Totara connecion")
+    public void testCreateTableReportTotara() {
+        String connectionName = "Totara Automation";
+        String reportName = "AQA-" + DataGenerator.getRandomString();
+
+        open(MAIN_URL);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+        HeaderObject.init()
+                .createReport()
+                .fillName(reportName)
+                .fillDescription(DataGenerator.getRandomString())
+                .proceedNext()
+                .selectReportType(ReportTypeEnum.TABLE)
+                .proceedNext()
+                .selectLMSType(ConnectionsTypeEnum.TOTARA)
                 .proceedNext()
                 .goToReport();
 
