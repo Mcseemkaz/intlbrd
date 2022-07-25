@@ -6,6 +6,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
+import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -19,13 +20,13 @@ public class MyIntelliBoardPage {
         return new MyIntelliBoardPage();
     }
 
-    public boolean isDashboardPresentsByOrderNumber(int number){
-        return $x("//div[contains(@class,'cards-view')]//li["+number+"]//div[contains (@class,'data-library-info')]//h4")
+    public boolean isDashboardPresentsByOrderNumber(int number) {
+        return $x("//div[contains(@class,'cards-view')]//li[" + number + "]//div[contains (@class,'data-library-info')]//h4")
                 .exists();
     }
 
-    public boolean isDashboardPresentsByName(String dashboardName){
-        return $x("//div[contains (@class,'data-library-info')]//h4[contains (text(),'"+dashboardName+"')]")
+    public boolean isDashboardPresentsByName(String dashboardName) {
+        return $x("//div[contains (@class,'data-library-info')]//h4[contains (text(),'" + dashboardName + "')]")
                 .exists();
     }
 
@@ -36,16 +37,16 @@ public class MyIntelliBoardPage {
 
     public MyIntelliBoardPage setDashboardFavorite(int numberDashboard) {
         Selenide.actions()
-                .moveToElement($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("(//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item')]//span[@class='action-item'])[1]"))
+                .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("(//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item')]//span[@class='action-item'])[1]"))
                 .perform();
         return this;
     }
 
     public MyIntelliBoardPage openView(int numberDashboard) {
         Selenide.actions()
-                .moveToElement($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item')]//span[@class='dropdown-trigger']//span[@class='action-item']"))
+                .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item')]//span[@class='dropdown-trigger']//span[@class='action-item']"))
                 .click($x("//div[contains (@class,'dropdown-body')]//a[ .//ion-icon[@name='eye-outline']]"))
                 .perform();
         return this;
@@ -53,35 +54,45 @@ public class MyIntelliBoardPage {
 
     public DashboardPage openEdit(int numberDashboard) {
         Selenide.actions()
-                .moveToElement($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("//div[@class='data-library-list']//li["+numberDashboard+"]//div[contains (@class,'data-library-item')]//span[@class='dropdown-trigger']//span[@class='action-item']"))
+                .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item')]//span[@class='dropdown-trigger']//span[@class='action-item']"))
                 .click($x("//div[contains (@class,'dropdown-body')]//a[ .//ion-icon[@name='create-outline']]"))
                 .perform();
         return DashboardPage.init();
     }
 
     public String getNameofDasnboardByOrderNumber(int number) {
-        return $x("//div[contains(@class,'cards-view')]//li["+number+"]//div[contains (@class,'data-library-item')]//div[contains(@class,'data-library-item-info')]//h4")
+        return $x("//div[contains(@class,'cards-view')]//li[" + number + "]//div[contains (@class,'data-library-item')]//div[contains(@class,'data-library-item-info')]//h4")
                 .getText();
     }
 
     public boolean isDashboardPresentsInFavorite(String dashboardName) {
-        return $x("//div[@class='data-library-list' and  .//h2[contains (text(),'Favorites')]]//h4[@class='title' and contains (text(),'"+dashboardName+"')]")
+        return $x("//div[@class='data-library-list' and  .//h2[contains (text(),'Favorites')]]//h4[@class='title' and contains (text(),'" + dashboardName + "')]")
                 .exists();
     }
 
-    public boolean isReportExist(String reportName){
-        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]")
+    public boolean isReportExist(String reportName) {
+        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]")
                 .exists();
     }
 
-    public DashboardDeleteModalPage deleteReport(String reportName){
+    public DashboardDeleteModalPage deleteReport(String reportName) {
         Selenide
                 .actions()
-                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//span[@class='dropdown-trigger']"))
-                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Delete')]"))
+                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//span[@class='dropdown-trigger']"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Delete')]"))
                 .perform();
         return DashboardDeleteModalPage.init();
+    }
+
+    public ReportBuilderMainPage openEditReport(String reportName) {
+        Selenide
+                .actions()
+                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//span[@class='dropdown-trigger']"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Edit')]"))
+                .perform();
+        return ReportBuilderMainPage.init();
     }
 }

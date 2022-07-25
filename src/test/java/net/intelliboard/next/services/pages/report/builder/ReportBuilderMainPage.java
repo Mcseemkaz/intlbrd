@@ -18,4 +18,9 @@ public class ReportBuilderMainPage {
         $x("//a[contains(text(),'Save to Dashboard')]").click();
         return ReportPage.init();
     }
+
+    public ReportSettingsModal openSettingsModal() {
+        $x("//div[contains (@class,'data-header')]//a[contains (text(),'Settings')]").click();
+        return ReportSettingsModal.init();
+    }
 }
