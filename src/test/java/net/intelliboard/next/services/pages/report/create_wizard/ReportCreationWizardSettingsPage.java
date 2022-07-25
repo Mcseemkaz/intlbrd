@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.report.create_wizard;
 
 import com.codeborne.selenide.Condition;
+import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 
 import java.time.Duration;
 
@@ -14,18 +15,23 @@ public class ReportCreationWizardSettingsPage {
         return new ReportCreationWizardSettingsPage();
     }
 
-    public ReportCreationWizardSettingsPage fillName(String name){
+    public ReportCreationWizardSettingsPage fillName(String name) {
         $x("//input[@id='name']").setValue(name);
         return this;
     }
 
-    public ReportCreationWizardSettingsPage fillDescription(String description){
+    public ReportCreationWizardSettingsPage fillDescription(String description) {
         $x("//textarea[@name='description']").setValue(description);
         return this;
     }
 
-    public ReportCreationWizardVisualizationPage proceedNext(){
+    public ReportCreationWizardVisualizationPage proceedNext() {
         $x("//div[contains (@class,'active')]//a[contains (@class, 'app-button primary')]").click();
         return ReportCreationWizardVisualizationPage.init();
+    }
+
+    public ReportBuilderMainPage skipWizardFlow() {
+        $x("//a[@class='skip-button']").click();
+        return ReportBuilderMainPage.init();
     }
 }
