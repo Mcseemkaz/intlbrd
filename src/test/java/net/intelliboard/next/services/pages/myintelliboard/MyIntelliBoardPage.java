@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
+import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -67,5 +68,20 @@ public class MyIntelliBoardPage {
     public boolean isDashboardPresentsInFavorite(String dashboardName) {
         return $x("//div[@class='data-library-list' and  .//h2[contains (text(),'Favorites')]]//h4[@class='title' and contains (text(),'"+dashboardName+"')]")
                 .exists();
+    }
+
+    public boolean isReportExist(String reportName){
+        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]")
+                .exists();
+    }
+
+    public DashboardDeleteModalPage deleteReport(String reportName){
+        Selenide
+                .actions()
+                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//span[@class='dropdown-trigger']"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Delete')]"))
+                .perform();
+        return DashboardDeleteModalPage.init();
     }
 }

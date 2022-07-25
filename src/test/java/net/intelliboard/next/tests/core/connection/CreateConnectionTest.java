@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
+import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -305,4 +306,22 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .init()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    public void testSetActiveConnection(){
+
+        String connectionName = "SAKAI";
+        open(ALL_CONNECTIONS);
+
+        ConnectionsListPage
+                .init()
+                .setActiveConnection(connectionName, true);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+    }
+
+
 }

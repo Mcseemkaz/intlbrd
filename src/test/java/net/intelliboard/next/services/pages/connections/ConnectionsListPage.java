@@ -69,4 +69,18 @@ public class ConnectionsListPage {
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'" + integration.value + "')]]")
                 .exists();
     }
+
+    public ConnectionsListPage setActiveConnection(String connectionName, boolean setActive){
+        findConnectionByName(connectionName);
+        SelenideElement checkRadioButton = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//td[contains (@class, 'status-cell')]//ion-icon");
+        if (checkRadioButton.getAttribute("name").contains("off") && setActive == true) {
+            checkRadioButton.click();
+            checkRadioButton.shouldHave(Condition.attribute("name", "radio-button-on-outline"));
+        } else if (checkRadioButton.getAttribute("name").contains("button-on") && setActive == false) {
+            checkRadioButton.click();
+            checkRadioButton.shouldHave(Condition.attribute("name", "radio-button-off-outline"));
+        }
+
+        return this;
+    }
 }
