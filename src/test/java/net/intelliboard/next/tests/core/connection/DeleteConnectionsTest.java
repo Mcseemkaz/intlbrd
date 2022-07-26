@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.connection;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
@@ -13,6 +14,7 @@ import static net.intelliboard.next.services.IBNextURLs.CREATE_ELLUCIAN_BANNER_C
 import static net.intelliboard.next.services.IBNextURLs.CREATE_MOODLE_CONNECTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("Delete Connections")
 public class DeleteConnectionsTest extends IBNextAbstractTest {
 
     @Test

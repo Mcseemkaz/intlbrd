@@ -17,6 +17,7 @@ import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Create Connections")
+@Tag("Create_Connections")
 public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})

@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.reports;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
@@ -20,7 +21,8 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@Tag("Create Report")
+@Feature("Create Report")
+@Tag("Create_Report")
 public class CreateReportsTest extends IBNextAbstractTest {
 
     @Test
