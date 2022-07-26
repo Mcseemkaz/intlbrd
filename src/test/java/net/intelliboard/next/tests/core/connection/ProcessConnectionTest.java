@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.connection;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
@@ -17,6 +18,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 
 @Tag("Connection_Processing")
+@Feature("Process Connection")
 public class ProcessConnectionTest extends IBNextAbstractTest {
 
     @Test
