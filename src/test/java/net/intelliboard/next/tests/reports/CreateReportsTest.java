@@ -7,15 +7,14 @@ import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
-import net.intelliboard.next.services.pages.report.builder.BuilderRightSideBarLayoutPage;
-import net.intelliboard.next.services.pages.report.builder.ReportBuilderDisplayElementEnum;
-import net.intelliboard.next.services.pages.report.builder.ReportBuilderDisplayElementsMainEnum;
-import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
+import net.intelliboard.next.services.pages.report.builder.*;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
@@ -223,5 +222,86 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .confirmDeletion();
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportNameUPD)).isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T164")})
+    @DisplayName("SP-T164: Сhange report's Availability in Settings")
+    public void testChangeReportAvailability() {
+
+        String connectionName = "Automation Canvans";
+        String connectionNameOther = "Totara Automation";
+        String reportName = "AQA Report" + DataGenerator.getRandomString();
+
+        open(MAIN_URL);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+        HeaderObject.init()
+                .createReport()
+                .fillName(reportName)
+                .fillDescription(DataGenerator.getRandomString())
+                .proceedNext()
+                .selectReportType(ReportTypeEnum.TABLE)
+                .proceedNext()
+                .selectLMSType(ConnectionsTypeEnum.CANVAS)
+                .proceedNext()
+                .goToReport();
+
+        BuilderRightSideBarLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ReportBuilderMainPage
+                .init()
+                .saveReportToDashboard();
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+
+        ArrayList<ReportConnectionTypeAvailabilityEnum> listAdding = new ArrayList<>();
+        listAdding.add(ReportConnectionTypeAvailabilityEnum.TOTARA);
+
+        ArrayList<ReportConnectionTypeAvailabilityEnum> listRemoving = new ArrayList<>();
+        listAdding.add(ReportConnectionTypeAvailabilityEnum.CANVAS);
+
+        MyIntelliBoardPage.init()
+                .openEditReport(reportName)
+                .openSettingsModal()
+                .changeAvailability(listAdding, true)
+                .changeAvailability(listRemoving, false)
+                .continueToPreview()
+                .saveReportToDashboard();
+
+        // Clean-up
+        open(MY_INTELLIBOARD_PAGE);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionNameOther);
+
+        MyIntelliBoardPage
+                .init()
+                .openEditReport(reportName);
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        MyIntelliBoardPage
+                .init()
+                .deleteReport(reportName)
+                .confirmDeletion();
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
+                .isFalse();
     }
 }
