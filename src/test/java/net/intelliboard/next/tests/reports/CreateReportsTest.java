@@ -422,4 +422,67 @@ public class CreateReportsTest extends IBNextAbstractTest {
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
                 .isFalse();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1281")})
+    @DisplayName("SP-T1281: When clicking the “Cancel” button, no changes to the report are saved (adding columns).")
+    public void testRevertReportChangesByCancel() {
+        String connectionName = "Automation Canvans";
+        String reportName = "AQA-Revert" + DataGenerator.getRandomString();
+
+        open(MAIN_URL);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+        HeaderObject.init()
+                .createReport()
+                .fillName(reportName)
+                .fillDescription(DataGenerator.getRandomString())
+                .proceedNext()
+                .selectReportType(ReportTypeEnum.TABLE)
+                .proceedNext()
+                .selectLMSType(ConnectionsTypeEnum.CANVAS)
+                .proceedNext()
+                .goToReport();
+
+        BuilderRightSideBarTableLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ReportBuilderMainPage
+                .init()
+                .saveReportToDashboard();
+
+        //Clean-up
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+
+        MyIntelliBoardPage
+                .init()
+                .openEditReport(reportName);
+
+        BuilderRightSideBarTableLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_ID);
+
+        ReportBuilderMainPage
+                .init()
+                .cancelSavingReport()
+                .deleteReport(reportName)
+                .confirmDeletion();
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
+    }
 }

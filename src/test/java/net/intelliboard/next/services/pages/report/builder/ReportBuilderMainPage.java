@@ -1,7 +1,9 @@
 package net.intelliboard.next.services.pages.report.builder;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.ReportPage;
 
 import java.time.Duration;
@@ -25,5 +27,11 @@ public class ReportBuilderMainPage {
     public ReportSettingsModal openSettingsModal() {
         $x("//div[contains (@class,'data-header')]//a[contains (text(),'Settings')]").click();
         return ReportSettingsModal.init();
+    }
+
+    public MyIntelliBoardPage cancelSavingReport(){
+        $x("//a[contains (text(),'Cancel')]").click();
+        Selenide.confirm();
+        return MyIntelliBoardPage.init();
     }
 }
