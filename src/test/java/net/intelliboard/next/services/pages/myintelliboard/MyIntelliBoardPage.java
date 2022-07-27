@@ -95,4 +95,9 @@ public class MyIntelliBoardPage {
                 .perform();
         return ReportBuilderMainPage.init();
     }
+
+    public String getReportBackgroundColors(String reportName){
+        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[@class='data-library-item-wrapper']")
+                .getAttribute("style");
+    }
 }
