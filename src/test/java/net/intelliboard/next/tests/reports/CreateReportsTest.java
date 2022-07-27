@@ -42,7 +42,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .createReport()
                 .skipWizardFlow();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -64,7 +64,6 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
     }
-
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T153")})
@@ -90,7 +89,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .proceedNext()
                 .goToReport();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -137,7 +136,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .proceedNext()
                 .goToReport();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -186,7 +185,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .proceedNext()
                 .goToReport();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -250,7 +249,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .proceedNext()
                 .goToReport();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -330,7 +329,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .proceedNext()
                 .goToReport();
 
-        BuilderRightSideBarLayoutPage
+        BuilderRightSideBarTableLayoutPage
                 .init()
                 .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
                         , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
@@ -361,6 +360,59 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         assertThat(MyIntelliBoardPage.init().getReportBackgroundColors(reportName).contains(ReportSettingsColorsEnum.GREEN.rgbColor))
                 .isTrue();
+
+        MyIntelliBoardPage
+                .init()
+                .deleteReport(reportName)
+                .confirmDeletion();
+
+        assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
+                .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T449")})
+    @DisplayName("SP-T449: Create pie chart")
+    public void testCreateReportPaiChart() {
+
+        String connectionName = "Automation Canvans";
+        String reportName = "AQA Report: Pai Chart - " + DataGenerator.getRandomString();
+
+        open(MAIN_URL);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(connectionName);
+
+        HeaderObject.init()
+                .createReport()
+                .fillName(reportName)
+                .fillDescription(DataGenerator.getRandomString())
+                .proceedNext()
+                .selectReportType(ReportTypeEnum.PIE_CHART)
+                .proceedNext()
+                .selectLMSType(ConnectionsTypeEnum.CANVAS)
+                .proceedNext()
+                .goToReport();
+
+        BuilderRightSideBarPaiChartLayoutPage
+                .init()
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME, BuilderRightSideBarPaiChartValuesTypeEnum.CATEGORY)
+                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
+                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_LOGINS_COUNT, BuilderRightSideBarPaiChartValuesTypeEnum.VALUE);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ReportBuilderMainPage
+                .init()
+                .saveReportToDashboard();
+
+        open(MY_INTELLIBOARD_PAGE);
 
         MyIntelliBoardPage
                 .init()
