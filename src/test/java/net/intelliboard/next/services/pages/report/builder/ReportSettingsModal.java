@@ -47,4 +47,9 @@ public class ReportSettingsModal {
         });
         return this;
     }
+
+    public ReportSettingsModal setReportColor(ReportSettingsColorsEnum color){
+        $x("//div[@class='color-selector']//label[./input[@name='color' and @value='"+color.value+"']]").click();
+        return this;
+    }
 }
