@@ -227,8 +227,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
-                .confirmAuthorize()
-                .saveFilterSettings();
+                .confirmAuthorize();
+//                .saveFilterSettings();
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 
@@ -275,8 +275,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL)
-                .saveFilterSettings();
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL);
+//                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
@@ -296,8 +296,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL)
-                .saveFilterSettings();
+        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL);
+                //.saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()

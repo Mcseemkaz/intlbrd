@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
+import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
 import java.time.Duration;
@@ -14,6 +15,8 @@ public class LoginOauth2ConfirmPage {
     private SelenideElement inputAuthorizeField = $x("//input[@type=\"submit\"]");
 
     public static LoginOauth2ConfirmPage init() {
+        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
+        ibNextAbstractTest.waitForPageLoaded();
         $x("//div[contains (@class,'ic-Login-confirmation__content')]").shouldBe(Condition.visible,
                 Duration.ofSeconds(100));
         String currentURL = WebDriverRunner.getWebDriver().getCurrentUrl();

@@ -140,7 +140,7 @@ public class CreateConnectionPage {
         zoomTokenSecret.setValue(zoomSecret);
         submitForm();
 
-        LmsFilterSettingPage.init().saveFilterSettings();
+//        LmsFilterSettingPage.init().saveFilterSettings();
         return ConnectionsListPage.init();
     }
 
@@ -190,9 +190,11 @@ public class CreateConnectionPage {
         clientIdField.setValue(TOTARAToken);
         submitForm();
 
-        return LmsFilterSettingPage
-                .init()
-                .saveFilterSettings();
+        return ConnectionsListPage.init();
+
+//        return LmsFilterSettingPage
+//                .init();
+//                .saveFilterSettings();
     }
 
     private void waitForValidation() {
