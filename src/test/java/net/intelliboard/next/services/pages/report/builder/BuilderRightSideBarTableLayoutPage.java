@@ -35,4 +35,14 @@ public class BuilderRightSideBarTableLayoutPage {
         BuilderRightSideElementsManagerPage.init().returnToLayoutMainPage();
         return this;
     }
+
+    public BuilderReportFormulaElement openAddFormulaEditor(){
+        openDisplayElementsList();
+        openFormulaEditor();
+        return BuilderReportFormulaElement.init();
+    }
+
+    private void openFormulaEditor(){
+        $x("//a[@class='formula-link']").click();
+    }
 }
