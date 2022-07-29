@@ -209,8 +209,10 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL)
-                .saveFilterSettings()
+        createConnectionPage
+                .createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL);
+//                .saveFilterSettings()
+        ConnectionsListPage.init()
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
@@ -232,8 +234,10 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL)
-                .saveFilterSettings()
+        createConnectionPage
+                .createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL);
+//                .saveFilterSettings()
+        ConnectionsListPage.init()
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
