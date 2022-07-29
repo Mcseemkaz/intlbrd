@@ -10,18 +10,19 @@ public class BuilderReportFormulaElement {
         return new BuilderReportFormulaElement();
     }
 
-    public BuilderReportFormulaElement addFormulaText(String formulaText){
-        $x("//div[@class='vue-codemirror']//div[contains (@class,'intelliboard')]//textarea")
-                .setValue(formulaText);
+    public BuilderReportFormulaElement addFormulaText(String formulaText) {
+        $x("//pre[@class=' CodeMirror-line ']").click();
+        $x("//div[contains(@class,'intelliboard')]//textarea")
+                .sendKeys(formulaText);
         return this;
     }
 
-    public BuilderReportFormulaElement addFormulaText(ReportBuilderDisplayElementsMainEnum mainElement,ReportBuilderDisplayElementEnum element){
+    public BuilderReportFormulaElement addFormulaText(ReportBuilderDisplayElementsMainEnum mainElement, ReportBuilderDisplayElementEnum element) {
         BuilderRightSideBarTableLayoutPage.init().addDisplayElement(mainElement, element);
         return this;
     }
 
-    public BuilderReportFormulaSavingModal saveFormula(){
+    public BuilderReportFormulaSavingModal saveFormula() {
         $x("//div[@class='data-actions']//a[contains (text(),'Save')]").click();
         return BuilderReportFormulaSavingModal.init();
     }

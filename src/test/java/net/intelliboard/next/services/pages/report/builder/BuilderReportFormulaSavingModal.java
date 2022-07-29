@@ -10,17 +10,19 @@ public class BuilderReportFormulaSavingModal {
         return new BuilderReportFormulaSavingModal();
     }
 
-    public BuilderReportFormulaSavingModal fillInTitle(String title){
-        $x("//input[@id='formulaTitle']").setValue(title);
+    public BuilderReportFormulaSavingModal fillInTitle(String title) {
+        $x("//input[@id='formulaTitle']").sendKeys(title);
         return this;
     }
 
-    public BuilderReportFormulaSavingModal fillInDescription(String title){
-        $x("//input[@id='formulaTitle']").setValue(title);
+    public BuilderReportFormulaSavingModal fillInDescription(String title) {
+        $x("//textarea[@name='description']").sendKeys(title);
         return this;
     }
 
-    public void submitFormula(){
+    public void submitFormula() {
         $x("//div[@class='app-modal-body']//button[@type='submit']").click();
+        $x("//div[@class='modal-content']//div[@class='app-modal-body']")
+                .shouldBe(Condition.not(Condition.visible));
     }
 }
