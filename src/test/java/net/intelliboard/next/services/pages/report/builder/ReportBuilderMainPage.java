@@ -29,9 +29,13 @@ public class ReportBuilderMainPage {
         return ReportSettingsModal.init();
     }
 
-    public MyIntelliBoardPage cancelSavingReport(){
+    public MyIntelliBoardPage cancelSavingReport() {
         $x("//a[contains (text(),'Cancel')]").click();
         Selenide.confirm();
         return MyIntelliBoardPage.init();
+    }
+
+    public String getTableRowValue(String columnName, int rowNumber) {
+        return $x("(//tbody//span[@title='" + columnName + "'])[" + rowNumber + "]").getText();
     }
 }

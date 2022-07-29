@@ -20,7 +20,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@Feature("Create Report")
+@Feature("Report")
 @Tag("Create_Report")
 public class CreateReportsTest extends IBNextAbstractTest {
 
