@@ -3,7 +3,8 @@ package net.intelliboard.next.services.pages.header;
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
-import net.intelliboard.next.services.pages.login.LoginPage;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -21,9 +22,10 @@ public class HeaderDropDownMenu {
         return IBUsersPage.init();
     }
 
-    public LoginPage logOut(){
+    public void logOut(){
         $x("//a[contains (@href,'/logout')]")
                 .click();
-        return LoginPage.init();
+        $x("//h1[contains (text(), 'Upcoming Events')]")
+                .shouldBe(Condition.visible, Duration.ofSeconds(90));
     }
 }
