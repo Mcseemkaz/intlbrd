@@ -33,7 +33,7 @@ public class LoginTest extends IBNextAbstractTest {
     public void testCheckInvalidEmail() {
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
-        Selenide.refresh();
+        Selenide.closeWindow();
         open(IBNextURLs.LOGIN_PAGE);
         LoginPage.init()
                 .fillInLoginFiled(DataGenerator.getRandomValidEmail());
