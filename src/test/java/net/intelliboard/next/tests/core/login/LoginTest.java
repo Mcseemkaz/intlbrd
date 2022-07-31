@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 @Feature("Login")
+@Tag("Login")
 public class LoginTest extends IBNextAbstractTest {
 
     @Test
