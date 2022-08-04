@@ -46,6 +46,7 @@ public class IBNextURLs {
     public static final String CREATE_SAKAI_CONNECTION = CREATE_CONNECTION + "/18";
     public static final String CREATE_MWP_MOODLE_CONNECTION = CREATE_CONNECTION + "/20";
     public static final String CREATE_TOTARA_CONNECTION = CREATE_CONNECTION + "/21";
+    public static final String CREATE_QWICKLY_CONNECTION = CREATE_CONNECTION + "/22";
 
     // Login Canvas Page
     public static final String LOGIN_CANVAS_PAGE = CANVAS_MAIN_URL + "/login/canvas";

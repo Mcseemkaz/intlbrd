@@ -228,7 +228,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
                 .confirmAuthorize();
-//                .saveFilterSettings();
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 
@@ -276,7 +275,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_MWP_MOODLE_CONNECTION);
 
         createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL);
-//                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
@@ -309,20 +307,22 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    public void testSetActiveConnection(){
+    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")}) //TODO [MO] Add TC Key when available
+    @DisplayName("SP-TXXX: Create Qwickly connection")
+    public void testCreateQwicklyConnection() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Qwickly_" + DataGenerator.getRandomString();
 
-        String connectionName = "SAKAI";
-        open(ALL_CONNECTIONS);
+        open(CREATE_QWICKLY_CONNECTION);
+
+        createConnectionPage.createQWICKLYConnection(connectionName, CreateConnectionPage.QWICKLY_KEY, CreateConnectionPage.QWICKLY_SECRET);
+
+        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
 
         ConnectionsListPage
                 .init()
-                .setActiveConnection(connectionName, true);
-
-        HeaderConnectionManager
-                .expandOpenConnectionManager()
-                .selectConnection(connectionName);
-
+                .deleteConnection(connectionName);
     }
-
-
 }

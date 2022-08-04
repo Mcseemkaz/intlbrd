@@ -45,6 +45,8 @@ public class CreateConnectionPage {
     public static String MWP_KEY;
     public static String MWP_W_URL;
     public static String MWP_W_KEY;
+    public static String QWICKLY_KEY;
+    public static String QWICKLY_SECRET;
 
 
     static {
@@ -82,19 +84,21 @@ public class CreateConnectionPage {
             CreateConnectionPage.MWP_KEY = propertiesGetValue.getPropertyValue("mwp_token");
             CreateConnectionPage.MWP_W_URL = propertiesGetValue.getPropertyValue("mwp_workspace_url");
             CreateConnectionPage.MWP_W_KEY = propertiesGetValue.getPropertyValue("mwp_workspace_token");
+            CreateConnectionPage.QWICKLY_KEY = propertiesGetValue.getPropertyValue("qwickly_key");
+            CreateConnectionPage.QWICKLY_SECRET = propertiesGetValue.getPropertyValue("qwickly_secret");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private SelenideElement lmsNameField = $x("//input[@id=\"lmsName\"]");
-    private SelenideElement clientIdField = $x("//input[@id=\"clientId\"]");
-    private SelenideElement lmsUrlField = $x("//input[@id=\"lmsUrl\"]");
-    private SelenideElement clientSecretField = $x("//input[@id=\"clientSecret\"]");
-    private SelenideElement dataClientIdField = $x("//input[@id=\"dataClientId\"]");
-    private SelenideElement dataClientSecretField = $x("//input[@id=\"dataClientSecret\"]");
-    private SelenideElement buttonContinue = $x("//button[@type=\"submit\"]");
+    private SelenideElement lmsNameField = $x("//input[@id='lmsName']");
+    private SelenideElement clientIdField = $x("//input[@id='clientId']");
+    private SelenideElement lmsUrlField = $x("//input[@id='lmsUrl']");
+    private SelenideElement clientSecretField = $x("//input[@id='clientSecret']");
+    private SelenideElement dataClientIdField = $x("//input[@id='dataClientId']");
+    private SelenideElement dataClientSecretField = $x("//input[@id='dataClientSecret']");
+    private SelenideElement buttonContinue = $x("//button[@type='submit']");
     private SelenideElement zoomTokenField = $x("//input[@name='zoom_token']");
     private SelenideElement zoomTokenSecret = $x("//input[@name='zoom_secret']");
     private SelenideElement d2lId = $x("//input[@name='client_id']");
@@ -107,7 +111,7 @@ public class CreateConnectionPage {
         return new CreateConnectionPage();
     }
 
-    public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl)  {
+    public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl) {
         lmsNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
         lmsUrlField.setValue(lmsUrl);
@@ -139,8 +143,6 @@ public class CreateConnectionPage {
         zoomTokenField.setValue(zoomToken);
         zoomTokenSecret.setValue(zoomSecret);
         submitForm();
-
-//        LmsFilterSettingPage.init().saveFilterSettings();
         return ConnectionsListPage.init();
     }
 
@@ -191,10 +193,26 @@ public class CreateConnectionPage {
         submitForm();
 
         return ConnectionsListPage.init();
+    }
 
-//        return LmsFilterSettingPage
-//                .init();
-//                .saveFilterSettings();
+    public ConnectionsListPage createQWICKLYConnection(String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret) {
+        $x("//input[@id='qwickly_data_feed_url']").sendKeys(qwicklyDataFeedUrl);
+        $x("//input[@id='qwickly_key']").sendKeys(qwicklyKey);
+        $x("//input[@id='qwickly_secret']").sendKeys(qwicklySecret);
+
+        submitForm();
+        return ConnectionsListPage.init();
+    }
+
+    public CreateConnectionPage selectConnection(String connectionName) {
+        $x("//div[contains(@class, 'intelli-dropdown')]//button[@class='tree-choice']")
+                .click();
+        $x("//div[contains(@class, 'tree-drop')]//li[.//strong[text()='" + connectionName + "']]")
+                .click();
+        $x("//div[contains(@class, 'intelli-dropdown')]//button[@class='tree-choice']/span")
+                .shouldBe(Condition.visible, Duration.ofSeconds(5))
+                .shouldHave(Condition.text(connectionName));
+        return this;
     }
 
     private void waitForValidation() {

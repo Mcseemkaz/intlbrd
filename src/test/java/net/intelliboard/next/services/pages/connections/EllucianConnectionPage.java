@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
+
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -19,14 +20,7 @@ public class EllucianConnectionPage extends CreateConnectionPage {
     }
 
     public EllucianConnectionPage selectConnection(String connectionName) {
-        $x("//div[contains(@class, 'intelli-dropdown')]//button[@class='tree-choice']")
-                .click();
-        $x("//div[contains(@class, 'tree-drop')]//li[.//strong[text()='" + connectionName + "']]")
-                .click();
-        $x("//div[contains(@class, 'intelli-dropdown')]//button[@class='tree-choice']/span")
-                .shouldBe(Condition.visible, Duration.ofSeconds(5))
-                .shouldHave(Condition.text(connectionName));
+        super.selectConnection(connectionName);
         return this;
     }
-
 }
