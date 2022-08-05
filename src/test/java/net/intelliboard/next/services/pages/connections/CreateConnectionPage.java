@@ -3,9 +3,11 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.DatePicker;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static net.intelliboard.next.AbstractTest.propertiesGetValue;
@@ -47,6 +49,9 @@ public class CreateConnectionPage {
     public static String MWP_W_KEY;
     public static String QWICKLY_KEY;
     public static String QWICKLY_SECRET;
+    public static String MONGOOSE_API_KEY;
+    public static String MONGOOSE_SECRET;
+    public static String MONGOOSE_TEAM_CODE;
 
 
     static {
@@ -86,6 +91,9 @@ public class CreateConnectionPage {
             CreateConnectionPage.MWP_W_KEY = propertiesGetValue.getPropertyValue("mwp_workspace_token");
             CreateConnectionPage.QWICKLY_KEY = propertiesGetValue.getPropertyValue("qwickly_key");
             CreateConnectionPage.QWICKLY_SECRET = propertiesGetValue.getPropertyValue("qwickly_secret");
+            CreateConnectionPage.MONGOOSE_API_KEY = propertiesGetValue.getPropertyValue("mongoose_api_key");
+            CreateConnectionPage.MONGOOSE_SECRET = propertiesGetValue.getPropertyValue("mongoose_secret");
+            CreateConnectionPage.MONGOOSE_TEAM_CODE = propertiesGetValue.getPropertyValue("mongoose_team_code");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -200,6 +208,17 @@ public class CreateConnectionPage {
         $x("//input[@id='qwickly_key']").sendKeys(qwicklyKey);
         $x("//input[@id='qwickly_secret']").sendKeys(qwicklySecret);
 
+        submitForm();
+        return ConnectionsListPage.init();
+    }
+
+    public ConnectionsListPage createMongooseConnection(String mainConnectionName, String mogooseAPIKey, String mongooseSecret, String mongooseTeamCode, LocalDateTime date) {
+        selectConnection(mainConnectionName);
+        $x("//input[@id='mongoose_cadence_api_key']").sendKeys(mogooseAPIKey);
+        $x("//input[@id='mongoose_cadence_secret']").sendKeys(mongooseSecret);
+        $x("//input[@id='mongoose_cadence_team_code']").sendKeys(mongooseTeamCode);
+        $x("//input[contains (@class,'date-picker-input') and contains (@class,'form-control')]").click();
+        DatePicker.init().setDayOfMonth(date);
         submitForm();
         return ConnectionsListPage.init();
     }
