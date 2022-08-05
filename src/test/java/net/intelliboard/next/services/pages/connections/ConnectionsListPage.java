@@ -70,7 +70,7 @@ public class ConnectionsListPage {
                 .exists();
     }
 
-    public ConnectionsListPage setActiveConnection(String connectionName, boolean setActive){
+    public ConnectionsListPage setActiveConnection(String connectionName, boolean setActive) {
         findConnectionByName(connectionName);
         SelenideElement checkRadioButton = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//td[contains (@class, 'status-cell')]//ion-icon");
         if (checkRadioButton.getAttribute("name").contains("off") && setActive == true) {

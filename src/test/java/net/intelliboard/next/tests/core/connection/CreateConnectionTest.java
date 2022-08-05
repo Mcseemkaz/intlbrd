@@ -5,11 +5,9 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
-import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
@@ -22,7 +20,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
     @DisplayName("SP-T83: Creating of Moodle connection")
-    public void testCreateMoodleConnection() throws InterruptedException {
+    public void testCreateMoodleConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
@@ -33,7 +31,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         createConnectionPage.createMoodleConnection(lmsMoodleName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL);
         $x("//header").shouldBe(Condition.visible);
         lmsFilterSettingPage.saveFilterSettings();
-        $x("//a[contains (text(), '" + lmsMoodleName + "')]").exists();
         connectionsListPage.deleteConnection(lmsMoodleName);
     }
 
@@ -50,7 +47,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(lmsCanvasName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
                 CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
-        $x("//a[contains (text(), '" + lmsCanvasName + "')]").exists();
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -78,8 +74,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         createConnectionPage.createBlackboardConnection(lmsBlackboardName, CreateConnectionPage.BLACKBOARD_CLIENT_ID, CreateConnectionPage.BLACKBOARD_LMS_URL);
         $x("//header").shouldBe(Condition.visible);
         lmsFilterSettingPage.saveFilterSettings();
-        $x("//a[contains (text(), '" + lmsBlackboardName + "')]").exists();
-
         connectionsListPage.deleteConnection(lmsBlackboardName);
     }
 
@@ -185,7 +179,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
                 CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
-        $x("//a[contains (text(), '" + connectionName + "')]").exists();
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -221,14 +214,12 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
                 CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
-        $x("//a[contains (text(), '" + connectionName + "')]").exists();
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
                 .confirmAuthorize();
-//                .saveFilterSettings();
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 
@@ -276,7 +267,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_MWP_MOODLE_CONNECTION);
 
         createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL);
-//                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
@@ -297,7 +287,28 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_MWP_MOODLE_CONNECTION);
 
         createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL);
-                //.saveFilterSettings();
+        //.saveFilterSettings();
+
+        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
+
+    @Disabled
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")}) //TODO [MO] Add TC Key when available
+    @DisplayName("SP-TXXX: Create Qwickly connection")
+    public void testCreateQwicklyConnection() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "Qwickly_" + DataGenerator.getRandomString();
+
+        open(CREATE_QWICKLY_CONNECTION);
+
+        createConnectionPage.createQWICKLYConnection(connectionName, CreateConnectionPage.QWICKLY_KEY, CreateConnectionPage.QWICKLY_SECRET);
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
@@ -309,20 +320,31 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    public void testSetActiveConnection(){
+    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")})
+    @DisplayName("SP-TXXX: Create Mongoose Sub-connection")
+    public void testCreateMongooseSubConnection() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        //Main connection
+        String mainConnectionName = "Moodle_Main" + DataGenerator.getRandomString();
 
-        String connectionName = "SAKAI";
-        open(ALL_CONNECTIONS);
+        // Mongoose connection
+        String connectionName = "Mongoose_" + DataGenerator.getRandomString();
 
-        ConnectionsListPage
-                .init()
-                .setActiveConnection(connectionName, true);
+        open(CREATE_MOODLE_CONNECTION);
+        createConnectionPage.createMoodleConnection(mainConnectionName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings();
 
-        HeaderConnectionManager
-                .expandOpenConnectionManager()
-                .selectConnection(connectionName);
+        assertThat(ConnectionsListPage.init().findConnectionByName(mainConnectionName).isConnectionExist(mainConnectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
 
+        open(CREATE_MONGOOSE_CONNECTION);
+
+        createConnectionPage.createMongooseConnection(mainConnectionName, CreateConnectionPage.MONGOOSE_API_KEY, CreateConnectionPage.MONGOOSE_SECRET, CreateConnectionPage.MONGOOSE_TEAM_CODE, LocalDateTime.now());
+
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.MONGOOSE_CADENCE, mainConnectionName))
+                .isTrue();
+
+        ConnectionsListPage.init().deleteConnection(mainConnectionName);
     }
-
-
 }
