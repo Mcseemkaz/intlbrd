@@ -20,7 +20,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 script{
-                    sh ('./mvnw -Dgroups="${testGroup}" -DTestEnvironment="${testEnv}"')
+                    sh ('./mvnw -Dgroups="${testGroup}" -Denvironment="${testEnv}"')
                     }
                }
         }
