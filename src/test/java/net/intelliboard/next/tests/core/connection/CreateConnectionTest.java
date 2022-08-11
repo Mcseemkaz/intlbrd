@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
+import net.intelliboard.next.services.pages.connections.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
@@ -83,20 +84,21 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateZoomConnection() {
 
         open(CREATE_ZOOM_CONNECTION);
-        String lmsZoomName = "Zoom_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createZoomConnection(lmsZoomName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET);
+
+        String connectionName = "Zoom_" + DataGenerator.getRandomString();
+        CreateZoomConnectionPage.init().createZoomConnection(connectionName, CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                CreateZoomConnectionPage.ZOOM_TOKEN, CreateZoomConnectionPage.ZOOM_SECRET);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(lmsZoomName);
+        connectionsListPage.findConnectionByName(connectionName);
 
-        assertThat(connectionsListPage.isConnectionExist(lmsZoomName))
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .isTrue()
-                .as(String.format("Connection : %s is not existed", lmsZoomName));
+                .as(String.format("Connection : %s is not existed", connectionName));
 
         connectionsListPage
-                .deleteConnection(lmsZoomName);
+                .deleteConnection(connectionName);
     }
 
     @Test

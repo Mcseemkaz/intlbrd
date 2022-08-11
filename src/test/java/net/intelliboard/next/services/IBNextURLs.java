@@ -39,7 +39,7 @@ public class IBNextURLs {
     public static final String CREATE_CANVAS_CONNECTION = CREATE_CONNECTION + "/2";
     public static final String CREATE_BLACKBOARD_CONNECTION = CREATE_CONNECTION + "/3";
     public static final String CREATE_D2L_CONNECTION = CREATE_CONNECTION + "/4";
-    public static final String CREATE_ZOOM_CONNECTION = CREATE_CONNECTION + "/9";
+    public static final String CREATE_ZOOM_CONNECTION = ALL_CONNECTIONS + "/integrate/9";
     public static final String CREATE_ELLUCIAN_BANNER_CONNECTION = ALL_INTEGRATIONS + "/11";
     public static final String CREATE_ELLUCIAN_COLLEAGUE_CONNECTION = ALL_INTEGRATIONS + "/12";
     public static final String CREATE_ILIAS_CONNECTION = CREATE_CONNECTION + "/16";

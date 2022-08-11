@@ -6,6 +6,7 @@ import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -122,8 +123,9 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     public void testProcessConnectionZoom() throws InterruptedException {
         open(CREATE_ZOOM_CONNECTION);
         String connectionName = "Zoom_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createZoomConnection(connectionName, CreateConnectionPage.ZOOM_TOKEN, CreateConnectionPage.ZOOM_SECRET)
+        CreateZoomConnectionPage.init()
+                .createZoomConnection(connectionName, CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                        CreateZoomConnectionPage.ZOOM_TOKEN, CreateZoomConnectionPage.ZOOM_SECRET)
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
