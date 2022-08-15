@@ -12,6 +12,7 @@ import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("Dashboard")
+@Tag("Dashboard")
 public class DashboardTest extends IBNextAbstractTest {
 
     @Test

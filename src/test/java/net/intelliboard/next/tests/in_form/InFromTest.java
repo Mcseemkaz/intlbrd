@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("InForm")
+@Tag("InForm")
 public class InFromTest extends IBNextAbstractTest {
 
     @ParameterizedTest
