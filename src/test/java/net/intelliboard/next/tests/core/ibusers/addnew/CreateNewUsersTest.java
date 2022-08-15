@@ -21,6 +21,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
+@Tag("IBUser")
 public class CreateNewUsersTest extends IBNextAbstractTest {
 
     @ParameterizedTest

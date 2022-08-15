@@ -21,6 +21,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("IBUser")
+@Tag("IBUser")
 public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @ParameterizedTest

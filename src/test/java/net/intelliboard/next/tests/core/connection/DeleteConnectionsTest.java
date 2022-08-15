@@ -15,6 +15,7 @@ import static net.intelliboard.next.services.IBNextURLs.CREATE_MOODLE_CONNECTION
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Delete Connections")
+@Tag("Delete_Connections")
 public class DeleteConnectionsTest extends IBNextAbstractTest {
 
     @Test

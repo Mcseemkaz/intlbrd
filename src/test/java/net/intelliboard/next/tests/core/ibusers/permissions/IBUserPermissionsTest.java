@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 @Feature("IBUser")
+@Tag("IBUser")
 public class IBUserPermissionsTest extends IBNextAbstractTest {
 
     @Test

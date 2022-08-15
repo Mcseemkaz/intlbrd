@@ -17,7 +17,8 @@ import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.open;
 
-@Feature("Sign Up")
+@Feature("Sign_Up")
+@Tag("Sign_Up")
 public class UserRegistrationTest extends IBNextAbstractTest {
 
     @Test

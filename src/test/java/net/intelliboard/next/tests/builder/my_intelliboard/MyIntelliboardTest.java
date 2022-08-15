@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @Feature("MyIntelliboard")
+@Tag("MyIntelliboard")
 public class MyIntelliboardTest extends IBNextAbstractTest {
 
     @Test
