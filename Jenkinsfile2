@@ -11,7 +11,7 @@ pipeline {
             steps {
                 catchError {
                     script {
-                     	    sh ('docker run -d --rm --name selenoid -p 4444:4444 -v //var/run/docker.sock:/var/run/docker.sock -v ${PWD}/docker:/etc/selenoid:ro aerokube/selenoid:latest-release')
+                     	    sh ('docker run -d --rm --name selenoid -p 4444:4444 -v //var/run/docker.sock:/var/run/docker.sock -v ${PWD}/docker:/etc/selenoid:ro aerokube/selenoid:latest-release -timeout 5m0s')
                             }
                        	}
             }

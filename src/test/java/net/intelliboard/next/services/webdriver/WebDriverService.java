@@ -17,13 +17,16 @@ public class WebDriverService {
 
             case "remote":
                 DesiredCapabilities cap = new DesiredCapabilities();
+                String testName = String.format("%s | %s | %s", testInfo.getDisplayName(),
+                        LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), System.getProperty("TestEnvironment").toUpperCase());
                 cap.setAcceptInsecureCerts(true);
                 cap.setBrowserName("chrome");
-                cap.setVersion("99.0");
+                cap.setVersion("102.0");
                 cap.setCapability("enableVNC", true);
                 cap.setCapability("enableVideo", false);
-                cap.setCapability("name", String.format("%s | %s |", testInfo.getDisplayName(),
-                        LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+                cap.setCapability("name", testName);
+                cap.setCapability("videoName", testName);
+
                 Configuration.browserCapabilities = cap;
                 Configuration.remote = "http://localhost:4444/wd/hub";
 
