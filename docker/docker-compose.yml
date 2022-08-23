@@ -4,33 +4,33 @@ services:
     network_mode: bridge
     image: aerokube/selenoid:latest-release
     volumes:
-    - "$PWD:/etc/selenoid"
-    - "/var/run/docker.sock:/var/run/docker.sock"
-    - "$PWD:/opt/selenoid"
-    - "$PWD/logs:/opt/selenoid/logs"
+      - "$PWD:/etc/selenoid"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "$PWD:/opt/selenoid"
+      - "$PWD/logs:/opt/selenoid/logs"
     environment:
-    - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
-    command: ["-conf", "-vnc", "-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs"]
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/video
+    command: [ "-conf", "-vnc", "-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs", "-timeout", "5m0s" ]
     ports:
-    - "4444:4444"
+      - "4444:4444"
 
   selenoid-ui:
     image: "aerokube/selenoid-ui:latest-release"
     network_mode: bridge
-    links: 
-        - selenoid
+    links:
+      - selenoid
     ports:
-    - "8088:8080"
-    command: ["--selenoid-uri", "http://$IPADDRESS:4444"]
+      - "8088:8080"
+    command: [ "--selenoid-uri", "http://$IPADDRESS:4444" ]
 
   chrome:
-    image: "selenoid/vnc_chrome:99.0"
+    image: "selenoid/vnc_chrome:102.0"
     network_mode: bridge
-    links: 
-        - selenoid
+    links:
+      - selenoid
   
   video:
     image: "selenoid/video-recorder:latest-release"
     network_mode: bridge
-    links: 
-        - selenoid
+    links:
+      - selenoid

@@ -12,12 +12,12 @@ public class LmsFilterSettingPage {
 
     public static LmsFilterSettingPage init() {
         $x("//div[contains (@class,'content-header')]")
-                .shouldBe(Condition.visible, Duration.ofSeconds(100));
+                .shouldBe(Condition.visible, Duration.ofSeconds(120));
         return new LmsFilterSettingPage();
     }
 
     public ConnectionsListPage saveFilterSettings() {
-        buttonSave.shouldBe(Condition.visible).click();
+        buttonSave.shouldBe(Condition.visible, Duration.ofSeconds(120)).click();
         return ConnectionsListPage.init();
     }
 }
