@@ -5,6 +5,8 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.PropertiesGetValue;
+import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailRequestBuilder;
+import net.intelliboard.next.services.api.dto.OneSecMailEmailBoxesListDTO;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -47,5 +50,16 @@ public class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
+    }
+
+
+    @Test
+    public void testOneSecMailBox(){
+        OneSecMailRequestBuilder mailRequestBuilder = new OneSecMailRequestBuilder();
+
+        OneSecMailEmailBoxesListDTO emailBoxesListDTO = mailRequestBuilder.generateNewMailBoxes("3");
+//        String firstEmail = emailBoxesListDTO.getMyArray().get(0));
+
+//        System.out.println(firstEmail);
     }
 }
