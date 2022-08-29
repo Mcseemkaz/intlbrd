@@ -43,6 +43,7 @@ public abstract class AbstractTest {
                 Integer.valueOf(propertiesGetValue.getPropertyValue("timeout")),
                 propertiesGetValue.getPropertyValue("resolution"), testInfo);
         LoginCookieHandler.run();
+
     }
 
     @AfterEach

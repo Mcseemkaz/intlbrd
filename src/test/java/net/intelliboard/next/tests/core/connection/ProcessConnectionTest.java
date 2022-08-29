@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.core.connection;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.pages.blackboard.BlackBoardMigrationService;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -76,7 +78,6 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         CreateConnectionPage.init().
                 createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
                         CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
-        $x("//a[contains (text(), '" + connectionName + "')]").exists();
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -99,7 +100,12 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1112")})
     @DisplayName("SP-T1112: Processing Blackboard connection")
-    public void testProcessConnectionBlackboard() throws InterruptedException {
+    public void testProcessConnectionBlackboard() throws InterruptedException, IOException {
+
+        // Migration BB before processing
+        BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
+        blackBoardMigrationService.performMigrationProcess();
+
         open(CREATE_BLACKBOARD_CONNECTION);
         String connectionName = "Blackboard_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -238,7 +244,6 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
 
         createConnectionPage
                 .createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL);
-//                .saveFilterSettings()
         ConnectionsListPage.init()
                 .editConnection(connectionName)
                 .processData()
@@ -251,4 +256,5 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
         connectionsListPage.deleteConnection(connectionName);
     }
+
 }

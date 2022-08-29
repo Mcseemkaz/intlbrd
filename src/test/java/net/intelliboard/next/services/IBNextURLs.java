@@ -6,10 +6,13 @@ public class IBNextURLs {
 
     public static String MAIN_URL;
     public static String CANVAS_MAIN_URL;
+    //Black-Board LMS Admin Tool
+    public static String BLACK_BOARD_MAIN_URL;
     static {
         try {
             MAIN_URL = new PropertiesGetValue().getPropertyValue("base_url");
             CANVAS_MAIN_URL = new PropertiesGetValue().getPropertyValue("canvas_base_url");
+            BLACK_BOARD_MAIN_URL= new PropertiesGetValue().getPropertyValue("blackboard_learn2_lms_url_main");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,5 +64,6 @@ public class IBNextURLs {
 
     //In-Form Page
     public static final String INFORM_LIST_PAGE = MAIN_URL + "/in-form";
+
 }
 

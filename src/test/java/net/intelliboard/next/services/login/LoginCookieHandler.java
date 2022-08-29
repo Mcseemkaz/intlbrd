@@ -1,9 +1,11 @@
 package net.intelliboard.next.services.login;
 
+import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.webdriver.CookieManager;
 import org.openqa.selenium.Cookie;
 
+import java.time.Duration;
 import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -17,6 +19,7 @@ public class LoginCookieHandler {
 
         if (isCookieSet) {
             open(IBNextURLs.MAIN_URL);
+            WebDriverRunner.getWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(180));
             setAllCookies();
             //TODO [MO] need to debug why cookies are not applied without refresh
             open(IBNextURLs.MAIN_URL);
