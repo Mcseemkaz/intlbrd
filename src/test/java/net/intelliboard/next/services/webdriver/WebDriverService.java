@@ -26,7 +26,7 @@ public class WebDriverService {
                 cap.setCapability("enableVideo", false);
                 cap.setCapability("name", testName);
                 cap.setCapability("videoName", testName);
-
+//                cap.setCapability("pageLoadStrategy","none");
                 Configuration.browserCapabilities = cap;
                 Configuration.remote = "http://localhost:4444/wd/hub";
 

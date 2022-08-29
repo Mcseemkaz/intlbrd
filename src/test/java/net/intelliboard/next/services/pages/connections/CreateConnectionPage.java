@@ -65,8 +65,8 @@ public class CreateConnectionPage {
             CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET = propertiesGetValue.getPropertyValue("canvas_data_client_secret");
             CreateConnectionPage.CANVAS_USER_LOGIN = propertiesGetValue.getPropertyValue("canvas_user_login");
             CreateConnectionPage.CANVAS_USER_PASS = propertiesGetValue.getPropertyValue("canvas_user_pass");
-            CreateConnectionPage.BLACKBOARD_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_lms_url");
-            CreateConnectionPage.BLACKBOARD_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_client_id");
+            CreateConnectionPage.BLACKBOARD_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_learn2_url");
+            CreateConnectionPage.BLACKBOARD_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_learn2_client_id");
             CreateConnectionPage.D2L_URL = propertiesGetValue.getPropertyValue("d2l_url");
             CreateConnectionPage.D2L_CLIENT_ID = propertiesGetValue.getPropertyValue("d2l_connection_id");
             CreateConnectionPage.D2L_CLIENT_SECRET = propertiesGetValue.getPropertyValue("d2l_connection_secret");
