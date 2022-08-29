@@ -18,6 +18,5 @@ public class DataGenerator {
 
     public static String getRandomValidPassword() {
         return Faker.instance().regexify("[A-Z][a-z][0-9][Q@#$%^]{10}");
-//        return Faker.instance().regexify("[A-Za-z\\d@$!%*?&]{10}");
     }
 }

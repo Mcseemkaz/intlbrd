@@ -3,6 +3,7 @@ package net.intelliboard.next.services.api.dto;
 import lombok.Data;
 
 import java.io.File;
+import java.util.ArrayList;
 
 @Data
 public class OneSecMailMessageDTO {
@@ -11,7 +12,8 @@ public class OneSecMailMessageDTO {
     String from;
     String subject;
     String date;
-    File[] attachments;
+    ArrayList<Object> attachments;
+    String body;
     String textBody;
     String htmlBody;
 
