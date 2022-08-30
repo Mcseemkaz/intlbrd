@@ -60,7 +60,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1125"), @Tag("smoke")})
     @DisplayName("SP-T1125: Create an account")
-    public void testOneSecMailBox() throws IOException {
+    public void testCreateAccount() throws IOException {
 
         //Get OneSecMailBox
         OneSecMailRequestBuilder mailRequestBuilder = new OneSecMailRequestBuilder();
