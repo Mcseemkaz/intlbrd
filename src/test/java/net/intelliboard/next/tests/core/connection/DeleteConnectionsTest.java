@@ -37,9 +37,9 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_BANNER_KEY)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.ELLUCIAN_COLLEAGUE, connectionName))
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
                 .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationType.ELLUCIAN_COLLEAGUE));
+                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
 
         ConnectionsListPage
                 .init()

@@ -1,13 +1,16 @@
 package net.intelliboard.next.tests.core.connection;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -196,9 +199,9 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.ELLUCIAN_COLLEAGUE, connectionName))
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
                 .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationType.ELLUCIAN_COLLEAGUE));
+                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
 
         ConnectionsListPage
                 .init()
@@ -230,9 +233,9 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_BANNER_KEY)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.ELLUCIAN_COLLEAGUE, connectionName))
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
                 .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationType.ELLUCIAN_COLLEAGUE));
+                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
 
         ConnectionsListPage
                 .init()
@@ -302,23 +305,40 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
     @Disabled
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")}) //TODO [MO] Add TC Key when available
-    @DisplayName("SP-TXXX: Create Qwickly connection")
-    public void testCreateQwicklyConnection() {
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1370")})
+    @DisplayName("SP-T1370: Create Qwickly connection")
+    public void testCreateQwicklyConnection() throws IOException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Qwickly_" + DataGenerator.getRandomString();
+        String mainConnectionName = "Canvas" + DataGenerator.getRandomString();
+
+        open(CREATE_CANVAS_CONNECTION);
+        createConnectionPage.createCanvasConnection(mainConnectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
+                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+
+        LoginCanvasPage.init()
+                .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
+                .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
+                .loginInCanvas()
+                .confirmAuthorize()
+                .saveFilterSettings()
+                .setActiveConnection(mainConnectionName, true);
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
 
         open(CREATE_QWICKLY_CONNECTION);
 
-        createConnectionPage.createQWICKLYConnection(connectionName, CreateConnectionPage.QWICKLY_KEY, CreateConnectionPage.QWICKLY_SECRET);
+        createConnectionPage
+                .createQWICKLYConnection(mainConnectionName, CreateConnectionPage.QWICKLY_URL, CreateConnectionPage.QWICKLY_KEY, CreateConnectionPage.QWICKLY_SECRET);
 
-        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+        assertThat(ConnectionsListPage.init()
+                .findConnectionByName(mainConnectionName)
+                .checkIntegration(ConnectionIntegrationTypeEnum.QWICKLY, mainConnectionName))
                 .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .as(String.format("Connection : %s is not existed", mainConnectionName));
 
         ConnectionsListPage
                 .init()
-                .deleteConnection(connectionName);
+                .deleteConnection(mainConnectionName);
     }
 
     @Test
@@ -344,7 +364,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         createConnectionPage.createMongooseConnection(mainConnectionName, CreateConnectionPage.MONGOOSE_API_KEY, CreateConnectionPage.MONGOOSE_SECRET, CreateConnectionPage.MONGOOSE_TEAM_CODE, LocalDateTime.now());
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationType.MONGOOSE_CADENCE, mainConnectionName))
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.MONGOOSE_CADENCE, mainConnectionName))
                 .isTrue();
 
         ConnectionsListPage.init().deleteConnection(mainConnectionName);
