@@ -46,6 +46,7 @@ public class CreateConnectionPage {
     public static String MWP_KEY;
     public static String MWP_W_URL;
     public static String MWP_W_KEY;
+    public static String QWICKLY_URL;
     public static String QWICKLY_KEY;
     public static String QWICKLY_SECRET;
     public static String MONGOOSE_API_KEY;
@@ -86,6 +87,7 @@ public class CreateConnectionPage {
             CreateConnectionPage.MWP_KEY = propertiesGetValue.getPropertyValue("mwp_token");
             CreateConnectionPage.MWP_W_URL = propertiesGetValue.getPropertyValue("mwp_workspace_url");
             CreateConnectionPage.MWP_W_KEY = propertiesGetValue.getPropertyValue("mwp_workspace_token");
+            CreateConnectionPage.QWICKLY_URL = propertiesGetValue.getPropertyValue("qwickly_url");
             CreateConnectionPage.QWICKLY_KEY = propertiesGetValue.getPropertyValue("qwickly_key");
             CreateConnectionPage.QWICKLY_SECRET = propertiesGetValue.getPropertyValue("qwickly_secret");
             CreateConnectionPage.MONGOOSE_API_KEY = propertiesGetValue.getPropertyValue("mongoose_api_key");
@@ -192,7 +194,8 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
-    public ConnectionsListPage createQWICKLYConnection(String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret) {
+    public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret) {
+        selectConnection(mainConnectionName);
         $x("//input[@id='qwickly_data_feed_url']").sendKeys(qwicklyDataFeedUrl);
         $x("//input[@id='qwickly_key']").sendKeys(qwicklyKey);
         $x("//input[@id='qwickly_secret']").sendKeys(qwicklySecret);

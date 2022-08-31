@@ -49,7 +49,7 @@ public class IBNextURLs {
     public static final String CREATE_SAKAI_CONNECTION = CREATE_CONNECTION + "/18";
     public static final String CREATE_MWP_MOODLE_CONNECTION = CREATE_CONNECTION + "/20";
     public static final String CREATE_TOTARA_CONNECTION = CREATE_CONNECTION + "/21";
-    public static final String CREATE_QWICKLY_CONNECTION = CREATE_CONNECTION + "/22";
+    public static final String CREATE_QWICKLY_CONNECTION = ALL_INTEGRATIONS + "/22";
     public static final String CREATE_MONGOOSE_CONNECTION = ALL_INTEGRATIONS + "/24";
 
 
