@@ -22,7 +22,7 @@ public class DatePicker {
 
     public DatePicker setDayOfMonth(LocalDateTime date) {
         String dayOfMonth = Integer.toString(date.getDayOfMonth());
-        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonth + "')][not( contains (@class,'flatpickr-disabled'))]")
+        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonth + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
                 .click();
         String setDate = $x("//input[contains (@name,'mongoose_cadence_init')]").getAttribute("value");
         assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
