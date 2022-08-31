@@ -343,8 +343,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")})
-    @DisplayName("SP-TXXX: Create Mongoose Sub-connection")
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1375")})
+    @DisplayName("SP-T1375: Creating of Mangoose Cadence sub-connection")
     public void testCreateMongooseSubConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         //Main connection
