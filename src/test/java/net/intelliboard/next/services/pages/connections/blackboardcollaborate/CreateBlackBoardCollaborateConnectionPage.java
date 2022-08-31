@@ -42,7 +42,9 @@ public class CreateBlackBoardCollaborateConnectionPage extends CreateConnectionP
     public ConnectionsListPage createBBCollaborateConnection(String connectionName, String mainConnectionName, String blackBoardCollaborateApiKey, String blackBoardCollaborateSecretValue,
                                                              String blackBoardCollaborateURL) {
         selectConnection(mainConnectionName);
-        connectionNameField.setValue(connectionName);
+        if (mainConnectionName.contains("Independent Connection")) {
+            connectionNameField.setValue(connectionName);
+        }
         blackBoardCollaborateAPIKey.setValue(blackBoardCollaborateApiKey);
         blackBoardCollaborateSecret.setValue(blackBoardCollaborateSecretValue);
         blackBoardCollaborateEndpoint.setValue(blackBoardCollaborateURL);

@@ -4,7 +4,8 @@ public enum ConnectionIntegrationTypeEnum {
 
     ELLUCIAN_COLLEAGUE("Ellucian Colleague"),
     MONGOOSE_CADENCE("Mongoose Cadence"),
-    QWICKLY("Qwickly Attendance");
+    QWICKLY("Qwickly Attendance"),
+    BLACK_BOARD_COLLABORATE("Blackboard Collaborate");
 
     public String value;
 

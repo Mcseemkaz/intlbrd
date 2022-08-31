@@ -111,21 +111,27 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateD2LConnection() {
 
         open(CREATE_D2L_CONNECTION);
-        String lmsD2LName = "D2L_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createD2LConnection(lmsD2LName, CreateConnectionPage.D2L_URL, CreateConnectionPage.D2L_CLIENT_ID,
-                        CreateConnectionPage.D2L_CLIENT_SECRET, CreateConnectionPage.D2L_USER_LOGIN, CreateConnectionPage.D2L_USER_PASS);
+        String connectionName = "D2L_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createD2LConnection(
+                        connectionName,
+                        CreateConnectionPage.D2L_URL,
+                        CreateConnectionPage.D2L_CLIENT_ID,
+                        CreateConnectionPage.D2L_CLIENT_SECRET,
+                        CreateConnectionPage.D2L_USER_LOGIN,
+                        CreateConnectionPage.D2L_USER_PASS);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(lmsD2LName);
+        connectionsListPage.findConnectionByName(connectionName);
 
-        assertThat(connectionsListPage.isConnectionExist(lmsD2LName))
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .isTrue()
-                .as(String.format("Connection : %s is not existed", lmsD2LName));
+                .as(String.format("Connection : %s is not existed", connectionName));
 
         connectionsListPage
-                .deleteConnection(lmsD2LName);
+                .deleteConnection(connectionName);
     }
 
     @Test
@@ -354,7 +360,10 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         String connectionName = "Mongoose_" + DataGenerator.getRandomString();
 
         open(CREATE_MOODLE_CONNECTION);
-        createConnectionPage.createMoodleConnection(mainConnectionName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL)
+        createConnectionPage.createMoodleConnection(
+                        mainConnectionName,
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
                 .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(mainConnectionName).isConnectionExist(mainConnectionName))
@@ -363,12 +372,19 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MONGOOSE_CONNECTION);
 
-        createConnectionPage.createMongooseConnection(mainConnectionName, CreateConnectionPage.MONGOOSE_API_KEY, CreateConnectionPage.MONGOOSE_SECRET, CreateConnectionPage.MONGOOSE_TEAM_CODE, LocalDateTime.now());
+        createConnectionPage.createMongooseConnection(
+                mainConnectionName,
+                CreateConnectionPage.MONGOOSE_API_KEY,
+                CreateConnectionPage.MONGOOSE_SECRET,
+                CreateConnectionPage.MONGOOSE_TEAM_CODE,
+                LocalDateTime.now());
 
         assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.MONGOOSE_CADENCE, mainConnectionName))
                 .isTrue();
 
-        ConnectionsListPage.init().deleteConnection(mainConnectionName);
+        ConnectionsListPage
+                .init()
+                .deleteConnection(mainConnectionName);
     }
 
     @Test
@@ -396,5 +412,47 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         connectionsListPage
                 .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T604")})
+    @DisplayName("SP-T604: Creating of BlackBoard Collaborate sub-connection")
+    public void testCreateBlackBoardCollaborateSubConnection() throws IOException {
+
+        open(CREATE_D2L_CONNECTION);
+        String mainConnectionName = "D2L_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createD2LConnection(
+                        mainConnectionName,
+                        CreateConnectionPage.D2L_URL,
+                        CreateConnectionPage.D2L_CLIENT_ID,
+                        CreateConnectionPage.D2L_CLIENT_SECRET,
+                        CreateConnectionPage.D2L_USER_LOGIN,
+                        CreateConnectionPage.D2L_USER_PASS)
+                .setActiveConnection(mainConnectionName, true);
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+
+        open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
+
+        String connectionName = "BBCollaborate_" + DataGenerator.getRandomString();
+        CreateBlackBoardCollaborateConnectionPage
+                .init()
+                .createBBCollaborateConnection(
+                        connectionName,
+                        mainConnectionName,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
+                .findConnectionByName(mainConnectionName);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+        assertThat(connectionsListPage.checkIntegration(ConnectionIntegrationTypeEnum.BLACK_BOARD_COLLABORATE, mainConnectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", mainConnectionName));
+
+        connectionsListPage
+                .deleteConnection(mainConnectionName);
     }
 }
