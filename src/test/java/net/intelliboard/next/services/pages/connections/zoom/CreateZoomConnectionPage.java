@@ -23,8 +23,8 @@ public class CreateZoomConnectionPage extends CreateConnectionPage {
 
     static {
         try {
-            CreateZoomConnectionPage.ZOOM_TOKEN = propertiesGetValue.getPropertyValue("zoom_token");
-            CreateZoomConnectionPage.ZOOM_SECRET = propertiesGetValue.getPropertyValue("zoom_secret");
+            ZOOM_TOKEN = propertiesGetValue.getPropertyValue("zoom_token");
+            ZOOM_SECRET = propertiesGetValue.getPropertyValue("zoom_secret");
         }catch (IOException e) {
             e.printStackTrace();
         }

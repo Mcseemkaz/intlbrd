@@ -7,6 +7,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
+import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
 import net.intelliboard.next.services.pages.connections.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -368,5 +369,32 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .isTrue();
 
         ConnectionsListPage.init().deleteConnection(mainConnectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T600")})
+    @DisplayName("SP-T600: Creating of BlackBoard Collaborate independet connection")
+    public void testCreateBlackBoardCollaborateIndependentConnection() {
+
+        open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
+
+        String connectionName = "BBCollaborate_" + DataGenerator.getRandomString();
+        CreateBlackBoardCollaborateConnectionPage
+                .init()
+                .createBBCollaborateConnection(
+                        connectionName,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_INDEPENDENT_CONNECTION_NAME,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
+                .findConnectionByName(connectionName);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
+                .isTrue()
+                .as(String.format("Connection : %s is not existed", connectionName));
+
+        connectionsListPage
+                .deleteConnection(connectionName);
     }
 }
