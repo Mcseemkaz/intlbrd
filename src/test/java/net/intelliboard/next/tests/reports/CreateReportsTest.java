@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.reports;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -44,8 +46,9 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
         ReportBuilderMainPage
                 .init()
@@ -91,8 +94,9 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
         ReportBuilderMainPage
                 .init()
@@ -138,8 +142,9 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
         ReportBuilderMainPage
                 .init()
@@ -187,14 +192,11 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(5000);
 
         ReportBuilderMainPage
                 .init()
@@ -251,14 +253,11 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(5000);
 
         ReportBuilderMainPage
                 .init()
@@ -331,14 +330,11 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(5000);
 
         ReportBuilderMainPage
                 .init()
@@ -358,7 +354,8 @@ public class CreateReportsTest extends IBNextAbstractTest {
         // Clean-up
         open(MY_INTELLIBOARD_PAGE);
 
-        assertThat(MyIntelliBoardPage.init().getReportBackgroundColors(reportName).contains(ReportSettingsColorsEnum.GREEN.rgbColor))
+        assertThat(MyIntelliBoardPage.init().getReportBackgroundColors(reportName)
+                .contains(ReportSettingsColorsEnum.GREEN.rgbColor))
                 .isTrue();
 
         MyIntelliBoardPage
@@ -397,16 +394,16 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarPaiChartLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME, BuilderRightSideBarPaiChartValuesTypeEnum.CATEGORY)
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_LOGINS_COUNT, BuilderRightSideBarPaiChartValuesTypeEnum.VALUE);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME,
+                        BuilderRightSideBarPaiChartValuesTypeEnum.CATEGORY)
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_LOGINS_COUNT,
+                        BuilderRightSideBarPaiChartValuesTypeEnum.VALUE);
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(5000);
 
         ReportBuilderMainPage
                 .init()
@@ -449,21 +446,17 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(5000);
 
         ReportBuilderMainPage
                 .init()
                 .saveReportToDashboard();
 
         //Clean-up
-
         open(MY_INTELLIBOARD_PAGE);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
@@ -474,8 +467,9 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         BuilderRightSideBarTableLayoutPage
                 .init()
-                .addDisplayElement(ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY
-                        , ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_ID);
+                .addDisplayElement(
+                        ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
+                        ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_ID);
 
         ReportBuilderMainPage
                 .init()

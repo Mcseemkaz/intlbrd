@@ -310,7 +310,6 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
-    @Disabled
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1370")})
     @DisplayName("SP-T1370: Create Qwickly connection")
