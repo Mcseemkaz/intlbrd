@@ -185,12 +185,13 @@ public class CreateConnectionPage {
                 .saveFilterSettings();
     }
 
-    public ConnectionsListPage createTOTARAConnection(String lmsName, String TOTARAUrl, String TOTARAToken) {
-        connectionNameField.setValue(lmsName);
+    public ConnectionsListPage createTOTARAConnection(String connectionName, String TOTARAUrl, String TOTARAToken) {
+        connectionNameField.setValue(connectionName);
         lmsUrlField.setValue(TOTARAUrl);
         clientIdField.setValue(TOTARAToken);
         submitForm();
 
+        LmsFilterSettingPage.init().saveFilterSettings();
         return ConnectionsListPage.init();
     }
 
