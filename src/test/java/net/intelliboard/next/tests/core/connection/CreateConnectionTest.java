@@ -189,8 +189,13 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         String connectionName = "Canvas" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
-        createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        createConnectionPage.createCanvasConnection(
+                connectionName,
+                CreateConnectionPage.CANVAS_CLIENT_ID,
+                CreateConnectionPage.CANVAS_LMS_URL,
+                CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -224,8 +229,13 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         String connectionName = "Canvas" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
-        createConnectionPage.createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        createConnectionPage.createCanvasConnection(
+                connectionName,
+                CreateConnectionPage.CANVAS_CLIENT_ID,
+                CreateConnectionPage.CANVAS_LMS_URL,
+                CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -278,7 +288,11 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_KEY, CreateConnectionPage.MWP_URL);
+        createConnectionPage.createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MWP_KEY,
+                        CreateConnectionPage.MWP_URL)
+                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
@@ -298,8 +312,11 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage.createMoodleConnection(connectionName, CreateConnectionPage.MWP_W_KEY, CreateConnectionPage.MWP_W_URL);
-        //.saveFilterSettings();
+        createConnectionPage.createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MWP_W_KEY,
+                        CreateConnectionPage.MWP_W_URL)
+                .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
                 .isTrue()
