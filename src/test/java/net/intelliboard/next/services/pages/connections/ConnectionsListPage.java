@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
 import net.intelliboard.next.IBNextAbstractTest;
 
 import java.time.Duration;
@@ -81,6 +82,37 @@ public class ConnectionsListPage {
             checkRadioButton.shouldHave(Condition.attribute("name", "radio-button-off-outline"));
         }
 
+        return this;
+    }
+
+    public ConnectionsListPage selectConnection(String connectionName, boolean setSelected) {
+        SelenideElement checkbox = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//input[@type='checkbox']");
+        if (setSelected == true && checkbox.isSelected() == false) {
+            checkbox.click();
+            checkbox.should(Condition.selected);
+        } else if (setSelected == false && checkbox.isSelected() == true) {
+            checkbox.click();
+            checkbox.should(Condition.not(Condition.selected));
+
+        }
+        return this;
+    }
+
+    private ConnectionsListPage openActionMenu() throws ElementNotFound {
+        SelenideElement actionMenuDropdown = $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]");
+        actionMenuDropdown.click();
+        $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul")
+                .shouldBe(Condition.visible);
+        return this;
+    }
+
+    public ConnectionsListPage deleteSelectedConnectionsByActionDropdown() {
+        openActionMenu();
+        $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Delete Selected')]")
+                .click();
+        //Modal confirmation
+        $x("//div[@class='modal-content']//button[contains(@class,'error')]").click();
+        $x("//div[@class='modal-content']").shouldNotBe(Condition.visible, Duration.ofSeconds(30));
         return this;
     }
 }
