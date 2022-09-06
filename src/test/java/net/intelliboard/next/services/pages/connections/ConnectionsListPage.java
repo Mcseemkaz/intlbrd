@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import net.intelliboard.next.IBNextAbstractTest;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class ConnectionsListPage {
 
     private SelenideElement buttonDelete = $x("//div //ul /li /a[contains(text(), 'Delete')]");
     private SelenideElement buttonEdit = $x("//li/a[contains (@href,'/edit')]");
+    private IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
 
     public static ConnectionsListPage init() {
         $x("//h2[contains (text(),'Connections')]")
@@ -37,11 +39,16 @@ public class ConnectionsListPage {
     }
 
     public ConnectionsListPage findConnectionByName(String connectionName) {
-        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-        while (!(isConnectionExist(connectionName))) {
-            $x("//a[@rel='next']").click();
-            ibNextAbstractTest.waitForPageLoaded();
-        }
+        $x("//input[contains(@class, 'search-input')][@placeholder='Search']")
+                .setValue(connectionName)
+                .sendKeys(Keys.ENTER);
+        /*
+         * Old implementation in cycle searching
+         * */
+//        while (!(isConnectionExist(connectionName))) {
+//            $x("//a[@rel='next']").click();
+        ibNextAbstractTest.waitForPageLoaded();
+//        }
         return this;
     }
 
@@ -114,5 +121,23 @@ public class ConnectionsListPage {
         $x("//div[@class='modal-content']//button[contains(@class,'error')]").click();
         $x("//div[@class='modal-content']").shouldNotBe(Condition.visible, Duration.ofSeconds(30));
         return this;
+    }
+
+    public ConnectionsListPage deactivateConnectionByActionMenu() {
+        openActionMenu();
+        $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Deactivate Selected')]")
+                .click();
+        ibNextAbstractTest.waitForPageLoaded();
+        return ConnectionsListPage.init();
+    }
+
+    public boolean isConnectionActivation(String connectionName, boolean isActivated) {
+        SelenideElement checkRadioButton = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//td[contains (@class, 'status-cell')]//ion-icon");
+        if (checkRadioButton.getAttribute("name").contains("off") && isActivated == true) {
+            return false;
+        } else if (checkRadioButton.getAttribute("name").contains("button-on") && isActivated == false) {
+            return false;
+        } else
+            return true;
     }
 }

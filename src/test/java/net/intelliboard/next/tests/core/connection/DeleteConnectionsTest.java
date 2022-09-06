@@ -72,12 +72,11 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                     CreateZoomConnectionPage.ZOOM_TOKEN,
                     CreateZoomConnectionPage.ZOOM_SECRET)
                     .findConnectionByName(connectionName);
-            System.out.println(numberConnections);
             connectionsList.add(connectionName);
             numberConnections--;
         }
 
-        connectionsList.forEach( k -> ConnectionsListPage.init().selectConnection(k, true));
+        connectionsList.forEach( k -> ConnectionsListPage.init().findConnectionByName(k).selectConnection(k, true));
 
         ConnectionsListPage.init().deleteSelectedConnectionsByActionDropdown();
 
