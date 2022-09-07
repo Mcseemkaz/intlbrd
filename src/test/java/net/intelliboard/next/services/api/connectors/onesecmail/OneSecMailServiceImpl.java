@@ -2,28 +2,35 @@ package net.intelliboard.next.services.api.connectors.onesecmail;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-import net.intelliboard.next.services.api.dto.OneSecMailMessageDTO;
-import net.intelliboard.next.services.api.dto.OneSecMailMessagesShortDTO;
+import net.intelliboard.next.services.api.connectors.MailService;
+import net.intelliboard.next.services.api.pojo.onesecmail.OneSecMailMessagePOJO;
+import net.intelliboard.next.services.api.pojo.onesecmail.OneSecMailMessagesShortPOJO;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
-public class OneSecMailRequestBuilder {
+public class OneSecMailServiceImpl implements MailService {
 
-    private final String baseUri = "https://www.1secmail.com";
-    private final String basePath = "/api/v1/";
+    private final String BASE_URI = "https://www.1secmail.com";
+    private final String BASE_PATH = "/api/v1/";
 
+    @Override
+    public String getRegistrationLink(String emailBoxName) {
+        String messageHTMLBody = getMessageById(emailBoxName).getHtmlBody();
+        return getCutRegistrationLink(messageHTMLBody);
+    }
+
+    @Override
     public String generateNewMailBoxes() {
-        RequestSpecBuilder builder = new RequestSpecBuilder();
+        RequestSpecBuilder builder = getPreparedMainRequestPart();
 
         HashMap<String, String> params = new HashMap<>();
 
         params.put("action", OneSecMailActionsEnum.GENERATE_RANDOM_BOX.value);
         params.put("count", "1");
-        builder.setBaseUri(baseUri);
-        builder.setBasePath(basePath);
         builder.addParams(params);
         RequestSpecification spec = builder.build();
 
@@ -35,28 +42,33 @@ public class OneSecMailRequestBuilder {
         return StringUtils.substringBetween(jsonString, "\"", "\"");
     }
 
-    public OneSecMailMessagesShortDTO[] getListEmails(String emailBox) {
+    private OneSecMailMessagesShortPOJO[] getMessagesList(String emailBoxName) {
 
-        RequestSpecBuilder builder = new RequestSpecBuilder();
-
+        RequestSpecBuilder builder = getPreparedMainRequestPart();
         HashMap<String, String> params = new HashMap<>();
 
         params.put("action", OneSecMailActionsEnum.GET_MESSAGES.value);
-        params.put("login", getEmailLogin(emailBox));
-        params.put("domain", getEmailDomain(emailBox));
-        builder.setBaseUri(baseUri);
-        builder.setBasePath(basePath);
+        params.put("login", getEmailLogin(emailBoxName));
+        params.put("domain", getEmailDomain(emailBoxName));
         builder.addParams(params);
         RequestSpecification spec = builder.build();
 
         return given(spec)
                 .when()
                 .get()
-                .as(OneSecMailMessagesShortDTO[].class);
+                .as(OneSecMailMessagesShortPOJO[].class);
     }
 
-    public OneSecMailMessageDTO getMessageById(String emailBox, String id) {
-        RequestSpecBuilder builder = new RequestSpecBuilder();
+    private OneSecMailMessagePOJO getMessageById(String emailBox) {
+
+        String id =
+                String.valueOf(
+                        Arrays.stream(getMessagesList(emailBox))
+                                .findFirst()
+                                .get()
+                                .getId());
+
+        RequestSpecBuilder builder = getPreparedMainRequestPart();
 
         HashMap<String, String> params = new HashMap<>();
 
@@ -64,18 +76,16 @@ public class OneSecMailRequestBuilder {
         params.put("login", getEmailLogin(emailBox));
         params.put("domain", getEmailDomain(emailBox));
         params.put("id", id);
-        builder.setBaseUri(baseUri);
-        builder.setBasePath(basePath);
         builder.addParams(params);
         RequestSpecification spec = builder.build();
 
         return given(spec)
                 .when()
                 .get()
-                .as(OneSecMailMessageDTO.class);
+                .as(OneSecMailMessagePOJO.class);
     }
 
-    public String getRegistrationLink(String body) {
+    private String getCutRegistrationLink(String body) {
         return StringUtils.substringBetween(body, "href=\"", "\"");
     }
 
@@ -85,5 +95,12 @@ public class OneSecMailRequestBuilder {
 
     private String getEmailDomain(String emailBox) {
         return StringUtils.substringAfter(emailBox, "@");
+    }
+
+    private RequestSpecBuilder getPreparedMainRequestPart() {
+        RequestSpecBuilder builder = new RequestSpecBuilder();
+        builder.setBaseUri(BASE_URI);
+        builder.setBasePath(BASE_PATH);
+        return builder;
     }
 }

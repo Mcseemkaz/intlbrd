@@ -1,12 +1,11 @@
-package net.intelliboard.next.services.api.dto;
+package net.intelliboard.next.services.api.pojo.onesecmail;
 
 import lombok.Data;
 
-import java.io.File;
 import java.util.ArrayList;
 
 @Data
-public class OneSecMailMessageDTO {
+public class OneSecMailMessagePOJO {
 
     int id;
     String from;
