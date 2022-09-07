@@ -5,8 +5,9 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.PropertiesGetValue;
-import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailRequestBuilder;
-import net.intelliboard.next.services.api.dto.OneSecMailMessageDTO;
+import net.intelliboard.next.services.api.connectors.MailService;
+import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceImpl;
+import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
@@ -17,7 +18,6 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -62,15 +62,23 @@ public class UserRegistrationTest extends IBNextAbstractTest {
     @DisplayName("SP-T1125: Create an account")
     public void testCreateAccount() throws IOException {
 
-        //Get OneSecMailBox
-        OneSecMailRequestBuilder mailRequestBuilder = new OneSecMailRequestBuilder();
-        String oneSecMailBox = mailRequestBuilder.generateNewMailBoxes();
-
-        String password = DataGenerator.getRandomValidPassword();
         PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
         String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String password = DataGenerator.getRandomValidPassword();
+        MailService mailService;
 
-        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
+            mailService = new MailTrapServiceImpl();
+        } else if (System.getProperty("TestEnvironment").contains("prod")) {
+            mailService = new OneSecMailServiceImpl();
+        } else mailService = null;
+
+        String emailBoxName = mailService.generateNewMailBoxes();
+
+        WebDriverRunner
+                .getWebDriver()
+                .manage()
+                .deleteAllCookies();
 
         open(IBNextURLs.MAIN_URL);
         LoginPage.init()
@@ -79,7 +87,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
                 .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
-                .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, oneSecMailBox)
+                .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
@@ -87,20 +95,14 @@ public class UserRegistrationTest extends IBNextAbstractTest {
                 .agreeTermsPolicy()
                 .submitForm();
 
-        String id =
-                String.valueOf(
-                        Arrays.stream(mailRequestBuilder.getListEmails(oneSecMailBox))
-                                .findFirst()
-                                .get()
-                                .getId());
+        String registrationURL = mailService.getRegistrationLink(emailBoxName);
 
-        OneSecMailMessageDTO message = mailRequestBuilder.getMessageById(oneSecMailBox, id);
-        open(mailRequestBuilder.getRegistrationLink(message.getHtmlBody()));
+        open(registrationURL);
 
         IBRegistrationConfirmationPage
                 .init()
                 .goToMyLogin()
-                .fillInLoginFiled(oneSecMailBox)
+                .fillInLoginFiled(emailBoxName)
                 .fillInPassFiled(password)
                 .submitForm();
     }
