@@ -49,6 +49,11 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
         assertThat(IBUsersPage.init()
                 .isUserPresents(selectedLMSUser))
                 .isTrue();
+
+        IBUsersPage.init()
+                .changeScalingUsersPerPage(200)
+                .checkedAllUsers()
+                .deleteUser();
     }
 
     @Test
@@ -71,7 +76,9 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
         ibUsersSyncPage.syncUsers();
 
         open(IBNextURLs.USERS_PAGE);
-        IBUsersPage.init().deleteUser(selectedLMSUser);
+        IBUsersPage
+                .init()
+                .deleteUser(selectedLMSUser);
 
         assertThat(IBUsersPage.init()
                 .isUserPresents(selectedLMSUser))
@@ -102,8 +109,10 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage ibUsersPage = IBUsersPage.init();
-        users.forEach(k -> ibUsersPage.checkedUserByName(k));
-        IBUsersPage.init().deleteSelectedUsersByActionDropdown();
+        users.forEach(ibUsersPage::checkedUserByName);
+        IBUsersPage
+                .init()
+                .deleteSelectedUsersByActionDropdown();
 
         for (String u : users) {
             assertThat(IBUsersPage.init().isUserPresents(u))

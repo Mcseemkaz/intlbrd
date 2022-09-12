@@ -51,7 +51,7 @@ public class IBUsersSyncPage {
 
         ConnectionRolesDropdown.click();
 
-        $x("//div[contains(@class,'card-body')]//div[@name='lms_roles']//div[contains (@class,'intelli-dropdown')]//li//strong[text()='" + name + "']")
+        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//li//strong[text()='" + name + "']")
                 .click();
         $x("//button[@type='submit']")
                 .click();
@@ -61,8 +61,8 @@ public class IBUsersSyncPage {
     public IBUsersSyncPage selectLMSRole() {
        ConnectionRolesDropdown.click();
 
-//        $x("(//div[contains(@class,'card-body')]//div[@name='lms_roles']//div[contains (@class,'intelli-dropdown')]//li//strong)[1]")
-//                .click();
+       $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
+                .click();
         $x("//button[@type='submit']")
                 .click();
         return this;
