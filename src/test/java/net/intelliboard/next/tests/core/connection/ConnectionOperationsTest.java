@@ -34,7 +34,37 @@ public class ConnectionOperationsTest extends IBNextAbstractTest {
                 .selectConnection(connectionName, true);
 
         ConnectionsListPage.init()
-                .deactivateConnectionByActionMenu();
+                .deactivateSelectedConnectionByActionMenu();
+
+        assertThat(ConnectionsListPage
+                .init()
+                .findConnectionByName(connectionName)
+                .isConnectionActivation(connectionName, false))
+                .isTrue();
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @DisplayName("SP-T203: Deactivating connection by clicking at radiobutton")
+    @Tags(value = {@Tag("normal"), @Tag("SP-T203")})
+    public void testDeactivateConnectionByRadioButton() {
+
+        String connectionName = "AQA_SP-T203_" + DataGenerator.getRandomString();
+
+        open(CREATE_ZOOM_CONNECTION);
+
+        CreateZoomConnectionPage.init().createZoomConnection(
+                        connectionName,
+                        CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                        CreateZoomConnectionPage.ZOOM_TOKEN,
+                        CreateZoomConnectionPage.ZOOM_SECRET)
+                .findConnectionByName(connectionName);
+
+        ConnectionsListPage.init()
+                .setActiveConnection(connectionName, false);
 
         assertThat(ConnectionsListPage
                 .init()
