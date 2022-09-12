@@ -15,8 +15,8 @@ public class IBUsersSyncPage {
             $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']");
     private SelenideElement RolesDropdown =
             $x("//div[contains(@class,'card-body')]//div[@name='role_id']//div[contains (@class,'intelli-dropdown')]");
-    private SelenideElement LMSDropdown =
-            $x("//div[contains(@class,'card-body')]//div[@name='lms_roles']//div[contains (@class,'intelli-dropdown')]");
+    private SelenideElement ConnectionRolesDropdown =
+            $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]");
 
 
     public static IBUsersSyncPage init() {
@@ -49,9 +49,9 @@ public class IBUsersSyncPage {
 
     public IBUsersSyncPage selectLMSRole(String name) {
 
-        LMSDropdown.click();
+        ConnectionRolesDropdown.click();
 
-        $x("//div[contains(@class,'card-body')]//div[@name='lms_roles']//div[contains (@class,'intelli-dropdown')]//li//strong[text()='" + name + "']")
+        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//li//strong[text()='" + name + "']")
                 .click();
         $x("//button[@type='submit']")
                 .click();
@@ -59,9 +59,9 @@ public class IBUsersSyncPage {
     }
 
     public IBUsersSyncPage selectLMSRole() {
-       LMSDropdown.click();
+       ConnectionRolesDropdown.click();
 
-        $x("(//div[contains(@class,'card-body')]//div[@name='lms_roles']//div[contains (@class,'intelli-dropdown')]//li//strong)[1]")
+       $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
                 .click();
         $x("//button[@type='submit']")
                 .click();

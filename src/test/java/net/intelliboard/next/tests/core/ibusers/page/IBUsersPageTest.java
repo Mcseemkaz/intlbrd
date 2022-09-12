@@ -36,7 +36,7 @@ public class IBUsersPageTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T115")})
-    @DisplayName("SP-T116: Pagination at IB users page work correctly")
+    @DisplayName("SP-T115: Pagination at IB users page work correctly")
     public void testPaginationIBUsers() {
 
         HeaderObject header = HeaderObject.init();
