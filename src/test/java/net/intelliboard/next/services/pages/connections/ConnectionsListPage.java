@@ -123,7 +123,7 @@ public class ConnectionsListPage {
         return this;
     }
 
-    public ConnectionsListPage deactivateConnectionByActionMenu() {
+    public ConnectionsListPage deactivateSelectedConnectionByActionMenu() {
         openActionMenu();
         $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Deactivate Selected')]")
                 .click();
