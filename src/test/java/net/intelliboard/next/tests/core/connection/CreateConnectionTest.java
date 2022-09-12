@@ -1,20 +1,17 @@
 package net.intelliboard.next.tests.core.connection;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
-import net.intelliboard.next.services.pages.connections.zoom.CreateZoomConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -27,16 +24,16 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T83: Creating of Moodle connection")
     public void testCreateMoodleConnection() {
 
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
-        ConnectionsListPage connectionsListPage = new ConnectionsListPage();
-
-        String lmsMoodleName = "Moodle" + DataGenerator.getRandomString();
+        String connectionName = "AQA_SP-T83_" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
-        createConnectionPage.createMoodleConnection(lmsMoodleName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL);
-        $x("//header").shouldBe(Condition.visible);
-        lmsFilterSettingPage.saveFilterSettings();
-        connectionsListPage.deleteConnection(lmsMoodleName);
+        CreateConnectionPage
+                .init()
+                .createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
     }
 
     @Test
@@ -44,23 +41,26 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T89: Creating of Canvas connection")
     public void testCreateCanvasConnection() {
 
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        ConnectionsListPage connectionsListPage = new ConnectionsListPage();
-
-        String lmsCanvasName = "Canvas" + DataGenerator.getRandomString();
+        String connectionName = "AQA_SP-T89_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
-        createConnectionPage.createCanvasConnection(lmsCanvasName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        CreateConnectionPage
+                .init()
+                .createCanvasConnection(
+                        connectionName,
+                        CreateConnectionPage.CANVAS_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
                 .confirmAuthorize()
-                .saveFilterSettings();
-
-        connectionsListPage.deleteConnection(lmsCanvasName);
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
     }
 
     @Test
@@ -68,18 +68,18 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T599: Creating a Blackboard connection")
     public void testCreateBlackboardConnection() {
 
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        ConnectionsListPage connectionsListPage = new ConnectionsListPage();
-        LmsFilterSettingPage lmsFilterSettingPage = new LmsFilterSettingPage();
-
-        String lmsBlackboardName = "Blackboard_" + DataGenerator.getRandomString();
+        String connectionName = "AQA_SP-T599_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        createConnectionPage.createBlackboardConnection(lmsBlackboardName, CreateConnectionPage.BLACKBOARD_CLIENT_ID, CreateConnectionPage.BLACKBOARD_LMS_URL);
-        $x("//header").shouldBe(Condition.visible);
-        lmsFilterSettingPage.saveFilterSettings();
-        connectionsListPage.deleteConnection(lmsBlackboardName);
+        CreateConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
     }
 
     @Test
@@ -89,9 +89,14 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_ZOOM_CONNECTION);
 
-        String connectionName = "Zoom_" + DataGenerator.getRandomString();
-        CreateZoomConnectionPage.init().createZoomConnection(connectionName, CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
-                CreateZoomConnectionPage.ZOOM_TOKEN, CreateZoomConnectionPage.ZOOM_SECRET);
+        String connectionName = "AQA_SP-T106_" + DataGenerator.getRandomString();
+        CreateZoomConnectionPage
+                .init()
+                .createZoomConnection(
+                        connectionName,
+                        CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                        CreateZoomConnectionPage.ZOOM_TOKEN,
+                        CreateZoomConnectionPage.ZOOM_SECRET);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
@@ -111,7 +116,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateD2LConnection() {
 
         open(CREATE_D2L_CONNECTION);
-        String connectionName = "D2L_" + DataGenerator.getRandomString();
+        String connectionName = "AQA_SP-T103_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createD2LConnection(
@@ -140,21 +145,25 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
-        String lmsILIASName = "ILIAS_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createILIASConnection(lmsILIASName, CreateConnectionPage.ILIAS_URL, CreateConnectionPage.ILIAS_TOKEN,
+        String connectionName = "AQA_SP-T104_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createILIASConnection(
+                        connectionName,
+                        CreateConnectionPage.ILIAS_URL,
+                        CreateConnectionPage.ILIAS_TOKEN,
                         CreateConnectionPage.ILIAS_KEY);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(lmsILIASName);
+        connectionsListPage.findConnectionByName(connectionName);
 
-        assertThat(connectionsListPage.isConnectionExist(lmsILIASName))
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .isTrue()
-                .as(String.format("Connection : %s is not existed", lmsILIASName));
+                .as(String.format("Connection : %s is not existed", connectionName));
 
         connectionsListPage
-                .deleteConnection(lmsILIASName);
+                .deleteConnection(connectionName);
     }
 
     @Test
@@ -163,21 +172,25 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
-        String lmsSAKAIName = "SAKAI_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createSAKAIConnection(lmsSAKAIName, CreateConnectionPage.SAKAI_URL, CreateConnectionPage.SAKAI_TOKEN,
+        String connectionName = "AQA_SP-T823_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createSAKAIConnection(
+                        connectionName,
+                        CreateConnectionPage.SAKAI_URL,
+                        CreateConnectionPage.SAKAI_TOKEN,
                         CreateConnectionPage.SAKAI_KEY);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(lmsSAKAIName);
+        connectionsListPage.findConnectionByName(connectionName);
 
-        assertThat(connectionsListPage.isConnectionExist(lmsSAKAIName))
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .isTrue()
-                .as(String.format("Connection : %s is not existed", lmsSAKAIName));
+                .as(String.format("Connection : %s is not existed", connectionName));
 
         connectionsListPage
-                .deleteConnection(lmsSAKAIName);
+                .deleteConnection(connectionName);
     }
 
     @Test
