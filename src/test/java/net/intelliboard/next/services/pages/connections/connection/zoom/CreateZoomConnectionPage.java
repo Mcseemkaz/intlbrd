@@ -1,4 +1,4 @@
-package net.intelliboard.next.services.pages.connections.zoom;
+package net.intelliboard.next.services.pages.connections.connection.zoom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

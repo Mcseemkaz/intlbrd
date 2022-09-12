@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.connections.connection.MainConnectionPage;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
@@ -10,7 +11,7 @@ import java.util.NoSuchElementException;
 import static com.codeborne.selenide.Selenide.$x;
 import static net.intelliboard.next.AbstractTest.WAIT_TIMEOUT_LONG;
 
-public class EditConnectionPage {
+public class ConnectionConnectionSettingsPage extends MainConnectionPage {
 
     SelenideElement buttonProcessData =
             $x("//div[@class='content-header']//a[contains (@href,'/process') and contains (@class,'success')]");
@@ -18,10 +19,10 @@ public class EditConnectionPage {
     SelenideElement ellucianBlock = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]");
     SelenideElement ellucianBlockDeleteButton = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]//a[contains (@href,'/delete')]");
 
-    public static EditConnectionPage init() {
+    public static ConnectionConnectionSettingsPage init() {
         $x("//form[contains (@id,'create-connection-form')]")
                 .shouldBe(Condition.exist, Duration.ofSeconds(WAIT_TIMEOUT_LONG));
-        return new EditConnectionPage();
+        return new ConnectionConnectionSettingsPage();
     }
 
     public ProcessPage processData() {
@@ -29,7 +30,7 @@ public class EditConnectionPage {
         return ProcessPage.init();
     }
 
-    public EditConnectionPage expandEllucianSubConnectionArea() {
+    public ConnectionConnectionSettingsPage expandEllucianSubConnectionArea() {
         if (!isEllucianConnectionExist()) {
             throw new NoSuchElementException();
         }
@@ -42,7 +43,7 @@ public class EditConnectionPage {
         return ellucianBlock.exists();
     }
 
-    public EditConnectionPage deleteEllucianSubConnection() {
+    public ConnectionConnectionSettingsPage deleteEllucianSubConnection() {
         ellucianBlockDeleteButton.click();
         IBNextAbstractTest.waitPage();
         return this;

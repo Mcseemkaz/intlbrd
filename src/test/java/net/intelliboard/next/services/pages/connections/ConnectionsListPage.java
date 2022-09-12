@@ -58,12 +58,12 @@ public class ConnectionsListPage {
         return isConnection.exists();
     }
 
-    public EditConnectionPage editConnection(String connectionName) {
+    public ConnectionConnectionSettingsPage editConnection(String connectionName) {
         findConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonEdit.click();
-        return EditConnectionPage.init();
+        return ConnectionConnectionSettingsPage.init();
     }
 
     public boolean checkLastProcessing(String connectionName, LocalDateTime date) {
