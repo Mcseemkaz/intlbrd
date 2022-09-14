@@ -87,7 +87,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122")})
-    @DisplayName("SP-T121: Deleting several synced users")
+    @DisplayName("SP-T122: Deleting several synced users")
     public void testDeleteSeveralIBUserSynced() {
 
         List<String> users = new ArrayList<>();
@@ -116,8 +116,8 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         for (String u : users) {
             assertThat(IBUsersPage.init().isUserPresents(u))
-                    .isFalse()
-                    .as(String.format("User %s is not deleted", u));
+                    .withFailMessage(String.format("User %s is not deleted", u))
+                    .isFalse();
         }
     }
 
