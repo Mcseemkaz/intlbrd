@@ -80,4 +80,40 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T849")})
+    @DisplayName("SP-T849: Editing Course filters on Canvas")
+    public void testEditingConnectionFiltersCoursesCanvas() {
+
+        String connectionName = "AQA_SP-T849_" + DataGenerator.getRandomString();
+
+        open(CREATE_CANVAS_CONNECTION);
+        CreateConnectionPage
+                .init()
+                .createCanvasConnection(
+                        connectionName,
+                        CreateConnectionPage.CANVAS_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+
+        LoginCanvasPage.init()
+                .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
+                .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
+                .loginInCanvas()
+                .confirmAuthorize()
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
+
+        ConnectionFilterSettingsCanvasPage
+                .init()
+                .selectSubAccountAll()
+                .selectFilterTermAll()
+                .selectDisplayCoursesAll()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
 }
