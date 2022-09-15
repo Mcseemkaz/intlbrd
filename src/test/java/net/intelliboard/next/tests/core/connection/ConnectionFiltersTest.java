@@ -8,14 +8,14 @@ import net.intelliboard.next.services.pages.connections.connection.ConnectionFil
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
 import net.intelliboard.next.services.pages.connections.connection.blackboard.ConnectionFilterSettingsBlackBoardPage;
 import net.intelliboard.next.services.pages.connections.connection.canvas.ConnectionFilterSettingsCanvasPage;
+import net.intelliboard.next.services.pages.connections.connection.d2l.ConnectionFilterSettingsD2LPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNECTION;
-import static net.intelliboard.next.services.IBNextURLs.CREATE_CANVAS_CONNECTION;
+import static net.intelliboard.next.services.IBNextURLs.*;
 
 public class ConnectionFiltersTest extends IBNextAbstractTest {
 
@@ -113,6 +113,34 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .selectSubAccountAll()
                 .selectFilterTermAll()
                 .selectDisplayCoursesAll()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T929")})
+    @DisplayName("SP-T929: Editing Course filters on D2L")
+    public void testCreateD2LConnection() {
+
+        open(CREATE_D2L_CONNECTION);
+        String connectionName = "AQA_SP-T929_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createD2LConnection(
+                        connectionName,
+                        CreateConnectionPage.D2L_URL,
+                        CreateConnectionPage.D2L_CLIENT_ID,
+                        CreateConnectionPage.D2L_CLIENT_SECRET,
+                        CreateConnectionPage.D2L_USER_LOGIN,
+                        CreateConnectionPage.D2L_USER_PASS)
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
+
+        ConnectionFilterSettingsD2LPage
+                .init()
+                .selectCourseStatusAllCourses()
+                .selectFilterSemestrAll()
+                .selectFilterOrgUnitAll()
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }

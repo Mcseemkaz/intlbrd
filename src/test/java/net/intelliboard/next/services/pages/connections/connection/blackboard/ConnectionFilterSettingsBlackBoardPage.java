@@ -17,7 +17,10 @@ public class ConnectionFilterSettingsBlackBoardPage extends ConnectionFilterSett
     }
 
     private void openCoursesList() {
-        $x("//div[@name='filter_course_state']//button").click();
+        $x("//div[@name='filter_course_state']//button")
+                .click();
+        $x("//div[@name='filter_course_state']//div[@class='tree-drop']")
+                .should(Condition.visible);
     }
 
     public ConnectionFilterSettingsBlackBoardPage selectCourseStatusAllCourses() {
