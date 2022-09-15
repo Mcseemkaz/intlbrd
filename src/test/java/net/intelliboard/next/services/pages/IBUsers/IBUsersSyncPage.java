@@ -60,7 +60,6 @@ public class IBUsersSyncPage {
 
     public IBUsersSyncPage selectLMSRole() {
        ConnectionRolesDropdown.click();
-
        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
                 .click();
         $x("//button[@type='submit']")

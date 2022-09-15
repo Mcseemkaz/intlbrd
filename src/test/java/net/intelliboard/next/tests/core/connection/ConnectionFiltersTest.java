@@ -9,6 +9,7 @@ import net.intelliboard.next.services.pages.connections.connection.ConnectionTab
 import net.intelliboard.next.services.pages.connections.connection.blackboard.ConnectionFilterSettingsBlackBoardPage;
 import net.intelliboard.next.services.pages.connections.connection.canvas.ConnectionFilterSettingsCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.d2l.ConnectionFilterSettingsD2LPage;
+import net.intelliboard.next.services.pages.connections.connection.ilias.ConnectionFiltersSettingsIliasPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -120,7 +121,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T929")})
     @DisplayName("SP-T929: Editing Course filters on D2L")
-    public void testCreateD2LConnection() {
+    public void testEditConnectionFilteringD2L() {
 
         open(CREATE_D2L_CONNECTION);
         String connectionName = "AQA_SP-T929_" + DataGenerator.getRandomString();
@@ -144,4 +145,29 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1386")})
+    @DisplayName("SP-T1386: Editing Course filters on ilias")
+    public void testEditConnectionFilteringIlias() {
+
+    open(CREATE_ILIAS_CONNECTION);
+    String connectionName = "AQA_SP-T1386_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createILIASConnection(
+            connectionName,
+            CreateConnectionPage.ILIAS_URL,
+            CreateConnectionPage.ILIAS_TOKEN,
+            CreateConnectionPage.ILIAS_KEY)
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
+
+        ConnectionFiltersSettingsIliasPage
+                .init()
+                .selectCourseStatusAllCourses()
+                .selectSubAccountAll()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
+
 }
