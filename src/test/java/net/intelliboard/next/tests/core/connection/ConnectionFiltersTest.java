@@ -10,6 +10,7 @@ import net.intelliboard.next.services.pages.connections.connection.blackboard.Co
 import net.intelliboard.next.services.pages.connections.connection.canvas.ConnectionFilterSettingsCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.d2l.ConnectionFilterSettingsD2LPage;
 import net.intelliboard.next.services.pages.connections.connection.ilias.ConnectionFiltersSettingsIliasPage;
+import net.intelliboard.next.services.pages.connections.connection.moodle.ConnectionFilterSettingsMoodlePage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -145,20 +146,21 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
+
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1386")})
     @DisplayName("SP-T1386: Editing Course filters on ilias")
     public void testEditConnectionFilteringIlias() {
 
-    open(CREATE_ILIAS_CONNECTION);
-    String connectionName = "AQA_SP-T1386_" + DataGenerator.getRandomString();
+        open(CREATE_ILIAS_CONNECTION);
+        String connectionName = "AQA_SP-T1386_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createILIASConnection(
-            connectionName,
-            CreateConnectionPage.ILIAS_URL,
-            CreateConnectionPage.ILIAS_TOKEN,
-            CreateConnectionPage.ILIAS_KEY)
+                        connectionName,
+                        CreateConnectionPage.ILIAS_URL,
+                        CreateConnectionPage.ILIAS_TOKEN,
+                        CreateConnectionPage.ILIAS_KEY)
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
 
@@ -166,6 +168,30 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .init()
                 .selectCourseStatusAllCourses()
                 .selectSubAccountAll()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T860")})
+    @DisplayName("SP-T860: Editing Course filters on Moodle")
+    public void testCreateMWPConnectionMoodle() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        String connectionName = "AQA_SP-T860_" + DataGenerator.getRandomString();
+
+        open(CREATE_MWP_MOODLE_CONNECTION);
+
+        createConnectionPage.createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MWP_KEY,
+                        CreateConnectionPage.MWP_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);;
+
+        ConnectionFilterSettingsMoodlePage
+                .init()
+                .selectFilterCategoryAll()
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
