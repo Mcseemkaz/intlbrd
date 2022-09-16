@@ -103,7 +103,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                     .selectFirstLMSUser();
 
             IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
-            users.add(ibUsersSyncPage.getNameSelectedLMSUser().substring(0, 5));
+            users.add(ibUsersSyncPage.getNameSelectedLMSUser().substring(0, 10));
             ibUsersSyncPage.syncUsers();
         }
 
@@ -144,7 +144,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                 .deleteSelectedUsersByActionDropdown();
 
         assertThat(IBUsersPage.init().areUsersPresents())
-                .isTrue()
-                .as("Some users are presented in the table");
+                .withFailMessage("Some users are presented in the table")
+                .isTrue();
     }
 }
