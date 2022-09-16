@@ -11,6 +11,7 @@ import net.intelliboard.next.services.pages.connections.connection.canvas.Connec
 import net.intelliboard.next.services.pages.connections.connection.d2l.ConnectionFilterSettingsD2LPage;
 import net.intelliboard.next.services.pages.connections.connection.ilias.ConnectionFiltersSettingsIliasPage;
 import net.intelliboard.next.services.pages.connections.connection.moodle.ConnectionFilterSettingsMoodlePage;
+import net.intelliboard.next.services.pages.connections.connection.sakai.ConnectionFilterSettingsSakaiPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -187,7 +188,8 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                         CreateConnectionPage.MWP_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
-                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);;
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
+        ;
 
         ConnectionFilterSettingsMoodlePage
                 .init()
@@ -195,5 +197,30 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1390")})
+    @DisplayName("SP-T1390: Editing Course filters on Sakai")
+    public void testCreateSAKAIConnection() {
+
+        open(CREATE_SAKAI_CONNECTION);
+        String connectionName = "AQA_SP-T1390_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createSAKAIConnection(
+                        connectionName,
+                        CreateConnectionPage.SAKAI_URL,
+                        CreateConnectionPage.SAKAI_TOKEN,
+                        CreateConnectionPage.SAKAI_KEY)
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);;
+
+        ConnectionFilterSettingsSakaiPage
+                .init()
+                .selectCourseStatusAllCourses()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
+
 
 }
