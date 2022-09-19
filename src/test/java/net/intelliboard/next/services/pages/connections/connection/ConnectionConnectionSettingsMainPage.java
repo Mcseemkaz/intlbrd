@@ -1,9 +1,9 @@
-package net.intelliboard.next.services.pages.connections;
+package net.intelliboard.next.services.pages.connections.connection;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.pages.connections.connection.MainConnectionPage;
+import net.intelliboard.next.services.pages.connections.ProcessPage;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 import static com.codeborne.selenide.Selenide.$x;
 import static net.intelliboard.next.AbstractTest.WAIT_TIMEOUT_LONG;
 
-public class ConnectionConnectionSettingsPage extends MainConnectionPage {
+public class ConnectionConnectionSettingsMainPage extends MainConnectionPage {
 
     SelenideElement buttonProcessData =
             $x("//div[@class='content-header']//a[contains (@href,'/process') and contains (@class,'success')]");
@@ -19,10 +19,10 @@ public class ConnectionConnectionSettingsPage extends MainConnectionPage {
     SelenideElement ellucianBlock = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]");
     SelenideElement ellucianBlockDeleteButton = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]//a[contains (@href,'/delete')]");
 
-    public static ConnectionConnectionSettingsPage init() {
+    public static ConnectionConnectionSettingsMainPage init() {
         $x("//form[contains (@id,'create-connection-form')]")
                 .shouldBe(Condition.exist, Duration.ofSeconds(WAIT_TIMEOUT_LONG));
-        return new ConnectionConnectionSettingsPage();
+        return new ConnectionConnectionSettingsMainPage();
     }
 
     public ProcessPage processData() {
@@ -30,7 +30,7 @@ public class ConnectionConnectionSettingsPage extends MainConnectionPage {
         return ProcessPage.init();
     }
 
-    public ConnectionConnectionSettingsPage expandEllucianSubConnectionArea() {
+    public ConnectionConnectionSettingsMainPage expandEllucianSubConnectionArea() {
         if (!isEllucianConnectionExist()) {
             throw new NoSuchElementException();
         }
@@ -43,7 +43,7 @@ public class ConnectionConnectionSettingsPage extends MainConnectionPage {
         return ellucianBlock.exists();
     }
 
-    public ConnectionConnectionSettingsPage deleteEllucianSubConnection() {
+    public ConnectionConnectionSettingsMainPage deleteEllucianSubConnection() {
         ellucianBlockDeleteButton.click();
         IBNextAbstractTest.waitPage();
         return this;
