@@ -4,6 +4,7 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -49,7 +50,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                 .expandEllucianSubConnectionArea()
                 .deleteEllucianSubConnection();
 
-        assertThat(ConnectionConnectionSettingsPage.init().isEllucianConnectionExist())
+        assertThat(ConnectionConnectionSettingsMainPage.init().isEllucianConnectionExist())
                 .isFalse();
     }
 

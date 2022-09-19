@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 
+@Tag("Connection_Settings")
 public class ConnectionFiltersTest extends IBNextAbstractTest {
 
     @Test
@@ -189,7 +190,6 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
-        ;
 
         ConnectionFilterSettingsMoodlePage
                 .init()
@@ -213,7 +213,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                         CreateConnectionPage.SAKAI_TOKEN,
                         CreateConnectionPage.SAKAI_KEY)
                 .editConnection(connectionName)
-                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);;
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
 
         ConnectionFilterSettingsSakaiPage
                 .init()
@@ -221,6 +221,4 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .saveConnectionSettings()
                 .deleteConnection(connectionName);
     }
-
-
 }

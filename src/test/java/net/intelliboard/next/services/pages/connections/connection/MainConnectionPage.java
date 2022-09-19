@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.connections.connection;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 
 import java.time.Duration;
@@ -8,6 +9,8 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainConnectionPage {
+
+    protected final SelenideElement saveButton = $x("//button[@type='submit' and contains(text(),'Save')]");
 
     public void openSettingsTab(ConnectionTabsEnum tab) {
         $x("//div[@class='content-body']//ul[contains (@class, 'user-menu')]//a[contains (text(),'" + tab.value + "')]")
@@ -17,8 +20,7 @@ public class MainConnectionPage {
     }
 
     public ConnectionsListPage saveConnectionSettings() {
-        $x("//button[@type='submit' and contains(text(),'Save')]")
-                .click();
+        saveButton.click();
         return ConnectionsListPage.init();
     }
 }

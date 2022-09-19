@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -58,12 +59,12 @@ public class ConnectionsListPage {
         return isConnection.exists();
     }
 
-    public ConnectionConnectionSettingsPage editConnection(String connectionName) {
+    public ConnectionConnectionSettingsMainPage editConnection(String connectionName) {
         findConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonEdit.click();
-        return ConnectionConnectionSettingsPage.init();
+        return ConnectionConnectionSettingsMainPage.init();
     }
 
     public boolean checkLastProcessing(String connectionName, LocalDateTime date) {
