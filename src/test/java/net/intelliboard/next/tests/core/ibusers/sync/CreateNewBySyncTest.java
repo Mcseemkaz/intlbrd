@@ -103,7 +103,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                     .selectFirstLMSUser();
 
             IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
-            users.add(ibUsersSyncPage.getNameSelectedLMSUser().substring(0, 10));
+            users.add(ibUsersSyncPage.getNameSelectedLMSUser());
             ibUsersSyncPage.syncUsers();
         }
 

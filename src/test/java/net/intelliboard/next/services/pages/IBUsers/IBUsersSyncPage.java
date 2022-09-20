@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
 
@@ -99,8 +100,10 @@ public class IBUsersSyncPage {
     }
 
     public String getNameSelectedLMSUser() {
-        return $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
+        String fullName =  $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
                 .getText();
+
+        return StringUtils.substringBefore(fullName, " (");
     }
 
     public IBUsersSyncPage syncUsers() {
