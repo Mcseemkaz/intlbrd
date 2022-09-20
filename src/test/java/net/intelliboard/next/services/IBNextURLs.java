@@ -65,6 +65,7 @@ public class IBNextURLs {
 
     //In-Form Page
     public static final String INFORM_LIST_PAGE = MAIN_URL + "/in-form";
-
+    // Audit (Processing History) Page
+    public static final String AUDIT_PAGE = MAIN_URL + "/audit";
 }
 
