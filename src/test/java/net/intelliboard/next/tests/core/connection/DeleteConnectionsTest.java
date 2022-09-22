@@ -1,6 +1,8 @@
 package net.intelliboard.next.tests.core.connection;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
@@ -54,12 +56,13 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                 .isFalse();
     }
 
+    @Flaky
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T202")})
     @DisplayName("SP-T202: Deleting selected connections [connection mass deletion]")
     public void testDeleteSelectedConnection() {
 
-        int numberConnections = 5;
+        int numberConnections = 3;
         ArrayList<String> connectionsList = new ArrayList<>();
 
         //Create connections
@@ -68,20 +71,28 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
             open(CREATE_ZOOM_CONNECTION);
 
             CreateZoomConnectionPage.init().createZoomConnection(
-                    connectionName,
-                    CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
-                    CreateZoomConnectionPage.ZOOM_TOKEN,
-                    CreateZoomConnectionPage.ZOOM_SECRET)
+                            connectionName,
+                            CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                            CreateZoomConnectionPage.ZOOM_TOKEN,
+                            CreateZoomConnectionPage.ZOOM_SECRET)
                     .findConnectionByName(connectionName);
             connectionsList.add(connectionName);
             numberConnections--;
         }
 
-        connectionsList.forEach( k -> ConnectionsListPage.init().findConnectionByName(k).selectConnection(k, true));
+        connectionsList.forEach(k -> ConnectionsListPage.init().findConnectionByName(k).selectConnection(k, true));
 
-        ConnectionsListPage.init().deleteSelectedConnectionsByActionDropdown();
+        ConnectionsListPage
+                .init()
+                .deleteSelectedConnectionsByActionDropdown();
 
-        assertThat(connectionsList.stream().allMatch(k -> !(ConnectionsListPage.init().isConnectionExist(k))))
+        waitForPageLoaded();
+        Selenide.sleep(5000);
+
+        assertThat(
+                connectionsList
+                        .stream()
+                        .allMatch(k -> !(ConnectionsListPage.init().isConnectionExist(k))))
                 .isTrue();
     }
 }
