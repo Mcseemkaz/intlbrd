@@ -1,6 +1,10 @@
 package net.intelliboard.next.tests.core.ibusers.sync;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
@@ -86,6 +90,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     }
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122")})
     @DisplayName("SP-T122: Deleting several synced users")
     public void testDeleteSeveralIBUserSynced() {
@@ -113,6 +118,8 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
         IBUsersPage
                 .init()
                 .deleteSelectedUsersByActionDropdown();
+
+        waitForPageLoaded();
 
         for (String u : users) {
             assertThat(IBUsersPage.init().isUserPresents(u))

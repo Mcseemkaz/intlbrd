@@ -6,10 +6,7 @@ import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionAdvancedSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
@@ -55,7 +52,7 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
-    @Deprecated
+    @Disabled
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T862")})
     @DisplayName("SP-T862: Editing Default Grading Scheme in filters on Moodle")
