@@ -55,6 +55,7 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
+    @Deprecated
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T862")})
     @DisplayName("SP-T862: Editing Default Grading Scheme in filters on Moodle")
