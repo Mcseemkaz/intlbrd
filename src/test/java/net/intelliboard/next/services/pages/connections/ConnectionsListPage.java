@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.connections.categories.ConnectionCategoriesListPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import org.openqa.selenium.Keys;
 
@@ -140,5 +141,10 @@ public class ConnectionsListPage {
             return false;
         } else
             return true;
+    }
+
+    public ConnectionCategoriesListPage openConnectionCollectionsList() {
+        $x("//a[contains (@href,'/categories')]").click();
+        return ConnectionCategoriesListPage.init();
     }
 }
