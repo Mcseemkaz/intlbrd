@@ -342,6 +342,8 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
+        Selenide.sleep(5000);
+
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
         MyIntelliBoardPage.init()
@@ -354,6 +356,8 @@ public class CreateReportsTest extends IBNextAbstractTest {
         // Clean-up
         open(MY_INTELLIBOARD_PAGE);
 
+        Selenide.sleep(5000);
+
         assertThat(MyIntelliBoardPage.init().getReportBackgroundColors(reportName)
                 .contains(ReportSettingsColorsEnum.GREEN.rgbColor))
                 .isTrue();
@@ -362,6 +366,8 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .init()
                 .deleteReport(reportName)
                 .confirmDeletion();
+
+        Selenide.sleep(5000);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
                 .isFalse();

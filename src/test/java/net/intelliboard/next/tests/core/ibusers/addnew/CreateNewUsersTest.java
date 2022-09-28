@@ -30,12 +30,10 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T111: Adding new IB user with button \"Create one\"")
     public void testCreateNewIBUser(CreateIBUsersFormRolesTypeEnum roles) {
 
-        HeaderObject header = HeaderObject.init();
-
         String firstName = DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
 
-        header
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -45,9 +43,8 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
-//                .selectConnection()
+                .selectConnection()
                 .submitUserCreateForm();
-
 
         // Assertion
         assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName + " " + lastName))
@@ -174,7 +171,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
         IBUsersPage.init().deleteUser(firstName);
 
         // Assertion
-        assertThat(IBUsersPage.init().isUserPresents(firstName + " " + lastName))
+        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName + " " + lastName))
                 .isFalse()
                 .as(String.format("User with name %s is existed and isn't deleted", firstName));
     }
@@ -226,12 +223,12 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .deleteSelectedUsersByActionDropdown();
 
         //Verify deleting User#1
-        assertThat(IBUsersPage.init().isUserPresents(firstName1))
+        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName1))
                 .isFalse()
                 .as(String.format("IB User with name %s has not been deleted", firstName1));
 
         //Verify deleting User#2
-        assertThat(IBUsersPage.init().isUserPresents(firstName2))
+        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName2))
                 .isFalse()
                 .as(String.format("IB User with name %s has not been deleted", firstName2));
     }
@@ -278,7 +275,10 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
-        IBUsersPage.init().getEmailError().shouldBe(Condition.visible);
+        IBUsersPage
+                .init()
+                .getEmailError()
+                .shouldBe(Condition.visible);
 
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
                 .isFalse().as("User has been created with has already registered EMAIL");
