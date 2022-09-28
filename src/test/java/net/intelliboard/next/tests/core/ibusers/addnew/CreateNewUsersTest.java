@@ -45,12 +45,12 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
-                .selectConnection()
+//                .selectConnection()
                 .submitUserCreateForm();
 
 
         // Assertion
-        assertThat(IBUsersPage.init().isUserPresents(firstName + " " + lastName))
+        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName + " " + lastName))
                 .isTrue()
                 .as(String.format("User with name %s is not existed", firstName));
 
