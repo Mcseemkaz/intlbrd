@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
@@ -30,14 +31,22 @@ public class IBUsersCreatePage {
     }
 
     public IBUsersCreatePage selectConnection() {
-        $x("//input[contains (@id, 'connections') and following-sibling::label[@class='label-text']]")
-                .click();
+        SelenideElement firstConnection =
+                $x("//input[contains (@id, 'connections') and following-sibling::label[@class='label-text']]");
+
+        if (!firstConnection.isSelected()) {
+            firstConnection.click();
+        }
+
         return this;
     }
 
     public IBUsersCreatePage selectConnection(String connectionName) {
-        $x("//input[contains (@id, 'connections') and following-sibling::label[text()='" + connectionName + "']]")
-                .click();
+        SelenideElement connection =
+                $x("//input[contains (@id, 'connections') and following-sibling::label[text()='" + connectionName + "']]");
+        if (!connection.isSelected()) {
+            connection.click();
+        }
         return this;
     }
 
