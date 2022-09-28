@@ -39,9 +39,7 @@ public class IBUsersPageTest extends IBNextAbstractTest {
     @DisplayName("SP-T115: Pagination at IB users page work correctly")
     public void testPaginationIBUsers() {
 
-        HeaderObject header = HeaderObject.init();
-
-        header
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
