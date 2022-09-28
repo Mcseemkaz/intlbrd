@@ -72,11 +72,10 @@ public class IBUsersPage {
         return this;
     }
 
-    public IBUsersPage logInSelectedUsers(String userFirstName) {
+    public void logInSelectedUsers(String userFirstName) {
         $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
                 .click();
         userActionLogInOption.click();
-        return this;
     }
 
     public IBUsersPage checkedUserByName(String firstUserName) {

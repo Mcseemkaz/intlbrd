@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
@@ -41,7 +42,10 @@ public class IBUsersCreatePage {
     }
 
     public IBUsersPage submitUserCreateForm() {
-        $x("//button[@type='submit']").click();
+        Selenide.sleep(5000);
+        $x("//button[@type='submit']")
+                .click();
+
         return IBUsersPage.init();
     }
 }
