@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -100,6 +101,7 @@ public class IBUsersSyncPage {
     }
 
     public String getNameSelectedLMSUser() {
+        Selenide.sleep(3000);
         String fullName =  $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
                 .getText();
 

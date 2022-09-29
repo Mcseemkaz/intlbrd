@@ -114,6 +114,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage ibUsersPage = IBUsersPage.init();
+        ibUsersPage.changeScalingUsersPerPage(200);
         users.forEach(ibUsersPage::checkedUserByName);
         IBUsersPage
                 .init()
