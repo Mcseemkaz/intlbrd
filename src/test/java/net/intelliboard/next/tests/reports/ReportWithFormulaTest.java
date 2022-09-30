@@ -28,7 +28,7 @@ public class ReportWithFormulaTest extends IBNextAbstractTest {
     public void testAddFormulaToReport() {
 
         String connectionName = "Automation Canvans";
-        String reportName = "AQA-Formula-" + DataGenerator.getRandomString();
+        String reportName = "SP-T692-" + DataGenerator.getRandomString();
         String formulaTitle = "Formula-" + DataGenerator.getRandomString();
         String description = "Formula-" + DataGenerator.getRandomString();
 
