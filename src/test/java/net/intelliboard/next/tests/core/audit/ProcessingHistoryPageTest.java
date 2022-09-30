@@ -2,7 +2,6 @@ package net.intelliboard.next.tests.core.audit;
 
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
-import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.connections.AuditMainPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -22,9 +21,11 @@ public class ProcessingHistoryPageTest extends IBNextAbstractTest {
         String connectionName = "Automation Canvans";
         open(IBNextURLs.AUDIT_PAGE);
 
-        assertThat(AuditMainPage
-                .init().isConnectionExist(connectionName))
-                .withFailMessage(String.format("Connection with name %s", connectionName))
+        assertThat(
+                AuditMainPage
+                .init()
+                .isConnectionExist(connectionName))
+                .withFailMessage(String.format("Connection with name %s is not existed", connectionName))
                 .isTrue();
     }
 }
