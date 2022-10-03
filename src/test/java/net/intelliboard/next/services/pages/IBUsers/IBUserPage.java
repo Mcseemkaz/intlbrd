@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.auditlogs.UserAudtitLogsPage;
 
 import java.time.Duration;
 
@@ -28,5 +29,11 @@ public class IBUserPage {
             policyButton.shouldNot(Condition.text("Accept"), Duration.ofSeconds(30));
         }
         return this;
+    }
+
+    public UserAudtitLogsPage openAuditLogs() {
+        $x("//a[contains (@href, '/audit-logs')]//h5")
+                .click();
+        return UserAudtitLogsPage.init();
     }
 }
