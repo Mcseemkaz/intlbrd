@@ -77,4 +77,21 @@ public class LoginTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .logOut();
     }
+
+    @Test
+    @DisplayName("SP-T732: Not able to view previous pages if the user is logged out")
+    @Tags(value = {@Tag("normal"), @Tag("SP-T732")})
+    public void testUnableGetPreviousPageAfterLogout() {
+
+        open(IBNextURLs.LIBRARY_MAIN);
+
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .logOut();
+
+        Selenide.back();
+
+        LoginPage.init();
+    }
 }
