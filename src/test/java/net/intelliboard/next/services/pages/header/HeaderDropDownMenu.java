@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.header;
 
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 
 import java.time.Duration;
@@ -27,5 +28,11 @@ public class HeaderDropDownMenu {
                 .click();
         $x("//h1[contains (text(), 'Upcoming Events')]")
                 .shouldBe(Condition.visible, Duration.ofSeconds(90));
+    }
+
+    public IBUserPage openMyAccountProfilePage() {
+        $x("//a[@class='manage-account']")
+                .click();
+        return IBUserPage.init();
     }
 }
