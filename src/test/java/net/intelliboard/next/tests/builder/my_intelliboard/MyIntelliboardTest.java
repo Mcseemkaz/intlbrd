@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.builder.my_intelliboard;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -70,7 +71,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T629")})
     @DisplayName("SP-T629: Favorite / Unfavorite Dashboard")
-    public void checkFavoriteUnfavoriteDashboard() throws InterruptedException {
+    public void checkFavoriteUnfavoriteDashboard() {
         int numberOfDashboard = 1;
 
         HeaderObject.init().openMyIntelliBoardPage();
@@ -79,19 +80,21 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         //Set favorite
         String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
         my.setDashboardFavorite(numberOfDashboard);
-
-        Thread.sleep(1000);
+        waitForPageLoaded();
+        Selenide.sleep(3000);
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
                 .isTrue();
+
         my.setDashboardFavorite(numberOfDashboard);
-        Thread.sleep(1000);
+        waitForPageLoaded();
+        Selenide.sleep(3000);
     }
 
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T621")})
     @DisplayName("SP-T621: Check \"View\" in action button on MyIntelliboard page\n")
-    public void checkViewByActionButton() throws InterruptedException {
+    public void checkViewByActionButton() {
         int numberOfDashboard = 1;
 
         HeaderObject.init().openMyIntelliBoardPage();
@@ -102,8 +105,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         my.openView(numberOfDashboard);
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-
-        String ag = $x("//div[contains (@class,'data-set-title')]").getText();
 
         assertThat($x("//div[contains (@class,'data-set-title')]").getText().equals(dashboardName))
                 .isTrue();
@@ -112,7 +113,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T620")})
     @DisplayName("SP-T620: \"Set as default\" in actions on MyIntelliboard page")
-    public void checkSetAsDefaultActionButton() throws InterruptedException {
+    public void checkSetAsDefaultActionButton() {
         int numberOfDashboard = 1;
 
         HeaderObject.init().openMyIntelliBoardPage();
@@ -123,8 +124,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         my.openView(numberOfDashboard);
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-
-        String ag = $x("//div[contains (@class,'data-set-title')]").getText();
 
         assertThat($x("//div[contains (@class,'data-set-title')]").getText().equals(dashboardName))
                 .isTrue();

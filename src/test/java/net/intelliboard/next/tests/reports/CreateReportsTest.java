@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -58,14 +57,24 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isReportExist(reportName))
+                .withFailMessage(String.format("Report - %s is not existed", reportName))
+                .isTrue();
 
         MyIntelliBoardPage
                 .init()
                 .deleteReport(reportName)
                 .confirmDeletion();
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isReportExist(reportName))
+                .withFailMessage(String.format("Report - %s is still existed", reportName))
+                .isFalse();
     }
 
     @Test
@@ -73,7 +82,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T153: Create report (long way)")
     public void testCreateTableReportLongWay() {
         String connectionName = "Automation Canvans";
-        String reportName = "AQA-" + DataGenerator.getRandomString();
+        String reportName = "SP-T153-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 
@@ -113,7 +122,12 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .deleteReport(reportName)
                 .confirmDeletion();
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isReportExist(reportName))
+                .withFailMessage(String.format("Report - %s is still existed", reportName))
+                .isFalse();
     }
 
     @Test
@@ -121,7 +135,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T1255: Create report on Totara connecion")
     public void testCreateTableReportTotara() {
         String connectionName = "Totara Automation";
-        String reportName = "AQA-" + DataGenerator.getRandomString();
+        String reportName = "SP-T1255-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 
@@ -170,7 +184,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     public void testChangeTitleDescriptionReport() {
 
         String connectionName = "Automation Canvans";
-        String reportName = "AQA Report" + DataGenerator.getRandomString();
+        String reportName = "SP-T161-" + DataGenerator.getRandomString();
         String reportNameUPD = reportName + "_UPD_" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -232,7 +246,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         String connectionName = "Automation Canvans";
         String connectionNameOther = "Totara Automation";
-        String reportName = "AQA Report" + DataGenerator.getRandomString();
+        String reportName = "SP-T164-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 
@@ -309,7 +323,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     public void testChangeReportColor() {
 
         String connectionName = "Automation Canvans";
-        String reportName = "AQA Report" + DataGenerator.getRandomString();
+        String reportName = "SP-T163-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 
@@ -379,7 +393,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     public void testCreateReportPaiChart() {
 
         String connectionName = "Automation Canvans";
-        String reportName = "AQA Report: Pai Chart - " + DataGenerator.getRandomString();
+        String reportName = "SP-T449-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 
@@ -431,7 +445,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T1281: When clicking the “Cancel” button, no changes to the report are saved (adding columns).")
     public void testRevertReportChangesByCancel() {
         String connectionName = "Automation Canvans";
-        String reportName = "AQA-Revert" + DataGenerator.getRandomString();
+        String reportName = "SP-T1281-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
 

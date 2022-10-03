@@ -121,9 +121,12 @@ public class IBUsersPage {
 
     //TODO MO - add Enum for attributes scaling
     public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
-        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
-        $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']")
-                .click();
+
+        if (!$x("//div[@aria-placeholder='Per Page' and @class='tree-select']//button/span").getText().equals(String.valueOf(usersPerPage))) {
+            $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
+            $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']")
+                    .click();
+        }
         return IBUsersPage.init();
     }
 

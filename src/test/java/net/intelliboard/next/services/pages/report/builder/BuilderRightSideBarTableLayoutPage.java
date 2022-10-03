@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.report.builder;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import java.time.Duration;
@@ -38,6 +39,7 @@ public class BuilderRightSideBarTableLayoutPage {
 
     public BuilderReportFormulaElement openAddFormulaEditor(){
         openDisplayElementsList();
+        Selenide.sleep(3000);
         openFormulaEditor();
         return BuilderReportFormulaElement.init();
     }

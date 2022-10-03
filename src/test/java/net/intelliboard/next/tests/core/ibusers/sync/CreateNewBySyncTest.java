@@ -1,8 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.sync;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Flaky;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import net.intelliboard.next.IBNextAbstractTest;
@@ -114,6 +112,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage ibUsersPage = IBUsersPage.init();
+        ibUsersPage.changeScalingUsersPerPage(200);
         users.forEach(ibUsersPage::checkedUserByName);
         IBUsersPage
                 .init()
