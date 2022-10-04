@@ -6,6 +6,8 @@ import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
+import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
+import net.intelliboard.next.services.pages.auditlogs.UserProfileAuditTableColumnEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -63,5 +65,58 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
         )
                 .withFailMessage("Audit Logs Button is exist")
                 .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1363")})
+    @DisplayName("SP-T1363: Search logs by field")
+    public void testUserProfileAuditPageSearchByField() {
+
+        String searchValue = "/data";
+
+        HeaderObject
+                .init().openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .searchByField(searchValue);
+
+        waitForPageLoaded();
+
+        for (int i = 1; i < 4; i++) {
+            assertThat(
+                    UserAuditLogsPage
+                            .init()
+                            .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.EVENT_TYPE_PAGE, i)
+                            .contains(searchValue)
+            )
+                    .withFailMessage(String.format("Row # %s is not contain %s", i, UserProfileAuditTableColumnEnum.EVENT_TYPE_PAGE.value))
+                    .isTrue();
+        }
+
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1364")})
+    @DisplayName("SP-T1364: Search logs by User")
+    public void testUserProfileAuditPageSearchByUser() {
+
+        String searchValue = "Automated Testing";
+
+        HeaderObject
+                .init().openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .searchByUser(searchValue);
+
+        for (int i = 1; i < 4; i++) {
+            assertThat(
+                    UserAuditLogsPage
+                            .init()
+                            .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.USER, i)
+                            .contains(searchValue)
+            )
+                    .withFailMessage(String.format("Row # %s is not contain %s", i, UserProfileAuditTableColumnEnum.USER.value))
+                    .isTrue();
+        }
     }
 }
