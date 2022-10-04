@@ -2,7 +2,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import net.intelliboard.next.services.pages.auditlogs.UserAudtitLogsPage;
+import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
 
 import java.time.Duration;
 
@@ -30,9 +30,9 @@ public class IBUserPage {
         return this;
     }
 
-    public UserAudtitLogsPage openAuditLogs() {
+    public UserAuditLogsPage openAuditLogs() {
         AuditLogsButton.click();
-        return UserAudtitLogsPage.init();
+        return UserAuditLogsPage.init();
     }
 
     public boolean isAuditLogsButtonExist() {
