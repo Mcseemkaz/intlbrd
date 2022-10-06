@@ -35,7 +35,7 @@ public class UserAuditLogsPage {
     public UserAuditLogsPage searchByUser(String userName) {
         $x("//div[@name='user_id']//div[contains (@class, 'intelli-dropdown')]//button")
                 .click();
-        $x("//label//strong[text()='" + userName + "']")
+        $x("//label//strong[contains (text(),'" + userName + "')]")
                 .click();
         $x("//div[@class='content-body']")
                 .click();

@@ -8,7 +8,9 @@ import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
 import net.intelliboard.next.services.pages.auditlogs.UserProfileAuditTableColumnEnum;
+import net.intelliboard.next.services.pages.elements.IBUserLoginNotificationAlertElement;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -95,7 +97,6 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                     .withFailMessage(String.format("Row # %s is not contain %s", i, UserProfileAuditTableColumnEnum.EVENT_TYPE_PAGE.value))
                     .isTrue();
         }
-
     }
 
     @Test
@@ -126,7 +127,7 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1365")})
     @DisplayName("SP-T1365: Search logs by date")
-    public void testUserProfileAuditPageSearchByDate(){
+    public void testUserProfileAuditPageSearchByDate() {
 
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d EEEE YYYY");
@@ -147,6 +148,54 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                     .withFailMessage(String.format("Row # %s is not contain %s", i, UserProfileAuditTableColumnEnum.USER.value))
                     .isTrue();
         }
+    }
 
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1367")})
+    @DisplayName("SP-T1367: Displaying new log of IB user after the log in of ib user")
+    public void testIBUserLoginDisplayingInProfileAuditLog() {
+
+        HeaderObject header = HeaderObject.init();
+
+        header
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserSyncPage()
+                .selectLMSRole()
+                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectFirstLMSUser();
+
+        IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
+        String selectedLMSUser = StringUtils.substringBefore(ibUsersSyncPage.getNameSelectedLMSUser(), "(");
+
+        ibUsersSyncPage.syncUsers();
+
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage.init()
+                .changeScalingUsersPerPage(200)
+                .logInSelectedUsers(selectedLMSUser);
+
+        IBUserLoginNotificationAlertElement
+                .init()
+                .logOut();
+
+        header
+                .openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .searchByUser(selectedLMSUser);
+
+        assertThat(
+                UserAuditLogsPage
+                        .init()
+                        .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.USER, 1)
+                        .contains(selectedLMSUser))
+                .withFailMessage(String.format("User %s not found in the list", selectedLMSUser))
+                .isTrue();
+
+        //Clean up
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage.init()
+                .deleteUser(selectedLMSUser.substring(0, 5));
     }
 }
