@@ -3,7 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.pages.DatePicker;
+import net.intelliboard.next.services.pages.elements.DatePicker;
 
 import java.io.IOException;
 import java.time.Duration;

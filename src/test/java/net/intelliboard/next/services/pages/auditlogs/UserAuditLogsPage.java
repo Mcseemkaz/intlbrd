@@ -1,9 +1,11 @@
 package net.intelliboard.next.services.pages.auditlogs;
 
 import com.codeborne.selenide.Condition;
+import net.intelliboard.next.services.pages.elements.DatePicker;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -16,7 +18,7 @@ public class UserAuditLogsPage {
     }
 
     //TODO MO - Refactoring - extract to Table Element
-    public UserAuditLogsPage searchByField(String searchValue){
+    public UserAuditLogsPage searchByField(String searchValue) {
         $x("//input[@placeholder='Search' and contains (@class,'search-input')]")
                 .setValue(searchValue)
                 .sendKeys(Keys.ENTER);
@@ -24,8 +26,8 @@ public class UserAuditLogsPage {
     }
 
     //TODO MO - Refactoring - extract to Table Element
-    public String getValueCellByRowNumber(UserProfileAuditTableColumnEnum columnEnum, int numberRow){
-        String value =  $x("//tbody//tr["+numberRow+"]//td["+columnEnum.numberColumn+"]").getText();
+    public String getValueCellByRowNumber(UserProfileAuditTableColumnEnum columnEnum, int numberRow) {
+        String value = $x("//tbody//tr[" + numberRow + "]//td[" + columnEnum.numberColumn + "]").getText();
 
         return value;
     }
@@ -33,10 +35,18 @@ public class UserAuditLogsPage {
     public UserAuditLogsPage searchByUser(String userName) {
         $x("//div[@name='user_id']//div[contains (@class, 'intelli-dropdown')]//button")
                 .click();
-        $x("//label//strong[text()='"+userName+"']")
+        $x("//label//strong[text()='" + userName + "']")
                 .click();
         $x("//div[@class='content-body']")
                 .click();
+        return this;
+    }
+
+    public UserAuditLogsPage searchByDate(LocalDateTime date) {
+
+        DatePicker
+                .init()
+                .setDayOfMonth(date);
         return this;
     }
 }

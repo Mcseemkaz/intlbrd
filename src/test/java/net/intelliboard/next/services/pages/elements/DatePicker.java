@@ -1,4 +1,4 @@
-package net.intelliboard.next.services.pages;
+package net.intelliboard.next.services.pages.elements;
 
 import com.codeborne.selenide.Condition;
 
