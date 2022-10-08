@@ -93,6 +93,11 @@
             <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.4.2</version>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>clean dependency:copy-dependencies test</defaultGoal>
