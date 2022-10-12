@@ -35,10 +35,10 @@ public class MyIntelliBoardPage {
         return this;
     }
 
-    public MyIntelliBoardPage setDashboardFavorite(int numberDashboard) {
+    public MyIntelliBoardPage setDashboardFavorite(String dashboardName) {
         Selenide.actions()
-                .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("(//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item')]//span[@class='action-item'])[1]"))
+                .moveToElement($x("//li[.//h4[contains (text(),'"+dashboardName+"')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//li[.//h4[contains (text(),'"+dashboardName+"')]]//button"))
                 .perform();
         return this;
     }
