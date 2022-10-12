@@ -24,7 +24,7 @@ services:
     command: [ "--selenoid-uri", "http://$IPADDRESS:4444" ]
 
   chrome:
-    image: "selenoid/vnc_chrome:102.0"
+    image: "selenoid/vnc_chrome:105.0"
     network_mode: bridge
     links:
       - selenoid

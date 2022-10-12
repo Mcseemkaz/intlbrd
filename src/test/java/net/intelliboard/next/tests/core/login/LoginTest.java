@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.core.login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -19,6 +20,7 @@ import static com.codeborne.selenide.Selenide.open;
 @Tag("Login")
 public class LoginTest extends IBNextAbstractTest {
 
+    @Flaky
     @Test
     @DisplayName("SP-T22: Verify success login to IB Next")
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T22")})
@@ -68,6 +70,7 @@ public class LoginTest extends IBNextAbstractTest {
         DashboardPage.init();
     }
 
+    @Flaky
     @Test
     @DisplayName("SP-TXXX: Logout from the app")
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-TXXX"), @Tag("health")})

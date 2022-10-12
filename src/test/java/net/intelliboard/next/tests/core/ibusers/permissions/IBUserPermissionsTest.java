@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.core.ibusers.permissions;
 
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -18,6 +19,7 @@ import static net.intelliboard.next.services.IBNextURLs.USERS_PAGE;
 @Tag("IBUser")
 public class IBUserPermissionsTest extends IBNextAbstractTest {
 
+    @Flaky
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T612")})
     @DisplayName("SP-T612: Disappearing of buttons when admin permissions for IB user turn off")
@@ -45,6 +47,7 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
         waitForPageLoaded();
     }
 
+    @Flaky
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T614")})
     @DisplayName("SP-T614: Library permission work correctly when Report Builder permission is turn off")
