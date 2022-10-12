@@ -73,22 +73,26 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @DisplayName("SP-T629: Favorite / Unfavorite Dashboard")
     public void checkFavoriteUnfavoriteDashboard() {
         int numberOfDashboard = 1;
-
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
         //Set favorite
         String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
-        my.setDashboardFavorite(numberOfDashboard);
+        my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
         Selenide.sleep(3000);
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
+                .withFailMessage("Dashboard %s is not a favorite", dashboardName)
                 .isTrue();
 
-        my.setDashboardFavorite(numberOfDashboard);
+        my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
         Selenide.sleep(3000);
+
+        assertThat(my.isDashboardPresentsInFavorite(dashboardName))
+                .withFailMessage("Dashboard %s is still favorite", dashboardName)
+                .isFalse();
     }
 
     @Test
