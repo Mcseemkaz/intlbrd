@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Pull browser') {
             steps {
-                sh('docker pull selenoid/vnc_chrome:102.0 && docker ps')
+                sh('docker pull selenoid/vnc_chrome:105.0 && docker ps')
             }
         }
 
