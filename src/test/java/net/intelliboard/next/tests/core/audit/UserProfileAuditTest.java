@@ -3,6 +3,8 @@ package net.intelliboard.next.tests.core.audit;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
@@ -197,5 +199,77 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage.init()
                 .deleteUser(selectedLMSUser.substring(0, 5));
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1368")})
+    @DisplayName("SP-T1368: Removing logs of user after deleting him")
+    public void testIBUserAuditLogRemovingWhenHisDeleted() {
+
+        // Add IBUser
+
+        String firstName = "SP-T1368_" + DataGenerator.getRandomString();
+        String lastName = DataGenerator.getRandomString();
+        String fullName = firstName + " " + lastName;
+
+        HeaderObject.init()
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserCreatePage()
+                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .selectConnection()
+                .submitUserCreateForm();
+
+        // Login into IBUser + do some action + Logout
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage.init()
+                .changeScalingUsersPerPage(200)
+                .logInSelectedUsers(fullName);
+
+        IBUserLoginNotificationAlertElement
+                .init()
+                .logOut();
+
+        // Check AuditLogs
+
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .searchByUser(fullName);
+
+        assertThat(
+                UserAuditLogsPage
+                        .init()
+                        .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.USER, 1)
+                        .contains(fullName))
+                .withFailMessage(String.format("User %s not found in the list", fullName))
+                .isTrue();
+
+        // Delete IB User
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage.init().deleteUser(firstName);
+
+        // Check that Audit logs do not exist
+
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .searchByField(fullName);
+        //
+        assertThat(
+                UserAuditLogsPage
+                        .init()
+                        .isTableEmpty())
+                .withFailMessage(String.format("User %s is in the list", fullName))
+                .isTrue();
     }
 }

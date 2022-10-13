@@ -28,7 +28,6 @@ public class UserAuditLogsPage {
     //TODO MO - Refactoring - extract to Table Element
     public String getValueCellByRowNumber(UserProfileAuditTableColumnEnum columnEnum, int numberRow) {
         String value = $x("//tbody//tr[" + numberRow + "]//td[" + columnEnum.numberColumn + "]").getText();
-
         return value;
     }
 
@@ -43,11 +42,15 @@ public class UserAuditLogsPage {
     }
 
     public UserAuditLogsPage searchByDate(LocalDateTime date) {
-
         DatePicker
                 .init()
                 .setDayOfMonth(date);
         return this;
+    }
+
+    public boolean isTableEmpty() {
+        return $x("//td[@class='table-empty'][contains (text(),'Table Empty')]")
+                .exists();
     }
 }
 

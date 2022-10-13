@@ -12,7 +12,6 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUsersPage {
 
-
     //Page Elements
     @Getter
     public ElementsCollection passwordErrors = $$x("//span[contains(@class,'help-block-error')]");
@@ -25,7 +24,7 @@ public class IBUsersPage {
 
     private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
     private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
-
+    private SelenideElement submitButton = $x("//button[@type='submit']");
 
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
@@ -36,14 +35,16 @@ public class IBUsersPage {
     }
 
     public IBUsersCreatePage openIBUserCreatePage() {
-        $x("//button[@type=\'submit\']").click();
+        submitButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]").shouldBe(Condition.visible).click();
         return IBUsersCreatePage.init();
     }
 
     public IBUsersSyncPage openIBUserSyncPage() {
-        $x("//button[@type=\'submit\']").click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]").shouldBe(Condition.visible).click();
+        submitButton.click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]")
+                .shouldBe(Condition.visible)
+                .click();
         return IBUsersSyncPage.init();
     }
 
@@ -122,8 +123,10 @@ public class IBUsersPage {
     //TODO MO - add Enum for attributes scaling
     public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
 
-        if (!$x("//div[@aria-placeholder='Per Page' and @class='tree-select']//button/span").getText().equals(String.valueOf(usersPerPage))) {
-            $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]").click();
+        if (!$x("//div[@aria-placeholder='Per Page' and @class='tree-select']//button/span")
+                .getText().equals(String.valueOf(usersPerPage))) {
+            $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]")
+                    .click();
             $x("//div[contains (@class,'pagination-wrapper')]//div[contains(@class,'intelli-dropdown')]//ul//label/*[text()='" + usersPerPage + "']")
                     .click();
         }
