@@ -10,6 +10,7 @@ import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
 import net.intelliboard.next.services.pages.auditlogs.UserProfileAuditTableColumnEnum;
+import net.intelliboard.next.services.pages.connections.AuditMainPage;
 import net.intelliboard.next.services.pages.elements.IBUserLoginNotificationAlertElement;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.apache.commons.lang3.StringUtils;
@@ -264,12 +265,29 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                 .openMyAccountProfilePage()
                 .openAuditLogs()
                 .searchByField(fullName);
-        //
+
         assertThat(
                 UserAuditLogsPage
                         .init()
                         .isTableEmpty())
                 .withFailMessage(String.format("User %s is in the list", fullName))
                 .isTrue();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1371")})
+    @DisplayName("SP-T1371: Sorting columns by clicking on the column's name")
+    public void testAuditLogsSortingByColumns() {
+
+        HeaderObject
+                .init().openDropDownMenu()
+                .openMyAccountProfilePage()
+                .openAuditLogs()
+                .sortByColumn(UserProfileAuditTableColumnEnum.USER)
+                .sortByColumn(UserProfileAuditTableColumnEnum.TIME)
+                .sortByColumn(UserProfileAuditTableColumnEnum.EVENT_TYPE_PAGE)
+                .sortByColumn(UserProfileAuditTableColumnEnum.IP)
+                .sortByColumn(UserProfileAuditTableColumnEnum.BROWSER)
+                .sortByColumn(UserProfileAuditTableColumnEnum.OS);
     }
 }
