@@ -21,7 +21,7 @@ public class WebDriverService {
                         LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), System.getProperty("TestEnvironment").toUpperCase());
                 cap.setAcceptInsecureCerts(true);
                 cap.setBrowserName("chrome");
-                cap.setVersion("102.0");
+                cap.setVersion("105.0");
                 cap.setCapability("enableVNC", true);
                 cap.setCapability("enableVideo", false);
                 cap.setCapability("name", testName);
