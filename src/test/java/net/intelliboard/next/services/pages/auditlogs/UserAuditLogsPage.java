@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.auditlogs;
 
 import com.codeborne.selenide.Condition;
+import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.elements.DatePicker;
 import org.openqa.selenium.Keys;
 
@@ -51,6 +52,15 @@ public class UserAuditLogsPage {
     public boolean isTableEmpty() {
         return $x("//td[@class='table-empty'][contains (text(),'Table Empty')]")
                 .exists();
+    }
+
+    public UserAuditLogsPage sortByColumn(UserProfileAuditTableColumnEnum columnEnum) {
+        $x("//th/a[text()='" + columnEnum.value + "']")
+                .should(Condition.visible, Duration.ofSeconds(120))
+                .click();
+        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
+        ibNextAbstractTest.waitForPageLoaded();
+        return UserAuditLogsPage.init();
     }
 }
 
