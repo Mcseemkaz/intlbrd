@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -49,5 +50,11 @@ public class ProcessPage {
             }
         }
         return this;
+    }
+
+    public ConnectionConnectionSettingsMainPage backToConnectionMainPage() {
+        $x("//li[@class='breadcrumb-item']//a[contains (@href, '/edit-connection-settings')]")
+                .click();
+        return ConnectionConnectionSettingsMainPage.init();
     }
 }

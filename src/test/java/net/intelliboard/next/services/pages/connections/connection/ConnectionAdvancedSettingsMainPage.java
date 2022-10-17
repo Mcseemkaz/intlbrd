@@ -3,7 +3,6 @@ package net.intelliboard.next.services.pages.connections.connection;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 
 import java.time.Duration;
@@ -12,10 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
 
-    protected static IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-
     public static ConnectionAdvancedSettingsMainPage init() {
-
         ibNextAbstractTest.waitForPageLoaded();
         $x("//li[.//a[contains (text(),'" + ConnectionTabsEnum.ADVANCED_SETTINGS.value + "')]]")
                 .shouldHave(Condition.cssClass("active"), Duration.ofSeconds(120));

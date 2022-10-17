@@ -115,4 +115,9 @@ public class IBUsersSyncPage {
                 .should(Condition.visible, Duration.ofSeconds(160));
         return this;
     }
+
+    public boolean isRolesPresents(String roleName){
+        ConnectionRolesDropdown.click();
+        return $x("//div[@name='connection_roles']//li//strong[contains (text(),'"+roleName+"')]").exists();
+    }
 }
