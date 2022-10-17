@@ -4,7 +4,8 @@ public enum ConnectionTabsEnum {
 
     CONNECTION_SETTINGS("Connection Settings"),
     FILTERS_SETTINGS("Filters Settings"),
-    ADVANCED_SETTINGS("Advanced Settings");
+    ADVANCED_SETTINGS("Advanced Settings"),
+    ROLES_SETTINGS("Roles Settings");
 
     public String value;
 
