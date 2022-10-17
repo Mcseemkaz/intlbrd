@@ -33,9 +33,7 @@ public class LoginTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T24")})
     @DisplayName("SP-T24: Verify validation of entering an invalid email address")
     public void testCheckInvalidEmail() {
-        Selenide.clearBrowserCookies();
-        Selenide.clearBrowserLocalStorage();
-        Selenide.closeWindow();
+        LoginService.clearCookiesAndRefresh();
         open(IBNextURLs.LOGIN_PAGE);
         LoginPage.init()
                 .fillInLoginFiled(DataGenerator.getRandomValidEmail());
@@ -50,9 +48,7 @@ public class LoginTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T36")})
     @DisplayName("SP-T36: Verify validation of entering an invalid password")
     public void testCheckInvalidPassword() {
-        Selenide.clearBrowserCookies();
-        Selenide.clearBrowserLocalStorage();
-        Selenide.refresh();
+        LoginService.clearCookiesAndRefresh();
         open(IBNextURLs.LOGIN_PAGE);
         LoginPage.init()
                 .fillInLoginFiled(LoginService.getUSER_LOGIN())
