@@ -3,7 +3,7 @@ package net.intelliboard.next.tests.core.ibusers.page;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
-import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
+import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +44,7 @@ public class IBUsersPageTest extends IBNextAbstractTest {
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
                 .selectLMSRole()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectAllLMSUser()
                 .syncUsers();
 

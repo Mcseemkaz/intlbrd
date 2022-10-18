@@ -1,6 +1,6 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
-public enum CreateIBUsersFormRolesTypeEnum {
+public enum IBUsersRolesTypeEnum {
 
     ALL_ACCESS("ALL Access"),
     MANAGER("Manager"),
@@ -10,9 +10,9 @@ public enum CreateIBUsersFormRolesTypeEnum {
 //    TEACHER("Teacher"),
 //    LTI_ROLE_TEST("LTI Role test");
 
-    final String value;
+    public final String value;
 
-    CreateIBUsersFormRolesTypeEnum(String value) {
+    IBUsersRolesTypeEnum(String value) {
         this.value = value;
     }
 

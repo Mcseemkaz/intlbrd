@@ -6,6 +6,7 @@ public enum ConnectionsTypeEnum {
     MOODLE("Moodle"),
     D2L("D2L"),
     SAKAI("Sakai"),
+    BLACKBOARD("BlackBoard"),
     TOTARA("Totara");
 
     public final String value;

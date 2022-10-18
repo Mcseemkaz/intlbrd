@@ -5,12 +5,11 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEnum;
-import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
+import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
 import net.intelliboard.next.services.pages.auditlogs.UserProfileAuditTableColumnEnum;
-import net.intelliboard.next.services.pages.connections.AuditMainPage;
 import net.intelliboard.next.services.pages.elements.IBUserLoginNotificationAlertElement;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.apache.commons.lang3.StringUtils;
@@ -56,7 +55,7 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
                 .selectLMSRole()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectFirstLMSUser();
 
         IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
@@ -177,7 +176,7 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
                 .selectLMSRole()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectFirstLMSUser();
 
         IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
@@ -231,7 +230,7 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
