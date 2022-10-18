@@ -1,5 +1,6 @@
 package net.intelliboard.next;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.login.LoginCookieHandler;
@@ -54,5 +55,6 @@ public abstract class AbstractTest {
         TestsWatcherImpl.testResultsStatus.forEach((k, v) -> System.out.printf("| %s | %s |%n", k, v));
         System.out.println("----------------------------------------------------------------");
         LoginCookieHandler.setIsCookieSet(false);
+
     }
 }

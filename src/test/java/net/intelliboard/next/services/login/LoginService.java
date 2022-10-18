@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.login;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -37,7 +38,9 @@ public class LoginService extends IBNextAbstractTest {
                 .submitForm();
     }
 
-    private static void clearCookiesAndRefresh() {
+    public static void clearCookiesAndRefresh() {
+        WebDriverRunner.clearBrowserCache();
+        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
         Selenide.refresh();

@@ -38,7 +38,8 @@ public class LoginCookieHandler {
 
     public static void setAllCookies() {
         CookieManager cookieManager = new CookieManager();
-        cookies.stream().forEach(cookieManager::setCookie);
+        cookies.forEach(System.out::print);
+        cookies.forEach(cookieManager::setCookie);
     }
 
     public static void setIsCookieSet(boolean bool) {

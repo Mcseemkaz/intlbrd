@@ -1,6 +1,5 @@
 package net.intelliboard.next.tests.core.registration;
 
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -9,6 +8,7 @@ import net.intelliboard.next.services.api.connectors.MailService;
 import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceImpl;
 import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
 import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.login.LoginService;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
@@ -40,7 +40,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
         String email = DataGenerator.getRandomValidEmail();
         String password = DataGenerator.getRandomValidPassword();
 
-        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+        LoginService.clearCookiesAndRefresh();
 
         open(IBNextURLs.MAIN_URL);
         LoginPage.init()
@@ -77,10 +77,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
 
         String emailBoxName = mailService.generateNewMailBoxes();
 
-        WebDriverRunner
-                .getWebDriver()
-                .manage()
-                .deleteAllCookies();
+        LoginService.clearCookiesAndRefresh();
 
         open(IBNextURLs.MAIN_URL);
         LoginPage.init()
@@ -128,10 +125,7 @@ public class UserRegistrationTest extends IBNextAbstractTest {
 
         String emailBoxName = mailService.generateNewMailBoxes();
 
-        WebDriverRunner
-                .getWebDriver()
-                .manage()
-                .deleteAllCookies();
+        LoginService.clearCookiesAndRefresh();
 
         open(IBNextURLs.MAIN_URL);
         LoginPage.init()
