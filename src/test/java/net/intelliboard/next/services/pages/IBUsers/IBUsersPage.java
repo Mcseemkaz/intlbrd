@@ -36,7 +36,9 @@ public class IBUsersPage {
 
     public IBUsersCreatePage openIBUserCreatePage() {
         submitButton.click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]").shouldBe(Condition.visible).click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
+                .shouldBe(Condition.visible)
+                .click();
         return IBUsersCreatePage.init();
     }
 
@@ -46,6 +48,14 @@ public class IBUsersPage {
                 .shouldBe(Condition.visible)
                 .click();
         return IBUsersSyncPage.init();
+    }
+
+    public IBUserImportPage openIBUserImportPage() {
+        submitButton.click();
+        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_IMPORT_PAGE + "')]")
+                .shouldBe(Condition.visible)
+                .click();
+        return IBUserImportPage.init();
     }
 
     public boolean isUserPresents(String nameIBUser) {

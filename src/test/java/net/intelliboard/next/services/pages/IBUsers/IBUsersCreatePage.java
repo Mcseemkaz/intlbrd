@@ -23,7 +23,7 @@ public class IBUsersCreatePage {
         return this;
     }
 
-    public IBUsersCreatePage selectRole(CreateIBUsersFormRolesTypeEnum role) {
+    public IBUsersCreatePage selectRole(IBUsersRolesTypeEnum role) {
         $x("//div[@name='role']//button").click();
         $x("//strong[text()='" + role.value + "']")
                 .click();

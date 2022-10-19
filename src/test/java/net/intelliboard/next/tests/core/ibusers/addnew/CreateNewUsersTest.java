@@ -8,7 +8,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEnum;
-import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
+import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
@@ -25,10 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CreateNewUsersTest extends IBNextAbstractTest {
 
     @ParameterizedTest
-    @EnumSource(value = CreateIBUsersFormRolesTypeEnum.class)
+    @EnumSource(value = IBUsersRolesTypeEnum.class)
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T111")})
     @DisplayName("SP-T111: Adding new IB user with button \"Create one\"")
-    public void testCreateNewIBUser(CreateIBUsersFormRolesTypeEnum roles) {
+    public void testCreateNewIBUser(IBUsersRolesTypeEnum roles) {
 
         String firstName = DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
@@ -64,7 +64,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
@@ -85,7 +85,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
@@ -106,7 +106,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
@@ -127,7 +127,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, " ")
@@ -158,7 +158,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
@@ -194,7 +194,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName1)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName1)
@@ -207,7 +207,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName2)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName2)
@@ -253,7 +253,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, email)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName1)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName1)
@@ -265,7 +265,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                .selectRole(IBUsersRolesTypeEnum.MANAGER)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, email)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName2)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName2)
@@ -306,7 +306,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                     .openDropDownMenu()
                     .openMyIBUsersPage()
                     .openIBUserCreatePage()
-                    .selectRole(CreateIBUsersFormRolesTypeEnum.MANAGER)
+                    .selectRole(IBUsersRolesTypeEnum.MANAGER)
                     .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())

@@ -69,7 +69,7 @@ public class IBUsersSyncPage {
         return this;
     }
 
-    public IBUsersSyncPage selectRole(CreateIBUsersFormRolesTypeEnum role) {
+    public IBUsersSyncPage selectRole(IBUsersRolesTypeEnum role) {
 
         RolesDropdown
                 .click();

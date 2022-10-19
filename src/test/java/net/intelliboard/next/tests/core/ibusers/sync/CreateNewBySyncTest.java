@@ -5,7 +5,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
-import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormRolesTypeEnum;
+import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
@@ -27,10 +27,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @ParameterizedTest
-    @EnumSource(value = CreateIBUsersFormRolesTypeEnum.class)
+    @EnumSource(value = IBUsersRolesTypeEnum.class)
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T113")})
     @DisplayName("SP-T113: Adding new IB user via syncing")
-    public void testAddingIBUserBySync(CreateIBUsersFormRolesTypeEnum roles) {
+    public void testAddingIBUserBySync(IBUsersRolesTypeEnum roles) {
 
         HeaderObject header = HeaderObject.init();
 
@@ -70,7 +70,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
                 .selectLMSRole()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectFirstLMSUser();
 
         IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
@@ -102,7 +102,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                     .openMyIBUsersPage()
                     .openIBUserSyncPage()
                     .selectLMSRole()
-                    .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                    .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                     .selectFirstLMSUser();
 
             IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
@@ -139,7 +139,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
                 .selectLMSRole()
-                .selectRole(CreateIBUsersFormRolesTypeEnum.ALL_ACCESS)
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectAllLMSUser()
                 .syncUsers();
 
