@@ -9,17 +9,19 @@ import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ImportIBUserTest extends IBNextAbstractTest {
 
-    @Test
+    @ParameterizedTest
+    @EnumSource(value = ConnectionsTypeEnum.class, names = {"CANVAS", "D2L", "TOTARA"})
     @Tags(value = {@Tag("normal"), @Tag("SP-T124")})
-    @DisplayName("SP-T124: Adding new IB user with button \"Import\" - Canvas")
-    public void testCreateIBUserByImport() {
+    @DisplayName("SP-T124: Adding new IB user with button \"Import\"")
+    public void testCreateIBUserByImport(ConnectionsTypeEnum connection) {
 
         String importedIBUser = "AQA Import";
         open(IBNextURLs.USERS_PAGE);
@@ -27,9 +29,9 @@ public class ImportIBUserTest extends IBNextAbstractTest {
         IBUsersPage
                 .init()
                 .openIBUserImportPage()
-                .selectLMS(ConnectionsTypeEnum.CANVAS)
+                .selectLMS(connection)
                 .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
-                .selectConnection("Automation Canvans")
+                .selectConnection(connection.defaultName)
                 .uploadImportCSVFile(ProjectFilesEnum.IBUSERS_IMPORT_CSV)
                 .submitForm();
 
