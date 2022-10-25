@@ -26,6 +26,8 @@ public class CreateConnectionPage {
     public static String CANVAS_USER_PASS;
     public static String BLACKBOARD_CLIENT_ID;
     public static String BLACKBOARD_LMS_URL;
+    public static String BLACKBOARD_ULTRA_CLIENT_ID;
+    public static String BLACKBOARD_ULTRA_LMS_URL;
 
     public static String D2L_URL;
     public static String D2L_CLIENT_ID;
@@ -67,7 +69,9 @@ public class CreateConnectionPage {
             CreateConnectionPage.CANVAS_USER_LOGIN = propertiesGetValue.getPropertyValue("canvas_user_login");
             CreateConnectionPage.CANVAS_USER_PASS = propertiesGetValue.getPropertyValue("canvas_user_pass");
             CreateConnectionPage.BLACKBOARD_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_learn2_url");
+            CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_ultra_url");
             CreateConnectionPage.BLACKBOARD_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_learn2_client_id");
+            CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_ultra_client_id");
             CreateConnectionPage.D2L_URL = propertiesGetValue.getPropertyValue("d2l_url");
             CreateConnectionPage.D2L_CLIENT_ID = propertiesGetValue.getPropertyValue("d2l_connection_id");
             CreateConnectionPage.D2L_CLIENT_SECRET = propertiesGetValue.getPropertyValue("d2l_connection_secret");
