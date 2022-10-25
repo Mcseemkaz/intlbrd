@@ -132,9 +132,9 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1255")})
-    @DisplayName("SP-T1255: Create report on Totara connecion")
+    @DisplayName("SP-T1255: Create report on Totara connection")
     public void testCreateTableReportTotara() {
-        String connectionName = "Totara Automation";
+        String connectionName = "Automation Totara";
         String reportName = "SP-T1255-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -245,7 +245,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     public void testChangeReportAvailability() {
 
         String connectionName = "Automation Canvans";
-        String connectionNameOther = "Totara Automation";
+        String connectionNameOther = "Automation Totara";
         String reportName = "SP-T164-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
