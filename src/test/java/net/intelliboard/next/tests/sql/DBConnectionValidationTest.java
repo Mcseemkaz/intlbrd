@@ -28,7 +28,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class DBConnectionValidationTest extends IBNextAbstractTest {
 
     @Test
-    @DisplayName("SP-TXXXX: Validate Scenario #1 for BB Ultra")
+    @DisplayName("SP-TXXXX: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")})
     void testDBValidationBBUltraScenarioOne() throws InterruptedException, IOException, SQLException {
 
@@ -52,13 +52,14 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
         ConnectionsListPage connectionsListPage = ConnectionsListPage
                 .init();
 
-        assertThat(connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now()))
-                .withFailMessage("Connection %s has not been processed properly", connectionName)
-                .isTrue();
+//        assertThat(connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now()))
+//                .withFailMessage("Connection %s has not been processed properly", connectionName)
+//                .isTrue();
 
         connectionsListPage
                 .editConnection(connectionName);
         connectionID = DBMainManagingService.getDBIdFromConnectionSettingsUrl();
+        System.out.println("-----------------------------------" + connectionID + "___________________");
         // Migration BB before processing
 //      BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
 //      blackBoardMigrationService.performMigrationProcess();
@@ -82,6 +83,99 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
                 if (schema_name.equals("public") && columnValue.equals(value)) {
                     softly.assertThat(Integer.parseInt(record_number) > 0)
                             .withFailMessage("Column %s has zero records", columnValue)
+                            .isTrue();
+                }
+            }
+        }
+        softly.assertAll();
+        //Clean Up
+        rs1.close();
+        ds.environmentCleanUp();
+
+        open(ALL_CONNECTIONS);
+        connectionsListPage.deleteConnection(connectionName);
+    }
+
+    @Test
+    @DisplayName("SP-TXXXX: Check not empty tables for BB Ultra")
+    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")})
+    void testDBValidationBBUltraScenarioTwo() throws InterruptedException, IOException, SQLException {
+
+        //Create BB Ultra Connection
+        //Processing connection
+        String connectionName = "BB_Ultra_SQL-" + DataGenerator.getRandomString();
+        String connectionID;
+        open(CREATE_BLACKBOARD_CONNECTION);
+        CreateConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+//        assertThat(connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now()))
+//                .withFailMessage("Connection %s has not been processed properly", connectionName)
+//                .isTrue();
+
+        connectionsListPage
+                .editConnection(connectionName);
+        connectionID = DBMainManagingService.getDBIdFromConnectionSettingsUrl();
+        // Migration BB before processing
+//      BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
+//      blackBoardMigrationService.performMigrationProcess();
+
+        //Executed query
+        DataBaseConnectorService ds = new DataBaseConnectorService();
+        ResultSet rs1 = ds.executeQuery(
+                SQLQueries.GENERAL_REPORT_QUERY,
+                "lms_" + connectionID + "_blackboard");
+
+        //Validate rows table
+        SoftAssertions softly = new SoftAssertions();
+
+        while (rs1.next()) {
+            String columnValue = rs1.getString("table_name");
+            String record_number = rs1.getString("record_number");
+            String schema_name = rs1.getString("schema_name");
+            int validRecordNumber = 0;
+
+            for (String value : ROWS_TEST_ONE_LIST) {
+
+                if (schema_name.equals("public") && columnValue.equals(value)) {
+
+                    switch (columnValue) {
+                        case ("users"):
+                            validRecordNumber = 20000;
+                            break;
+                        case ("courses"):
+                            validRecordNumber = 6000;
+                            break;
+                        case ("activities"):
+                            validRecordNumber = 40000;
+                            break;
+                        case ("user_tracking_total"):
+                            validRecordNumber = 10000;
+                            break;
+                        case ("grade_objects"):
+                            validRecordNumber = 50000;
+                            break;
+                        case ("grade_objects_results"):
+                            validRecordNumber = 30000;
+                            break;
+                        case ("login_history"):
+                            validRecordNumber = 100000;
+                            break;
+                    }
+                    softly.assertThat(Integer.parseInt(record_number) > validRecordNumber)
+                            .withFailMessage("Column %s has less records than expected - %s", columnValue, validRecordNumber)
                             .isTrue();
                 }
             }
