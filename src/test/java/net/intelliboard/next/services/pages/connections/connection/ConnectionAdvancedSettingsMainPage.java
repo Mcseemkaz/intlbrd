@@ -22,7 +22,8 @@ public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
         SelenideElement defaultGradeSchemaBlock =
                 $x("//div[contains(@class,'card') and .//div[contains (text(),'Default Grading Scheme')]]//div[@class='card-body']");
         if (!(defaultGradeSchemaBlock).isDisplayed()) {
-            $x("//div[contains(@class,'card') and .//div[contains (text(),'Default Grading Scheme')]]//div[contains(@class,'card-header')]").click();
+            $x("//div[contains(@class,'card') and .//div[contains (text(),'Default Grading Scheme')]]//div[contains(@class,'card-header')]")
+                    .click();
         }
         defaultGradeSchemaBlock.should(Condition.visible);
     }
@@ -51,6 +52,23 @@ public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
         $x("//input[@type='number' and contains(@name,'[" + numberOfRow + "]')]")
                 .setValue(rate);
         return this;
+    }
+
+    public ConnectionAdvancedSettingsMainPage setIncontact() {
+        openIncontactBlock();
+        if (!$x("//input[@id='inContact']").isSelected()) {
+            $x("//div [ ./label[@for='inContact' and @class='default']]").click();
+        }
+        return this;
+    }
+
+    private void openIncontactBlock() {
+        SelenideElement inContactBlock = $x("//div[contains(@class,'card') and .//div[contains (text(),'InContact')]]//div[@class='card-body']");
+        if (!(inContactBlock).isDisplayed()) {
+            $x("//div[contains(@class,'card') and .//div[contains (text(),'InContact')]]//div[contains(@class,'card-header')]")
+                    .click();
+        }
+        inContactBlock.shouldBe(Condition.visible);
     }
 
     @Override

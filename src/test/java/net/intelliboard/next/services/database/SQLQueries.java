@@ -49,4 +49,18 @@ public class SQLQueries {
             "user_tracking_total",
             "users"
     };
+
+    public static final String[] ROWS_TEST_THREE_LIST_ONE = {
+            "categories",
+            "courses",
+            "role_assignments",
+            "users"
+    };
+
+    public static final String[] ROWS_TEST_THREE_LIST_TWO = {
+            "incontact_categories",
+            "incontact_courses",
+            "incontact_role_assignments",
+            "incontact_users"
+    };
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static net.intelliboard.next.services.database.SQLQueries.ROWS_TEST_ONE_LIST;
+import static net.intelliboard.next.services.database.SQLQueries.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("DB Connection")
@@ -105,4 +105,5 @@ public class SQLConnectionTest {
         rs1.close();
         ds.environmentCleanUp();
     }
+
 }
