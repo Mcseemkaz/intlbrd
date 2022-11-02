@@ -18,7 +18,7 @@ public class HeaderDropDownMenu {
     }
 
     public IBUsersPage openMyIBUsersPage() {
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_PAGE + "')]")
+        $x("//a[contains (@href,'" + IBNextURLs.USERS_PAGE + "')]")
                 .shouldBe(Condition.visible).click();
         return IBUsersPage.init();
     }

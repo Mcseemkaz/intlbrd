@@ -66,7 +66,7 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
         String firstName = "SP-T614_" + DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
 
-        open(USERS_PAGE);
+        open(MY_INTELLIBOARD_PAGE);
 
         HeaderObject.init()
                 .openDropDownMenu()
