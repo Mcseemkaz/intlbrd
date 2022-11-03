@@ -24,7 +24,7 @@ public class IBUsersPage {
 
     private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
     private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
-    private SelenideElement submitButton = $x("//button[@type='submit']");
+    private SelenideElement addIBUserButton = $x("//button[@type='submit']");
 
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
@@ -35,7 +35,7 @@ public class IBUsersPage {
     }
 
     public IBUsersCreatePage openIBUserCreatePage() {
-        submitButton.click();
+        addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
                 .shouldBe(Condition.visible)
                 .click();
@@ -43,7 +43,7 @@ public class IBUsersPage {
     }
 
     public IBUsersSyncPage openIBUserSyncPage() {
-        submitButton.click();
+        addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]")
                 .shouldBe(Condition.visible)
                 .click();
@@ -51,7 +51,7 @@ public class IBUsersPage {
     }
 
     public IBUserImportPage openIBUserImportPage() {
-        submitButton.click();
+        addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_IMPORT_PAGE + "')]")
                 .shouldBe(Condition.visible)
                 .click();
