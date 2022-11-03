@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.core.ibusers.sync;
 
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import net.intelliboard.next.IBNextAbstractTest;
@@ -9,6 +10,7 @@ import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersSyncPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -57,7 +59,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
                 .checkedAllUsers()
                 .deleteUser();
     }
-
+    @Flaky
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121"), @Tag("health")})
     @DisplayName("SP-T121: Deleting synced user")
@@ -84,6 +86,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         assertThat(IBUsersPage.init()
                 .isUserPresents(selectedLMSUser))
+                .withFailMessage("User %s is not deleted", selectedLMSUser)
                 .isFalse();
     }
 
@@ -120,11 +123,15 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
+        SoftAssertions softly = new SoftAssertions();
+
         for (String u : users) {
-            assertThat(IBUsersPage.init().isUserPresents(u))
+            softly.assertThat(IBUsersPage.init().isUserPresents(u))
                     .withFailMessage(String.format("User %s is not deleted", u))
                     .isFalse();
         }
+
+        softly.assertAll();
     }
 
     @Test
