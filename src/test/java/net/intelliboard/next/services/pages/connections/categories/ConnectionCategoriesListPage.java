@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ConnectionCategoriesListPage extends IBNextAbstractTest {
 
     public static ConnectionCategoriesListPage init() {
-        $x("//div[contains (@class,'page-body')]//h2[contains (text(),'Connection Categories')]")
+        $x("//div[contains (@class,'page-body')]//h1[contains (text(),'Connection Categories')]")
                 .shouldBe(Condition.visible, Duration.ofSeconds(120));
         return new ConnectionCategoriesListPage();
     }
