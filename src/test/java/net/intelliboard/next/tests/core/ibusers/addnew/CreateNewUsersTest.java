@@ -168,10 +168,17 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .submitUserCreateForm();
 
         //Delete user
-        IBUsersPage.init().deleteUser(firstName);
+        IBUsersPage
+                .init()
+                .deleteUser(firstName);
 
         // Assertion
-        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName + " " + lastName))
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .changeScalingUsersPerPage(200)
+                        .isUserPresents(firstName + " " + lastName))
+                .withFailMessage("User with name %s is existed and isn't deleted", firstName)
                 .isFalse()
                 .as(String.format("User with name %s is existed and isn't deleted", firstName));
     }

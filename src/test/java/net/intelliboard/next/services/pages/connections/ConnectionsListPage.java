@@ -22,7 +22,7 @@ public class ConnectionsListPage {
     private IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
 
     public static ConnectionsListPage init() {
-        $x("//h2[contains (text(),'Connections')]")
+        $x("//h1[contains (text(),'Connections')]")
                 .shouldBe(Condition.visible, Duration.ofSeconds(90));
         return new ConnectionsListPage();
     }

@@ -19,7 +19,8 @@ public class HeaderObject {
     }
 
     public HeaderDropDownMenu openDropDownMenu() {
-        $x("//ul[contains (@class, 'user-info')][2]").click();
+        $x("//div[contains (@class, 'user-menu-link')]//div[@aria-label='Open User Menu']")
+                .click();
         return HeaderDropDownMenu.init();
     }
 

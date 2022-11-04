@@ -32,7 +32,7 @@ public class IBUsersCreatePage {
 
     public IBUsersCreatePage selectConnection() {
         SelenideElement firstConnection =
-                $x("//input[contains (@id, 'connections') and following-sibling::label[@class='label-text']]");
+                $x("(//input[contains (@id, 'connections')])[1]");
 
         if (!firstConnection.isSelected()) {
             firstConnection.click();
