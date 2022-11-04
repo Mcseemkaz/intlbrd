@@ -61,7 +61,6 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
         connectionsListPage
                 .editConnection(connectionName);
         connectionID = DBMainManagingService.getDBIdFromConnectionSettingsUrl();
-        System.out.println("-----------------------------------" + connectionID + "___________________");
         // Migration BB before processing
 //      BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
 //      blackBoardMigrationService.performMigrationProcess();
@@ -99,7 +98,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @DisplayName("SP-TXXXX: Check not empty tables for BB Ultra")
+    @DisplayName("SP-TXXXX: Check amount of records in base tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX")})
     void testDBValidationBBUltraScenarioTwo() throws InterruptedException, IOException, SQLException {
 
