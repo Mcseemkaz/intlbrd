@@ -1,11 +1,13 @@
 package net.intelliboard.next.tests.core.ibusers.imports;
 
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -15,6 +17,8 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Tag("IBUser")
+@Feature("IBUser")
 public class ImportIBUserTest extends IBNextAbstractTest {
 
     @ParameterizedTest
@@ -43,5 +47,15 @@ public class ImportIBUserTest extends IBNextAbstractTest {
         IBUsersPage
                 .init()
                 .deleteUser(importedIBUser);
+
+        // Assertion
+        Assertions.assertThat(
+                        IBUsersPage
+                                .init()
+                                .changeScalingUsersPerPage(200)
+                                .isUserPresents(importedIBUser))
+                .withFailMessage("User with name %s is existed and isn't deleted", importedIBUser)
+                .isFalse()
+                .as(String.format("User with name %s is existed and isn't deleted", importedIBUser));
     }
 }

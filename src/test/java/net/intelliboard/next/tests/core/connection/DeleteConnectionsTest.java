@@ -4,10 +4,12 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -80,19 +82,30 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
             numberConnections--;
         }
 
-        connectionsList.forEach(k -> ConnectionsListPage.init().findConnectionByName(k).selectConnection(k, true));
+        open(ALL_CONNECTIONS + "?per_page=300");
+
+        connectionsList.forEach(k -> ConnectionsListPage.init().selectConnection(k, true));
 
         ConnectionsListPage
                 .init()
                 .deleteSelectedConnectionsByActionDropdown();
 
         waitForPageLoaded();
+
         Selenide.sleep(5000);
 
-        assertThat(
-                connectionsList
-                        .stream()
-                        .allMatch(k -> !(ConnectionsListPage.init().isConnectionExist(k))))
-                .isTrue();
+        SoftAssertions softly = new SoftAssertions();
+
+        connectionsList
+                .stream()
+                .forEach(k ->
+                        softly.assertThat(
+                                        ConnectionsListPage
+                                                .init()
+                                                .isConnectionExist(k))
+                                .withFailMessage("Connection %s is still existed", (k))
+                                .isFalse());
+
+        softly.assertAll();
     }
 }
