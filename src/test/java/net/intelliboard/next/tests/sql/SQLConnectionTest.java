@@ -106,4 +106,41 @@ public class SQLConnectionTest {
         ds.environmentCleanUp();
     }
 
+    @Disabled
+    @Tag("SQL_LMS_Query_POC")
+    @Test
+    void testPOCConnection4() throws SQLException, IOException {
+
+        DataBaseConnectorService ds = new DataBaseConnectorService();
+        ResultSet rs1 = ds.executeQuery(FULL_REPORT_QUERY, "lms_8946_blackboard");
+
+        assertThat(!rs1.wasNull())
+                .withFailMessage("Connection is not work")
+                .isTrue();
+
+        SoftAssertions softly = new SoftAssertions();
+        int i = 0;
+        while (rs1.next()) {
+//            System.out.print(rs1.getString("table_name") + " | ");
+//            System.out.print(rs1.getString("type") + " | ");
+//            System.out.print(rs1.getString("type") + " | ");
+//            System.out.print(rs1.getString("column_name") + " | ");
+//            System.out.print(rs1.getString("null_values") + " | ");
+//            System.out.println(rs1.getString("total") + " | ");
+
+            for (String[] value : TEST_QUERY) {
+                if (rs1.getString("table_name").equals(value[0]) &&
+                        rs1.getString("column_name").equals(value[1])) {
+                    softly.assertThat(Integer.parseInt(rs1.getString("not_null_values")) > 0)
+                            .withFailMessage(" Row %s %s is empty !", rs1.getString("table_name"), rs1.getString("column_name"))
+                            .isTrue();
+                    i++;
+                }
+            }
+        }
+        softly.assertAll();
+        System.out.println(i);
+        rs1.close();
+        ds.environmentCleanUp();
+    }
 }
