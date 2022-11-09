@@ -32,7 +32,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class DBConnectionValidationTest extends IBNextAbstractTest {
 
     @Test
-    @DisplayName("SP-TXXXX: Check not empty tables for BB Ultra")
+    @DisplayName("SP-TXXXX120: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX120")})
     void testDBValidationBBUltraScenarioOne() throws InterruptedException, IOException, SQLException {
 
@@ -100,7 +100,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @DisplayName("SP-TXXXX: Check amount of records in base tables")
+    @DisplayName("SP-TXXXX121: Check amount of records in base tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX121")})
     void testDBValidationBBUltraScenarioTwo() throws InterruptedException, IOException, SQLException {
 
@@ -192,7 +192,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @DisplayName("SP-TXXXX: Check amount of records in incontact tables")
+    @DisplayName("SP-TXXXX122: Check amount of records in incontact tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX122")})
     void testDBValidationBBUltraScenarioThree() throws InterruptedException, IOException, SQLException {
 
@@ -280,7 +280,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
 
     //TODO [MO] Remove debug printing after stabilize
     @Test
-    @DisplayName("SP-TXXXX: Check not empty tables for BB Ultra")
+    @DisplayName("SP-TXXXX123: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX123")})
     void testDBValidationBBUltraScenarioFour() throws InterruptedException, IOException, SQLException {
 
@@ -345,6 +345,66 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
 
         softly.assertAll();
         System.out.println(i);
+        rs1.close();
+        ds.environmentCleanUp();
+    }
+
+    @Test
+    @DisplayName("SP-TXXXX124: Check categories.parent_id column")
+    @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX124")})
+    void testDBValidationBBUltraScenarioFive() throws InterruptedException, IOException, SQLException {
+        //Create BB Ultra Connection
+        //Processing connection
+        String connectionName = "BB_Ultra_SQL-5-" + DataGenerator.getRandomString();
+        String connectionID;
+        open(CREATE_BLACKBOARD_CONNECTION);
+        CreateConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        assertThat(connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now()))
+                .withFailMessage("Connection %s has not been processed properly", connectionName)
+                .isTrue();
+
+        connectionsListPage
+                .editConnection(connectionName);
+        connectionID = DBMainManagingService.getDBIdFromConnectionSettingsUrl();
+        // Migration BB before processing
+//      BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
+//      blackBoardMigrationService.performMigrationProcess();
+
+        //Executed query
+        DataBaseConnectorService ds = new DataBaseConnectorService();
+        ResultSet rs1 = ds.executeQuery(
+                FULL_REPORT_QUERY,
+                "lms_" + connectionID + "_blackboard");
+
+        SoftAssertions softly = new SoftAssertions();
+
+        while (rs1.next()) {
+
+            for (String[] value : ROWS_TEST_FIVE) {
+                if (rs1.getString("table_name").equals(value[0]) &&
+                        rs1.getString("column_name").equals(value[1])) {
+                    softly.assertThat(Integer.parseInt(rs1.getString("null_values")) > 0)
+                            .withFailMessage(" Row %s %s has no empty values !", rs1.getString("table_name"), rs1.getString("column_name"))
+                            .isTrue();
+                }
+            }
+        }
+
+        softly.assertAll();
         rs1.close();
         ds.environmentCleanUp();
     }
