@@ -319,4 +319,8 @@ public class SQLQueries {
             {"users", "first_login_at"},
             {"users", "id"}
     };
+
+    public static String[][] ROWS_TEST_FIVE = {
+            {"categories", "parent_id"}
+    };
 }
