@@ -95,7 +95,7 @@ public class IBUsersSyncPage {
                 .click();
         $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//div[contains (@class,'select-all')]")
                 .click();
-        $x("//div[contains(@class,'content-header')]//h2")
+        $x("//div[contains(@class,'content-header')]//h1")
                 .click();
         return this;
     }
