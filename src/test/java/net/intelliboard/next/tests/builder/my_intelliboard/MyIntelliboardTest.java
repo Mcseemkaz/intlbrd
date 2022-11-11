@@ -134,8 +134,8 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T621")})
-    @DisplayName("SP-T621: Check \"Edit\" in action button on MyIntelliboard page\n")
+    @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T624")})
+    @DisplayName("SP-T624: Check \"Edit\" in action button on MyIntelliboard page\n")
     public void checkEditByActionButton() {
         int numberOfDashboard = 1;
 
