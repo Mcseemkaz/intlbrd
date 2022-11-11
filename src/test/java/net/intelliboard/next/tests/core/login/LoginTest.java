@@ -66,17 +66,6 @@ public class LoginTest extends IBNextAbstractTest {
         DashboardPage.init();
     }
 
-    @Flaky
-    @Test
-    @DisplayName("SP-TXXX: Logout from the app")
-    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-TXXX"), @Tag("health")})
-    public void testLogout() {
-        HeaderObject
-                .init()
-                .openDropDownMenu()
-                .logOut();
-    }
-
     @Test
     @DisplayName("SP-T732: Not able to view previous pages if the user is logged out")
     @Tags(value = {@Tag("normal"), @Tag("SP-T732")})

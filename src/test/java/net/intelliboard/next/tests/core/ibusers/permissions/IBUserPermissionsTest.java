@@ -56,44 +56,6 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
         waitForPageLoaded();
     }
 
-    @Flaky
-    @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T614")})
-    @DisplayName("SP-T614: Library permission work correctly when Report Builder permission is turn off")
-    public void testLibraryPermissionOnWhenBuilderPermissionOff() {
-
-        //Create new user
-        String firstName = "SP-T614_" + DataGenerator.getRandomString();
-        String lastName = DataGenerator.getRandomString();
-
-        open(MY_INTELLIBOARD_PAGE);
-
-        HeaderObject.init()
-                .openDropDownMenu()
-                .openMyIBUsersPage()
-                .openIBUserCreatePage()
-                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
-                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
-                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
-                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
-                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
-                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
-                .submitUserCreateForm()
-                .changeScalingUsersPerPage(200)
-                .logInSelectedUsers(firstName);
-
-        IBUserPage
-                .init()
-                .acceptPolicy(IBUserPolicyEnum.PRIVACY_POLICY)
-                .acceptPolicy(IBUserPolicyEnum.DATA_PROCESSING_ADDENDUM)
-                .acceptPolicy(IBUserPolicyEnum.TERMS_OF_USE);
-
-        open(IBNextURLs.LIBRARY_MAIN);
-
-        //TODO [MO] after fix bug with empty Library page should add validate of default reporting availability
-        waitForPageLoaded();
-    }
-
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1404")})
     @DisplayName("SP-T1404: Adding Admin role to the Connection Role drop-down")
