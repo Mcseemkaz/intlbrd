@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.sql;
 
 import groovyjarjarantlr4.v4.misc.OrderedHashMap;
+import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.database.DBMainManagingService;
 import net.intelliboard.next.services.database.DataBaseConnectorService;
@@ -28,6 +29,7 @@ import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNEC
 import static net.intelliboard.next.services.database.SQLQueries.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Feature("DB Connection Validation")
 @Tag("DB_Connection_Validation")
 public class DBConnectionValidationTest extends IBNextAbstractTest {
 

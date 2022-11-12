@@ -20,8 +20,6 @@ public class UserProfileAuditTest extends IBNextAbstractTest {
     @DisplayName("SP-T1361: Displaying 'Audit Logs' page")
     public void testUserProfileAuditPageVerification() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         HeaderObject
                 .init().openDropDownMenu()
                 .openMyAccountProfilePage()

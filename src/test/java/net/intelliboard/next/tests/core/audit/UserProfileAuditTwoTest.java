@@ -33,8 +33,6 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1362: Displaying the 'Audit Logs' button only for the main user account")
     public void testAuditLogsButtonNotAllowedForSubUser() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         HeaderObject header = HeaderObject.init();
 
         header
@@ -70,12 +68,11 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1363: Search logs by field")
     public void testUserProfileAuditPageSearchByField() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         String searchValue = "/data";
 
         HeaderObject
-                .init().openDropDownMenu()
+                .init()
+                .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
                 .searchByField(searchValue);
@@ -99,12 +96,11 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1364: Search logs by User")
     public void testUserProfileAuditPageSearchByUser() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         String searchValue = "Automated Testing";
 
         HeaderObject
-                .init().openDropDownMenu()
+                .init()
+                .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
                 .searchByUser(searchValue);
@@ -126,13 +122,12 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1365: Search logs by date")
     public void testUserProfileAuditPageSearchByDate() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
         DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d EEEE YYYY");
 
         HeaderObject
-                .init().openDropDownMenu()
+                .init()
+                .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
                 .searchByDate(yesterday);
@@ -153,8 +148,6 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1367")})
     @DisplayName("SP-T1367: Displaying new log of IB user after the log in of ib user")
     public void testIBUserLoginDisplayingInProfileAuditLog() {
-
-        open(IBNextURLs.USERS_PAGE);
 
         HeaderObject header = HeaderObject.init();
 
@@ -205,15 +198,14 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1368: Removing logs of user after deleting him")
     public void testIBUserAuditLogRemovingWhenHisDeleted() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         // Add IBUser
 
         String firstName = "SP-T1368_" + DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
         String fullName = firstName + " " + lastName;
 
-        HeaderObject.init()
+        HeaderObject
+                .init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -279,10 +271,9 @@ public class UserProfileAuditTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T1371: Sorting columns by clicking on the column's name")
     public void testAuditLogsSortingByColumns() {
 
-        open(IBNextURLs.USERS_PAGE);
-
         HeaderObject
-                .init().openDropDownMenu()
+                .init()
+                .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
                 .sortByColumn(UserProfileAuditTableColumnEnum.USER)
