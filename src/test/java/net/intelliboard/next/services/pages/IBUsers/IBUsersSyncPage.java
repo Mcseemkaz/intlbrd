@@ -19,6 +19,7 @@ public class IBUsersSyncPage {
             $x("//div[contains(@class,'card-body')]//div[@name='role_id']//div[contains (@class,'intelli-dropdown')]");
     private SelenideElement ConnectionRolesDropdown =
             $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]");
+    private SelenideElement PageHeader = $x("//div[contains(@class,'content-header')]//h1");
 
 
     public static IBUsersSyncPage init() {
@@ -61,8 +62,8 @@ public class IBUsersSyncPage {
     }
 
     public IBUsersSyncPage selectLMSRole() {
-       ConnectionRolesDropdown.click();
-       $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
+        ConnectionRolesDropdown.click();
+        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
                 .click();
         $x("//button[@type='submit']")
                 .click();
@@ -84,7 +85,7 @@ public class IBUsersSyncPage {
                 .click();
         $x("(//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//li//div[contains (@class,'select')])[1]")
                 .click();
-        $x("//div[contains(@class,'content-header')]//h2")
+        PageHeader
                 .click();
         return this;
     }
@@ -95,14 +96,13 @@ public class IBUsersSyncPage {
                 .click();
         $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//div[contains (@class,'select-all')]")
                 .click();
-        $x("//div[contains(@class,'content-header')]//h1")
-                .click();
+        PageHeader.click();
         return this;
     }
 
     public String getNameSelectedLMSUser() {
         Selenide.sleep(3000);
-        String fullName =  $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
+        String fullName = $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
                 .getText();
 
         return StringUtils.substringBefore(fullName, " (");
@@ -116,8 +116,8 @@ public class IBUsersSyncPage {
         return this;
     }
 
-    public boolean isRolesPresents(String roleName){
+    public boolean isRolesPresents(String roleName) {
         ConnectionRolesDropdown.click();
-        return $x("//div[@name='connection_roles']//li//strong[contains (text(),'"+roleName+"')]").exists();
+        return $x("//div[@name='connection_roles']//li//strong[contains (text(),'" + roleName + "')]").exists();
     }
 }

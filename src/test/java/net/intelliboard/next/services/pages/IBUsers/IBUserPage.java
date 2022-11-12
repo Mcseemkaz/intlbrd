@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUserPage {
 
-    SelenideElement AuditLogsButton = $x("//a[contains (@href, '/audit-logs')]//h5");
+    SelenideElement AuditLogsButton = $x("//a[contains (@href, '/audit-logs')]//h3");
 
     public static IBUserPage init() {
         $x("//div[contains(@class, 'profile-content-header')]")
