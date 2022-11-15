@@ -32,6 +32,17 @@ pipeline {
         always {
             sh('docker ps && docker stop selenoid')
             sh('./mvnw allure:report')
+            archiveArtifacts artifacts: 'target/site/allure-maven-plugin/', followSymlinks: false
+
+            script {
+                allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'target/allure-results']]
+                ])
+            }
         }
     }
 }
