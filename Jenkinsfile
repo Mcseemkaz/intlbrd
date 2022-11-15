@@ -1,6 +1,17 @@
 // noinspection GroovyAssignabilityCheck
-
 pipeline {
+
+    options {
+        office365ConnectorWebhooks([[name                 : "Office 365",
+                                     url                  : "https://intelliboard.webhook.office.com/webhookb2/7ccd14e0-6e58-4ddf-bc6d-6d36295d3372@1b28acb7-9552-4084-9a2e-7dcc9cd21844/JenkinsCI/db33c6c30d794ae6bb57b391e4f15eac/14c2bbd2-8b8b-474d-9e55-485ff3ce7c58",
+                                     notifyBackToNormal   : true,
+                                     notifyFailure        : false,
+                                     notifyRepeatedFailure: false,
+                                     notifySuccess        : false,
+                                     notifyAborted        : true,
+                                     message              : 'Test message ${testGroup} ${testEnv}']])
+    }
+
     agent any
     stages {
         stage('Pull browser') {
@@ -37,12 +48,25 @@ pipeline {
             script {
                 allure([
                         includeProperties: false,
-                        jdk: '',
-                        properties: [],
+                        jdk              : '',
+                        properties       : [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'target/allure-results']]
+                        results          : [[path: 'target/allure-results']]
                 ])
             }
+        }
+
+        success {
+            office365ConnectorSend webhookUrl: "https://intelliboard.webhook.office.com/webhookb2/7ccd14e0-6e58-4ddf-bc6d-6d36295d3372@1b28acb7-9552-4084-9a2e-7dcc9cd21844/JenkinsCI/db33c6c30d794ae6bb57b391e4f15eac/14c2bbd2-8b8b-474d-9e55-485ff3ce7c58",
+                    message: "ENV : '${testEnv}' Tests: '${testGroup}' ",
+                    color: "#00ff00",
+                    status: "${currentBuild.currentResult}"
+        }
+        failure {
+            office365ConnectorSend webhookUrl: "https://intelliboard.webhook.office.com/webhookb2/7ccd14e0-6e58-4ddf-bc6d-6d36295d3372@1b28acb7-9552-4084-9a2e-7dcc9cd21844/JenkinsCI/db33c6c30d794ae6bb57b391e4f15eac/14c2bbd2-8b8b-474d-9e55-485ff3ce7c58",
+                    message: "ENV : '${testEnv}' Tests: '${testGroup}' ",
+                    color: "#ff0000",
+                    status: "${currentBuild.currentResult}"
         }
     }
 }
