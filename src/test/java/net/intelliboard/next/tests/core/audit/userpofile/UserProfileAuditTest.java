@@ -1,4 +1,4 @@
-package net.intelliboard.next.tests.core.audit;
+package net.intelliboard.next.tests.core.audit.userpofile;
 
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;

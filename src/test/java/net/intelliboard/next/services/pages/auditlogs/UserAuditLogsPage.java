@@ -42,10 +42,12 @@ public class UserAuditLogsPage {
         return this;
     }
 
-    public UserAuditLogsPage searchByDate(LocalDateTime date) {
+    public UserAuditLogsPage searchByDate(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]")
+                .click();
         DatePicker
                 .init()
-                .setDayOfMonth(date);
+                .setDayOfMonth(dateFrom, dateTo);
         return this;
     }
 

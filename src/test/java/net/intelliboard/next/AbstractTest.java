@@ -1,6 +1,5 @@
 package net.intelliboard.next;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.login.LoginCookieHandler;

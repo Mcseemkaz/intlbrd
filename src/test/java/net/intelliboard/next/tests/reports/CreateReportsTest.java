@@ -10,10 +10,7 @@ import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.builder.*;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportTypeEnum;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
@@ -317,6 +314,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
                 .isFalse();
     }
 
+    @Disabled //TODO [MO] Unclear requirements - seems that functionality was disabled
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T163")})
     @DisplayName("SP-T163: Change report color in the setting")
