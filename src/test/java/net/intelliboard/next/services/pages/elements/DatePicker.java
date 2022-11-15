@@ -20,11 +20,25 @@ public class DatePicker {
         $x("//span[contains (@class,'flatpickr-weekday')]").click();
     }
 
-    public DatePicker setDayOfMonth(LocalDateTime date) {
-        String dayOfMonth = Integer.toString(date.getDayOfMonth());
-        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonth + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
+    public DatePicker setDayOfMonth(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        String dayOfMonthFrom = Integer.toString(dateFrom.getDayOfMonth());
+        String dayOfMonthTo = Integer.toString(dateTo.getDayOfMonth());
+        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthFrom + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
                 .click();
-        String setDate = $x("//input[contains (@name,'mongoose_cadence_init')]").getAttribute("value");
+        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthTo + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
+                .click();
+//        String setDate = $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]").getAttribute("value");
+//        assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
+        return this;
+    }
+
+    public DatePicker setDayOfMonth(LocalDateTime date) {
+        String dayOfMonthFrom = Integer.toString(date.getDayOfMonth());
+
+        $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthFrom + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
+                .click();
+
+        String setDate = $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]").getAttribute("value");
         assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
         return this;
     }

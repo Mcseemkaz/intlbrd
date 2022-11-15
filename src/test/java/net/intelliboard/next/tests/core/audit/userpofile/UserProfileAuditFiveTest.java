@@ -29,22 +29,27 @@ public class UserProfileAuditFiveTest extends IBNextAbstractTest {
         open(IBNextURLs.USERS_PAGE);
 
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
-        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d EEEE YYYY");
+        LocalDateTime dayBeforeYesterday = LocalDateTime.now().minusDays(2);
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d MMMM yyyy");
 
         HeaderObject
-                .init().openDropDownMenu()
+                .init()
+                .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
-                .searchByDate(yesterday);
+                .searchByDate(dayBeforeYesterday, yesterday);
 
         for (int i = 1; i < 4; i++) {
+
+            String day = UserAuditLogsPage
+                    .init()
+                    .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.TIME, i);
+
+            String checkDay = yesterday.format(FORMATTER);
             assertThat(
-                    UserAuditLogsPage
-                            .init()
-                            .getValueCellByRowNumber(UserProfileAuditTableColumnEnum.TIME, i)
-                            .contains(yesterday.format(FORMATTER))
+                    day.contains(checkDay)
             )
-                    .withFailMessage(String.format("Row # %s is not contain %s", i, UserProfileAuditTableColumnEnum.USER.value))
+                    .withFailMessage(String.format("Row # %s is not contain %s", i, yesterday.format(FORMATTER)))
                     .isTrue();
         }
     }
