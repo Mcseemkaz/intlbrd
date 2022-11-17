@@ -27,8 +27,6 @@ public class DatePicker {
                 .click();
         $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthTo + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
                 .click();
-//        String setDate = $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]").getAttribute("value");
-//        assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
         return this;
     }
 
@@ -38,7 +36,7 @@ public class DatePicker {
         $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthFrom + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
                 .click();
 
-        String setDate = $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]").getAttribute("value");
+        String setDate = $x("//input[contains (@class, 'flatpickr-input')]").getAttribute("value");
         assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
         return this;
     }
