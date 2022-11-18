@@ -21,8 +21,34 @@ public class LibraryMainPage {
         return this;
     }
 
-    public int getLibraryItemsNumberByType(LibraryItemTypeEnum type){
-        return $$x("//div[@class='data-library-list' and .//h2[contains (text(), '"+type.value+"')]]//li")
+    public int getLibraryItemsNumberByType(LibraryItemTypeEnum type) {
+        return $$x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li")
                 .size();
+    }
+
+    public LibraryMainPage likeItem(String itemName) {
+        if (
+                $x("//li[ .//h4[contains (text(), '" + itemName + "')]]//ion-icon")
+                        .getAttribute("name").equals("heart-outline")
+        ) {
+            $x("//li[ .//h4[contains (text(), '" + itemName + "')]]//span[@class='action-item']")
+                    .click();
+        }
+        return this;
+    }
+
+    public LibraryMainPage unlikeItem(String itemName) {
+        if (
+                !$x("//li[ .//h4[contains (text(), '" + itemName + "')]]//ion-icon")
+                        .getAttribute("name").equals("heart-outline")
+        ) {
+            $x("//li[ .//h4[contains (text(), '" + itemName + "')]]//span[@class='action-item']")
+                    .click();
+        }
+        return this;
+    }
+
+    public int getNumberOfLikesItem(String itemName){
+        return Integer.parseInt($x("//li[ .//h4[contains (text(), '" + itemName + "')]]//div[@class='data-library-item-date']").getText());
     }
 }

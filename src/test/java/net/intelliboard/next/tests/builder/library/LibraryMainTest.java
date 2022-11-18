@@ -57,4 +57,38 @@ public class LibraryMainTest extends IBNextAbstractTest {
                 .withFailMessage("Number of found reports is not 3")
                 .isTrue();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T444")})
+    @DisplayName("SP-T444: Like in report")
+    void testLikeReportLibraryPage() {
+        String libraryItemName = "Grading";
+        int likesBefore;
+        int likesAfter;
+
+        open(IBNextURLs.LIBRARY_MAIN);
+
+        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+
+        libraryMainPage.searchLibraryItem(libraryItemName);
+
+        Selenide.sleep(2000);
+
+        likesBefore = libraryMainPage.getNumberOfLikesItem(libraryItemName);
+        libraryMainPage.likeItem(libraryItemName);
+        Selenide.sleep(2000);
+        likesAfter = libraryMainPage.getNumberOfLikesItem(libraryItemName);
+
+        assertThat(likesAfter == likesBefore + 1)
+                .withFailMessage("Number of likes do not equal")
+                .isTrue();
+
+        libraryMainPage.unlikeItem(libraryItemName);
+        Selenide.sleep(2000);
+        likesAfter = libraryMainPage.getNumberOfLikesItem(libraryItemName);
+
+        assertThat(likesAfter == likesBefore)
+                .withFailMessage("Number of likes do not equal")
+                .isTrue();
+    }
 }
