@@ -185,4 +185,19 @@ public class LibraryMainTest extends IBNextAbstractTest {
 
         softly.assertAll();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T430")})
+    @DisplayName("SP-T430:  Search using tags in Library")
+    void testSearhByTagLibrary() {
+
+        String tagName = "Time";
+
+        open(IBNextURLs.LIBRARY_MAIN);
+        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        libraryMainPage.searhByTag(tagName);
+
+        assertThat(libraryMainPage.checkTagPresentsInItem(LibraryItemTypeEnum.REPORTS, 1, tagName))
+                .isTrue();
+    }
 }
