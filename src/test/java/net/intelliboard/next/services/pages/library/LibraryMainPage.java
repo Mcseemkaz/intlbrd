@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.library;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 
 import java.time.Duration;
 
@@ -70,5 +71,18 @@ public class LibraryMainPage {
     public String getLibraryItemName(LibraryItemTypeEnum type, int numberOfItem) {
         return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4[@class='title']")
                 .getText();
+    }
+
+    public LibraryMainPage setActiveReportsForConnection(ConnectionsTypeEnum connection) {
+        $x("//button[contains (@class, 'data-sets-panel')]")
+                .click();
+        $x("//button[contains (@class, 'tree-choice')]")
+                .click();
+        $x("//li//strong[text()='" + connection.value + "']")
+                .click();
+        $x("//div[contains (@class,'data-filters-body')]/following-sibling::button[@type='submit']")
+                .click();
+        Selenide.sleep(sleepTime);
+        return this;
     }
 }
