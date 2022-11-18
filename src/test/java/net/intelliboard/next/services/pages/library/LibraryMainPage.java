@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.library;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 
 import java.time.Duration;
@@ -84,5 +85,28 @@ public class LibraryMainPage {
                 .click();
         Selenide.sleep(sleepTime);
         return this;
+    }
+
+    public LibraryMainPage searhByTag(String tagName) {
+        SelenideElement tag = $x("//li[ ./a//span[@class='title' and contains (text(),'" + tagName + "')]]");
+        if (tag.isDisplayed()) {
+            tag.click();
+        } else {
+            while (!tag.isDisplayed()) {
+                $x("//div[@class='library-categories-items']//button[@aria-label='Next slide']").click();
+                Selenide.sleep(sleepTime);
+            }
+        }
+        Selenide.sleep(sleepTime);
+        return this;
+    }
+
+    public boolean checkTagPresentsInItem(LibraryItemTypeEnum type, int numberOfItem, String tagName) {
+        Selenide
+                .actions()
+                .moveToElement($x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]"))
+                .perform();
+
+        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '"+type.value+"')]]//li[" + numberOfItem + "]//div[contains (@class, 'data-library-info-popup')]//span[contains (text(), '"+tagName+"')]").exists();
     }
 }
