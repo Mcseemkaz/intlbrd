@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.builder.library;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.library.LibraryMainPage;
 import net.intelliboard.next.services.pages.library.LibraryOrderTypeEnum;
@@ -96,7 +97,6 @@ public class LibraryMainTest extends IBNextAbstractTest {
         SoftAssertions softly = new SoftAssertions();
         LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        //Sorting by Name
         libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.NAME);
         itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
         softly.assertThat(itemName.startsWith("A"))
@@ -119,6 +119,68 @@ public class LibraryMainTest extends IBNextAbstractTest {
         itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
         softly.assertThat(itemName.startsWith("P"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
+                .isTrue();
+
+        softly.assertAll();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T434")})
+    @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - CANVAS")
+    void testAvailabilityItemsByConnectionTypeLibraryPageCANVAS() {
+        open(IBNextURLs.LIBRARY_MAIN);
+        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+
+        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.CANVAS);
+
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 32)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 32)
+                .isTrue();
+
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+                .isTrue();
+
+        softly.assertAll();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T434")})
+    @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - D2L")
+    void testAvailabilityItemsByConnectionTypeLibraryPageD2L() {
+        open(IBNextURLs.LIBRARY_MAIN);
+        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+
+        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.D2L);
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 29)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 29)
+                .isTrue();
+
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+                .isTrue();
+
+        softly.assertAll();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T434")})
+    @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - Moodle")
+    void testAvailabilityItemsByConnectionTypeLibraryPageMoodle() {
+        open(IBNextURLs.LIBRARY_MAIN);
+        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+
+        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.MOODLE);
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 31)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 31)
+                .isTrue();
+
+        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
                 .isTrue();
 
         softly.assertAll();
