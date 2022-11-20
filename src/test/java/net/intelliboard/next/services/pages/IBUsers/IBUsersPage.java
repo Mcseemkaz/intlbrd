@@ -18,12 +18,12 @@ public class IBUsersPage {
     @Getter
     public SelenideElement emailError = $x("//div[contains(@class,'has-error')]//span[@class='help-block ']");
 
-    private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
-    private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[4]//a");
-    private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]/li[1]//a");
-
-    private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
     private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
+    private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Log In As User')]");
+    private SelenideElement userActionEditOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Edit')]");
+    private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Delete')]");
+    private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
+    private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
     private SelenideElement addIBUserButton = $x("//button[@type='submit']");
 
     public static IBUsersPage init() {
@@ -34,12 +34,12 @@ public class IBUsersPage {
         return new IBUsersPage();
     }
 
-    public IBUsersCreatePage openIBUserCreatePage() {
+    public IBUserCreatePage openIBUserCreatePage() {
         addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
                 .shouldBe(Condition.visible)
                 .click();
-        return IBUsersCreatePage.init();
+        return IBUserCreatePage.init();
     }
 
     public IBUsersSyncPage openIBUserSyncPage() {
@@ -72,7 +72,6 @@ public class IBUsersPage {
                 .click();
         userActionDropdownDeleteOption.click();
         deleteSelectedUserPromtModal(true);
-        $x("//span[contains(text(),'\"+userFirstName+\"')]").shouldNotBe(Condition.visible);
         return this;
     }
 
@@ -87,6 +86,13 @@ public class IBUsersPage {
         $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
                 .click();
         userActionLogInOption.click();
+    }
+
+    public IBUserCreatePage editSelectedUser(String userFirstName) {
+        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+                .click();
+        userActionEditOption.click();
+        return IBUserCreatePage.init();
     }
 
     public IBUsersPage checkedUserByName(String firstUserName) {

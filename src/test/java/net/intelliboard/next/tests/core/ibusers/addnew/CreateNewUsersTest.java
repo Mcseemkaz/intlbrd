@@ -243,7 +243,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal")})
     @DisplayName("SP-T112: Create User with already registered email")
-    public void testCreateUserWithAlreadyReisteredEmail() {
+    public void testCreateUserWithAlreadyRegisteredEmail() {
 
         HeaderObject header = HeaderObject.init();
 
