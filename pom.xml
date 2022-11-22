@@ -98,17 +98,28 @@
             <artifactId>postgresql</artifactId>
             <version>42.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure.report.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>clean dependency:copy-dependencies test</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-archetype-plugin</artifactId>
+                <version>3.2.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -122,8 +133,14 @@
                     <!--                    <groups>create</groups>-->
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar"
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar"
                     </argLine>
+                    <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>io.qameta.allure.junit5.AllureJunit5</value>
+                    </property>
+                    </properties>
                     <systemProperties>
                         <property>
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
@@ -144,14 +161,14 @@
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
-                        <version>1.9.6</version>
+                        <version>1.9.9.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>2.11.2</version>
                 <configuration>
                     <reportVersion>${allure.report.version}</reportVersion>
                     <allureDownloadUrl>
