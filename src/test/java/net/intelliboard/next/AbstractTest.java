@@ -1,5 +1,8 @@
 package net.intelliboard.next;
 
+import com.codeborne.selenide.junit5.TextReportExtension;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.login.LoginCookieHandler;
@@ -16,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 @ExtendWith(TestsWatcherImpl.class)
-
+@ExtendWith(TextReportExtension.class)
 public abstract class AbstractTest {
 
     static Logger logger = LoggerFactory.getLogger(AbstractTest.class);
@@ -33,6 +36,11 @@ public abstract class AbstractTest {
 
     @BeforeEach
     public void setUp(TestInfo testInfo) throws IOException {
+
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide().screenshots(true)
+                        .savePageSource(true));
+
         logger.info(String.format("Test started : %s", testInfo.getDisplayName()));
         WebDriverService driver = new WebDriverService();
         driver.initWebDriver(
