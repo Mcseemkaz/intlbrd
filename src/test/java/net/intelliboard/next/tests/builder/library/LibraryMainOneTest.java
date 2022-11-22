@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainTestOne extends IBNextAbstractTest {
+public class LibraryMainOneTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T428")})

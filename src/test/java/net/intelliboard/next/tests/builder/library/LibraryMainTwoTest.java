@@ -17,7 +17,7 @@ import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainTestTwo extends IBNextAbstractTest {
+public class LibraryMainTwoTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T438")})

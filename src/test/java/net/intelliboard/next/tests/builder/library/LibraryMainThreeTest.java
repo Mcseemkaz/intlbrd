@@ -24,7 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainTestThree extends IBNextAbstractTest {
+public class LibraryMainThreeTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T434")})
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - Moodle")
