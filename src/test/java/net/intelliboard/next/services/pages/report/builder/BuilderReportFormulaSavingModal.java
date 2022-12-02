@@ -1,6 +1,8 @@
 package net.intelliboard.next.services.pages.report.builder;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -11,11 +13,15 @@ public class BuilderReportFormulaSavingModal {
     }
 
     public BuilderReportFormulaSavingModal fillInTitle(String title) {
-        $x("//input[@id='formulaTitle']").sendKeys(title);
+        SelenideElement formulaTitle = $x("//input[@id='formulaTitle']");
+        Selenide.sleep(1000);
+        formulaTitle.click();
+        formulaTitle.setValue(title);
         return this;
     }
 
     public BuilderReportFormulaSavingModal fillInDescription(String title) {
+        Selenide.sleep(1000);
         $x("//textarea[@name='description']").sendKeys(title);
         return this;
     }
