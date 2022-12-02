@@ -3,7 +3,9 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.connections.connection.qwickly.QwicklyProcessingFreqencyTypeEnum;
 import net.intelliboard.next.services.pages.elements.DatePicker;
+import org.openqa.selenium.Keys;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -148,7 +150,6 @@ public class CreateConnectionPage {
     }
 
 
-
     public ConnectionsListPage createD2LConnection(String lmsName, String D2LUrl, String D2LId, String D2LSecret,
                                                    String D2LLogin, String D2Lpassword) {
         connectionNameField.setValue(lmsName);
@@ -199,12 +200,17 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
-    public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret) {
+    public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret, QwicklyProcessingFreqencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='qwickly_data_feed_url']").sendKeys(qwicklyDataFeedUrl);
         $x("//input[@id='qwickly_key']").sendKeys(qwicklyKey);
         $x("//input[@id='qwickly_secret']").sendKeys(qwicklySecret);
-
+        $x("//div[contains (@label,'Processing')]//button[contains (@class, 'tree-choice')]").click();
+        $x("//div[contains (@label,'Processing')]//li[ .//*[contains (text(),'" + type.value + "')]]").click();
+        $x("//input[contains (@class,'date-picker-input') and not (@name)]").click();
+        $x("//input[contains (@class,'flatpickr-hour')]")
+                .setValue(String.valueOf(time))
+                .sendKeys(Keys.ENTER);
         submitForm();
         return ConnectionsListPage.init();
     }

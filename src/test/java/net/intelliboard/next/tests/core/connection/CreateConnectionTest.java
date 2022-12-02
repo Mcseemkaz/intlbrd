@@ -6,6 +6,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.qwickly.QwicklyProcessingFreqencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -364,7 +365,13 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_QWICKLY_CONNECTION);
 
         createConnectionPage
-                .createQWICKLYConnection(mainConnectionName, CreateConnectionPage.QWICKLY_URL, CreateConnectionPage.QWICKLY_KEY, CreateConnectionPage.QWICKLY_SECRET);
+                .createQWICKLYConnection(
+                        mainConnectionName,
+                        CreateConnectionPage.QWICKLY_URL,
+                        CreateConnectionPage.QWICKLY_KEY,
+                        CreateConnectionPage.QWICKLY_SECRET,
+                        QwicklyProcessingFreqencyTypeEnum.DAILY,
+                        12);
 
         assertThat(ConnectionsListPage.init()
                 .findConnectionByName(mainConnectionName)
