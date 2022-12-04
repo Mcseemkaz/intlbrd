@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
+import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
 import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 
@@ -18,11 +19,6 @@ public class MyIntelliBoardPage {
         $x("//div[@class='content-body']").shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.MY_INTELLIBOARD_PAGE);
         return new MyIntelliBoardPage();
-    }
-
-    public boolean isDashboardPresentsByOrderNumber(int number) {
-        return $x("//div[contains(@class,'cards-view')]//li[" + number + "]//div[contains (@class,'data-library-info')]//h4")
-                .exists();
     }
 
     public boolean isDashboardPresentsByName(String dashboardName) {
@@ -99,5 +95,15 @@ public class MyIntelliBoardPage {
     public String getReportBackgroundColors(String reportName){
         return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[@class='data-library-item-wrapper']")
                 .getAttribute("style");
+    }
+
+    public String getItemName(LibraryItemTypeEnum type, int numberOfItem) {
+        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4[@class='title']")
+                .getText();
+    }
+
+    public boolean isItemPresentsByOrderNumber(LibraryItemTypeEnum type, int numberOfItem) {
+        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4")
+                .exists();
     }
 }

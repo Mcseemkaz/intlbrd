@@ -28,7 +28,7 @@ public class UserProfileAuditFiveTest extends IBNextAbstractTest {
 
         open(IBNextURLs.USERS_PAGE);
 
-        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+        LocalDateTime yesterday = LocalDateTime.now();
         LocalDateTime dayBeforeYesterday = LocalDateTime.now().minusDays(2);
         DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d MMMM yyyy");
 

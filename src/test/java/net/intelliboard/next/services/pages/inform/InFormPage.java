@@ -16,7 +16,7 @@ public class InFormPage {
     }
 
     public static InFormPage init() {
-        $x("//div[@class='left']").shouldBe(Condition.visible, Duration.ofSeconds(30));
+        $x("//h1[@class='left']").shouldBe(Condition.visible, Duration.ofSeconds(30));
         $x("//div[@class='table-container']").shouldBe(Condition.visible, Duration.ofSeconds(30));
         return new InFormPage();
     }

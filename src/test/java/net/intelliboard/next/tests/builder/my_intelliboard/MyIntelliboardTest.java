@@ -7,6 +7,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -24,12 +25,18 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T589")})
     @DisplayName("SP-T589: Report title")
     public void checkReportTitle() {
+        String dashboardName = "Untitled Dashboard";
 
-        HeaderObject.init().openMyIntelliBoardPage();
+        HeaderObject
+                .init()
+                .openMyIntelliBoardPage();
 
-        assertThat(MyIntelliBoardPage.init().isDashboardPresentsByOrderNumber(1))
-                .isTrue()
-                .as(String.format("Dashboard %s is not presented", 1));
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .getItemName(LibraryItemTypeEnum.DASHBOARDS, 1).equals(dashboardName))
+                .withFailMessage("Dashboard %s is not presented", dashboardName)
+                .isTrue();
     }
 
     @Test
@@ -105,12 +112,13 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
         //Open Dashboard
-        String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
+        String dashboardName = my.getItemName(LibraryItemTypeEnum.DASHBOARDS, numberOfDashboard);
         my.openView(numberOfDashboard);
-        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-        ibNextAbstractTest.waitForPageLoaded();
 
-        assertThat($x("//div[contains (@class,'data-set-title')]").getText().equals(dashboardName))
+        waitForPageLoaded();
+
+        assertThat($x("//div[@class='content-header']//h1").getText().equals(dashboardName))
+                .withFailMessage("The title is not match")
                 .isTrue();
     }
 
@@ -120,16 +128,19 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     public void checkSetAsDefaultActionButton() {
         int numberOfDashboard = 1;
 
-        HeaderObject.init().openMyIntelliBoardPage();
+        HeaderObject
+                .init()
+                .openMyIntelliBoardPage();
+
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
         //Open Dashboard
-        String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
+        String dashboardName = my.getItemName(LibraryItemTypeEnum.DASHBOARDS, numberOfDashboard);
         my.openView(numberOfDashboard);
-        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-        ibNextAbstractTest.waitForPageLoaded();
 
-        assertThat($x("//div[contains (@class,'data-set-title')]").getText().equals(dashboardName))
+        waitForPageLoaded();
+
+        assertThat($x("//div[@class='content-header']//h1").getText().equals(dashboardName))
                 .isTrue();
     }
 
@@ -143,10 +154,10 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
 
         //Open Dashboard
-        String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
+        String dashboardName = my.getItemName(LibraryItemTypeEnum.DASHBOARDS, numberOfDashboard);
         my.openEdit(numberOfDashboard);
-        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-        ibNextAbstractTest.waitForPageLoaded();
+
+        waitForPageLoaded();
 
         String ag = CreateDashboardPage.init().getTitleName();
 
