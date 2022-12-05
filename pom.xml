@@ -172,7 +172,7 @@
                 <configuration>
                     <reportVersion>${allure.report.version}</reportVersion>
                     <allureDownloadUrl>
-                        https://github.com/allure-framework/allure2/releases/download/2.19.0/allure-2.19.0.zip
+                        https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
                     </allureDownloadUrl>
                 </configuration>
             </plugin>
