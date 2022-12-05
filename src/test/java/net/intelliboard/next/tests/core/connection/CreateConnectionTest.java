@@ -6,7 +6,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
-import net.intelliboard.next.services.pages.connections.connection.qwickly.QwicklyProcessingFreqencyTypeEnum;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -370,7 +370,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                         CreateConnectionPage.QWICKLY_URL,
                         CreateConnectionPage.QWICKLY_KEY,
                         CreateConnectionPage.QWICKLY_SECRET,
-                        QwicklyProcessingFreqencyTypeEnum.DAILY,
+                        ConnectionProcessingFrequencyTypeEnum.DAILY,
                         12);
 
         assertThat(ConnectionsListPage.init()
@@ -413,7 +413,9 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 CreateConnectionPage.MONGOOSE_API_KEY,
                 CreateConnectionPage.MONGOOSE_SECRET,
                 CreateConnectionPage.MONGOOSE_TEAM_CODE,
-                LocalDateTime.now());
+                LocalDateTime.now(),
+                ConnectionProcessingFrequencyTypeEnum.DAILY,
+                12);
 
         assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.MONGOOSE_CADENCE, mainConnectionName))
                 .isTrue();
