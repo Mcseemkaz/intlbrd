@@ -30,7 +30,6 @@ public class CreateConnectionPage {
     public static String BLACKBOARD_LMS_URL;
     public static String BLACKBOARD_ULTRA_CLIENT_ID;
     public static String BLACKBOARD_ULTRA_LMS_URL;
-
     public static String D2L_URL;
     public static String D2L_CLIENT_ID;
     public static String D2L_CLIENT_SECRET;
@@ -56,6 +55,7 @@ public class CreateConnectionPage {
     public static String MONGOOSE_API_KEY;
     public static String MONGOOSE_SECRET;
     public static String MONGOOSE_TEAM_CODE;
+    public static String HUBSPOT_ACCESS_TOKEN;
 
 
     static {
@@ -99,6 +99,7 @@ public class CreateConnectionPage {
             CreateConnectionPage.MONGOOSE_API_KEY = propertiesGetValue.getPropertyValue("mongoose_api_key");
             CreateConnectionPage.MONGOOSE_SECRET = propertiesGetValue.getPropertyValue("mongoose_secret");
             CreateConnectionPage.MONGOOSE_TEAM_CODE = propertiesGetValue.getPropertyValue("mongoose_team_code");
+            CreateConnectionPage.HUBSPOT_ACCESS_TOKEN = propertiesGetValue.getPropertyValue("hubspot_access_token");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -221,6 +222,15 @@ public class CreateConnectionPage {
 
         $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Date')]]").click();
         DatePicker.init().setDayOfMonth(date);
+        submitForm();
+        return ConnectionsListPage.init();
+    }
+
+    public ConnectionsListPage createHubspotConnection(String mainConnectionName, String hubspotAPIKey, ConnectionProcessingFrequencyTypeEnum type, int time) {
+        selectConnection(mainConnectionName);
+        $x("//input[@id='hubspot_token']").sendKeys(hubspotAPIKey);
+        selectProcessingFrequency(type);
+        selectProcessingTime(time);
         submitForm();
         return ConnectionsListPage.init();
     }
