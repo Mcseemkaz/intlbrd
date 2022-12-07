@@ -3,7 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.pages.connections.connection.qwickly.QwicklyProcessingFreqencyTypeEnum;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.elements.DatePicker;
 import org.openqa.selenium.Keys;
 
@@ -200,27 +200,26 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
-    public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret, QwicklyProcessingFreqencyTypeEnum type, int time) {
+    public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret, ConnectionProcessingFrequencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='qwickly_data_feed_url']").sendKeys(qwicklyDataFeedUrl);
         $x("//input[@id='qwickly_key']").sendKeys(qwicklyKey);
         $x("//input[@id='qwickly_secret']").sendKeys(qwicklySecret);
-        $x("//div[contains (@label,'Processing')]//button[contains (@class, 'tree-choice')]").click();
-        $x("//div[contains (@label,'Processing')]//li[ .//*[contains (text(),'" + type.value + "')]]").click();
-        $x("//input[contains (@class,'date-picker-input') and not (@name)]").click();
-        $x("//input[contains (@class,'flatpickr-hour')]")
-                .setValue(String.valueOf(time))
-                .sendKeys(Keys.ENTER);
+        selectProcessingFrequency(type);
+        selectProcessingTime(time);
         submitForm();
         return ConnectionsListPage.init();
     }
 
-    public ConnectionsListPage createMongooseConnection(String mainConnectionName, String mogooseAPIKey, String mongooseSecret, String mongooseTeamCode, LocalDateTime date) {
+    public ConnectionsListPage createMongooseConnection(String mainConnectionName, String mogooseAPIKey, String mongooseSecret, String mongooseTeamCode, LocalDateTime date, ConnectionProcessingFrequencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='mongoose_cadence_api_key']").sendKeys(mogooseAPIKey);
         $x("//input[@id='mongoose_cadence_secret']").sendKeys(mongooseSecret);
         $x("//input[@id='mongoose_cadence_team_code']").sendKeys(mongooseTeamCode);
-        $x("//input[contains (@class,'date-picker-input') and contains (@class,'form-control')]").click();
+        selectProcessingFrequency(type);
+        selectProcessingTime(time);
+
+        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Date')]]").click();
         DatePicker.init().setDayOfMonth(date);
         submitForm();
         return ConnectionsListPage.init();
@@ -245,5 +244,19 @@ public class CreateConnectionPage {
     public void submitForm() {
         waitForValidation();
         buttonContinue.click();
+    }
+
+    private CreateConnectionPage selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum type) {
+        $x("//div[contains (@label,'Processing Frequency')]//button[contains (@class, 'tree-choice')]").click();
+        $x("//div[contains (@label,'Processing Frequency')]//li[ .//*[contains (text(),'" + type.value + "')]]").click();
+        return this;
+    }
+
+    private CreateConnectionPage selectProcessingTime(int time) {
+        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Time')]]").click();
+        $x("//input[contains (@class,'flatpickr-hour')]")
+                .setValue(String.valueOf(time))
+                .sendKeys(Keys.ENTER);
+        return this;
     }
 }
