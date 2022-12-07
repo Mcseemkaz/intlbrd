@@ -25,7 +25,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T83: Creating of Moodle connection")
     public void testCreateMoodleConnection() {
 
-        String connectionName = "AQA_SP-T83_" + DataGenerator.getRandomString();
+        String connectionName = "Moodle_SP-T83_" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
         CreateConnectionPage
                 .init()
@@ -42,7 +42,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T89: Creating of Canvas connection")
     public void testCreateCanvasConnection() {
 
-        String connectionName = "AQA_SP-T89_" + DataGenerator.getRandomString();
+        String connectionName = "Canvas_SP-T89_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         CreateConnectionPage
@@ -69,7 +69,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T599: Creating a Blackboard connection")
     public void testCreateBlackboardConnection() {
 
-        String connectionName = "AQA_SP-T599_" + DataGenerator.getRandomString();
+        String connectionName = "Blackboard_SP-T599_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
@@ -90,7 +90,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_ZOOM_CONNECTION);
 
-        String connectionName = "AQA_SP-T106_" + DataGenerator.getRandomString();
+        String connectionName = "Zoom_SP-T106_" + DataGenerator.getRandomString();
         CreateZoomConnectionPage
                 .init()
                 .createZoomConnection(
@@ -117,7 +117,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateD2LConnection() {
 
         open(CREATE_D2L_CONNECTION);
-        String connectionName = "AQA_SP-T103_" + DataGenerator.getRandomString();
+        String connectionName = "D2L_SP-T103_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createD2LConnection(
@@ -146,7 +146,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
-        String connectionName = "AQA_SP-T104_" + DataGenerator.getRandomString();
+        String connectionName = "Ilias_SP-T104_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createILIASConnection(
@@ -173,7 +173,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
-        String connectionName = "AQA_SP-T823_" + DataGenerator.getRandomString();
+        String connectionName = "SAKAI_SP-T823_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createSAKAIConnection(
@@ -200,7 +200,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateEllucianColleagueSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Canvas" + DataGenerator.getRandomString();
+        String connectionName = "Canvas_Main_SP-T814_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(
@@ -226,8 +226,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .submitForm();
 
         assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
-                .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
+                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE.value)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -240,7 +240,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateEllucianBannerSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Canvas" + DataGenerator.getRandomString();
+        String connectionName = "Canvas_Main_SP-T814_2_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(
@@ -265,8 +265,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .submitForm();
 
         assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
-                .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
+                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE.value)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -274,19 +274,19 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1248")})
-    @DisplayName("SP-T1248: Create Totara connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T1397")})
+    @DisplayName("SP-T1397: Create Totara connection")
     public void testCreateTotaraConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Totara_" + DataGenerator.getRandomString();
+        String connectionName = "Totara_SP-T1397_" + DataGenerator.getRandomString();
 
         open(CREATE_TOTARA_CONNECTION);
 
         createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY);
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -298,7 +298,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1250: Create MWP connection for moodle.intelliboard")
     public void testCreateMWPConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_Moodle_" + DataGenerator.getRandomString();
+        String connectionName = "MWP_Moodle_SP-T1250_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
@@ -309,8 +309,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -319,10 +319,10 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1249")})
-    @DisplayName("SP-T1249: Create MWP connection for moodleworkplace.intelliboard")
+    @DisplayName("SP-T1249, SP-T1398: Create MWP connection for moodleworkplace.intelliboard")
     public void testCreateMWPWorkspaceConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_MoodleWorkspace_" + DataGenerator.getRandomString();
+        String connectionName = "MWP_MoodleWorkspace_SP-T1249" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
@@ -332,9 +332,11 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                         CreateConnectionPage.MWP_W_URL)
                 .saveFilterSettings();
 
-        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+        assertThat(ConnectionsListPage.init()
+                .findConnectionByName(connectionName)
+                .isConnectionExist(connectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -346,11 +348,17 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1370: Create Qwickly connection")
     public void testCreateQwicklyConnection() throws IOException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String mainConnectionName = "Canvas" + DataGenerator.getRandomString();
+        String mainConnectionName = "Canvas_Main_SP-T1370" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
-        createConnectionPage.createCanvasConnection(mainConnectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        createConnectionPage.createCanvasConnection
+                (
+                        mainConnectionName,
+                        CreateConnectionPage.CANVAS_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -365,19 +373,20 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         open(CREATE_QWICKLY_CONNECTION);
 
         createConnectionPage
-                .createQWICKLYConnection(
-                        mainConnectionName,
-                        CreateConnectionPage.QWICKLY_URL,
-                        CreateConnectionPage.QWICKLY_KEY,
-                        CreateConnectionPage.QWICKLY_SECRET,
-                        ConnectionProcessingFrequencyTypeEnum.DAILY,
-                        12);
+                .createQWICKLYConnection
+                        (
+                                mainConnectionName,
+                                CreateConnectionPage.QWICKLY_URL,
+                                CreateConnectionPage.QWICKLY_KEY,
+                                CreateConnectionPage.QWICKLY_SECRET,
+                                ConnectionProcessingFrequencyTypeEnum.DAILY,
+                                12);
 
         assertThat(ConnectionsListPage.init()
                 .findConnectionByName(mainConnectionName)
                 .checkIntegration(ConnectionIntegrationTypeEnum.QWICKLY, mainConnectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", mainConnectionName));
+                .withFailMessage("Integration sub-connection for %s is not existed", mainConnectionName)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -390,34 +399,42 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateMongooseSubConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         //Main connection
-        String mainConnectionName = "Moodle_Main" + DataGenerator.getRandomString();
+        String mainConnectionName = "Moodle_Main_SP-T1375" + DataGenerator.getRandomString();
 
         // Mongoose connection
         String connectionName = "Mongoose_" + DataGenerator.getRandomString();
 
         open(CREATE_MOODLE_CONNECTION);
-        createConnectionPage.createMoodleConnection(
-                        mainConnectionName,
-                        CreateConnectionPage.MOODLE_CLIENT_ID,
-                        CreateConnectionPage.MOODLE_LMS_URL)
+        createConnectionPage
+                .createMoodleConnection
+                        (
+                                mainConnectionName,
+                                CreateConnectionPage.MOODLE_CLIENT_ID,
+                                CreateConnectionPage.MOODLE_LMS_URL)
                 .saveFilterSettings();
 
-        assertThat(ConnectionsListPage.init().findConnectionByName(mainConnectionName).isConnectionExist(mainConnectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+        assertThat(ConnectionsListPage.init()
+                .findConnectionByName(mainConnectionName)
+                .isConnectionExist(mainConnectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         open(CREATE_MONGOOSE_CONNECTION);
 
-        createConnectionPage.createMongooseConnection(
-                mainConnectionName,
-                CreateConnectionPage.MONGOOSE_API_KEY,
-                CreateConnectionPage.MONGOOSE_SECRET,
-                CreateConnectionPage.MONGOOSE_TEAM_CODE,
-                LocalDateTime.now(),
-                ConnectionProcessingFrequencyTypeEnum.DAILY,
-                12);
+        createConnectionPage
+                .createMongooseConnection
+                        (
+                                mainConnectionName,
+                                CreateConnectionPage.MONGOOSE_API_KEY,
+                                CreateConnectionPage.MONGOOSE_SECRET,
+                                CreateConnectionPage.MONGOOSE_TEAM_CODE,
+                                LocalDateTime.now(),
+                                ConnectionProcessingFrequencyTypeEnum.DAILY,
+                                12);
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.MONGOOSE_CADENCE, mainConnectionName))
+        assertThat(ConnectionsListPage.init()
+                .checkIntegration(ConnectionIntegrationTypeEnum.MONGOOSE_CADENCE, mainConnectionName))
+                .withFailMessage("Integration sub-connection for %s is not existed", mainConnectionName)
                 .isTrue();
 
         ConnectionsListPage
@@ -427,12 +444,12 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T600")})
-    @DisplayName("SP-T600: Creating of BlackBoard Collaborate independet connection")
+    @DisplayName("SP-T600: Creating of BlackBoard Collaborate independent connection")
     public void testCreateBlackBoardCollaborateIndependentConnection() {
 
         open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
 
-        String connectionName = "BBCollaborate_" + DataGenerator.getRandomString();
+        String connectionName = "BBCollaborate_SP-T600_" + DataGenerator.getRandomString();
         CreateBlackBoardCollaborateConnectionPage
                 .init()
                 .createBBCollaborateConnection(
@@ -444,9 +461,10 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .findConnectionByName(connectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
-        assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+        assertThat(connectionsListPage.
+                isConnectionExist(connectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -458,7 +476,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateBlackBoardCollaborateSubConnection() throws IOException {
 
         open(CREATE_D2L_CONNECTION);
-        String mainConnectionName = "D2L_" + DataGenerator.getRandomString();
+        String mainConnectionName = "D2L_Main_SP-T604_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createD2LConnection(
@@ -491,6 +509,52 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                 .as(String.format("Connection : %s is not existed", mainConnectionName));
 
         connectionsListPage
+                .deleteConnection(mainConnectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1674")})
+    @DisplayName("SP-T1674: Creating Hubspot as a sub-connection")
+    public void testCreateHubspotSubConnection() {
+        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+        //Main connection
+        String mainConnectionName = "Moodle_Main_SP-T1674_" + DataGenerator.getRandomString();
+
+        open(CREATE_MOODLE_CONNECTION);
+        createConnectionPage
+                .createMoodleConnection
+                        (
+                                mainConnectionName,
+                                CreateConnectionPage.MOODLE_CLIENT_ID,
+                                CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings();
+
+        assertThat(
+                ConnectionsListPage
+                        .init()
+                        .findConnectionByName(mainConnectionName)
+                        .isConnectionExist(mainConnectionName))
+                .withFailMessage("Connection : %s is not existed", mainConnectionName)
+                .isTrue();
+
+        open(CREATE_HUBSPOT_CONNECTION);
+
+        createConnectionPage
+                .createHubspotConnection
+                        (
+                                mainConnectionName,
+                                CreateConnectionPage.HUBSPOT_ACCESS_TOKEN,
+                                ConnectionProcessingFrequencyTypeEnum.DAILY,
+                                12);
+
+        assertThat(ConnectionsListPage
+                .init()
+                .checkIntegration(ConnectionIntegrationTypeEnum.HUBSPOT, mainConnectionName))
+                .withFailMessage("Integration sub-connection for %s is not existed", mainConnectionName)
+                .isTrue();
+
+        ConnectionsListPage
+                .init()
                 .deleteConnection(mainConnectionName);
     }
 }

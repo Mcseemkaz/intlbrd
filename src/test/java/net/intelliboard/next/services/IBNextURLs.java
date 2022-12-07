@@ -54,6 +54,7 @@ public class IBNextURLs {
     public static final String CREATE_QWICKLY_CONNECTION = ALL_INTEGRATIONS + "/22";
     public static final String CREATE_MONGOOSE_CONNECTION = ALL_INTEGRATIONS + "/24";
     public static final String CREATE_BLACKBOARD_COLLABORATE_CONNECTION = ALL_INTEGRATIONS + "/17";
+    public static final String CREATE_HUBSPOT_CONNECTION = ALL_INTEGRATIONS + "/28";
 
 
     // Login Canvas Page
