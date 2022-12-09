@@ -18,8 +18,15 @@ public class IBUserEditPage {
         return this;
     }
 
+    public IBUserEditPage setLastName(String lastName) {
+        $x("//input[@id='last_name']").setValue(lastName);
+        return this;
+    }
+
     public IBUserPage submitForm() {
         $x("//button[@type='submit' and contains (text(),'Save')]").click();
         return IBUserPage.init();
     }
+
+
 }

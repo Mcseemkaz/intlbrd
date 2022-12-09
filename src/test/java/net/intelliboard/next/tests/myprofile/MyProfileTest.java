@@ -36,13 +36,41 @@ public class MyProfileTest extends IBNextAbstractTest {
                 .submitForm();
 
         assertThat(
-                changedFirstName).isEqualTo(ibUserPage.getFirstName())
-                .withFailMessage("Updated FirstName is not equal to expected");
+                changedFirstName).isEqualTo(ibUserPage.getFirstName());
 
         //Revert changes
         ibUserPage
                 .openEditProfilePage()
                 .setFirstName(initialFirstName)
+                .submitForm();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1626")})
+    @DisplayName("SP-T1626: Edit Last Name of the Main Account")
+    public void testEditLastNameMyProfile() {
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage();
+
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        String initialLastName = ibUserPage.getLastName();
+        String changedLastName = "SP-T1626" + DataGenerator.getRandomString();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setLastName(changedLastName)
+                .submitForm();
+
+        assertThat(
+                changedLastName).isEqualTo(ibUserPage.getLastName());
+
+        //Revert changes
+        ibUserPage
+                .openEditProfilePage()
+                .setLastName(initialLastName)
                 .submitForm();
     }
 }
