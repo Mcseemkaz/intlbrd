@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
 
@@ -37,5 +38,34 @@ public class IBUserPage {
 
     public boolean isAuditLogsButtonExist() {
         return AuditLogsButton.exists();
+    }
+
+    public String getUserName() {
+        return $x("//div[contains (@class,'profile-content-header')]//h1/strong")
+                .getText();
+    }
+
+    public IBUserEditPage openEditProfilePage() {
+        $x("//a[contains (@href, '/profile/edit') and contains (@class, 'app-button')]")
+                .click();
+        return IBUserEditPage.init();
+    }
+
+    public String getFirstName() {
+        return StringUtils.substringBefore(getUserName(), " ");
+    }
+
+    public String getLastName() {
+        return StringUtils.substringAfter(getUserName(), " ");
+    }
+
+    public String getCity() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'City')]]/div[@class='col-auto']")
+                .getText();
+    }
+
+    public String getZIP() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Zip')]]/div[@class='col-auto']")
+                .getText();
     }
 }
