@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
+import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,7 +19,7 @@ public class ProcessPage {
     }
 
     public boolean isProcess100Percent() {
-        return $x("//div[@class='progress-tracker']//h4")
+        return $x("//div[@class='progress-tracker']//div[contains (@class,'panel-left')]//section[not (@class)]//p")
                 .getText()
                 .contains("100%");
     }
@@ -56,5 +57,12 @@ public class ProcessPage {
         $x("//li[@class='breadcrumb-item']//a[contains (@href, '/edit-connection-settings')]")
                 .click();
         return ConnectionConnectionSettingsMainPage.init();
+    }
+
+    public MyIntelliBoardPage backToDashBoardConnectionList(){
+        if(isProcess100Percent()){
+            $x("//a[contains (text(),'Go to Dashboard')]").click();
+        }
+        return MyIntelliBoardPage.init();
     }
 }
