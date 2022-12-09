@@ -23,6 +23,11 @@ public class IBUserEditPage {
         return this;
     }
 
+    public IBUserEditPage setCity(String cityName) {
+        $x("//input[@id='city']").setValue(cityName);
+        return this;
+    }
+
     public IBUserPage submitForm() {
         $x("//button[@type='submit' and contains (text(),'Save')]").click();
         return IBUserPage.init();

@@ -45,16 +45,22 @@ public class IBUserPage {
                 .getText();
     }
 
-    public IBUserEditPage openEditProfilePage(){
+    public IBUserEditPage openEditProfilePage() {
         $x("//a[contains (@href, '/profile/edit') and contains (@class, 'app-button')]")
                 .click();
         return IBUserEditPage.init();
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return StringUtils.substringBefore(getUserName(), " ");
     }
-    public String getLastName(){
+
+    public String getLastName() {
         return StringUtils.substringAfter(getUserName(), " ");
+    }
+
+    public String getCity() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'City')]]/div[@class='col-auto']")
+                .getText();
     }
 }

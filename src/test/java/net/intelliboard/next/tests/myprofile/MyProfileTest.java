@@ -73,4 +73,33 @@ public class MyProfileTest extends IBNextAbstractTest {
                 .setLastName(initialLastName)
                 .submitForm();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1628")})
+    @DisplayName("SP-T1628: Edit City of the Main Account")
+    public void testEditCityMyProfile() {
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage();
+
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        String initialCity = ibUserPage.getCity();
+        String changedCity = "SP-T1626" + DataGenerator.getRandomString();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setCity(changedCity)
+                .submitForm();
+
+        assertThat(
+                changedCity).isEqualTo(ibUserPage.getCity());
+
+        //Revert changes
+        ibUserPage
+                .openEditProfilePage()
+                .setCity(initialCity)
+                .submitForm();
+    }
 }
