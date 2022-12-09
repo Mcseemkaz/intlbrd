@@ -102,4 +102,35 @@ public class MyProfileTest extends IBNextAbstractTest {
                 .setCity(initialCity)
                 .submitForm();
     }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1629")})
+    @DisplayName("SP-T1629: Edit ZIP code of the Main Account")
+    public void testEditZIPMyProfile() {
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage();
+
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        String initialZIP = ibUserPage.getZIP();
+        String changedZIP = "SP-T1626" + DataGenerator.getRandomNumber();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setZIP(changedZIP)
+                .submitForm();
+
+        assertThat(
+                changedZIP).isEqualTo(ibUserPage.getZIP());
+
+        //Revert changes
+        ibUserPage
+                .openEditProfilePage()
+                .setZIP(initialZIP)
+                .submitForm();
+    }
+
+
 }

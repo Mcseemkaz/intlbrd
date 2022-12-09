@@ -28,10 +28,13 @@ public class IBUserEditPage {
         return this;
     }
 
+    public IBUserEditPage setZIP(String zip) {
+        $x("//input[@id='zip']").setValue(zip);
+        return this;
+    }
+
     public IBUserPage submitForm() {
         $x("//button[@type='submit' and contains (text(),'Save')]").click();
         return IBUserPage.init();
     }
-
-
 }

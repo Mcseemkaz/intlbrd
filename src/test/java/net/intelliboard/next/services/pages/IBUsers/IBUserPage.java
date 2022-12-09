@@ -63,4 +63,9 @@ public class IBUserPage {
         return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'City')]]/div[@class='col-auto']")
                 .getText();
     }
+
+    public String getZIP() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Zip')]]/div[@class='col-auto']")
+                .getText();
+    }
 }
