@@ -19,4 +19,8 @@ public class DataGenerator {
     public static String getRandomValidPassword() {
         return Faker.instance().regexify("[A-Z][a-z][0-9][Q@#$%^]{10}");
     }
+
+    public static UnitedStatesListEnum getRandomUSState(){
+        return UnitedStatesListEnum.randomState();
+    }
 }

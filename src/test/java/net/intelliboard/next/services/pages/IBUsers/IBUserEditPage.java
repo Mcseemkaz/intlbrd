@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import net.intelliboard.next.services.helpers.UnitedStatesListEnum;
 
 import java.time.Duration;
 
@@ -33,8 +34,19 @@ public class IBUserEditPage {
         return this;
     }
 
+    public IBUserEditPage setAddress(String address) {
+        $x("//input[@id='address']").setValue(address);
+        return this;
+    }
+
     public IBUserPage submitForm() {
         $x("//button[@type='submit' and contains (text(),'Save')]").click();
         return IBUserPage.init();
+    }
+
+    public IBUserEditPage setState(UnitedStatesListEnum state) {
+        $x("//div[contains (@class,'form-group') and @name='state']//button").click();
+        $x("//li//strong[contains (text(),'"+state.fullName+"')]").click();
+        return this;
     }
 }
