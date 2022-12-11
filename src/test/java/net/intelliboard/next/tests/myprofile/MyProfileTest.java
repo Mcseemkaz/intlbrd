@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.myprofile;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.helpers.UnitedStatesListEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
@@ -86,7 +87,7 @@ public class MyProfileTest extends IBNextAbstractTest {
         IBUserPage ibUserPage = IBUserPage.init();
 
         String initialCity = ibUserPage.getCity();
-        String changedCity = "SP-T1626" + DataGenerator.getRandomString();
+        String changedCity = "SP-T1628" + DataGenerator.getRandomString();
 
         ibUserPage
                 .openEditProfilePage()
@@ -115,7 +116,7 @@ public class MyProfileTest extends IBNextAbstractTest {
         IBUserPage ibUserPage = IBUserPage.init();
 
         String initialZIP = ibUserPage.getZIP();
-        String changedZIP = "SP-T1626" + DataGenerator.getRandomNumber();
+        String changedZIP = "SP-T1629" + DataGenerator.getRandomNumber();
 
         ibUserPage
                 .openEditProfilePage()
@@ -132,5 +133,61 @@ public class MyProfileTest extends IBNextAbstractTest {
                 .submitForm();
     }
 
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1627")})
+    @DisplayName("SP-T1627: Edit Address of the Main Account")
+    public void testEditAddressMyProfile() {
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage();
 
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        String initialAddress = ibUserPage.getAddress();
+        String changedAddress = "SP-T1627" + DataGenerator.getRandomNumber();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setAddress(changedAddress)
+                .submitForm();
+
+        assertThat(
+                changedAddress).isEqualTo(ibUserPage.getAddress());
+
+        //Revert changes
+        ibUserPage
+                .openEditProfilePage()
+                .setAddress(initialAddress)
+                .submitForm();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1630")})
+    @DisplayName("SP-T1630: Edit State of the Main Account")
+    public void testEditStateMyProfile() {
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .openMyAccountProfilePage();
+
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        UnitedStatesListEnum initialState = UnitedStatesListEnum.CA;
+        UnitedStatesListEnum changedState = DataGenerator.getRandomUSState();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setState(UnitedStatesListEnum.AL)
+                .submitForm();
+
+        assertThat(
+                changedState.shortName).isEqualTo(ibUserPage.getState());
+
+        //Revert changes
+        ibUserPage
+                .openEditProfilePage()
+                .setState(initialState)
+                .submitForm();
+    }
 }

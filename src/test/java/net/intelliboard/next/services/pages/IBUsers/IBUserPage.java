@@ -68,4 +68,14 @@ public class IBUserPage {
         return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Zip')]]/div[@class='col-auto']")
                 .getText();
     }
+
+    public String getAddress() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Address')]]/div[@class='col-auto']")
+                .getText();
+    }
+
+    public String getState() {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'State')]]/div[@class='col-auto']")
+                .getText();
+    }
 }
