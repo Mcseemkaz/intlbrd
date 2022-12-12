@@ -78,4 +78,9 @@ public class IBUserPage {
         return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'State')]]/div[@class='col-auto']")
                 .getText();
     }
+
+    public int getConnectionsNumber(){
+        return Integer.parseInt($x("//span[@class='h4' and ./following-sibling::span[contains (text(),'Connections')]]")
+                .getText());
+    }
 }
