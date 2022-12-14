@@ -28,8 +28,8 @@ public class UserAuditLogsPage {
 
     //TODO MO - Refactoring - extract to Table Element
     public String getValueCellByRowNumber(UserProfileAuditTableColumnEnum columnEnum, int numberRow) {
-        String value = $x("//tbody//tr[" + numberRow + "]//td[" + columnEnum.numberColumn + "]").getText();
-        return value;
+        return $x("//tbody//tr[" + numberRow + "]//td[" + columnEnum.numberColumn + "]")
+                .getText();
     }
 
     public UserAuditLogsPage searchByUser(String userName) {

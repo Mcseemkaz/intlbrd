@@ -13,16 +13,14 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class UserLoginLogsPage {
 
-
     public static UserLoginLogsPage init() {
         $x("//div[contains (@class, 'audit-table')]")
                 .should(Condition.visible, Duration.ofSeconds(90));
         return new UserLoginLogsPage();
     }
 
-    public boolean isUserLogedByDate(String userFirstName, LocalDateTime date) {
-        return $x("//td[contains (text(),'"+date.format(DateTimeFormatter.ofPattern("DD/mm/YYYY"))+"')][./following-sibling::td[contains (text(),'"+userFirstName+"')]  or ./preceding-sibling::td[contains (text(),'Automated')]]")
-                //td[contains (text(),'13/12/2022')][./following-sibling::td[contains (text(),'Automated')]  or ./preceding-sibling::td[contains (text(),'Automated')]]
+    public boolean isUserLoggedByDate(String userFirstName, LocalDateTime date) {
+        return $x("//td[contains (text(),'" + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "')][./following-sibling::td[contains (text(),'" + userFirstName + "')]  or ./preceding-sibling::td[contains (text(),'" + userFirstName + "')]]")
                 .exists();
     }
 
@@ -30,8 +28,7 @@ public class UserLoginLogsPage {
         ElementsCollection elements = $$x("//th");
         int i = 1;
         for (SelenideElement el : elements) {
-            if (el.getText().contains(tableColumnName)) {
-            } else {
+            if (!el.getText().contains(tableColumnName)) {
                 i++;
             }
         }

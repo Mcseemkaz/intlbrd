@@ -3,6 +3,8 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
+import net.intelliboard.next.services.pages.loginlogs.UserLoginLogsPage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
 
