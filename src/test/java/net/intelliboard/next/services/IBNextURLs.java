@@ -66,13 +66,17 @@ public class IBNextURLs {
     //My Intelliboard Page
     public static final String MY_INTELLIBOARD_PAGE = MAIN_URL + "/data-sets";
 
-    //In-Form Page
+    // In-Form Page
     public static final String INFORM_LIST_PAGE = MAIN_URL + "/in-form";
     // Audit (Processing History) Page
     public static final String AUDIT_PAGE = MAIN_URL + "/audit";
 
     // Library
     public static final String LIBRARY_MAIN = MAIN_URL + "/library";
+
+    // List Settings Elements
+    public static final String PER_PAGE_200 = "?per_page=200";
+    public static final String PER_PAGE_500 = "?per_page=500";
 
 }
 

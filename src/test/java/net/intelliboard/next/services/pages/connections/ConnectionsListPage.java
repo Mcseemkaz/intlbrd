@@ -147,4 +147,9 @@ public class ConnectionsListPage {
         $x("//a[contains (@href,'/categories')]").click();
         return ConnectionCategoriesListPage.init();
     }
+
+    public int getNumberConnections() {
+        return $$x("//table//tbody/tr")
+                .size();
+    }
 }
