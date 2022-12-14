@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
+import net.intelliboard.next.services.pages.loginlogs.UserLoginLogsPage;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
@@ -12,6 +13,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class IBUserPage {
 
     SelenideElement AuditLogsButton = $x("//a[contains (@href, '/audit-logs')]//h3");
+    SelenideElement LoginLogsButton = $x("//a[contains (@href, '/login-logs')]//h3");
 
     public static IBUserPage init() {
         $x("//div[contains(@class, 'profile-content-header')]")
@@ -34,6 +36,11 @@ public class IBUserPage {
     public UserAuditLogsPage openAuditLogs() {
         AuditLogsButton.click();
         return UserAuditLogsPage.init();
+    }
+
+    public UserLoginLogsPage openLoginLogs() {
+        LoginLogsButton.click();
+        return UserLoginLogsPage.init();
     }
 
     public boolean isAuditLogsButtonExist() {
