@@ -40,8 +40,7 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectRole(IBUsersRolesTypeEnum role) {
-        SelenideElement lmsDropdownDown = $x("//div[@label='role']//ion-icon[@name='chevron-down-outline']");
-
+        SelenideElement lmsDropdownDown = $x("//div[@label='Role']//ion-icon[@name='chevron-down-outline']");
         if (lmsDropdownDown.isDisplayed()) {
             lmsDropdownDown.click();
             $x("//li[./*/label[@title='" + role.value + "']]").click();

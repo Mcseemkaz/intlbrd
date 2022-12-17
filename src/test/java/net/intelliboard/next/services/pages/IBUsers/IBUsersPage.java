@@ -7,6 +7,8 @@ import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -132,7 +134,7 @@ public class IBUsersPage {
                     .shouldBe(Condition.visible)
                     .click();
         }
-        $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
+        $x("//div[@class='modal-content']").shouldBe(Condition.disappear, Duration.ofSeconds(30));
         return this;
     }
 
