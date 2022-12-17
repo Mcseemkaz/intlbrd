@@ -55,7 +55,6 @@ public class ImportIBUserTest extends IBNextAbstractTest {
                                 .changeScalingUsersPerPage(200)
                                 .isUserPresents(importedIBUser))
                 .withFailMessage("User with name %s is existed and isn't deleted", importedIBUser)
-                .isFalse()
-                .as(String.format("User with name %s is existed and isn't deleted", importedIBUser));
+                .isFalse();
     }
 }
