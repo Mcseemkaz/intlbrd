@@ -256,14 +256,15 @@ public class CreateConnectionPage {
         buttonContinue.click();
     }
 
-    private CreateConnectionPage selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum type) {
+    protected CreateConnectionPage selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum type) {
         $x("//div[contains (@label,'Processing Frequency')]//button[contains (@class, 'tree-choice')]").click();
         $x("//div[contains (@label,'Processing Frequency')]//li[ .//*[contains (text(),'" + type.value + "')]]").click();
         return this;
     }
 
-    private CreateConnectionPage selectProcessingTime(int time) {
-        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Time')]]").click();
+    protected CreateConnectionPage selectProcessingTime(int time) {
+        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing time')]]")
+                .click();
         $x("//input[contains (@class,'flatpickr-hour')]")
                 .setValue(String.valueOf(time))
                 .sendKeys(Keys.ENTER);
