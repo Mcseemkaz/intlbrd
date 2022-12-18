@@ -39,7 +39,12 @@ public class ImportIBUserTest extends IBNextAbstractTest {
                 .uploadImportCSVFile(ProjectFilesEnum.IBUSERS_IMPORT_CSV)
                 .submitForm();
 
-        assertThat(IBUsersPage.init().isUserPresents(importedIBUser))
+
+
+        assertThat(IBUsersPage
+                .init()
+                .searchUserByName(importedIBUser)
+                .isUserPresents(importedIBUser))
                 .withFailMessage("User %s is not imported", importedIBUser)
                 .isTrue();
 

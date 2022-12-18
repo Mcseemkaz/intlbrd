@@ -159,6 +159,11 @@ public class IBUsersPage {
         return IBUsersPage.init();
     }
 
+    public IBUsersPage searchUserByName(String userName) {
+        $x("//input[contains (@aria-label, 'Search User')]").setValue(userName);
+        return this;
+    }
+
     public boolean isPaginationPresented() {
         return paginationBlock.isDisplayed();
     }
