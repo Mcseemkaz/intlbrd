@@ -134,7 +134,8 @@ public class IBUsersPage {
                     .shouldBe(Condition.visible)
                     .click();
         }
-        $x("//div[@class='modal-content']").shouldBe(Condition.disappear, Duration.ofSeconds(30));
+        $x("//div[@class='modal-content']")
+                .shouldBe(Condition.disappear, Duration.ofMinutes(10));
         return this;
     }
 
