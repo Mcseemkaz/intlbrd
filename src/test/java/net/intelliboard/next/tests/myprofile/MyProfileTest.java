@@ -184,7 +184,7 @@ public class MyProfileTest extends IBNextAbstractTest {
 
         ibUserPage
                 .openEditProfilePage()
-                .setState(UnitedStatesListEnum.AL)
+                .setState(changedState)
                 .submitForm();
 
         Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
