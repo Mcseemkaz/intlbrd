@@ -134,7 +134,8 @@ public class IBUsersPage {
                     .shouldBe(Condition.visible)
                     .click();
         }
-        $x("//div[@class='modal-content']").shouldBe(Condition.disappear, Duration.ofSeconds(30));
+        $x("//div[@class='modal-content']")
+                .shouldBe(Condition.disappear, Duration.ofMinutes(10));
         return this;
     }
 
@@ -157,6 +158,11 @@ public class IBUsersPage {
         paginationBlock.shouldBe(Condition.visible);
         $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
         return IBUsersPage.init();
+    }
+
+    public IBUsersPage searchUserByName(String userName) {
+        $x("//input[contains (@aria-label, 'Search User')]").setValue(userName);
+        return this;
     }
 
     public boolean isPaginationPresented() {

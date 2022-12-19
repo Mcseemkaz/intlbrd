@@ -112,7 +112,7 @@ public class IBUsersSyncPage {
         $x("//div[contains(@class,'button-set')]//button")
                 .click();
         $x("//div[contains(@class,'progress-tracker')]//strong[text()='success']")
-                .should(Condition.visible, Duration.ofSeconds(160));
+                .should(Condition.visible, Duration.ofMinutes(15));
         return this;
     }
 

@@ -12,6 +12,7 @@ import net.intelliboard.next.services.pages.report.builder.*;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportTypeEnum;
 import org.junit.jupiter.api.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -130,7 +131,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1255")})
     @DisplayName("SP-T1255: Create report on Totara connection")
-    public void testCreateTableReportTotara() {
+    public void testCreateTableReportTotara() throws IOException {
         String connectionName = "Automation Totara";
         String reportName = "SP-T1255-" + DataGenerator.getRandomString();
 
@@ -165,14 +166,26 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isReportExist(reportName))
+                .withFailMessage("Report %s is not exist", reportName)
+                .isTrue();
 
         MyIntelliBoardPage
                 .init()
                 .deleteReport(reportName)
                 .confirmDeletion();
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isFalse();
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isReportExist(reportName))
+                .withFailMessage("Report %s is still exist", reportName)
+                .isFalse();
     }
 
     @Test

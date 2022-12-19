@@ -4,10 +4,10 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -28,25 +29,34 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T817")})
     @DisplayName("SP-T817: Deleting Ellucian connection")
-    public void testDeletEllucianConnection() {
-        String connectionName = "Moodle_" + DataGenerator.getRandomString();
+    public void testDeleteEllucianConnection() {
+        String connectionName = "SP-T817_Main_" + DataGenerator.getRandomString();
 
         open(CREATE_MOODLE_CONNECTION);
         CreateConnectionPage
                 .init()
-                .createMoodleConnection(connectionName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL)
+                .createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
                 .saveFilterSettings();
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 
-        EllucianConnectionPage.init()
+        EllucianConnectionPage
+                .init()
                 .selectConnection(connectionName)
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_BANNER_KEY)
+                .selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum.DAILY)
+                .selectProcessingTime(12)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
-                .isTrue()
-                .as(String.format("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE));
+        assertThat(
+                ConnectionsListPage
+                        .init()
+                        .checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
+                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE)
+                .isTrue();
 
         ConnectionsListPage
                 .init()
@@ -54,15 +64,24 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                 .expandEllucianSubConnectionArea()
                 .deleteEllucianSubConnection();
 
-        assertThat(ConnectionConnectionSettingsMainPage.init().isEllucianConnectionExist())
+        assertThat(
+                ConnectionConnectionSettingsMainPage
+                        .init()
+                        .isEllucianConnectionExist())
                 .isFalse();
+
+        open(ALL_CONNECTIONS);
+
+        ConnectionsListPage
+                .init()
+                .deleteConnection(connectionName);
     }
 
     @Flaky
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T202")})
     @DisplayName("SP-T202: Deleting selected connections [connection mass deletion]")
-    public void testDeleteSelectedConnection() {
+    public void testDeleteSelectedConnection() throws IOException {
 
         int numberConnections = 3;
         ArrayList<String> connectionsList = new ArrayList<>();
@@ -92,7 +111,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
-        Selenide.sleep(5000);
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
 
         SoftAssertions softly = new SoftAssertions();
 

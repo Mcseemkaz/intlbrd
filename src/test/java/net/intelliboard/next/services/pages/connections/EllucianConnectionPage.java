@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 
 import java.time.Duration;
 
@@ -21,6 +22,16 @@ public class EllucianConnectionPage extends CreateConnectionPage {
 
     public EllucianConnectionPage selectConnection(String connectionName) {
         super.selectConnection(connectionName);
+        return this;
+    }
+
+    public EllucianConnectionPage selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum type) {
+        super.selectProcessingFrequency(type);
+        return this;
+    }
+
+    public EllucianConnectionPage selectProcessingTime(int time) {
+        super.selectProcessingTime(time);
         return this;
     }
 }
