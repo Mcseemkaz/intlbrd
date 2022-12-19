@@ -7,6 +7,8 @@ import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -132,7 +134,8 @@ public class IBUsersPage {
                     .shouldBe(Condition.visible)
                     .click();
         }
-        $x("//div[@class='modal-content']").shouldBe(Condition.disappear);
+        $x("//div[@class='modal-content']")
+                .shouldBe(Condition.disappear, Duration.ofMinutes(10));
         return this;
     }
 
@@ -155,6 +158,11 @@ public class IBUsersPage {
         paginationBlock.shouldBe(Condition.visible);
         $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
         return IBUsersPage.init();
+    }
+
+    public IBUsersPage searchUserByName(String userName) {
+        $x("//input[contains (@aria-label, 'Search User')]").setValue(userName);
+        return this;
     }
 
     public boolean isPaginationPresented() {

@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.myprofile;
 
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -168,7 +171,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1630")})
     @DisplayName("SP-T1630: Edit State of the Main Account")
-    public void testEditStateMyProfile() {
+    public void testEditStateMyProfile() throws IOException {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -181,11 +184,13 @@ public class MyProfileTest extends IBNextAbstractTest {
 
         ibUserPage
                 .openEditProfilePage()
-                .setState(UnitedStatesListEnum.AL)
+                .setState(changedState)
                 .submitForm();
 
-        assertThat(
-                changedState.shortName).isEqualTo(ibUserPage.getState());
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+
+        assertThat(changedState.shortName)
+                .isEqualTo(ibUserPage.getState());
 
         //Revert changes
         ibUserPage
@@ -199,7 +204,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @DisplayName("SP-T1638: Check if amount of connections on My Profile page match with amount of connections on Connection page")
     public void testCheckAmountConnectionMyProfile() {
 
-        open(IBNextURLs.ALL_CONNECTIONS+IBNextURLs.PER_PAGE_500);
+        open(IBNextURLs.ALL_CONNECTIONS + IBNextURLs.PER_PAGE_500);
 
         int numberConnections = ConnectionsListPage.init().getNumberConnections();
 

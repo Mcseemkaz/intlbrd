@@ -39,7 +39,12 @@ public class ImportIBUserTest extends IBNextAbstractTest {
                 .uploadImportCSVFile(ProjectFilesEnum.IBUSERS_IMPORT_CSV)
                 .submitForm();
 
-        assertThat(IBUsersPage.init().isUserPresents(importedIBUser))
+
+
+        assertThat(IBUsersPage
+                .init()
+                .searchUserByName(importedIBUser)
+                .isUserPresents(importedIBUser))
                 .withFailMessage("User %s is not imported", importedIBUser)
                 .isTrue();
 
@@ -55,7 +60,6 @@ public class ImportIBUserTest extends IBNextAbstractTest {
                                 .changeScalingUsersPerPage(200)
                                 .isUserPresents(importedIBUser))
                 .withFailMessage("User with name %s is existed and isn't deleted", importedIBUser)
-                .isFalse()
-                .as(String.format("User with name %s is existed and isn't deleted", importedIBUser));
+                .isFalse();
     }
 }

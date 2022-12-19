@@ -200,7 +200,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateEllucianColleagueSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Canvas_Main_SP-T814_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T814_Main_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(
@@ -223,9 +223,14 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         EllucianConnectionPage.init()
                 .selectConnection(connectionName)
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_COLLEUGUE_KEY)
+                .selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum.DAILY)
+                .selectProcessingTime(12)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
+        assertThat(
+                ConnectionsListPage
+                        .init()
+                        .checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
                 .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE.value)
                 .isTrue();
 
@@ -240,7 +245,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     public void testCreateEllucianBannerSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Canvas_Main_SP-T814_2_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T814_2_Main_" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection(
@@ -262,6 +267,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         EllucianConnectionPage.init()
                 .selectConnection(connectionName)
                 .fillInEllucianToken(CreateConnectionPage.ELLUCIAN_BANNER_KEY)
+                .selectProcessingFrequency(ConnectionProcessingFrequencyTypeEnum.DAILY)
+                .selectProcessingTime(12)
                 .submitForm();
 
         assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))

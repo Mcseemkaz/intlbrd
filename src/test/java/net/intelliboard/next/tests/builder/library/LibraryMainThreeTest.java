@@ -90,7 +90,6 @@ public class LibraryMainThreeTest extends IBNextAbstractTest {
         IBUserPage
                 .init()
                 .acceptPolicy(IBUserPolicyEnum.PRIVACY_POLICY)
-                .acceptPolicy(IBUserPolicyEnum.DATA_PROCESSING_ADDENDUM)
                 .acceptPolicy(IBUserPolicyEnum.TERMS_OF_USE);
 
         //LogIn check that Library is empty
