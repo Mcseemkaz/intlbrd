@@ -3,13 +3,10 @@ package net.intelliboard.next.services.pages.dashboard;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
@@ -20,7 +17,7 @@ public class CreateDashboardPage extends IBNextAbstractTest {
     @Getter
     public SelenideElement savePublishButton =   $x("//div[@class='vue-portal-target']//button[contains(@class,'primary')]");
 
-    private SelenideElement dashboardTitle = $x("//div[contains(@class, 'left-sub-menu')]//h3");
+    private SelenideElement dashboardTitle = $x("//div[contains(@class, 'left-sub-menu')]//button[contains (@class, 'title')]");
     private WebElement textBlock = $x("//div[@class='tabs']//div[@class='list-group']//li[1]");
     private SelenideElement dashboardMain = $x("//div[@class='vue-grid-layout']");
 
