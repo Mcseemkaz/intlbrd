@@ -1,7 +1,6 @@
 package net.intelliboard.next.services.pages.elements;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,11 +8,11 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class DatePicker {
-    public static DatePicker init() {
+public class DatePickerElement {
+    public static DatePickerElement init() {
         $x("//div[contains (@class,'flatpickr-calendar')]")
                 .shouldBe(Condition.visible);
-        return new DatePicker();
+        return new DatePickerElement();
     }
 
     private void setDayOfWeek(LocalDateTime date) {
@@ -21,7 +20,7 @@ public class DatePicker {
         $x("//span[contains (@class,'flatpickr-weekday')]").click();
     }
 
-    public DatePicker setDayOfMonth(LocalDateTime dateFrom, LocalDateTime dateTo) {
+    public DatePickerElement setDayOfMonth(LocalDateTime dateFrom, LocalDateTime dateTo) {
         String dayOfMonthFrom = Integer.toString(dateFrom.getDayOfMonth());
         String dayOfMonthTo = Integer.toString(dateTo.getDayOfMonth());
         $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthFrom + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
@@ -31,7 +30,7 @@ public class DatePicker {
         return this;
     }
 
-    public DatePicker setDayOfMonth(LocalDateTime date) {
+    public DatePickerElement setDayOfMonth(LocalDateTime date) {
 
         String dayOfMonthFrom = Integer.toString(date.getDayOfMonth());
 

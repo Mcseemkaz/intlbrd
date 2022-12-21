@@ -44,7 +44,7 @@ public class IBUserCreatePage {
 
     public IBUserCreatePage selectConnection(String connectionName) {
         SelenideElement connection =
-                $x("//input[contains (@id, 'connections') and following-sibling::label[text()='" + connectionName + "']]");
+                $x("//input[contains (@id, 'connections') and following-sibling::label[contains (text(),'" + connectionName + "')]]");
         if (!connection.isSelected()) {
             connection.click();
         }

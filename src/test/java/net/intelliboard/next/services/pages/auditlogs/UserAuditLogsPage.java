@@ -2,7 +2,7 @@ package net.intelliboard.next.services.pages.auditlogs;
 
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.pages.elements.DatePicker;
+import net.intelliboard.next.services.pages.elements.DatePickerElement;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -45,7 +45,7 @@ public class UserAuditLogsPage {
     public UserAuditLogsPage searchByDate(LocalDateTime dateFrom, LocalDateTime dateTo) {
         $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]")
                 .click();
-        DatePicker
+        DatePickerElement
                 .init()
                 .setDayOfMonth(dateFrom, dateTo);
         return this;

@@ -23,6 +23,7 @@ public class IBUsersPage {
     private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
     private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Log In As User')]");
     private SelenideElement userActionEditOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Edit')]");
+    private SelenideElement userActionAssignmentsOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Assignments')]");
     private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Delete')]");
     private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
     private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
@@ -70,9 +71,10 @@ public class IBUsersPage {
     }
 
     public IBUsersPage deleteUser(String userFirstName) {
-        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+        getThreeDotMenuUser(userFirstName)
                 .click();
-        userActionDropdownDeleteOption.click();
+        userActionDropdownDeleteOption
+                .click();
         deleteSelectedUserPromtModal(true);
         return this;
     }
@@ -85,16 +87,30 @@ public class IBUsersPage {
     }
 
     public void logInSelectedUsers(String userFirstName) {
-        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+        getThreeDotMenuUser(userFirstName)
                 .click();
-        userActionLogInOption.click();
+        userActionLogInOption
+                .click();
     }
 
     public IBUserCreatePage editSelectedUser(String userFirstName) {
-        $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]")
+        getThreeDotMenuUser(userFirstName)
                 .click();
-        userActionEditOption.click();
+        userActionEditOption
+                .click();
         return IBUserCreatePage.init();
+    }
+
+    public IBUserAssignmentsPage assignmentsUser(String userFirstName) {
+        getThreeDotMenuUser(userFirstName)
+                .click();
+        userActionAssignmentsOption
+                .click();
+        return IBUserAssignmentsPage.init();
+    }
+
+    private SelenideElement getThreeDotMenuUser(String userFirstName) {
+        return  $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]");
     }
 
     public IBUsersPage checkedUserByName(String firstUserName) {

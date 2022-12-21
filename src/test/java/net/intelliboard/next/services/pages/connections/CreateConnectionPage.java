@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
-import net.intelliboard.next.services.pages.elements.DatePicker;
+import net.intelliboard.next.services.pages.elements.DatePickerElement;
 import org.openqa.selenium.Keys;
 
 import java.io.IOException;
@@ -221,7 +221,7 @@ public class CreateConnectionPage {
         selectProcessingTime(time);
 
         $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Date')]]").click();
-        DatePicker.init().setDayOfMonth(date);
+        DatePickerElement.init().setDayOfMonth(date);
         submitForm();
         return ConnectionsListPage.init();
     }
