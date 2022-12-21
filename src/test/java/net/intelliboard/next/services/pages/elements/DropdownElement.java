@@ -13,15 +13,20 @@ public class DropdownElement {
         DropdownElement.dropdownLabel = dropdownLabel;
     }
 
-    public DropdownElement init(String dropdownLabel) {
+    public static DropdownElement init(String dropdownLabel) {
         $x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + dropdownLabel + "')]]")
                 .shouldBe(Condition.visible);
         return new DropdownElement(dropdownLabel);
     }
 
     public DropdownElement selectOption(String value) {
-        openDropdown();
 
+        if (!$x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + this.dropdownLabel + "')]]//span[text()='" + value + "']")
+                .exists()) {
+            openDropdown();
+            $x("//label[@title='" + value + "']")
+                    .click();
+        }
         return this;
     }
 
@@ -33,6 +38,4 @@ public class DropdownElement {
                     .shouldBe(Condition.visible);
         }
     }
-
-
 }
