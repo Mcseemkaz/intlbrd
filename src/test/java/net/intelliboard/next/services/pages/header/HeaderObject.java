@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.header;
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
+import net.intelliboard.next.services.pages.incontact.InContactMainPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportCreationWizardSettingsPage;
 
@@ -47,5 +48,17 @@ public class HeaderObject {
         $x("//div[contains (@class,'intelli-dropdown')]//div[contains (@class, 'dropdown-menu') and contains (@class, 'active')]")
                 .shouldBe(Condition.visible);
         return this;
+    }
+
+    public InContactMainPage openApp(HeaderAppsItemEnum type) {
+        openMenuItem(HeaderMenuItemEnum.APPS);
+        $x("//header//ul[@class='header-menu-item-sublist']//li[.//a[contains (text(), '" + type.value + "')]]")
+                .click();
+        return InContactMainPage.init();
+    }
+
+    public void openMenuItem(HeaderMenuItemEnum type) {
+        $x("//header//ul[@class='header-menu']//li[.//span[contains (text(), '" + type.value + "')]  or .//a[contains (text(),'" + type.value + "')]]")
+                .click();
     }
 }
