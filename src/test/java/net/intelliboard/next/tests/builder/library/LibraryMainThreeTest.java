@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
 import static net.intelliboard.next.services.IBNextURLs.USERS_PAGE;
@@ -63,7 +65,7 @@ public class LibraryMainThreeTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T828")})
     @DisplayName("SP-T828:  The IB User does not see anything in the Library until the main account has assigned them some reports.")
-    void testIBUserHasNoReportInLibraryInitially() {
+    void testIBUserHasNoReportInLibraryInitially() throws IOException {
 
         //Create IBUser
         String firstName = "SP-T828 " + DataGenerator.getRandomString();
@@ -123,9 +125,11 @@ public class LibraryMainThreeTest extends IBNextAbstractTest {
 
         open(LIBRARY_MAIN);
 
-        Selenide.sleep(2000);
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
 
-        assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 1)
+        assertThat(LibraryMainPage
+                .init()
+                .getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 1)
                 .withFailMessage("%s is empty")
                 .isTrue();
 
