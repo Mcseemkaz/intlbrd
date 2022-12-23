@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.signup;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import net.intelliboard.next.services.IBNextURLs;
 
@@ -34,7 +35,12 @@ public class SignUpFormPage {
     }
 
     public SignUpFormPage agreeTermsPolicy() {
-        $x("//label[@for='terms_of_use_agreement']").click();
+        Selenide
+                .actions()
+                .moveToElement($x("//label[@class='custom-control-label']"))
+                .moveByOffset(-50, 0)
+                .click()
+                .perform();
         return this;
     }
 }
