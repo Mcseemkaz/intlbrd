@@ -263,7 +263,7 @@ public class CreateConnectionPage {
     }
 
     protected CreateConnectionPage selectProcessingTime(int time) {
-        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Time')]]")
+        $x("//input[contains (@class,'date-picker-input') and not (@name)][ ./preceding-sibling::label[contains (text(),'Processing Time') or contains (text(), 'Processing time')]]")
                 .click();
         $x("//input[contains (@class,'flatpickr-hour')]")
                 .setValue(String.valueOf(time))
