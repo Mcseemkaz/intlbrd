@@ -464,7 +464,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_INDEPENDENT_CONNECTION_NAME,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
-                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL
+                        )
                 .findConnectionByName(connectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
@@ -507,7 +508,9 @@ public class CreateConnectionTest extends IBNextAbstractTest {
                         mainConnectionName,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
-                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL,
+                        ConnectionProcessingFrequencyTypeEnum.DAILY,
+                        12)
                 .findConnectionByName(mainConnectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();

@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -39,8 +40,32 @@ public class CreateBlackBoardCollaborateConnectionPage extends CreateConnectionP
         return new CreateBlackBoardCollaborateConnectionPage();
     }
 
-    public ConnectionsListPage createBBCollaborateConnection(String connectionName, String mainConnectionName, String blackBoardCollaborateApiKey, String blackBoardCollaborateSecretValue,
-                                                             String blackBoardCollaborateURL) {
+    public ConnectionsListPage createBBCollaborateConnection(String connectionName,
+                                                             String mainConnectionName,
+                                                             String blackBoardCollaborateApiKey,
+                                                             String blackBoardCollaborateSecretValue,
+                                                             String blackBoardCollaborateURL,
+                                                             ConnectionProcessingFrequencyTypeEnum frequencyTypeEnum,
+                                                             int processingTime) {
+        selectConnection(mainConnectionName);
+        if (mainConnectionName.contains("Independent Connection")) {
+            connectionNameField.setValue(connectionName);
+        }
+        blackBoardCollaborateAPIKey.setValue(blackBoardCollaborateApiKey);
+        blackBoardCollaborateSecret.setValue(blackBoardCollaborateSecretValue);
+        blackBoardCollaborateEndpoint.setValue(blackBoardCollaborateURL);
+        selectProcessingFrequency(frequencyTypeEnum);
+        selectProcessingTime(processingTime);
+        submitForm();
+        return ConnectionsListPage.init();
+    }
+
+    public ConnectionsListPage createBBCollaborateConnection(String connectionName,
+                                                             String mainConnectionName,
+                                                             String blackBoardCollaborateApiKey,
+                                                             String blackBoardCollaborateSecretValue,
+                                                             String blackBoardCollaborateURL
+    ) {
         selectConnection(mainConnectionName);
         if (mainConnectionName.contains("Independent Connection")) {
             connectionNameField.setValue(connectionName);
