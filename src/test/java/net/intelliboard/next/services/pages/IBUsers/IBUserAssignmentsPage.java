@@ -19,7 +19,7 @@ public class IBUserAssignmentsPage {
     }
 
     public DropdownElement dropdownConnectionSelect =
-            DropdownElement.init("Connection");
+            DropdownElement.init("Connection", 1);
 
     private void loadData(String assignmentDataBlockName) {
         $x("//div[@class='card open' and ./div[contains (@class, 'card-header')]/div[contains (text(),'" + assignmentDataBlockName + "')]]//button[contains (@class,'select-load')]")

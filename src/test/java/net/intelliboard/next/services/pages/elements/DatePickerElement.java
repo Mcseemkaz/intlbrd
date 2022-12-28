@@ -37,8 +37,16 @@ public class DatePickerElement {
         $x("//span[contains (@class,'flatpickr-day')  and (text()='" + dayOfMonthFrom + "')][not( contains (@class,'nextMonthDay'))][not(contains (@class, 'prevMonthDay'))]")
                 .click();
 
-        String setDate = $x("//input[contains (@class, 'flatpickr-input') and @name='mongoose_cadence_init_processing_date']").getAttribute("value");
-        assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(setDate)).isTrue();
+        String setDate = $x("//input[contains (@class, 'flatpickr-input')]")
+                .getAttribute("value");
+
+//        String setDate = $x("//input[contains (@class, 'flatpickr-input') and @name='mongoose_cadence_init_processing_date']")
+//                .getAttribute("value");
+
+        assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                .equals(setDate))
+                .isTrue();
+
         return this;
     }
 }
