@@ -8,33 +8,50 @@ import static com.codeborne.selenide.Selenide.$x;
 public class DropdownElement {
 
     static String dropdownLabel;
+    static int numberOfElementOnPage;
 
-    DropdownElement(String dropdownLabel) {
+    DropdownElement(String dropdownLabel, int numberOfElementOnPage) {
+
         DropdownElement.dropdownLabel = dropdownLabel;
+        DropdownElement.numberOfElementOnPage = numberOfElementOnPage;
+
     }
 
-    public static DropdownElement init(String dropdownLabel) {
-        $x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + dropdownLabel + "')]]")
+    public static DropdownElement init(String dropdownLabel, int numberOfElementOnPage) {
+        $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + dropdownLabel + "')]])[" + numberOfElementOnPage + "]")
                 .shouldBe(Condition.visible);
-        return new DropdownElement(dropdownLabel);
+        return new DropdownElement(dropdownLabel, numberOfElementOnPage);
     }
 
     public DropdownElement selectOption(String value) {
 
-        if (!$x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + this.dropdownLabel + "')]]//span[text()='" + value + "']")
+        if (!$x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                dropdownLabel + "')]])[" +
+                numberOfElementOnPage + "]//span[text()='" + value + "']")
                 .exists()) {
             openDropdown();
-            $x("//label[@title='" + value + "']")
+            $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                    dropdownLabel + "')]])[" +
+                    numberOfElementOnPage + "]//label[./strong[text()='" + value + "']]")
                     .click();
         }
+
+        // confirm selection
+        $x("//span[@class='title-name-event']")
+                .click();
+
         return this;
     }
 
     private void openDropdown() {
-        SelenideElement chevronDownElement = $x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + dropdownLabel + "')]]//ion-icon[@name='chevron-down-outline']");
+        SelenideElement chevronDownElement = $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                dropdownLabel + "')]])[" +
+                numberOfElementOnPage + "]//ion-icon[@name='chevron-down-outline']");
         if (chevronDownElement.is(Condition.visible)) {
             chevronDownElement.click();
-            $x("//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" + dropdownLabel + "')]]//div[@class='tree-drop']")
+            $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                    dropdownLabel + "')]])[" +
+                    numberOfElementOnPage + "]//div[@class='tree-drop']")
                     .shouldBe(Condition.visible);
         }
     }
