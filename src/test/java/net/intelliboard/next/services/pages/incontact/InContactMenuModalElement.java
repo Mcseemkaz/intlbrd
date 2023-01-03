@@ -40,6 +40,11 @@ public class InContactMenuModalElement {
         return this;
     }
 
+    public InContactMenuModalElement setAttemped(){
+       $x("//label[./span[contains (text(), 'Attempted')]]").click();
+       return this;
+    }
+
     public void submitForm() {
         $x("//form//button[@type='submit' and not (@class)]").click();
         mainForm.shouldBe(Condition.hidden);

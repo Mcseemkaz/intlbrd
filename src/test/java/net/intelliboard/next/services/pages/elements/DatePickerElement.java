@@ -40,9 +40,6 @@ public class DatePickerElement {
         String setDate = $x("//input[contains (@class, 'flatpickr-input')]")
                 .getAttribute("value");
 
-//        String setDate = $x("//input[contains (@class, 'flatpickr-input') and @name='mongoose_cadence_init_processing_date']")
-//                .getAttribute("value");
-
         assertThat(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 .equals(setDate))
                 .isTrue();
