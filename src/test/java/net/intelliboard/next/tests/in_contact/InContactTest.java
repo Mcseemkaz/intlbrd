@@ -11,6 +11,7 @@ import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -30,6 +31,10 @@ public class InContactTest extends IBNextAbstractTest {
     /*
     Default connection is "Automation Canvans"
      */
+
+    private String accountName = "Automation testing";
+    private String userName = "Kena";
+    private LocalDateTime currentDate = LocalDateTime.now();
 
     @Test
     @Tags(value = {@Tag("critical"), @Tag("SP-T87"), @Tag("smoke")})
@@ -123,11 +128,73 @@ public class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T128"), @Tag("smoke")})
+    @DisplayName("SP-T128: View a note in the list")
+    void testViewNoteInListContact() throws IOException {
+
+        String eventName = "SP-T128_" + DataGenerator.getRandomString();
+        LocalDateTime date = LocalDateTime.now();
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .addNewMenu("Kena",
+                        date,
+                        eventName
+                );
+        InContactMainPage inContactMainPage = InContactMainPage.init();
+
+        assertThat(
+                inContactMainPage
+                        .checkEventExist(eventName, date))
+                .withFailMessage("Event %s is not existed", eventName)
+                .isTrue();
+
+        SoftAssertions softly = new SoftAssertions();
+
+        softly.assertThat(
+                inContactMainPage
+                        .checkAuthorOfEvent(eventName, accountName, date))
+                .withFailMessage("Author is not match : - %s", accountName)
+                        .isTrue();
+
+        softly.assertThat(
+                        inContactMainPage
+                                .checkUserOfEvent(eventName, userName, date))
+                .withFailMessage("User is not match : - %s", userName)
+                .isTrue();
+
+        softly.assertThat(
+                        inContactMainPage
+                                .checkDateOfEvent(eventName, currentDate, date))
+                .withFailMessage("Event creation date is not match : - %s", currentDate)
+                .isTrue();
+
+        softly.assertAll();
+
+        inContactMainPage
+                .deleteEvent(eventName, date);
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+
+        assertThat(
+                InContactMainPage
+                        .init()
+                        .checkEventExist(eventName, date))
+                .withFailMessage("Event %s is still existed", eventName)
+                .isFalse();
+    }
+
+    @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T110"), @Tag("smoke")})
     @DisplayName("SP-T110: Deleting a note in the List")
     void testDeleteNoteInListContact() throws IOException {
 
-        String eventName = "SP-T108_" + DataGenerator.getRandomString();
+        String eventName = "SP-T110_" + DataGenerator.getRandomString();
         LocalDateTime date = LocalDateTime.now();
 
         HeaderConnectionManager
