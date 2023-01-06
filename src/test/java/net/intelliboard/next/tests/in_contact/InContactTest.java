@@ -121,4 +121,45 @@ public class InContactTest extends IBNextAbstractTest {
                 .init()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T110"), @Tag("smoke")})
+    @DisplayName("SP-T110: Deleting a note in the List")
+    void testDeleteNoteInListContact() throws IOException {
+
+        String eventName = "SP-T108_" + DataGenerator.getRandomString();
+        LocalDateTime date = LocalDateTime.now();
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .addNewMenu("Kena",
+                        date,
+                        eventName
+                );
+
+        assertThat(
+                InContactMainPage
+                        .init()
+                        .checkEventExist(eventName, date))
+                .withFailMessage("Event %s is not existed", eventName)
+                .isTrue();
+
+        InContactMainPage
+                .init()
+                .deleteEvent(eventName, date);
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+
+        assertThat(
+                InContactMainPage
+                        .init()
+                        .checkEventExist(eventName, date))
+                .withFailMessage("Event %s is still existed", eventName)
+                .isFalse();
+    }
 }
