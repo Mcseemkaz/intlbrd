@@ -37,9 +37,10 @@ public class DropdownElement {
         }
 
         // confirm selection
-        $x("//span[@class='title-name-event']")
+        $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                dropdownLabel + "')]])[" +
+                numberOfElementOnPage + "]")
                 .click();
-
         return this;
     }
 
