@@ -104,4 +104,10 @@ public class InContactMainPage {
                 .getText()
                 .contains(dateOfEvent.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
+
+    public InContactFilterModalElement openFilter() {
+        $x("//button[@class='top-filters__button']")
+                .click();
+        return InContactFilterModalElement.init();
+    }
 }

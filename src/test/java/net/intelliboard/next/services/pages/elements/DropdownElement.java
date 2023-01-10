@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.elements;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -41,6 +42,15 @@ public class DropdownElement {
                 dropdownLabel + "')]])[" +
                 numberOfElementOnPage + "]")
                 .click();
+        return this;
+    }
+
+    public DropdownElement searchValue(String searchValue) {
+        $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
+                dropdownLabel + "')]])[" +
+                numberOfElementOnPage + "]//div[contains (@class, 'tree-search')]/input")
+                .setValue(searchValue);
+        Selenide.sleep(500);
         return this;
     }
 
