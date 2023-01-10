@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
@@ -157,10 +158,10 @@ public class InContactTest extends IBNextAbstractTest {
         SoftAssertions softly = new SoftAssertions();
 
         softly.assertThat(
-                inContactMainPage
-                        .checkAuthorOfEvent(eventName, accountName, date))
+                        inContactMainPage
+                                .checkAuthorOfEvent(eventName, accountName, date))
                 .withFailMessage("Author is not match : - %s", accountName)
-                        .isTrue();
+                .isTrue();
 
         softly.assertThat(
                         inContactMainPage
@@ -228,5 +229,37 @@ public class InContactTest extends IBNextAbstractTest {
                         .checkEventExist(eventName, date))
                 .withFailMessage("Event %s is still existed", eventName)
                 .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T86"), @Tag("smoke")})
+    @DisplayName("SP-T86: Course in Course dropdown")
+    void testInContact() throws IOException {
+
+        String eventName = "SP-T86 Filtering Course";
+        LocalDateTime date = LocalDateTime.of(2023, 1, 9, 0, 0);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
+                .openFilter()
+                .setCourse("20th")
+                .closeFilterModal();
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+
+        assertThat(
+                InContactMainPage
+                        .init()
+                        .checkEventExist(eventName, date))
+                .withFailMessage("Event %s is not existed", eventName)
+                .isTrue();
     }
 }
