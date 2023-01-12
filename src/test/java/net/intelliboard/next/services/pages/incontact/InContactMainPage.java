@@ -85,22 +85,22 @@ public class InContactMainPage {
                 .click();
     }
 
-    public boolean checkAuthorOfEvent(String eventName, String authorName, LocalDateTime date){
+    public boolean checkAuthorOfEvent(String eventName, String authorName, LocalDateTime date) {
         openEventPopup(date);
-        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'"+
-                               eventName+"')]]//span[./ion-icon[@name='school']]").getText().contains(authorName);
+        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'" +
+                eventName + "')]]//span[./ion-icon[@name='school']]").getText().contains(authorName);
     }
 
-    public boolean checkUserOfEvent(String eventName, String userName, LocalDateTime date){
+    public boolean checkUserOfEvent(String eventName, String userName, LocalDateTime date) {
         openEventPopup(date);
-        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'"+
-                eventName+"')]]//h2[./ion-icon[@name='person']]").getText().contains(userName);
+        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'" +
+                eventName + "')]]//h2[./ion-icon[@name='person']]").getText().contains(userName);
     }
 
-    public boolean checkDateOfEvent(String eventName, LocalDateTime dateOfEvent, LocalDateTime date){
+    public boolean checkDateOfEvent(String eventName, LocalDateTime dateOfEvent, LocalDateTime date) {
         openEventPopup(date);
-        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'"+
-                eventName+"')]]//p[contains (@class, 'events-metadata')]")
+        return $x("//div[contains (@class, 'all-event-day') and  .//p[contains (@class, 'all-events-text') and contains (text(),'" +
+                eventName + "')]]//p[contains (@class, 'events-metadata')]")
                 .getText()
                 .contains(dateOfEvent.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
@@ -110,4 +110,6 @@ public class InContactMainPage {
                 .click();
         return InContactFilterModalElement.init();
     }
+
+
 }

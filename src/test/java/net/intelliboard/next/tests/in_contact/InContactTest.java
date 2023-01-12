@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.in_contact;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
@@ -19,7 +20,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
@@ -261,5 +261,21 @@ public class InContactTest extends IBNextAbstractTest {
                         .checkEventExist(eventName, date))
                 .withFailMessage("Event %s is not existed", eventName)
                 .isTrue();
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T107"), @Tag("smoke")})
+    @DisplayName("SP-T107: Uploading CSV contacts")
+    void testUploadInContactCSVContact() {
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openFilter()
+                .uploadCSVFile(ProjectFilesEnum.INCONTACT_IMPORT_CSV);
     }
 }

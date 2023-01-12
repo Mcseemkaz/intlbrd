@@ -2,7 +2,8 @@ package net.intelliboard.next.services;
 
 public enum ProjectFilesEnum {
 
-    IBUSERS_IMPORT_CSV("src/test/resources/ibusers_csv_files/ibuser_csv_file.csv");
+    IBUSERS_IMPORT_CSV("src/test/resources/ibusers_csv_files/ibuser_csv_file.csv"),
+    INCONTACT_IMPORT_CSV("src/test/resources/ibusers_csv_files/incontact_upload_csv_file.csv");
 
     public final String path;
 

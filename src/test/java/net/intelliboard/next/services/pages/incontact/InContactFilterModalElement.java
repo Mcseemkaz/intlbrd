@@ -2,6 +2,10 @@ package net.intelliboard.next.services.pages.incontact;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import net.intelliboard.next.services.ProjectFilesEnum;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -51,5 +55,14 @@ public class InContactFilterModalElement {
         $x("//button[contains (@class,'closed_button')]")
                 .click();
         return InContactMainPage.init();
+    }
+
+    public void uploadCSVFile(ProjectFilesEnum filePath) {
+        //open CSV Modal
+        $x("//div[@class='buttons-filter']//button[contains (text(),'Upload Contact Csv')]").click();
+
+        File file = new File(filePath.path);
+        SelenideElement chooseFile = $x("//input[@type='file']");
+        chooseFile.uploadFile(file);
     }
 }
