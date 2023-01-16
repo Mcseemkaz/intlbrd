@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
+import net.intelliboard.next.services.pages.inform.InFormFormCreatePage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportCreationWizardSettingsPage;
 
@@ -41,6 +42,13 @@ public class HeaderObject {
         openHeaderCreateMenu();
         $x("//a[contains (@href,'/reports/create')]").click();
         return ReportCreationWizardSettingsPage.init();
+    }
+
+    public InFormFormCreatePage createInFormForm() {
+        openHeaderCreateMenu();
+        $x("//a[contains (@href,'/in-form/forms/create')]")
+                .click();
+        return InFormFormCreatePage.init();
     }
 
     private HeaderObject openHeaderCreateMenu() {
