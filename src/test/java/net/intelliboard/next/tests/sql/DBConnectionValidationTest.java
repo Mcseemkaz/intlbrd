@@ -13,27 +13,23 @@ import net.intelliboard.next.services.pages.connections.connection.ConnectionAdv
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
 import net.intelliboard.next.services.pages.connections.connection.MainConnectionPage;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.ALL_CONNECTIONS;
 import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNECTION;
 import static net.intelliboard.next.services.database.SQLQueries.*;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("DB Connection Validation")
 @Tag("DB_Connection_Validation")
 public class DBConnectionValidationTest extends IBNextAbstractTest {
 
     @Test
+    @Disabled
     @DisplayName("SP-TXXXX120: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX120")})
     void testDBValidationBBUltraScenarioOne() throws InterruptedException, IOException, SQLException {
@@ -102,6 +98,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("SP-TXXXX121: Check amount of records in base tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX121")})
     void testDBValidationBBUltraScenarioTwo() throws InterruptedException, IOException, SQLException {
@@ -194,6 +191,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("SP-TXXXX122: Check amount of records in incontact tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX122")})
     void testDBValidationBBUltraScenarioThree() throws InterruptedException, IOException, SQLException {

@@ -24,7 +24,7 @@ public class UserProfileAuditEightTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1371")})
     @DisplayName("SP-T1371: Sorting columns by clicking on the column's name")
-    public void testAuditLogsSortingByColumns() {
+    void testAuditLogsSortingByColumns() {
 
         open(IBNextURLs.USERS_PAGE);
 
@@ -43,7 +43,7 @@ public class UserProfileAuditEightTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1600")})
     @DisplayName("SP-T1600: New login is displayed in the Login Logs")
-    public void testAuditLogsUserLogin() {
+    void testAuditLogsUserLogin() {
 
         open(IBNextURLs.USERS_PAGE);
 
@@ -60,7 +60,7 @@ public class UserProfileAuditEightTest extends IBNextAbstractTest {
         assertThat(
                 UserLoginLogsPage
                         .init()
-                        .isUserLoggedByDate(userFirstName, LocalDateTime.now().minusDays(1)))
+                        .isUserLoggedByDate(userFirstName, LocalDateTime.now()))
                 .withFailMessage(String.format("User %s has no info about login today", userFirstName))
                 .isTrue();
     }
