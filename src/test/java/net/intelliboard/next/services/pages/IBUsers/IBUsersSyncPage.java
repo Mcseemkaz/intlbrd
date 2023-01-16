@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.elements.DropdownElement;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
@@ -53,20 +54,17 @@ public class IBUsersSyncPage {
     public IBUsersSyncPage selectLMSRole(String name) {
 
         ConnectionRolesDropdown.click();
-
-        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//li//strong[text()='" + name + "']")
-                .click();
-        $x("//button[@type='submit']")
-                .click();
+        DropdownElement
+                .init("Connection Role", 1)
+                .selectOption("name");
         return this;
     }
 
     public IBUsersSyncPage selectLMSRole() {
         ConnectionRolesDropdown.click();
-        $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]//div[contains(@class, 'tree-select-all')]//strong")
-                .click();
-        $x("//button[@type='submit']")
-                .click();
+        DropdownElement
+                .init("Connection Role", 1)
+                .selectOption("[All Options]");
         return this;
     }
 

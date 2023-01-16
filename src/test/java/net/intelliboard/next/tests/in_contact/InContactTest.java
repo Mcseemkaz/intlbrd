@@ -82,7 +82,7 @@ public class InContactTest extends IBNextAbstractTest {
                 .init()
                 .deleteEvent(eventName, date);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
 
         assertThat(
                 InContactMainPage
