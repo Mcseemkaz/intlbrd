@@ -29,7 +29,7 @@ public class IBUserAssignmentsPage {
     }
 
     public IBUserAssignmentsPage addFirstElementInBlock(String assignmentDataBlockName) {
-
+        //Load assignment data
         loadData(assignmentDataBlockName);
 
         //Select the First Element
@@ -46,6 +46,25 @@ public class IBUserAssignmentsPage {
         ElementsCollection optionsAdded = $$x("(//div[@class='card open' and ./div[contains (@class, 'card-header')]/div[contains (text(),'" + assignmentDataBlockName + "')]]//select)[1]//option");
         optionsAdded.should(CollectionCondition.sizeGreaterThan(0), Duration.ofSeconds(30));
         optionsAdded.should(CollectionCondition.itemWithText(elementValue));
+        return this;
+    }
+
+    public IBUserAssignmentsPage removeFirstElementInBlock(String assignmentDataBlockName) {
+        //Load assignment data
+        loadData(assignmentDataBlockName);
+
+        //Select first added block
+        String elementValue;
+        ElementsCollection options = $$x("(//div[@class='card open' and ./div[contains (@class, 'card-header')]/div[contains (text(),'" + assignmentDataBlockName + "')]]//select)[1]//option");
+        options.first().click();
+        elementValue = options.first().getText();
+
+        //Remove element to Block
+        $x("//div[@class='card open' and ./div[contains (@class, 'card-header')]/div[contains (text(),'" + assignmentDataBlockName + "')]]//button[@aria-label='Remove Selected']")
+                .click();
+        //Check that element has been added
+        ElementsCollection optionsAdded = $$x("(//div[@class='card open' and ./div[contains (@class, 'card-header')]/div[contains (text(),'" + assignmentDataBlockName + "')]]//select)[1]//option");
+        optionsAdded.should(CollectionCondition.size(0), Duration.ofSeconds(30));
         return this;
     }
 }
