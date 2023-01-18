@@ -28,7 +28,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T154: Short way to create report")
     void testCreateTableReport() {
 
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "Untitled Report";
 
         open(MAIN_URL);
@@ -79,7 +79,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T153")})
     @DisplayName("SP-T153: Create report (long way)")
     void testCreateTableReportLongWay() throws IOException {
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T153-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -134,7 +134,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1255")})
     @DisplayName("SP-T1255: Create report on Totara connection")
     void testCreateTableReportTotara() throws IOException {
-        String connectionName = "Automation Totara";
+        String connectionName = ConnectionsTypeEnum.TOTARA.defaultName;
         String reportName = "SP-T1255-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -195,7 +195,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T161: Сhange report's Title and Description in Settings")
     void testChangeTitleDescriptionReport() {
 
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T161-" + DataGenerator.getRandomString();
         String reportNameUPD = reportName + "_UPD_" + DataGenerator.getRandomString();
 
@@ -256,8 +256,8 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T164: Сhange report's Availability in Settings")
     void testChangeReportAvailability() throws IOException {
 
-        String connectionName = "Automation Canvans";
-        String connectionNameOther = "Automation Totara";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
+        String connectionNameOther = ConnectionsTypeEnum.TOTARA.defaultName;
         String reportName = "SP-T164-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -335,7 +335,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T163: Change report color in the setting")
     void testChangeReportColor() throws IOException {
 
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T163-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -405,7 +405,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @DisplayName("SP-T449: Create pie chart")
     void testCreateReportPaiChart() throws IOException {
 
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T449-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);
@@ -457,7 +457,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1281")})
     @DisplayName("SP-T1281: When clicking the “Cancel” button, no changes to the report are saved (adding columns).")
     void testRevertReportChangesByCancel() throws IOException {
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T1281-" + DataGenerator.getRandomString();
 
         open(MAIN_URL);

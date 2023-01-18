@@ -152,4 +152,9 @@ public class ConnectionsListPage {
         return $$x("//table//tbody/tr")
                 .size();
     }
+
+    public ConnectionProcessingHistoryMainPage openProcessingConnectionsHistory() {
+        $x("//a[contains (@href,'/audit')]").click();
+        return ConnectionProcessingHistoryMainPage.init();
+    }
 }
