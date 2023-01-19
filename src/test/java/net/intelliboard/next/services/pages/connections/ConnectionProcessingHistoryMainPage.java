@@ -33,4 +33,16 @@ public class ConnectionProcessingHistoryMainPage {
         SelenideElement statusCell = $x("//tr[./td[contains (text(),'" + connectionName + "')]]//td[2]");
         return statusCell.getText();
     }
+
+    public ConnectionProcessingHistoryOverviewPage openOverviewHistoryPage(String connectionName) {
+        $x("//tr[./td[contains (text(),'" + connectionName + "')]]//td/a")
+                .click();
+
+        return ConnectionProcessingHistoryOverviewPage.init();
+    }
+
+    public int getNumberActiveConnection() {
+        return Integer.parseInt($x("//div[contains (@class,'audit-progress')]//span[contains (@class, 'display-3')]")
+                .getText());
+    }
 }
