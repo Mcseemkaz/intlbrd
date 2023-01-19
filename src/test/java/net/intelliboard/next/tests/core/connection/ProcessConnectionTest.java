@@ -21,12 +21,12 @@ import static net.intelliboard.next.services.IBNextURLs.*;
 
 @Tag("Connection_Processing")
 @Feature("Process Connection")
-public class ProcessConnectionTest extends IBNextAbstractTest {
+class ProcessConnectionTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1120")})
     @DisplayName("SP-T1120: Processing D2L connection")
-    public void testProcessConnectionD2L() throws InterruptedException {
+    void testProcessConnectionD2L() throws InterruptedException {
         open(CREATE_D2L_CONNECTION);
         String connectionName = "D2L_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -50,7 +50,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1118")})
     @DisplayName("SP-T1118: Processing Moodle connection")
-    public void testProcessConnectionMoodle() throws InterruptedException {
+    void testProcessConnectionMoodle() throws InterruptedException {
         open(CREATE_MOODLE_CONNECTION);
         String connectionName = "Moodle_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -71,7 +71,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1119")})
     @DisplayName("SP-T1119: Processing Canvas connection")
-    public void testProcessConnectionCanvas() throws InterruptedException {
+    void testProcessConnectionCanvas() throws InterruptedException {
         open(CREATE_CANVAS_CONNECTION);
         String connectionName = "Canvas_" + DataGenerator.getRandomString();
         CreateConnectionPage.init().
@@ -99,7 +99,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1112")})
     @DisplayName("SP-T1112: Processing Blackboard connection")
-    public void testProcessConnectionBlackboard() throws InterruptedException, IOException {
+    void testProcessConnectionBlackboard() throws InterruptedException, IOException {
 
         // Migration BB before processing
         BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
@@ -125,7 +125,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1121")})
     @DisplayName("SP-T1121: Processing Zoom connection")
-    public void testProcessConnectionZoom() throws InterruptedException {
+    void testProcessConnectionZoom() throws InterruptedException {
         open(CREATE_ZOOM_CONNECTION);
         String connectionName = "Zoom_" + DataGenerator.getRandomString();
         CreateZoomConnectionPage.init()
@@ -146,7 +146,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1122")})
     @DisplayName("SP-T1122: Processing Ilias connection")
-    public void testProcessConnectionIlyas() throws InterruptedException {
+    void testProcessConnectionIlyas() throws InterruptedException {
         open(CREATE_ILIAS_CONNECTION);
         String connectionName = "Ilias_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -167,7 +167,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1105")})
     @DisplayName("SP-T1105: Processing Sakai connection")
-    public void testProcessConnectionSakai() throws InterruptedException {
+    void testProcessConnectionSakai() throws InterruptedException {
         open(CREATE_SAKAI_CONNECTION);
         String connectionName = "Sakai_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
@@ -188,7 +188,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1251")})
     @DisplayName("SP-T1251: Processing Totara connection")
-    public void testProcessConnectionTotara() throws InterruptedException {
+    void testProcessConnectionTotara() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "Totara_" + DataGenerator.getRandomString();
 
@@ -210,7 +210,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1252")})
     @DisplayName("SP-T1252: Process MWP moodle.intelliboard connection")
-    public void testProcessConnectionMWPMoodle() throws InterruptedException {
+    void testProcessConnectionMWPMoodle() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "MWP_Moodle_" + DataGenerator.getRandomString();
 
@@ -221,7 +221,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
                         connectionName,
                         CreateConnectionPage.MWP_KEY,
                         CreateConnectionPage.MWP_URL)
-                        .saveFilterSettings();
+                .saveFilterSettings();
         ConnectionsListPage.init()
                 .editConnection(connectionName)
                 .processData()
@@ -238,7 +238,7 @@ public class ProcessConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1253")})
     @DisplayName("SP-T1253: Process MWP moodleworkplace.intelliboard connection")
-    public void testProcessConnectionMWPWorkspace() throws InterruptedException {
+    void testProcessConnectionMWPWorkspace() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "MWP_Workspace_" + DataGenerator.getRandomString();
 

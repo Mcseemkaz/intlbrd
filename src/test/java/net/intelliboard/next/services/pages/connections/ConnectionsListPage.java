@@ -153,6 +153,11 @@ public class ConnectionsListPage {
                 .size();
     }
 
+    public int getNumberActiveConnections(){
+        return $$x("//table/tbody/tr[./td/button[contains (@aria-label,'Deactivate')]]")
+                .size();
+    }
+
     public ConnectionProcessingHistoryMainPage openProcessingConnectionsHistory() {
         $x("//a[contains (@href,'/audit')]").click();
         return ConnectionProcessingHistoryMainPage.init();
