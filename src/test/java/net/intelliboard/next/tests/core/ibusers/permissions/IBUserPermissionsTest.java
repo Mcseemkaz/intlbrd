@@ -3,7 +3,6 @@ package net.intelliboard.next.tests.core.ibusers.permissions;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.IBUsers.*;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
@@ -32,7 +31,7 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T612")})
     @DisplayName("SP-T612: Disappearing of buttons when admin permissions for IB user turn off")
-    public void testDisappearingButtonsAdminPermissionOff() {
+    void testDisappearingButtonsAdminPermissionOff() {
 
         String firstName = "SP-T612_" + DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
@@ -59,7 +58,7 @@ public class IBUserPermissionsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1404")})
     @DisplayName("SP-T1404: Adding Admin role to the Connection Role drop-down")
-    public void testAddingAdminRoleToConnectionRoleDropDown() throws InterruptedException {
+    void testAddingAdminRoleToConnectionRoleDropDown() throws InterruptedException {
 
         //Create a connection
         String connectionName = "SP-T1404_" + DataGenerator.getRandomString();

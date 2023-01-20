@@ -9,19 +9,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class IBNextAbstractTest extends AbstractTest {
 
     public Object checkPageURL(String expectedURL) {
         String actualURL = WebDriverRunner.getWebDriver().getCurrentUrl();
-        assertThat(IBNextURLs.MAIN_URL + expectedURL.equals(actualURL))
-                .as("The page's URL is not match");
+        assertThat((IBNextURLs.MAIN_URL + expectedURL).contains(actualURL))
+                .withFailMessage("The page's URL is not match")
+                .isTrue();
         return this;
     }
 
     public Object checkPageTitle(String expectedTitle) {
         String actualTitle = WebDriverRunner.getWebDriver().getTitle();
-        assertThat(expectedTitle.equals(actualTitle)).as("The page's Tile is not match");
+        assertThat(expectedTitle.equals(actualTitle))
+                .withFailMessage("The page's Tile is not match")
+                .isTrue();
         return this;
     }
 
