@@ -37,7 +37,7 @@ public class OrgRoleCreatePage {
         return this;
     }
 
-    public OrgRolesMainPage submitUserCreateForm() {
+    public OrgRolesMainPage saveOrgRole() {
         Selenide.sleep(5000);
         $x("//button[@type='submit']")
                 .click();

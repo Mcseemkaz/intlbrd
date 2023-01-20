@@ -1,7 +1,6 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -22,9 +21,8 @@ public class OrgRolesMainPage {
                 .exists();
     }
 
-    public OrgRolesMainPage deleteOrgRole (String orgRoleName) {
-        $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" +
-                orgRoleName + "')]]]/td[contains (@class,'actions-cell')]//button").click();
+    public OrgRolesMainPage deleteOrgRole(String orgRoleName) {
+        openActionMenu(orgRoleName);
 
         $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" +
                 orgRoleName + "')]]]/td[contains (@class,'actions-cell')]//a[contains (text(),'Delete')]").click();
@@ -32,5 +30,18 @@ public class OrgRolesMainPage {
         $x("//div[contains (@class,'modal-content')]//a[contains (@class,'app-button')]")
                 .click();
         return this;
+    }
+
+    private static void openActionMenu(String orgRoleName) {
+        $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" +
+                orgRoleName + "')]]]/td[contains (@class,'actions-cell')]//button")
+                .click();
+    }
+
+    public OrgRolePage editOrgRole(String orgRoleName) {
+        openActionMenu(orgRoleName);
+        $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" +
+                orgRoleName + "')]]]/td[contains (@class,'actions-cell')]//a[contains (text(),'Edit')]").click();
+        return OrgRolePage.init();
     }
 }
