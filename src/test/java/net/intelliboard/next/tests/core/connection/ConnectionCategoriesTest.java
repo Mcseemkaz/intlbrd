@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.connection;
 
+import io.qameta.allure.Description;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -14,12 +15,13 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("Connection_Categories")
-public class ConnectionCategoriesTest extends IBNextAbstractTest {
+class ConnectionCategoriesTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-T997")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T997")})
     @DisplayName("SP-T997: Adding category to group connections")
-    public void testEditDefaultGradingSchemaCanvas() {
+    @Description("Verify that category is added successfully")
+    void testEditDefaultGradingSchemaCanvas() {
 
         String categoryName = "SP-T997_" + DataGenerator.getRandomString();
 

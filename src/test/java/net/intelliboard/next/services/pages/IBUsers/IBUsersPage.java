@@ -110,7 +110,7 @@ public class IBUsersPage {
     }
 
     private SelenideElement getThreeDotMenuUser(String userFirstName) {
-        return  $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]");
+        return $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]");
     }
 
     public IBUsersPage checkedUserByName(String firstUserName) {
@@ -179,6 +179,12 @@ public class IBUsersPage {
     public IBUsersPage searchUserByName(String userName) {
         $x("//input[contains (@aria-label, 'Search User')]").setValue(userName);
         return this;
+    }
+
+    public OrgRolesMainPage openOrgRolesPage() {
+        $x("//a[contains (@href,'/roles')]").click();
+        return OrgRolesMainPage.init();
+
     }
 
     public boolean isPaginationPresented() {

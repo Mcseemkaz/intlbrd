@@ -34,6 +34,8 @@ public class IBNextURLs {
 
     //All Connections
     public static final String ALL_CONNECTIONS = MAIN_URL + "/connections";
+    public static final String CONNECTION_CATEGORIES = ALL_CONNECTIONS + "/categories";
+
 
     // All Connections Integrations
     public static final String ALL_INTEGRATIONS = ALL_CONNECTIONS + "/integrate";

@@ -19,13 +19,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("IBUser")
 @Feature("IBUser")
-public class ImportIBUserTest extends IBNextAbstractTest {
+class ImportIBUserTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = ConnectionsTypeEnum.class, names = {"CANVAS", "D2L", "TOTARA"})
-    @Tags(value = {@Tag("normal"), @Tag("SP-T124")})
-    @DisplayName("SP-T124: Adding new IB user with button \"Import\"")
-    public void testCreateIBUserByImport(ConnectionsTypeEnum connection) {
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T124"), @Tag("1047")})
+    @DisplayName("SP-T124 SP-T1047: Adding new IB user with button \"Import\"")
+    void testCreateIBUserByImport(ConnectionsTypeEnum connection) {
 
         String importedIBUser = "AQA Import";
         open(IBNextURLs.USERS_PAGE);
@@ -38,8 +38,6 @@ public class ImportIBUserTest extends IBNextAbstractTest {
                 .selectConnection(connection.defaultName)
                 .uploadImportCSVFile(ProjectFilesEnum.IBUSERS_IMPORT_CSV)
                 .submitForm();
-
-
 
         assertThat(IBUsersPage
                 .init()
