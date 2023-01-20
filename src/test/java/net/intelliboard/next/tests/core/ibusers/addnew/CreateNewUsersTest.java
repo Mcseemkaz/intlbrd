@@ -22,13 +22,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
 @Tag("IBUser")
-public class CreateNewUsersTest extends IBNextAbstractTest {
+class CreateNewUsersTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = IBUsersRolesTypeEnum.class)
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T111")})
     @DisplayName("SP-T111: Adding new IB user with button \"Create one\"")
-    public void testCreateNewIBUser(IBUsersRolesTypeEnum roles) {
+    void testCreateNewIBUser(IBUsersRolesTypeEnum roles) {
 
         String firstName = DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
@@ -48,8 +48,8 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         // Assertion
         assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName + " " + lastName))
-                .isTrue()
-                .as(String.format("User with name %s is not existed", firstName));
+                .withFailMessage("User with name %s is not existed", firstName)
+                .isTrue();
 
         //Clean Up
         IBUsersPage.init().deleteUser(firstName);
@@ -58,7 +58,7 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - EMAIL")
-    public void testCreateIBUserInvalidField_EMAIL() {
+    void testCreateIBUserInvalidField_EMAIL() {
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -73,13 +73,14 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
-                .isFalse().as("User has been created with a missed mandatory field - EMAIL");
+                .withFailMessage("User has been created with a missed mandatory field - EMAIL")
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - FIRST_NAME")
-    public void testCreateIBUserInvalidField_FIRST_NAME() {
+    void testCreateIBUserInvalidField_FIRST_NAME() {
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -94,13 +95,14 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
-                .isFalse().as("User has been created with a missed mandatory field - FIRST_NAME");
+                .withFailMessage("User has been created with a missed mandatory field - FIRST_NAME")
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - LAST_NAME")
-    public void testCreateIBUserInvalidField_LAST_NAME() {
+    void testCreateIBUserInvalidField_LAST_NAME() {
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -115,13 +117,14 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
-                .isFalse().as("User has been created with a missed mandatory field - LAST_NAME");
+                .withFailMessage("User has been created with a missed mandatory field - LAST_NAME")
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T112")})
     @DisplayName("SP-T112: Adding new IB user with button \"Create one\" without required field - PASSWORD")
-    public void testCreateIBUserInvalidField_PASSWORD() {
+    void testCreateIBUserInvalidField_PASSWORD() {
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -141,13 +144,14 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
-                .isFalse().as("User has been created with a missed mandatory field - LAST_NAME");
+                .withFailMessage("User has been created with a missed mandatory field - LAST_NAME")
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T118"), @Tag("health")})
     @DisplayName("SP-T118: Deleting created user")
-    public void testDeleteCreatedIBUser() {
+    void testDeleteCreatedIBUser() {
 
         HeaderObject header = HeaderObject.init();
 
@@ -179,14 +183,13 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                         .changeScalingUsersPerPage(200)
                         .isUserPresents(firstName + " " + lastName))
                 .withFailMessage("User with name %s is existed and isn't deleted", firstName)
-                .isFalse()
-                .as(String.format("User with name %s is existed and isn't deleted", firstName));
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T119")})
     @DisplayName("SP-T119: Deleting several created users")
-    public void testDeleteFewCreatedIBUsers() {
+    void testDeleteFewCreatedIBUsers() {
 
         HeaderObject header = HeaderObject.init();
 
@@ -230,20 +233,25 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .deleteSelectedUsersByActionDropdown();
 
         //Verify deleting User#1
-        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName1))
-                .isFalse()
-                .as(String.format("IB User with name %s has not been deleted", firstName1));
+        assertThat(IBUsersPage
+                .init()
+                .changeScalingUsersPerPage(200)
+                .isUserPresents(firstName1))
+                .withFailMessage("IB User with name %s has not been deleted", firstName1)
+                .isFalse();
 
         //Verify deleting User#2
-        assertThat(IBUsersPage.init().changeScalingUsersPerPage(200).isUserPresents(firstName2))
-                .isFalse()
-                .as(String.format("IB User with name %s has not been deleted", firstName2));
+        assertThat(IBUsersPage
+                .init()
+                .changeScalingUsersPerPage(200)
+                .isUserPresents(firstName2)).withFailMessage("IB User with name %s has not been deleted", firstName2)
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("normal")})
     @DisplayName("SP-T112: Create User with already registered email")
-    public void testCreateUserWithAlreadyRegisteredEmail() {
+    void testCreateUserWithAlreadyRegisteredEmail() {
 
         HeaderObject header = HeaderObject.init();
 
@@ -288,14 +296,14 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                 .shouldBe(Condition.visible);
 
         assertThat(IBNextURLs.USERS_PAGE.equals(WebDriverRunner.getWebDriver().getCurrentUrl()))
-                .isFalse().as("User has been created with has already registered EMAIL");
-
+                .withFailMessage("User has been created with has already registered EMAIL")
+                .isFalse();
     }
 
     @Test
     @Tags(value = {@Tag("SP-T116")})
     @DisplayName("SP-T116: Scaling the number of users")
-    public void testScalingNumberUsers() {
+    void testScalingNumberUsers() {
 
         //Create new users
         HeaderObject header = HeaderObject.init();
@@ -327,8 +335,8 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
         ibUsersPage.changeScalingUsersPerPage(25);
 
         assertThat(ibUsersPage.isPaginationPresented())
-                .isFalse()
-                .as("Pagination is broken");
+                .withFailMessage("Pagination is broken")
+                .isFalse();
 
         while (ibUsersPage.isFirstUserPresented())
             ibUsersPage
@@ -336,4 +344,3 @@ public class CreateNewUsersTest extends IBNextAbstractTest {
                     .deleteSelectedUsersByActionDropdown();
     }
 }
-
