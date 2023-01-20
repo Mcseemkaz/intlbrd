@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.core.ibusers.addnew;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -18,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import static com.codeborne.selenide.Selenide.open;
+import static net.intelliboard.next.services.IBNextURLs.USERS_PAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
@@ -342,5 +345,33 @@ class CreateNewUsersTest extends IBNextAbstractTest {
             ibUsersPage
                     .checkedAllUsers()
                     .deleteSelectedUsersByActionDropdown();
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1070")})
+    @DisplayName("SP-T1070: Log in as an IB User")
+    @Description("Verify that login as an IB User is possible and the user has an access to the platform")
+    public void testLoginAsIBUser() {
+
+        String firstName = "SP-T1070_" + DataGenerator.getRandomString();
+        String lastName = DataGenerator.getRandomString();
+
+        open(USERS_PAGE);
+
+        HeaderObject.init()
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserCreatePage()
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .submitUserCreateForm()
+                .changeScalingUsersPerPage(200)
+                .logInSelectedUsers(firstName);
+
+        waitForPageLoaded();
     }
 }
