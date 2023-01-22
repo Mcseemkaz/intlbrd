@@ -6,8 +6,6 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.ReportPage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -40,28 +38,4 @@ public class ReportBuilderMainPage {
     public String getTableRowValue(String columnName, int rowNumber) {
         return $x("(//tbody//span[@title='" + columnName + "'])[" + rowNumber + "]").getText();
     }
-
-    private ReportBuilderMainPage openShareOption() {
-        $x("//div[contains (@class,'btn') and .//span[contains (text(),'Share')]]")
-                .click();
-        $x("//div[contains (@class,'intelli-dropdown') and .//span[contains (text(),'Share')]]//ul")
-                .shouldBe(Condition.visible);
-        return this;
-    }
-
-    public void selectShareOption(ReportShareOptionEnum reportShareOptionEnum) {
-        openShareOption();
-        $x("//div[contains (@class,'intelli-dropdown') and .//span[contains (text(),'Share')]]//li[./a[contains (text(),'" +
-                reportShareOptionEnum.value + "')]]")
-                .click();
-    }
-
-    public File downloadXLSReport() throws FileNotFoundException {
-        openShareOption();
-        File report =
-                $x("//div[contains (@class,'intelli-dropdown') and .//span[contains (text(),'Share')]]//li[./a[contains (text(),'" +
-                ReportShareOptionEnum.XLS.value + "')]]").download();
-        return report;
-    }
-
 }

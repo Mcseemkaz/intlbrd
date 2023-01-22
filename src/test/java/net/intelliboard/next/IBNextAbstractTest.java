@@ -1,7 +1,6 @@
 package net.intelliboard.next;
 
 import com.codeborne.selenide.WebDriverRunner;
-import net.intelliboard.next.services.IBNextURLs;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,14 +8,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class IBNextAbstractTest extends AbstractTest {
 
     public Object checkPageURL(String expectedURL) {
         String actualURL = WebDriverRunner.getWebDriver().getCurrentUrl();
-        assertThat((IBNextURLs.MAIN_URL + expectedURL).contains(actualURL))
+        assertThat((expectedURL).contains(actualURL))
                 .withFailMessage("The page's URL is not match")
                 .isTrue();
         return this;
