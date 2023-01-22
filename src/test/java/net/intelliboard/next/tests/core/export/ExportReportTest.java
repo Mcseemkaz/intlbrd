@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.export.ExportMainPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
+import net.intelliboard.next.services.pages.report.ReportPage;
 import net.intelliboard.next.services.pages.report.builder.ReportShareOptionEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -45,6 +46,24 @@ class ExportReportTest extends IBNextAbstractTest {
                 .init()
                 .downloadItem(xlsReportName, LocalDateTime.now());
 
+        assertTrue(item.exists());
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T989")})
+    @DisplayName("SP-T989: Check appearing report at Export after click XLS")
+    void testExportReportXLSByPopup() throws IOException {
+
+        open(MY_INTELLIBOARD_PAGE);
+
+        ReportPage reportPage = MyIntelliBoardPage
+                .init()
+                .viewReport(xlsReportName);
+
+        reportPage.selectShareOption(ReportShareOptionEnum.XLS);
+        File item = reportPage.downloadFileByInfoBlockPopup();
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
         assertTrue(item.exists());
     }
 }
