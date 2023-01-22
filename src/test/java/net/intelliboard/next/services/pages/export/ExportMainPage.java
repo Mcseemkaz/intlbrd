@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.export;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.services.pages.report.ReportExportFormat;
 
 import java.io.File;
@@ -35,5 +36,13 @@ public class ExportMainPage {
         openActionMenu(itemName, itemCreatedDate, type);
         return $x("//ul[contains (@class,'dropdown-menu')]//a[contains (text(),'Download')]")
                 .download();
+    }
+
+    public ExportMainPage deleteItem(String itemName, LocalDateTime itemCreatedDate, ReportExportFormat type) throws FileNotFoundException {
+        openActionMenu(itemName, itemCreatedDate, type);
+        $x("//ul[contains (@class,'dropdown-menu')]//a[contains (text(),'Delete')]")
+                .click();
+        Selenide.confirm();
+        return this;
     }
 }
