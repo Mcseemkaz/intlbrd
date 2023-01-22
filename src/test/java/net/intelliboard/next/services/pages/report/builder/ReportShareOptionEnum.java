@@ -2,7 +2,8 @@ package net.intelliboard.next.services.pages.report.builder;
 
 public enum ReportShareOptionEnum {
 
-    XLS("XLS");
+    XLS("XLS"),
+    CSV("CSV");
 
     public final String value;
 

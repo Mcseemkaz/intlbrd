@@ -5,12 +5,15 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.export.ExportMainPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
+import net.intelliboard.next.services.pages.report.ReportExportFormat;
 import net.intelliboard.next.services.pages.report.ReportPage;
 import net.intelliboard.next.services.pages.report.builder.ReportShareOptionEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,15 +47,16 @@ class ExportReportTest extends IBNextAbstractTest {
         open(EXPORT);
         File item = ExportMainPage
                 .init()
-                .downloadItem(xlsReportName, LocalDateTime.now());
+                .downloadItem(xlsReportName, LocalDateTime.now(), ReportExportFormat.XLS);
 
         assertTrue(item.exists());
     }
 
-    @Test
+    @ParameterizedTest
+    @EnumSource(value = ReportShareOptionEnum.class, names = {"XLS", "CSV"})
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T989")})
     @DisplayName("SP-T989: Check appearing report at Export after click XLS")
-    void testExportReportXLSByPopup() throws IOException {
+    void testExportReportXLSByPopup(ReportShareOptionEnum type) throws IOException {
 
         open(MY_INTELLIBOARD_PAGE);
 
@@ -60,7 +64,7 @@ class ExportReportTest extends IBNextAbstractTest {
                 .init()
                 .viewReport(xlsReportName);
 
-        reportPage.selectShareOption(ReportShareOptionEnum.XLS);
+        reportPage.selectShareOption(type);
         File item = reportPage.downloadFileByInfoBlockPopup();
 
         Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));

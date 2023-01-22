@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.report;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.report.builder.ReportShareOptionEnum;
 
@@ -25,7 +26,7 @@ public class ReportPage {
                 .click();
         $x("//div[contains (@class,'intelli-dropdown') and .//span[contains (text(),'Share')]]//ul")
                 .shouldBe(Condition.visible);
-
+        Selenide.sleep(2000);
         ibNextAbstractTest.waitForPageLoaded();
     }
 
