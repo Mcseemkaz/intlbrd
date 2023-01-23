@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.core.connection;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
@@ -124,7 +125,62 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                                                 .isConnectionExist(k))
                                 .withFailMessage("Connection %s is still existed", (k))
                                 .isFalse());
-
         softly.assertAll();
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T988")})
+    @DisplayName("SP-T988: Deleting Canvas connection")
+    @Description("Verify that Canvas connection can be successfully deleted")
+    void testCreateCanvasConnection() {
+
+        String connectionName = "Canvas_SP-T988_" + DataGenerator.getRandomString();
+
+        open(CREATE_CANVAS_CONNECTION);
+        CreateConnectionPage
+                .init()
+                .createCanvasConnection(
+                        connectionName,
+                        CreateConnectionPage.CANVAS_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+
+        LoginCanvasPage.init()
+                .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
+                .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
+                .loginInCanvas()
+                .confirmAuthorize()
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1084")})
+    @DisplayName("SP-T1084: Deleting ilias connection")
+    @Description("Verify that ilias connection can be successfully deleted")
+    void testCreateIliasConnection() {
+
+        open(CREATE_ILIAS_CONNECTION);
+        String connectionName = "Ilias_SP-T1084_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createILIASConnection(
+                        connectionName,
+                        CreateConnectionPage.ILIAS_URL,
+                        CreateConnectionPage.ILIAS_TOKEN,
+                        CreateConnectionPage.ILIAS_KEY);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(connectionName);
+
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
+
+        connectionsListPage
+                .deleteConnection(connectionName);
     }
 }
