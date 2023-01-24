@@ -23,7 +23,8 @@ public class ConnectionRolesSettingsMainPage extends MainConnectionPage {
         expandRolesBlock(rolesBlockEnum);
         if (connectionRolesMainEnum.value.equals(ConnectionRolesMainEnum.ALL.value)) {
             $$x("//div[contains (@class, 'card') and (not(contains (@class, 'card-header')))][.//div[contains (text(),'" +
-                    rolesBlockEnum.value + "')]]//div[@class='card-body']//input").stream().forEach(k -> k.click());
+                    rolesBlockEnum.value + "')]]//div[@class='card-body']//input[@name='"+rolesBlockEnum.xpath_input+"']")
+                    .forEach(SelenideElement::click);
         } else {
             $x("//div[contains (@class, 'card') and (not(contains (@class, 'card-header')))][.//div[contains (text(),'" +
                     rolesBlockEnum.value + "')]]//div[@class='card-body']//input[ following-sibling::label[contains (text(),'" +

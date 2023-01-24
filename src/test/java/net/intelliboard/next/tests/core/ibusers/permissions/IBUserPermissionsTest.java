@@ -25,7 +25,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("IBUser")
 @Tag("IBUser")
-public class IBUserPermissionsTest extends IBNextAbstractTest {
+class IBUserPermissionsTest extends IBNextAbstractTest {
 
     @Flaky
     @Test
