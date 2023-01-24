@@ -233,7 +233,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
         MyIntelliBoardPage.init()
-                .openEditReport(reportName)
+                .editReport(reportName)
                 .openSettingsModal()
                 .fillInName(reportNameUPD)
                 .fillInDescription(DataGenerator.getRandomString())
@@ -300,7 +300,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
         listAdding.add(ReportConnectionTypeAvailabilityEnum.CANVAS);
 
         MyIntelliBoardPage.init()
-                .openEditReport(reportName)
+                .editReport(reportName)
                 .openSettingsModal()
                 .changeAvailability(listAdding, true)
                 .changeAvailability(listRemoving, false)
@@ -316,7 +316,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         MyIntelliBoardPage
                 .init()
-                .openEditReport(reportName);
+                .editReport(reportName);
 
         open(MY_INTELLIBOARD_PAGE);
 
@@ -374,7 +374,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
         MyIntelliBoardPage.init()
-                .openEditReport(reportName)
+                .editReport(reportName)
                 .openSettingsModal()
                 .setReportColor(ReportSettingsColorsEnum.GREEN)
                 .continueToPreview()
@@ -496,7 +496,7 @@ public class CreateReportsTest extends IBNextAbstractTest {
 
         MyIntelliBoardPage
                 .init()
-                .openEditReport(reportName);
+                .editReport(reportName);
 
         BuilderRightSideBarTableLayoutPage
                 .init()

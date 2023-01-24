@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.assignment;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -13,18 +14,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
+
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Assignment_IBUser")
 @Feature("Assignment IBUser")
-public class AssignmentIBUsersTest extends IBNextAbstractTest {
+class AssignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T837")})
     @DisplayName("SP-T837: Adding new assignment for user CANVAS")
-    public void testAssignedIBUsersCANVAS() {
+    void testAssignedIBUsersCANVAS() {
 
         //Create User
         String firstName = "SP-T837_" + DataGenerator.getRandomString();
@@ -80,7 +82,7 @@ public class AssignmentIBUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T838")})
     @DisplayName("SP-T838: Adding new assignment for user D2L")
-    public void testAssignedIBUsersD2L() {
+    void testAssignedIBUsersD2L() {
 
         //Create User
         String firstName = "SP-T838_" + DataGenerator.getRandomString();
@@ -136,7 +138,7 @@ public class AssignmentIBUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T837")})
     @DisplayName("SP-T837: Adding new assignment for user TOTARA")
-    public void testAssignedIBUsersTOTARA() {
+    void testAssignedIBUsersTOTARA() {
 
         //Create User
         String firstName = "SP-T837_" + DataGenerator.getRandomString();
@@ -193,7 +195,7 @@ public class AssignmentIBUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T831")})
     @DisplayName("SP-T831: Adding new assignment for user MOODLE")
-    public void testAssignedIBUsersMOODLE() {
+    void testAssignedIBUsersMOODLE() {
 
         //Create User
         String firstName = "SP-T831_" + DataGenerator.getRandomString();
@@ -250,7 +252,7 @@ public class AssignmentIBUsersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T832")})
     @DisplayName("SP-T832: Adding new assignment for user BlackBoard")
-    public void testAssignedIBUsersBLACKBOARD() {
+    void testAssignedIBUsersBLACKBOARD() {
 
         //Create User
         String firstName = "SP-T832_" + DataGenerator.getRandomString();
@@ -294,6 +296,62 @@ public class AssignmentIBUsersTest extends IBNextAbstractTest {
                 .addFirstElementInBlock("Courses")
                 .addFirstElementInBlock("Terms")
                 .addFirstElementInBlock("Nodes");
+
+        //Clean Up
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .deleteUser(firstName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1062")})
+    @DisplayName("SP-T1062: Adding new assignment for user on ilias")
+    @Description("Verify that any assignment can be added on ilias")
+    void testAssignedIBUsersILIAS() {
+
+        //Create User
+        String firstName = "SP-T1062_" + DataGenerator.getRandomString();
+        String lastName = DataGenerator.getRandomString();
+        String connectionName = ILIAS.defaultName;
+
+        HeaderObject.init()
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserCreatePage()
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .selectConnection(connectionName)
+                .submitUserCreateForm();
+
+        // Assertion
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .searchUserByName(firstName)
+                        .isUserPresents(firstName + " " + lastName))
+                .withFailMessage("User with name %s is not existed", firstName)
+                .isTrue();
+
+        //Assign to connection BlackBoard
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .assignmentsUser(firstName)
+                .dropdownConnectionSelect
+                .selectOption(connectionName);
+
+        //Assign first item for each block + validate by popup
+        IBUserAssignmentsPage
+                .init()
+                .addFirstElementInBlock("Users")
+                .addFirstElementInBlock("Courses")
+                .addFirstElementInBlock("Course Categories");
 
         //Clean Up
         open(IBNextURLs.USERS_PAGE);

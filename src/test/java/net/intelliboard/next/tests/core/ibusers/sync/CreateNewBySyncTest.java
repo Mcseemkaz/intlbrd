@@ -1,9 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.sync;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Flaky;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.*;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
@@ -61,8 +58,9 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     }
     @Flaky
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121"), @Tag("health")})
-    @DisplayName("SP-T121: Deleting synced user")
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121"), @Tag("SP-T987"), @Tag("health")})
+    @Description("Verify that created user can be successful deleted")
+    @DisplayName("SP-T121 SP-T987: Deleting synced user")
     public void testDeleteIBUserSynced() {
 
         HeaderObject header = HeaderObject.init();
@@ -92,8 +90,9 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122")})
-    @DisplayName("SP-T122: Deleting several synced users")
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122"), @Tag("SP-T1018")})
+    @DisplayName("SP-T122 SP-T1018: Deleting several synced users")
+    @Description("Verify that synced users can be deleted successfully at the same time")
     public void testDeleteSeveralIBUserSynced() {
 
         List<String> users = new ArrayList<>();

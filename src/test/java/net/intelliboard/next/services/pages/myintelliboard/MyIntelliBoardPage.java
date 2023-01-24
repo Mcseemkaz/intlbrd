@@ -7,6 +7,7 @@ import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
+import net.intelliboard.next.services.pages.report.ReportPage;
 import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -82,7 +83,7 @@ public class MyIntelliBoardPage {
         return DashboardDeleteModalPage.init();
     }
 
-    public ReportBuilderMainPage openEditReport(String reportName) {
+    public ReportBuilderMainPage editReport(String reportName) {
         Selenide
                 .actions()
                 .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -90,6 +91,12 @@ public class MyIntelliBoardPage {
                 .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Edit')]"))
                 .perform();
         return ReportBuilderMainPage.init();
+    }
+
+    public ReportPage viewReport(String reportName) {
+        $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]")
+                .click();
+        return ReportPage.init();
     }
 
     public String getReportBackgroundColors(String reportName){

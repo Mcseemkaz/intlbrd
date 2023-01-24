@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.assignment;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Assignment_IBUser")
 @Feature("Assignment IBUser")
@@ -268,6 +270,76 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
                 .removeFirstElementInBlock("Courses")
                 .removeFirstElementInBlock("Terms")
                 .removeFirstElementInBlock("Org Units");
+
+        //Clean Up
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .deleteUser(firstName);
+    }
+
+    @Test
+    @DisplayName("SP-T1159 Removing assignments from IB user on ilias")
+    @Description("Verify that all assignments can be successfully removed from IB user on ilias")
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1159")})
+    void testUnassignmentsIBUserILIAS() {
+        //Create User
+        String firstName = "SP-T1159_" + DataGenerator.getRandomString();
+        String lastName = DataGenerator.getRandomString();
+        String connectionName = ILIAS.defaultName;
+
+        HeaderObject.init()
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserCreatePage()
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .selectConnection(connectionName)
+                .submitUserCreateForm();
+
+        // Assertion
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .searchUserByName(firstName)
+                        .isUserPresents(firstName + " " + lastName))
+                .withFailMessage("User with name %s is not existed", firstName)
+                .isTrue();
+
+        //Assign to connection BlackBoard
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .assignmentsUser(firstName)
+                .dropdownConnectionSelect
+                .selectOption(connectionName);
+
+        //Assign first item for each block + validate by popup
+        IBUserAssignmentsPage
+                .init()
+                .addFirstElementInBlock("Users")
+                .addFirstElementInBlock("Courses")
+                .addFirstElementInBlock("Course Categories");
+
+        //Go to users -> Unassignments
+        open(IBNextURLs.USERS_PAGE);
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .assignmentsUser(firstName)
+                .dropdownConnectionSelect
+                .selectOption(connectionName);
+
+        IBUserAssignmentsPage
+                .init()
+                .removeFirstElementInBlock("Users")
+                .removeFirstElementInBlock("Courses")
+                .removeFirstElementInBlock("Course Categories");
 
         //Clean Up
         open(IBNextURLs.USERS_PAGE);

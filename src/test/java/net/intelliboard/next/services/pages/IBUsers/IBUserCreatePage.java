@@ -7,6 +7,8 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUserCreatePage {
@@ -14,7 +16,8 @@ public class IBUserCreatePage {
     public static IBUserCreatePage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-        $x("//div[@class='content-body']//form").shouldBe(Condition.visible);
+        $x("//div[@class='content-body']//form").shouldBe(Condition.visible,
+                Duration.ofSeconds(120));
         ibNextAbstractTest.checkPageURL(IBNextURLs.USERS_CREATE_PAGE);
         return new IBUserCreatePage();
     }

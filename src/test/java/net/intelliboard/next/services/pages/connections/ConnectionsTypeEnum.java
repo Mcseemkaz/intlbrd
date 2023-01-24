@@ -7,7 +7,8 @@ public enum ConnectionsTypeEnum {
     D2L("D2L", "Automation D2L"),
     SAKAI("Sakai", "Automation Sakai"),
     BLACKBOARD("BlackBoard", "Automation BlackBoard"),
-    TOTARA("Totara", "Automation Totara");
+    TOTARA("Totara", "Automation Totara"),
+    ILIAS("ILIAS", "Automation Ilias");
 
     public final String value;
     public final String defaultName;

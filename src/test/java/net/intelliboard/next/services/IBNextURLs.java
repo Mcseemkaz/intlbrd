@@ -76,6 +76,9 @@ public class IBNextURLs {
     // Library
     public static final String LIBRARY_MAIN = MAIN_URL + "/library";
 
+    // Exports
+    public static final String EXPORT = MAIN_URL + "/export";
+
     // List Settings Elements
     public static final String PER_PAGE_200 = "?per_page=200";
     public static final String PER_PAGE_500 = "?per_page=500";
