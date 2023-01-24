@@ -20,7 +20,7 @@ public class ReportBuilderMainPage {
     }
 
     public ReportPage saveReportToDashboard() {
-        $x("//a[contains(text(),'Save to Dashboard')]").click();
+        $x("//button[contains(text(),'Save to Dashboard')]").click();
         return ReportPage.init();
     }
 
