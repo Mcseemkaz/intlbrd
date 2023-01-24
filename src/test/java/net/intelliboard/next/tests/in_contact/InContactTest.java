@@ -27,15 +27,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("InContact")
 @Feature("InContact")
-public class InContactTest extends IBNextAbstractTest {
+class InContactTest extends IBNextAbstractTest {
 
     /*
     Default connection is "Automation Canvans"
      */
 
-    private String accountName = "Automation testing";
-    private String userName = "Kena";
-    private LocalDateTime currentDate = LocalDateTime.now();
+    private final String accountName = "Automation testing";
+    private final String userName = "Kena";
+    private final LocalDateTime currentDate = LocalDateTime.now();
 
     @Test
     @Tags(value = {@Tag("critical"), @Tag("SP-T87"), @Tag("smoke")})
@@ -147,7 +147,10 @@ public class InContactTest extends IBNextAbstractTest {
                         date,
                         eventName
                 );
+
         InContactMainPage inContactMainPage = InContactMainPage.init();
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
 
         assertThat(
                 inContactMainPage
