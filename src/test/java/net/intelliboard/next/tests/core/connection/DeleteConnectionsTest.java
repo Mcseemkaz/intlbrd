@@ -125,6 +125,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                                                 .isConnectionExist(k))
                                 .withFailMessage("Connection %s is still existed", (k))
                                 .isFalse());
+
         softly.assertAll();
     }
 
