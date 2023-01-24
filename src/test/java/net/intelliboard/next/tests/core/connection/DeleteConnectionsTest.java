@@ -125,6 +125,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                                                 .isConnectionExist(k))
                                 .withFailMessage("Connection %s is still existed", (k))
                                 .isFalse());
+
         softly.assertAll();
     }
 
@@ -157,7 +158,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1084")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1084")})
     @DisplayName("SP-T1084: Deleting ilias connection")
     @Description("Verify that ilias connection can be successfully deleted")
     void testCreateIliasConnection() {
