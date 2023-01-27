@@ -13,8 +13,8 @@ public class IBNextAbstractTest extends AbstractTest {
 
     public Object checkPageURL(String expectedURL) {
         String actualURL = WebDriverRunner.getWebDriver().getCurrentUrl();
-        assertThat((expectedURL).contains(actualURL))
-                .withFailMessage("The page's URL is not match")
+        assertThat((actualURL).contains(expectedURL))
+                .withFailMessage("The page's URL  is not match: Expected : %s, Actual: %s",expectedURL,actualURL )
                 .isTrue();
         return this;
     }
