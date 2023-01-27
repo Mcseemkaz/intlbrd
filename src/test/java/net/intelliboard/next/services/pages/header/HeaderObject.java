@@ -7,6 +7,7 @@ import net.intelliboard.next.services.pages.incontact.InContactMainPage;
 import net.intelliboard.next.services.pages.inform.InFormFormCreatePage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportCreationWizardSettingsPage;
+import net.intelliboard.next.tests.core.successbar.SuccessBarTest;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -68,5 +69,11 @@ public class HeaderObject {
     public void openMenuItem(HeaderMenuItemEnum type) {
         $x("//header//ul[@class='header-menu']//li[.//span[contains (text(), '" + type.value + "')]  or .//a[contains (text(),'" + type.value + "')]]")
                 .click();
+    }
+
+    public SuccessBarModal openSuccessBar() {
+        $x("//li[.//span[contains (@aria-label,'Open Platform Menu')]]")
+                .click();
+        return SuccessBarModal.init();
     }
 }
