@@ -90,4 +90,11 @@ public class IBUserPage {
         return Integer.parseInt($x("//span[@class='h4' and ./following-sibling::span[contains (text(),'Connections')]]")
                 .getText());
     }
+
+    public void deleteUserAccount(){
+        $x("//button[contains (text(),'Delete Account')]").
+                click();
+        $x("//a[contains (@href,'/profile/deactivate')]")
+                .click();
+    }
 }
