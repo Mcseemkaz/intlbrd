@@ -12,6 +12,7 @@ import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceIm
 import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.login.LoginService;
+import net.intelliboard.next.services.pages.IBUsers.UserProfileSecuritySettings;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
@@ -228,5 +229,78 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .click();
 
         LoginPage.init().getErrorMessageLogin().shouldBe(Condition.visible, Duration.ofSeconds(30));
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1132"), @Tag("smoke")})
+    @Description("Verify that after changing and saving the new password the user will be able to go to the site")
+    @DisplayName("SP-T1132: Change password")
+    void testChangePassword() throws IOException {
+
+        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
+        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String password = DataGenerator.getRandomValidPassword();
+        String newPassword = DataGenerator.getRandomValidPassword();
+        MailService mailService;
+
+        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
+            mailService = new MailTrapServiceImpl();
+        } else if (System.getProperty("TestEnvironment").contains("prod")) {
+            mailService = new OneSecMailServiceImpl();
+        } else mailService = null;
+
+        String emailBoxName = mailService.generateNewMailBoxes();
+
+        LoginService.clearCookiesAndRefresh();
+
+        open(IBNextURLs.MAIN_URL);
+        LoginPage.init()
+                .goToRegistration()
+                .fillInInviteCode(inviteCode)
+                .continueRegistration()
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
+                .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
+                .agreeTermsPolicy()
+                .submitForm();
+
+        String registrationURL = mailService.getRegistrationLink(emailBoxName);
+
+        open(registrationURL);
+
+        IBRegistrationConfirmationPage
+                .init()
+                .goToMyLogin()
+                .fillInLoginFiled(emailBoxName)
+                .fillInPassFiled(password)
+                .submitForm();
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+
+        open(IBNextURLs.USER_PROFILE_SECURITY_SETTINGS);
+
+        UserProfileSecuritySettings
+                .init()
+                .setCurrentPassword(password)
+                .setNewPassword(newPassword)
+                .setConfirmNewPassword(newPassword)
+                .saveSettings();
+
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .logOut();
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+
+        LoginService.clearCookiesAndRefresh();
+        open(IBNextURLs.LOGIN_PAGE);
+
+        LoginService
+                .loginAppUI(emailBoxName, newPassword);
     }
 }

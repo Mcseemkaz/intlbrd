@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class IBNextURLs {
 
+
     public static String MAIN_URL;
     public static String CANVAS_MAIN_URL;
     //Black-Board LMS Admin Tool
@@ -78,6 +79,10 @@ public class IBNextURLs {
 
     // Exports
     public static final String EXPORT = MAIN_URL + "/export";
+
+    // User Profile
+    public static final String USER_PROFILE = MAIN_URL + "/profile";
+    public static final String USER_PROFILE_SECURITY_SETTINGS = USER_PROFILE + "/security";
 
     // List Settings Elements
     public static final String PER_PAGE_200 = "?per_page=200";
