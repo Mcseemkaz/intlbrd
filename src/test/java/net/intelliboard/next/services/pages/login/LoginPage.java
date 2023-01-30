@@ -17,6 +17,11 @@ public class LoginPage {
     private SelenideElement passwordField = $x("//input[@id='login-password']");
     @Getter
     private SelenideElement buttonSubmit = $x("//button[@type='submit']");
+    @Getter
+    private SelenideElement errorMessageLogin = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-email']]");
+    @Getter
+    private SelenideElement errorMessagePassword = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-password']]");
+
 
     static IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
 
@@ -48,5 +53,3 @@ public class LoginPage {
         ibNextAbstractTest.waitForPageLoaded();
     }
 }
-
-

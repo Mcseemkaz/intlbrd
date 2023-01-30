@@ -1,5 +1,6 @@
 package net.intelliboard.next.services.api.connectors.onesecmail;
 
+import com.codeborne.selenide.Selenide;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import net.intelliboard.next.services.api.connectors.MailService;
@@ -25,6 +26,10 @@ public class OneSecMailServiceImpl implements MailService {
 
     @Override
     public String generateNewMailBoxes() {
+
+        // The email service needs a time for email be lend in a box
+        Selenide.sleep(10000);
+
         RequestSpecBuilder builder = getPreparedMainRequestPart();
 
         HashMap<String, String> params = new HashMap<>();
