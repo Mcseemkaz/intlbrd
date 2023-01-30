@@ -67,34 +67,39 @@ public class IBUserPage {
     }
 
     public String getCity() {
-        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'City')]]/div[@class='col-auto']")
-                .getText();
+        return getProfileValue("City");
     }
 
     public String getZIP() {
-        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Zip')]]/div[@class='col-auto']")
-                .getText();
+        return getProfileValue("Zip");
     }
 
     public String getAddress() {
-        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'Address')]]/div[@class='col-auto']")
-                .getText();
+        return getProfileValue("Address");
     }
 
     public String getState() {
-        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'State')]]/div[@class='col-auto']")
-                .getText();
+        return getProfileValue("State");
     }
 
-    public int getConnectionsNumber(){
+    public String getDateFormat() {
+        return getProfileValue("Date Format");
+    }
+
+    public int getConnectionsNumber() {
         return Integer.parseInt($x("//span[@class='h4' and ./following-sibling::span[contains (text(),'Connections')]]")
                 .getText());
     }
 
-    public void deleteUserAccount(){
+    public void deleteUserAccount() {
         $x("//button[contains (text(),'Delete Account')]").
                 click();
         $x("//a[contains (@href,'/profile/deactivate')]")
                 .click();
+    }
+
+    private String getProfileValue(String valueName) {
+        return $x("//div[@class='card-body']//div[@class='row' and .//strong[contains (text(),'" + valueName + "')]]/div[@class='col-auto']")
+                .getText();
     }
 }

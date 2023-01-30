@@ -97,8 +97,8 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1112")})
-    @DisplayName("SP-T1112: Processing Blackboard connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T1112"), @Tag("SP-T235")})
+    @DisplayName("SP-T235 SP-T1112: Processing Blackboard connection")
     void testProcessConnectionBlackboard() throws InterruptedException, IOException {
 
         // Migration BB before processing

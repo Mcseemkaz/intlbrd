@@ -12,12 +12,15 @@ import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceIm
 import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.login.LoginService;
+import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
 import net.intelliboard.next.services.pages.IBUsers.UserProfileSecuritySettings;
+import net.intelliboard.next.services.pages.elements.enums.DateFormatEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
 import net.intelliboard.next.services.pages.signup.WelcomePage;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -302,5 +305,109 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         LoginService
                 .loginAppUI(emailBoxName, newPassword);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1126"), @Tag("smoke")})
+    @DisplayName("SP-T1126: Edit the user profile")
+    @Description("Verify that the user can edit profile")
+    void testEditUserProfile() throws IOException {
+
+        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
+        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String password = DataGenerator.getRandomValidPassword();
+        String fullName = "SP-T1126_" + DataGenerator.getRandomString();
+        MailService mailService;
+
+        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
+            mailService = new MailTrapServiceImpl();
+        } else if (System.getProperty("TestEnvironment").contains("prod")) {
+            mailService = new OneSecMailServiceImpl();
+        } else mailService = null;
+
+        String emailBoxName = mailService.generateNewMailBoxes();
+
+        LoginService.clearCookiesAndRefresh();
+
+        open(IBNextURLs.MAIN_URL);
+        LoginPage.init()
+                .goToRegistration()
+                .fillInInviteCode(inviteCode)
+                .continueRegistration()
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
+                .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
+                .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
+                .agreeTermsPolicy()
+                .submitForm();
+
+        String registrationURL = mailService.getRegistrationLink(emailBoxName);
+
+        open(registrationURL);
+
+        IBRegistrationConfirmationPage
+                .init()
+                .goToMyLogin()
+                .fillInLoginFiled(emailBoxName)
+                .fillInPassFiled(password)
+                .submitForm();
+
+        assertThat(
+                WelcomePage
+                        .init()
+                        .isWelcomeMessageIsExist(fullName))
+                .withFailMessage("Welcome message is not exist")
+                .isTrue();
+
+        open(IBNextURLs.USER_PROFILE);
+
+        String changedFirst = DataGenerator.getRandomString();
+        String changedLastName = DataGenerator.getRandomString();
+        String zip = DataGenerator.getRandomNumber();
+        String address = DataGenerator.getRandomNumber();
+        String city = DataGenerator.getRandomNumber();
+
+        IBUserPage ibUserPage = IBUserPage.init();
+
+        ibUserPage
+                .openEditProfilePage()
+                .setFirstName(changedFirst)
+                .setLastName(changedLastName)
+                .setAddress(address)
+                .setZIP(zip)
+                .setCity(city)
+                .setDateFormat(DateFormatEnum.YYYY_MM_DD)
+                .submitForm();
+
+        SoftAssertions softly = new SoftAssertions();
+
+        softly.assertThat(ibUserPage.getFirstName().equals(changedFirst))
+                .withFailMessage("User First Name is not changed : old full %s, new %s", fullName, changedFirst)
+                .isTrue();
+
+        softly.assertThat(ibUserPage.getLastName().equals(changedLastName))
+                .withFailMessage("User Last Name is not changed : old full %s, new %s", fullName, changedLastName)
+                .isTrue();
+
+        softly.assertThat(ibUserPage.getAddress().equals(address))
+                .withFailMessage("User Address is not valid : expt %s", address)
+                .isTrue();
+
+        softly.assertThat(ibUserPage.getZIP().equals(zip))
+                .withFailMessage("User zip is not valid : expt %s", zip)
+                .isTrue();
+
+        softly.assertThat(ibUserPage.getCity().equals(city))
+                .withFailMessage("User City is not valid : expt %s", city)
+                .isTrue();
+
+        softly.assertThat(ibUserPage.getDateFormat().equals(DateFormatEnum.YYYY_MM_DD.value))
+                .withFailMessage("User Date Format is not valid : expt %s", DateFormatEnum.YYYY_MM_DD.value)
+                .isTrue();
+
+        softly.assertAll();
     }
 }

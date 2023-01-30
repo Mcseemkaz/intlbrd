@@ -19,11 +19,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Create Connections")
 @Tag("Create_Connections")
-public class CreateConnectionTest extends IBNextAbstractTest {
+class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
     @DisplayName("SP-T83: Creating of Moodle connection")
-    public void testCreateMoodleConnection() {
+    void testCreateMoodleConnection() {
 
         String connectionName = "Moodle_SP-T83_" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
@@ -40,7 +40,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T89")})
     @DisplayName("SP-T89: Creating of Canvas connection")
-    public void testCreateCanvasConnection() {
+    void testCreateCanvasConnection() {
 
         String connectionName = "Canvas_SP-T89_" + DataGenerator.getRandomString();
 
@@ -65,9 +65,9 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T599")})
-    @DisplayName("SP-T599: Creating a Blackboard connection")
-    public void testCreateBlackboardConnection() {
+    @Tags(value = {@Tag("high"), @Tag("SP-T599"), @Tag("SP-T91")})
+    @DisplayName("SP-T91 SP-T599: Creating a Blackboard connection")
+    void testCreateBlackboardConnection() {
 
         String connectionName = "Blackboard_SP-T599_" + DataGenerator.getRandomString();
 
@@ -86,7 +86,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T106")})
     @DisplayName("SP-T106: Creating of Zoom independent connection")
-    public void testCreateZoomConnection() {
+    void testCreateZoomConnection() {
 
         open(CREATE_ZOOM_CONNECTION);
 
@@ -104,8 +104,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -114,7 +114,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T103")})
     @DisplayName("SP-T103: Creating of D2L connection")
-    public void testCreateD2LConnection() {
+    void testCreateD2LConnection() {
 
         open(CREATE_D2L_CONNECTION);
         String connectionName = "D2L_SP-T103_" + DataGenerator.getRandomString();
@@ -133,8 +133,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -143,7 +143,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T104")})
     @DisplayName("SP-T104: Creating of Ilias connection")
-    public void testCreateIliasConnection() {
+    void testCreateIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
         String connectionName = "Ilias_SP-T104_" + DataGenerator.getRandomString();
@@ -160,17 +160,17 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T823")})
-    @DisplayName("SP-T823: Creating of SAKAI connection")
-    public void testCreateSAKAIConnection() {
+    @Tags(value = {@Tag("high"), @Tag("SP-T823"), @Tag("SP-T1056")})
+    @DisplayName("SP-T823 SP-T1056: Creating of SAKAI connection")
+    void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
         String connectionName = "SAKAI_SP-T823_" + DataGenerator.getRandomString();
@@ -187,8 +187,8 @@ public class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -197,7 +197,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T814")})
     @DisplayName("SP-T814: Creating of Ellucian Colleague Sub-connection")
-    public void testCreateEllucianColleagueSubConnection() {
+    void testCreateEllucianColleagueSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "SP-T814_Main_" + DataGenerator.getRandomString();
@@ -242,7 +242,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T814 2")})
     @DisplayName("SP-T814 2: Creating of Ellucian Banner Sub-connection")
-    public void testCreateEllucianBannerSubConnection() {
+    void testCreateEllucianBannerSubConnection() {
 
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "SP-T814_2_Main_" + DataGenerator.getRandomString();
@@ -283,7 +283,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1397")})
     @DisplayName("SP-T1397: Create Totara connection")
-    public void testCreateTotaraConnection() {
+    void testCreateTotaraConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "Totara_SP-T1397_" + DataGenerator.getRandomString();
 
@@ -303,7 +303,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1250")})
     @DisplayName("SP-T1250: Create MWP connection for moodle.intelliboard")
-    public void testCreateMWPConnectionMoodle() {
+    void testCreateMWPConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "MWP_Moodle_SP-T1250_" + DataGenerator.getRandomString();
 
@@ -327,7 +327,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1249")})
     @DisplayName("SP-T1249, SP-T1398: Create MWP connection for moodleworkplace.intelliboard")
-    public void testCreateMWPWorkspaceConnectionMoodle() {
+    void testCreateMWPWorkspaceConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "MWP_MoodleWorkspace_SP-T1249" + DataGenerator.getRandomString();
 
@@ -353,7 +353,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1370")})
     @DisplayName("SP-T1370: Create Qwickly connection")
-    public void testCreateQwicklyConnection() throws IOException {
+    void testCreateQwicklyConnection() throws IOException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String mainConnectionName = "Canvas_Main_SP-T1370" + DataGenerator.getRandomString();
 
@@ -403,7 +403,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1375")})
     @DisplayName("SP-T1375: Creating of Mangoose Cadence sub-connection")
-    public void testCreateMongooseSubConnection() {
+    void testCreateMongooseSubConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         //Main connection
         String mainConnectionName = "Moodle_Main_SP-T1375" + DataGenerator.getRandomString();
@@ -452,7 +452,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T600")})
     @DisplayName("SP-T600: Creating of BlackBoard Collaborate independent connection")
-    public void testCreateBlackBoardCollaborateIndependentConnection() {
+    void testCreateBlackBoardCollaborateIndependentConnection() {
 
         open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
 
@@ -481,7 +481,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T604")})
     @DisplayName("SP-T604: Creating of BlackBoard Collaborate sub-connection")
-    public void testCreateBlackBoardCollaborateSubConnection() throws IOException {
+    void testCreateBlackBoardCollaborateSubConnection() throws IOException {
 
         open(CREATE_D2L_CONNECTION);
         String mainConnectionName = "D2L_Main_SP-T604_" + DataGenerator.getRandomString();
@@ -515,8 +515,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.checkIntegration(ConnectionIntegrationTypeEnum.BLACK_BOARD_COLLABORATE, mainConnectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", mainConnectionName));
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(mainConnectionName);
@@ -525,7 +524,7 @@ public class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1674")})
     @DisplayName("SP-T1674: Creating Hubspot as a sub-connection")
-    public void testCreateHubspotSubConnection() {
+    void testCreateHubspotSubConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         //Main connection
         String mainConnectionName = "Moodle_Main_SP-T1674_" + DataGenerator.getRandomString();
