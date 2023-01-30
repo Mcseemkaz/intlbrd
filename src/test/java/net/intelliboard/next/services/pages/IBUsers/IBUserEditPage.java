@@ -2,6 +2,8 @@ package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.services.helpers.UnitedStatesListEnum;
+import net.intelliboard.next.services.pages.elements.DropdownElement;
+import net.intelliboard.next.services.pages.elements.enums.DateFormatEnum;
 
 import java.time.Duration;
 
@@ -46,7 +48,14 @@ public class IBUserEditPage {
 
     public IBUserEditPage setState(UnitedStatesListEnum state) {
         $x("//div[contains (@class,'form-group') and @name='state']//button").click();
-        $x("//li//strong[contains (text(),'"+state.fullName+"')]").click();
+        $x("//li//strong[contains (text(),'" + state.fullName + "')]").click();
+        return this;
+    }
+
+
+    public IBUserEditPage setDateFormat(DateFormatEnum dateFormat) {
+        DropdownElement.init("Date Format", 1)
+                .selectOption(dateFormat.value);
         return this;
     }
 }
