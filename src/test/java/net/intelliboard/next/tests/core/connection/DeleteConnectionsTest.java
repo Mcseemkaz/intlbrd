@@ -25,12 +25,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Delete Connections")
 @Tag("Delete_Connections")
-public class DeleteConnectionsTest extends IBNextAbstractTest {
+class DeleteConnectionsTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T817")})
     @DisplayName("SP-T817: Deleting Ellucian connection")
-    public void testDeleteEllucianConnection() {
+    void testDeleteEllucianConnection() {
         String connectionName = "SP-T817_Main_" + DataGenerator.getRandomString();
 
         open(CREATE_MOODLE_CONNECTION);
@@ -82,7 +82,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T202")})
     @DisplayName("SP-T202: Deleting selected connections [connection mass deletion]")
-    public void testDeleteSelectedConnection() throws IOException {
+    void testDeleteSelectedConnection() throws IOException {
 
         int numberConnections = 3;
         ArrayList<String> connectionsList = new ArrayList<>();
@@ -133,7 +133,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T988")})
     @DisplayName("SP-T988: Deleting Canvas connection")
     @Description("Verify that Canvas connection can be successfully deleted")
-    void testCreateCanvasConnection() {
+    void testDeleteCanvasConnection() {
 
         String connectionName = "Canvas_SP-T988_" + DataGenerator.getRandomString();
 
@@ -161,7 +161,7 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1084")})
     @DisplayName("SP-T1084: Deleting ilias connection")
     @Description("Verify that ilias connection can be successfully deleted")
-    void testCreateIliasConnection() {
+    void testDeleteIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
         String connectionName = "Ilias_SP-T1084_" + DataGenerator.getRandomString();
@@ -182,6 +182,25 @@ public class DeleteConnectionsTest extends IBNextAbstractTest {
                 .isTrue();
 
         connectionsListPage
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1083"), @Tag("smoke")})
+    @DisplayName("SP-T1083: Deleting BlackBoard connection")
+    void testDeleteBlackboardConnection() {
+
+        String connectionName = "Blackboard_SP-T1083_" + DataGenerator.getRandomString();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+
+        CreateConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
                 .deleteConnection(connectionName);
     }
 }
