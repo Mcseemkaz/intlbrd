@@ -65,8 +65,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T599")})
-    @DisplayName("SP-T599: Creating a Blackboard connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T599"), @Tag("SP-T91")})
+    @DisplayName("SP-T91 SP-T599: Creating a Blackboard connection")
     void testCreateBlackboardConnection() {
 
         String connectionName = "Blackboard_SP-T599_" + DataGenerator.getRandomString();
@@ -104,8 +104,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -133,8 +133,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -160,16 +160,16 @@ class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T823")})
-    @DisplayName("SP-T823: Creating of SAKAI connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T823"), @Tag("SP-T1056")})
+    @DisplayName("SP-T823 SP-T1056: Creating of SAKAI connection")
     void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
@@ -187,8 +187,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
         connectionsListPage.findConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", connectionName));
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(connectionName);
@@ -515,8 +515,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.checkIntegration(ConnectionIntegrationTypeEnum.BLACK_BOARD_COLLABORATE, mainConnectionName))
-                .isTrue()
-                .as(String.format("Connection : %s is not existed", mainConnectionName));
+                .isTrue();
 
         connectionsListPage
                 .deleteConnection(mainConnectionName);

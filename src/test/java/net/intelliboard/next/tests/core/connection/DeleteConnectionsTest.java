@@ -203,4 +203,79 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                 .saveFilterSettings()
                 .deleteConnection(connectionName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1082")})
+    @DisplayName("SP-T1082: Deleting D2L connection")
+    @Description("Verify that D2L connection can be successfully deleted")
+    void testDeleteD2LConnection() {
+
+        open(CREATE_D2L_CONNECTION);
+        String connectionName = "D2L_SP-T1082_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createD2LConnection(
+                        connectionName,
+                        CreateConnectionPage.D2L_URL,
+                        CreateConnectionPage.D2L_CLIENT_ID,
+                        CreateConnectionPage.D2L_CLIENT_SECRET,
+                        CreateConnectionPage.D2L_USER_LOGIN,
+                        CreateConnectionPage.D2L_USER_PASS);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(connectionName);
+
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
+
+        connectionsListPage
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1081"), @Tag("health")})
+    @DisplayName("SP-T1081: Deleting moodle connection")
+    @Description("Verify that moodle connection can be successfully deleted")
+    void testDeleteMoodleConnection() {
+
+        String connectionName = "Moodle_SP-T1081_" + DataGenerator.getRandomString();
+        open(CREATE_MOODLE_CONNECTION);
+        CreateConnectionPage
+                .init()
+                .createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1086")})
+    @DisplayName("SP-T1086: Deleting Sakai connection")
+    void testDeleteSAKAIConnection() {
+
+        open(CREATE_SAKAI_CONNECTION);
+        String connectionName = "SAKAI_SP-T1086_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createSAKAIConnection(
+                        connectionName,
+                        CreateConnectionPage.SAKAI_URL,
+                        CreateConnectionPage.SAKAI_TOKEN,
+                        CreateConnectionPage.SAKAI_KEY);
+
+        ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
+
+        connectionsListPage.findConnectionByName(connectionName);
+
+        assertThat(connectionsListPage.isConnectionExist(connectionName))
+                .withFailMessage("Connection : %s is not existed", connectionName)
+                .isTrue();
+
+        connectionsListPage
+                .deleteConnection(connectionName);
+    }
 }
