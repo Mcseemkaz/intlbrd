@@ -23,8 +23,8 @@ class LoginTest extends IBNextAbstractTest {
 
     @Flaky
     @Test
-    @DisplayName("SP-T22: Verify success login to IB Next")
-    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T22")})
+    @DisplayName("SP-T22 SP-T1163: Verify success login to IB Next")
+    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T22"), @Tag("SP-T1163"), @Tag("smoke_core")})
     void testLoginApp() {
         LoginService.loginAppUI(LoginService.getUSER_LOGIN(),
                 LoginService.getUSER_PASS());

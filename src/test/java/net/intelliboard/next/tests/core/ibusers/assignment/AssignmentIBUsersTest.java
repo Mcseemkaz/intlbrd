@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AssignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T837")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T837"), @Tag("smoke_core")})
     @DisplayName("SP-T837: Adding new assignment for user CANVAS")
     void testAssignedIBUsersCANVAS() {
 
@@ -80,7 +80,7 @@ class AssignmentIBUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T838")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T838"), @Tag("smoke_core")})
     @DisplayName("SP-T838: Adding new assignment for user D2L")
     void testAssignedIBUsersD2L() {
 
@@ -193,7 +193,7 @@ class AssignmentIBUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T831")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T831"), @Tag("smoke_core")})
     @DisplayName("SP-T831: Adding new assignment for user MOODLE")
     void testAssignedIBUsersMOODLE() {
 
@@ -250,7 +250,7 @@ class AssignmentIBUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T832")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T832"), @Tag("smoke_core@")})
     @DisplayName("SP-T832: Adding new assignment for user BlackBoard")
     void testAssignedIBUsersBLACKBOARD() {
 
@@ -306,7 +306,7 @@ class AssignmentIBUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1062")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1062"), @Tag("smoke_core")})
     @DisplayName("SP-T1062: Adding new assignment for user on ilias")
     @Description("Verify that any assignment can be added on ilias")
     void testAssignedIBUsersILIAS() {

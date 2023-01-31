@@ -32,7 +32,7 @@ class ExportReportTest extends IBNextAbstractTest {
     private final String xlsReportName = "XLS Export";
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1089")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1089"), @Tag("smoke_core")})
     @DisplayName("SP-T1089: Export of the reports in XLS format")
     void testExportReportXLS() throws IOException {
 
@@ -55,7 +55,7 @@ class ExportReportTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = ReportShareOptionEnum.class, names = {"XLS", "CSV"})
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T989")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T989"), @Tag("smoke_core")})
     @DisplayName("SP-T989: Check appearing report at Export after click XLS")
     void testExportReportXLSByPopup(ReportShareOptionEnum type) throws IOException {
 
@@ -73,7 +73,7 @@ class ExportReportTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T254")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T254"), @Tag("smoke_core")})
     @DisplayName("SP-T254: Download file from Export page")
     @Description("Verify that files downloads successfully")
     void testDownloadFileFromExportReportXLS() throws IOException {
@@ -96,7 +96,7 @@ class ExportReportTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T255")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T255"), @Tag("smoke_core")})
     @DisplayName("SP-T255: Delete file from Export page")
     @Description("Verify that is possible to delete file from the export list")
     void testDeleteFileFromExportReportXLS() throws IOException {

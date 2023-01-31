@@ -18,7 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class ConnectionCategoriesTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T997")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T997"), @Tag("smoke_core")})
     @DisplayName("SP-T997: Adding category to group connections")
     @Description("Verify that category is added successfully")
     void testEditDefaultGradingSchemaCanvas() {

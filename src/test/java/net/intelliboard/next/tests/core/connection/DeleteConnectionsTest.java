@@ -130,7 +130,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T988")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T988"), @Tag("smoke_core")})
     @DisplayName("SP-T988: Deleting Canvas connection")
     @Description("Verify that Canvas connection can be successfully deleted")
     void testDeleteCanvasConnection() {
@@ -158,7 +158,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1084")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1084"), @Tag("smoke_core")})
     @DisplayName("SP-T1084: Deleting ilias connection")
     @Description("Verify that ilias connection can be successfully deleted")
     void testDeleteIliasConnection() {
@@ -186,7 +186,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1083"), @Tag("smoke")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1083"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1083: Deleting BlackBoard connection")
     void testDeleteBlackboardConnection() {
 
@@ -205,7 +205,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1082")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1082"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1082: Deleting D2L connection")
     @Description("Verify that D2L connection can be successfully deleted")
     void testDeleteD2LConnection() {
@@ -235,7 +235,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1081"), @Tag("health")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1081"), @Tag("health"), @Tag("smoke_core")})
     @DisplayName("SP-T1081: Deleting moodle connection")
     @Description("Verify that moodle connection can be successfully deleted")
     void testDeleteMoodleConnection() {
@@ -253,7 +253,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1086")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1086"), @Tag("smoke_core")})
     @DisplayName("SP-T1086: Deleting Sakai connection")
     void testDeleteSAKAIConnection() {
 

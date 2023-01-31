@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class IBUserOrgRolesTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1090")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1090"), @Tag("smoke_core")})
     @DisplayName("SP-T1090: Add a new Organizational roles")
     @Description("Verify that new Organizational roles are successfully created")
     void testAddOrganizationRole() {
@@ -44,7 +44,7 @@ class IBUserOrgRolesTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-T1093")})
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1093"), @Tag("smoke_core")})
     @DisplayName("SP-T1093: Delete the Organizational role")
     @Description("Verify that created role can be successful deleted")
     void testDeleteOrganizationRole() {
