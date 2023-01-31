@@ -29,8 +29,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = IBUsersRolesTypeEnum.class)
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T111")})
-    @DisplayName("SP-T111: Adding new IB user with button \"Create one\"")
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T111"), @Tag("SP-T986"), @Tag("smoke_core")})
+    @DisplayName("SP-T111 SP-T986: Adding new IB user with button \"Create one\"")
     void testCreateNewIBUser(IBUsersRolesTypeEnum roles) {
 
         String firstName = DataGenerator.getRandomString();
@@ -152,8 +152,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T118"), @Tag("health")})
-    @DisplayName("SP-T118: Deleting created user")
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T118"), @Tag("health"), @Tag("smoke_core"), @Tag("SP-T987")})
+    @DisplayName("SP-T118 SP-T987: Deleting created user")
     void testDeleteCreatedIBUser() {
 
         HeaderObject header = HeaderObject.init();

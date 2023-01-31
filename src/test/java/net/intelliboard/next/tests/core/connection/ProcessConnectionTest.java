@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.connection;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -24,8 +25,9 @@ import static net.intelliboard.next.services.IBNextURLs.*;
 class ProcessConnectionTest extends IBNextAbstractTest {
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1120")})
-    @DisplayName("SP-T1120: Processing D2L connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T1120"), @Tag("SP-T228"), @Tag("smoke_core")})
+    @Description("Verify that D2L connection processes correctly")
+    @DisplayName("SP-T228 SP-T1120: Processing D2L connection")
     void testProcessConnectionD2L() throws InterruptedException {
         open(CREATE_D2L_CONNECTION);
         String connectionName = "D2L_" + DataGenerator.getRandomString();
@@ -48,8 +50,8 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1118")})
-    @DisplayName("SP-T1118: Processing Moodle connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T1118"), @Tag("SP-T226"), @Tag("smoke_core")})
+    @DisplayName("SP-T226 SP-T1118: Processing Moodle connection")
     void testProcessConnectionMoodle() throws InterruptedException {
         open(CREATE_MOODLE_CONNECTION);
         String connectionName = "Moodle_" + DataGenerator.getRandomString();
@@ -69,8 +71,9 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1119")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1119"), @Tag("smoke_core")})
     @DisplayName("SP-T1119: Processing Canvas connection")
+    @Description("Verify that Canvas connection processes correctly")
     void testProcessConnectionCanvas() throws InterruptedException {
         open(CREATE_CANVAS_CONNECTION);
         String connectionName = "Canvas_" + DataGenerator.getRandomString();
@@ -97,7 +100,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1112"), @Tag("SP-T235")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1112"), @Tag("SP-T235"), @Tag("smoke_core")})
     @DisplayName("SP-T235 SP-T1112: Processing Blackboard connection")
     void testProcessConnectionBlackboard() throws InterruptedException, IOException {
 
@@ -144,11 +147,11 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1122")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1122"), @Tag("smoke_core")})
     @DisplayName("SP-T1122: Processing Ilias connection")
     void testProcessConnectionIlyas() throws InterruptedException {
         open(CREATE_ILIAS_CONNECTION);
-        String connectionName = "Ilias_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1122_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createILIASConnection(connectionName, CreateConnectionPage.ILIAS_URL, CreateConnectionPage.ILIAS_TOKEN,
                         CreateConnectionPage.ILIAS_KEY)
@@ -165,11 +168,11 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1105")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1105"), @Tag("smoke_core")})
     @DisplayName("SP-T1105: Processing Sakai connection")
     void testProcessConnectionSakai() throws InterruptedException {
         open(CREATE_SAKAI_CONNECTION);
-        String connectionName = "Sakai_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1105_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createSAKAIConnection(connectionName, CreateConnectionPage.SAKAI_URL, CreateConnectionPage.SAKAI_TOKEN,
                         CreateConnectionPage.SAKAI_KEY)
@@ -190,7 +193,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1251: Processing Totara connection")
     void testProcessConnectionTotara() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Totara_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1251" + DataGenerator.getRandomString();
 
         open(CREATE_TOTARA_CONNECTION);
 
@@ -212,7 +215,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1252: Process MWP moodle.intelliboard connection")
     void testProcessConnectionMWPMoodle() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_Moodle_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1252_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
@@ -240,7 +243,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1253: Process MWP moodleworkplace.intelliboard connection")
     void testProcessConnectionMWPWorkspace() throws InterruptedException {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_Workspace_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1253_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 

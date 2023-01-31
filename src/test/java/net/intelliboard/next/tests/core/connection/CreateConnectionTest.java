@@ -21,7 +21,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Tag("Create_Connections")
 class CreateConnectionTest extends IBNextAbstractTest {
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T83"), @Tag("health"), @Tag("smoke_core")})
     @DisplayName("SP-T83: Creating of Moodle connection")
     void testCreateMoodleConnection() {
 
@@ -38,8 +38,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T89")})
-    @DisplayName("SP-T89: Creating of Canvas connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T89"), @Tag("SP-T975"), @Tag("smoke_core")})
+    @DisplayName("SP-T89 SP-T975: Creating of Canvas connection")
     void testCreateCanvasConnection() {
 
         String connectionName = "Canvas_SP-T89_" + DataGenerator.getRandomString();
@@ -65,8 +65,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T599"), @Tag("SP-T91")})
-    @DisplayName("SP-T91 SP-T599: Creating a Blackboard connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T599"), @Tag("SP-T91"), @Tag("SP-T976"), @Tag("smoke_core")})
+    @DisplayName("SP-T91 SP-T599 SP-T976: Creating a Blackboard connection")
     void testCreateBlackboardConnection() {
 
         String connectionName = "Blackboard_SP-T599_" + DataGenerator.getRandomString();
@@ -112,7 +112,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T103")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T103"), @Tag("smoke_core")})
     @DisplayName("SP-T103: Creating of D2L connection")
     void testCreateD2LConnection() {
 
@@ -141,8 +141,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T104")})
-    @DisplayName("SP-T104: Creating of Ilias connection")
+    @Tags(value = {@Tag("high"), @Tag("SP-T104"), @Tag("SP-T1049"), @Tag("smoke_core")})
+    @DisplayName("SP-T104 SP-T1049: Creating of Ilias connection")
     void testCreateIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
@@ -168,7 +168,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T823"), @Tag("SP-T1056")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T823"), @Tag("SP-T1056"), @Tag("smoke_core")})
     @DisplayName("SP-T823 SP-T1056: Creating of SAKAI connection")
     void testCreateSAKAIConnection() {
 

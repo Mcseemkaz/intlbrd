@@ -40,7 +40,7 @@ class ProcessingHistoryPageTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1004")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1004"), @Tag("smoke_core")})
     @DisplayName("SP-T1004: Checking Status of connection")
     @Description("Verify that connection status is displayed correctly")
     void testCheckingConnectionStatus() {
@@ -62,7 +62,7 @@ class ProcessingHistoryPageTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1014")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1014"), @Tag("smoke_core")})
     @DisplayName("SP-T1014: Checking the \"View\" button in the Processing history tab")
     @Description("Verify that \"View\" button is clickable and page is opened after clicking on the button")
     void testCheckingConnectionOverview() {
@@ -75,7 +75,7 @@ class ProcessingHistoryPageTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1002")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1002"), @Tag("smoke_core")})
     @DisplayName("SP-T1002: Checking the total connections number in Connection History")
     @Description("Verify that total connections number is displayed correctly")
     void testCheckingNumberConnections() {

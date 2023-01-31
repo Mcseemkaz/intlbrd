@@ -25,7 +25,7 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
     @DisplayName("SP-T845 Removing assignments from IB user on Blackboard")
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T845")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T845"), @Tag("smoke_core")})
     void testUnassignmentsIBUserBlackboard() {
 
         //Create IBUser
@@ -89,7 +89,7 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
     @DisplayName("SP-T846 Removing assignments from IB user on Canvas")
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T846")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T846"), @Tag("smoke_core")})
     void testUnassignmentsIBUserCanvas() {
 
         //Create IBUser
@@ -153,7 +153,7 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
     @DisplayName("SP-T847 Removing assignments from IB user on Moodle")
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T847")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T847"), @Tag("smoke_core")})
     void testUnassignmentsIBUserMoodle() {
 
         //Create IBUser
@@ -218,7 +218,7 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
 
     @Test
     @DisplayName("SP-T848 Removing assignments from IB user on D2L")
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T848")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T848"), @Tag("smoke_core")})
     void testUnassignmentsIBUserD2L() {
 
         //Create IBUser
@@ -282,7 +282,7 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
     @Test
     @DisplayName("SP-T1159 Removing assignments from IB user on ilias")
     @Description("Verify that all assignments can be successfully removed from IB user on ilias")
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1159")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1159"), @Tag("smoke_core")})
     void testUnassignmentsIBUserILIAS() {
         //Create User
         String firstName = "SP-T1159_" + DataGenerator.getRandomString();

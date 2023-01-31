@@ -27,8 +27,8 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = IBUsersRolesTypeEnum.class)
-    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T113")})
-    @DisplayName("SP-T113: Adding new IB user via syncing")
+    @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T113"), @Tag("SP-T1017"), @Tag("smoke_core")})
+    @DisplayName("SP-T113 SP-T1017: Adding new IB user via syncing")
     public void testAddingIBUserBySync(IBUsersRolesTypeEnum roles) {
 
         HeaderObject header = HeaderObject.init();
@@ -90,7 +90,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122"), @Tag("SP-T1018")})
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122"), @Tag("SP-T1018"), @Tag("smoke_core")})
     @DisplayName("SP-T122 SP-T1018: Deleting several synced users")
     @Description("Verify that synced users can be deleted successfully at the same time")
     public void testDeleteSeveralIBUserSynced() {

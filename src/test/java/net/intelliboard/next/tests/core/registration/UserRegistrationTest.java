@@ -42,8 +42,8 @@ class UserRegistrationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T35"), @Tag("smoke")})
-    @DisplayName("SP-T35: Successful user registration")
+    @Tags(value = {@Tag("high"), @Tag("SP-T35"), @Tag("smoke"), @Tag("SP-T1316"), @Tag("smoke_core")})
+    @DisplayName("SP-T35 SP-T1316: Successful user registration")
     void testUserSuccessRegistration() {
 
         String email = DataGenerator.getRandomValidEmail();
@@ -68,8 +68,9 @@ class UserRegistrationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T1125"), @Tag("smoke")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T1125"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1125: Create an account")
+    @Description("Check the success created of the new account")
     void testCreateAccount() throws IOException {
 
         PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
@@ -170,7 +171,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-T1315"), @Tag("smoke")})
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1315"), @Tag("smoke"), @Tag("smoke_core")})
     @Description("Verify that a main user account is deleted successfully and is removed from the admin page.")
     @DisplayName("SP-T1315: Deleting a main user account")
     void testDeleteAccount() throws IOException {
@@ -235,7 +236,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-T1132"), @Tag("smoke")})
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1132"), @Tag("smoke"), @Tag("smoke_core")})
     @Description("Verify that after changing and saving the new password the user will be able to go to the site")
     @DisplayName("SP-T1132: Change password")
     void testChangePassword() throws IOException {
@@ -308,7 +309,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("normal"), @Tag("SP-T1126"), @Tag("smoke")})
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1126"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1126: Edit the user profile")
     @Description("Verify that the user can edit profile")
     void testEditUserProfile() throws IOException {

@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.ibusers.permissions;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
@@ -50,6 +51,37 @@ class IBUserPermissionsTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
                 .submitUserCreateForm()
                 .changeScalingUsersPerPage(200)
+                .searchUserByName(firstName)
+                .logInSelectedUsers(firstName);
+
+        waitForPageLoaded();
+    }
+
+    @Flaky
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T1070"), @Tag("smoke_core")})
+    @DisplayName("SP-T1070: Log in as an IB User")
+    @Description("Verify that login as an IB User is possible and the user has an access to the platform")
+    void testLogInAsIBUser() {
+
+        String firstName = "SP-T1070_" + DataGenerator.getRandomString();
+        String lastName = DataGenerator.getRandomString();
+
+        open(USERS_PAGE);
+
+        HeaderObject.init()
+                .openDropDownMenu()
+                .openMyIBUsersPage()
+                .openIBUserCreatePage()
+                .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, firstName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
+                .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
+                .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .submitUserCreateForm()
+                .changeScalingUsersPerPage(200)
+                .searchUserByName(firstName)
                 .logInSelectedUsers(firstName);
 
         waitForPageLoaded();
