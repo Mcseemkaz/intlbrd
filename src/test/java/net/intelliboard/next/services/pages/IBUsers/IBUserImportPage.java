@@ -6,6 +6,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
+import net.intelliboard.next.services.pages.elements.DropdownElement;
 
 import java.io.File;
 
@@ -26,7 +27,7 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectLMS(ConnectionsTypeEnum connection) {
-        SelenideElement lmsDropdownDown = $x("//div[@label='Lms Type']//ion-icon[@name='chevron-down-outline']");
+        SelenideElement lmsDropdownDown = $x("//div[@label='LMS Type']//ion-icon[@name='chevron-down-outline']");
 
         if (lmsDropdownDown.isDisplayed()) {
             lmsDropdownDown.click();
@@ -40,11 +41,24 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectRole(IBUsersRolesTypeEnum role) {
-        SelenideElement lmsDropdownDown = $x("//div[@label='Role']//ion-icon[@name='chevron-down-outline']");
-        if (lmsDropdownDown.isDisplayed()) {
-            lmsDropdownDown.click();
-            $x("//li[./*/label[@title='" + role.value + "']]").click();
+
+        if (!$x("//div[contains (@label,'Role')]//span[contains (text(),'"+ role.value +"')]").exists()) {
+            $x("//div[contains (@label,'Role')]")
+                    .click();
+            $x("//div[contains (@label,'Role')]//li[.//label[contains (@title,'"+ role.value +"')]]")
+                    .click();
         }
+
+
+//        DropdownElement
+//                .init("Role", 1)
+//                .selectOption(role.value);
+
+//        SelenideElement lmsDropdownDown = $x("//div[@label='Role']//ion-icon[@name='chevron-down-outline']");
+//        if (lmsDropdownDown.isDisplayed()) {
+//            lmsDropdownDown.click();
+//            $x("//li[./*/label[@title='" + role.value + "']]").click();
+//        }
         return this;
     }
 
@@ -53,6 +67,9 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectConnection(String connectionName) {
+//        DropdownElement.init("Lms Type", 1)
+//                .selectOption(connectionName);
+
         SelenideElement connection = $x("//input[contains (@id, 'connections') and contains (@id, '" + connectionName + "')]");
         if (!connection.isSelected()) {
             connection.click();

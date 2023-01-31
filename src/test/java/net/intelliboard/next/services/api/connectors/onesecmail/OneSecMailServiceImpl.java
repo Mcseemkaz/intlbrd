@@ -28,7 +28,7 @@ public class OneSecMailServiceImpl implements MailService {
     public String generateNewMailBoxes() {
 
         // The email service needs a time for email be lend in a box
-        Selenide.sleep(10000);
+        Selenide.sleep(15000);
 
         RequestSpecBuilder builder = getPreparedMainRequestPart();
 
