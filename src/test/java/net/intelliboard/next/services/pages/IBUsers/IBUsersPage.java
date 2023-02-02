@@ -32,7 +32,7 @@ public class IBUsersPage {
     public static IBUsersPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-        $x("//h1[contains (text(),'Users')]").shouldBe(Condition.visible);
+        $x("//div[@class='content-body']").shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.USERS_PAGE);
         return new IBUsersPage();
     }
