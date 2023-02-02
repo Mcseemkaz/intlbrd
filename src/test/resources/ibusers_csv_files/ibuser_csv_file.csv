@@ -1,2 +1,2 @@
-firstname,lastname,email,password,role,assign_users,assign_courses,assign_categories,assign_cohorts,assign_user_fields
-AQA,Import,aqa_ibuser@mail.com,1234A@,591,"1:1,2","2:3,4","3:4,5","4:5,6","5:1|Apple,2|Google"
+firstname,lastname,email,password,assign_users,assign_courses,assign_categories,assign_cohorts,assign_user_fields
+AQA,Import,aqa_ibuser@mail.com,1234A@,"1:1,2","2:3,4","3:4,5","4:5,6","5:1|Apple,2|Google"
