@@ -22,7 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class ImportIBUserTest extends IBNextAbstractTest {
 
     @ParameterizedTest
-    @EnumSource(value = ConnectionsTypeEnum.class, names = {"CANVAS", "D2L", "TOTARA"})
+    @EnumSource(value = ConnectionsTypeEnum.class, names = {"CANVAS", "D2L", "TOTARA", "MOODLE"})
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T124"), @Tag("1047"), @Tag("smoke_core")})
     @DisplayName("SP-T124 SP-T1047: Adding new IB user with button \"Import\"")
     void testCreateIBUserByImport(ConnectionsTypeEnum connection) {
