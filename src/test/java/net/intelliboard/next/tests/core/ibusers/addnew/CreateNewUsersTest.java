@@ -5,12 +5,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
+import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -19,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.IBNextURLs.USERS_PAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
@@ -347,16 +347,15 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                     .deleteSelectedUsersByActionDropdown();
     }
 
+    @Flaky
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1070")})
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T1070"), @Tag("smoke_core")})
     @DisplayName("SP-T1070: Log in as an IB User")
     @Description("Verify that login as an IB User is possible and the user has an access to the platform")
-    public void testLoginAsIBUser() {
+    void testLoginAsIBUser() {
 
         String firstName = "SP-T1070_" + DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
-
-        open(USERS_PAGE);
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -368,6 +367,7 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, lastName)
                 .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName)
                 .submitUserCreateForm()
                 .changeScalingUsersPerPage(200)
                 .logInSelectedUsers(firstName);
