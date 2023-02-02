@@ -6,7 +6,6 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
-import net.intelliboard.next.services.pages.elements.DropdownElement;
 
 import java.io.File;
 
@@ -27,12 +26,14 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectLMS(ConnectionsTypeEnum connection) {
-        SelenideElement lmsDropdownDown = $x("//div[@label='LMS Type']//ion-icon[@name='chevron-down-outline']");
+
+        SelenideElement lmsDropdownDown =
+                $x("//div[@name='lms_type']//ion-icon[@name='chevron-down-outline']");
 
         if (lmsDropdownDown.isDisplayed()) {
             lmsDropdownDown.click();
-            $x("//li[./*/label[@title='" + connection.value + "']]").click();
         }
+        $x("//li[./*/label[@title='" + connection.value + "']]").click();
         return this;
     }
 
@@ -48,17 +49,6 @@ public class IBUserImportPage {
             $x("//div[contains (@label,'Role')]//li[.//label[contains (@title,'"+ role.value +"')]]")
                     .click();
         }
-
-
-//        DropdownElement
-//                .init("Role", 1)
-//                .selectOption(role.value);
-
-//        SelenideElement lmsDropdownDown = $x("//div[@label='Role']//ion-icon[@name='chevron-down-outline']");
-//        if (lmsDropdownDown.isDisplayed()) {
-//            lmsDropdownDown.click();
-//            $x("//li[./*/label[@title='" + role.value + "']]").click();
-//        }
         return this;
     }
 
@@ -67,8 +57,6 @@ public class IBUserImportPage {
      * @return IBUserImportPage.class
      */
     public IBUserImportPage selectConnection(String connectionName) {
-//        DropdownElement.init("Lms Type", 1)
-//                .selectOption(connectionName);
 
         SelenideElement connection = $x("//input[contains (@id, 'connections') and contains (@id, '" + connectionName + "')]");
         if (!connection.isSelected()) {
