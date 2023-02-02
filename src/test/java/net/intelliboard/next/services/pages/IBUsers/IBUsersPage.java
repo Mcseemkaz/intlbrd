@@ -40,7 +40,6 @@ public class IBUsersPage {
     public IBUserCreatePage openIBUserCreatePage() {
         addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
-                .shouldBe(Condition.visible)
                 .click();
         return IBUserCreatePage.init();
     }
