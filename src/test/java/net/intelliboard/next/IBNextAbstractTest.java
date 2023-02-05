@@ -1,6 +1,8 @@
 package net.intelliboard.next;
 
 import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,6 +11,7 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Execution(ExecutionMode.CONCURRENT)
 public class IBNextAbstractTest extends AbstractTest {
 
     public Object checkPageURL(String expectedURL) {
