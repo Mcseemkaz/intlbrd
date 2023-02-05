@@ -1,6 +1,5 @@
 package net.intelliboard.next.services.api.connectors.onesecmail;
 
-import com.codeborne.selenide.Selenide;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import net.intelliboard.next.services.api.connectors.MailService;
@@ -10,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 
@@ -26,9 +26,6 @@ public class OneSecMailServiceImpl implements MailService {
 
     @Override
     public String generateNewMailBoxes() {
-
-        // The email service needs a time for email be lend in a box
-        Selenide.sleep(15000);
 
         RequestSpecBuilder builder = getPreparedMainRequestPart();
 
@@ -66,12 +63,9 @@ public class OneSecMailServiceImpl implements MailService {
 
     private OneSecMailMessagePOJO getMessageById(String emailBox) {
 
-        String id =
-                String.valueOf(
-                        Arrays.stream(getMessagesList(emailBox))
-                                .findFirst()
-                                .get()
-                                .getId());
+        String id = getFirstEmailId(emailBox);
+
+
 
         RequestSpecBuilder builder = getPreparedMainRequestPart();
 
@@ -88,6 +82,32 @@ public class OneSecMailServiceImpl implements MailService {
                 .when()
                 .get()
                 .as(OneSecMailMessagePOJO.class);
+    }
+
+
+    private String getFirstEmailId(String emailBox) {
+
+        OneSecMailMessagesShortPOJO[] emailList;
+        emailList = getMessagesList(emailBox);
+
+        while(emailList.length == 0){
+            try {
+                Thread.sleep(5000);
+                //TODO [MO] For Jenkins Debugging purpose only - need to remove after stabilize
+                System.err.println("-------wait--------");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            emailList = getMessagesList(emailBox);
+        }
+
+        String id = String.valueOf
+                (Arrays.stream(emailList)
+                        .findFirst()
+                        .get()
+                        .getId());
+
+        return id;
     }
 
     private String getCutRegistrationLink(String body) {
