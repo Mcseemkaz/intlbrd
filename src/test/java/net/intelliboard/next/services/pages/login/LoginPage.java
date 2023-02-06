@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
-import net.intelliboard.next.services.pages.signup.SignUpFormPage;
 import net.intelliboard.next.services.pages.signup.SignUpInvitePage;
 
 import java.time.Duration;
@@ -14,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class LoginPage {
 
     private SelenideElement loginField = $x("//input[@id='login-email']");
-    private SelenideElement passwordField = $x("//input[@id='login-password']");
+    private SelenideElement passwordField = $x("//input[contains (@id, 'password')]");
     @Getter
     private SelenideElement buttonSubmit = $x("//button[@type='submit']");
     @Getter
