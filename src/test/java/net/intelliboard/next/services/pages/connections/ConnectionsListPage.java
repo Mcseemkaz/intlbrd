@@ -91,6 +91,8 @@ public class ConnectionsListPage {
             checkRadioButton.shouldHave(Condition.attribute("name", "radio-button-off-outline"));
         }
 
+        Selenide.sleep(7000);
+
         return this;
     }
 
