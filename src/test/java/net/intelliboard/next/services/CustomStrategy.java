@@ -8,22 +8,22 @@ public class CustomStrategy implements ParallelExecutionConfiguration, ParallelE
 
     @Override
     public int getParallelism() {
-        return 2;
+        return Integer.parseInt(System.getProperty("PARALLELISM"));
     }
 
     @Override
     public int getMinimumRunnable() {
-        return 2;
+        return Integer.parseInt(System.getProperty("MINIMUM_RUNNABLE"));
     }
 
     @Override
     public int getMaxPoolSize() {
-        return 2;
+        return Integer.parseInt(System.getProperty("MAX_POOL_SIZE"));
     }
 
     @Override
     public int getCorePoolSize() {
-        return 2;
+        return Integer.parseInt(System.getProperty("CORE_POOL_SIZE"));
     }
 
     @Override

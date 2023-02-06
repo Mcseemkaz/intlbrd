@@ -32,7 +32,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 script {
-                    sh('./mvnw -Dgroups="${testGroup}" -Denvironment="${testEnv}"')
+                    sh('./mvnw -Dgroups="${testGroup}" -Denvironment="${testEnv}" -DPARALLELISM="${parallel_run}" -DMINIMUM_RUNNABLE="${parallel_run}" -DMAX_POOL_SIZE="${parallel_run}" -DCORE_POOL_SIZE="${parallel_run}"')
                 }
             }
         }
