@@ -14,17 +14,19 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @Feature("MyIntelliboard")
 @Tag("MyIntelliboard")
-public class MyIntelliboardTest extends IBNextAbstractTest {
+class MyIntelliboardTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T589")})
     @DisplayName("SP-T589: Report title")
-    public void checkReportTitle() {
+    void checkReportTitle() {
         String dashboardName = "Untitled Dashboard";
 
         HeaderObject
@@ -42,14 +44,14 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T617")})
     @DisplayName("SP-T617: Search by title")
-    public void checkSearchByTitle() throws InterruptedException {
+    void checkSearchByTitle() throws IOException {
 
         String dashboardName = "Untitled";
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
 
-        Thread.sleep(3000);
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
 
         assertThat(my.isDashboardPresentsByName(dashboardName))
                 .isFalse()
@@ -59,14 +61,14 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T617-1")})
     @DisplayName("SP-T617-1: Search by title - No result")
-    public void checkSearchByTitleNoResult() throws InterruptedException {
+    void checkSearchByTitleNoResult() throws IOException {
 
         String dashboardName = DataGenerator.getRandomString();
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
 
-        Thread.sleep(3000);
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
 
         $x("//div[contains (@class,'library-empty')]").shouldBe(Condition.exist);
 
@@ -78,7 +80,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T629")})
     @DisplayName("SP-T629: Favorite / Unfavorite Dashboard")
-    public void checkFavoriteUnfavoriteDashboard() {
+    void checkFavoriteUnfavoriteDashboard() throws IOException {
         int numberOfDashboard = 1;
         HeaderObject.init().openMyIntelliBoardPage();
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
@@ -87,7 +89,8 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
         String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
         my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
-        Selenide.sleep(3000);
+
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is not a favorite", dashboardName)
@@ -95,7 +98,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
 
         my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
-        Selenide.sleep(3000);
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is still favorite", dashboardName)
@@ -105,7 +108,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T621")})
     @DisplayName("SP-T621: Check \"View\" in action button on MyIntelliboard page\n")
-    public void checkViewByActionButton() {
+    void checkViewByActionButton() {
         int numberOfDashboard = 1;
 
         HeaderObject.init().openMyIntelliBoardPage();
@@ -117,7 +120,9 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
-        assertThat($x("//div[@class='content-header']//h1").getText().equals(dashboardName))
+        assertThat(
+                $x("//div[@class='content-header']//h1")
+                .getText().equals(dashboardName))
                 .withFailMessage("The title is not match")
                 .isTrue();
     }
@@ -125,7 +130,7 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T620")})
     @DisplayName("SP-T620: \"Set as default\" in actions on MyIntelliboard page")
-    public void checkSetAsDefaultActionButton() {
+    void checkSetAsDefaultActionButton() {
         int numberOfDashboard = 1;
 
         HeaderObject
@@ -140,14 +145,15 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
-        assertThat($x("//div[@class='content-header']//h1").getText().equals(dashboardName))
-                .isTrue();
+        assertThat($x("//div[@class='content-header']//h1")
+                .getText())
+                .isEqualTo(dashboardName);
     }
 
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T624")})
     @DisplayName("SP-T624: Check \"Edit\" in action button on MyIntelliboard page\n")
-    public void checkEditByActionButton() {
+    void checkEditByActionButton() {
         int numberOfDashboard = 1;
 
         HeaderObject.init().openMyIntelliBoardPage();
@@ -161,7 +167,6 @@ public class MyIntelliboardTest extends IBNextAbstractTest {
 
         String ag = CreateDashboardPage.init().getTitleName();
 
-        assertThat(ag.equals(dashboardName))
-                .isTrue();
+        assertThat(ag).isEqualTo(dashboardName);
     }
 }
