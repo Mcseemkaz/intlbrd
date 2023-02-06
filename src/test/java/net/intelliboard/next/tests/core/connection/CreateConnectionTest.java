@@ -218,6 +218,10 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .confirmAuthorize()
                 .saveFilterSettings();
 
+        ConnectionsListPage
+                .init()
+                .setActiveConnection(connectionName, true);
+
         open(CREATE_ELLUCIAN_COLLEAGUE_CONNECTION);
 
         EllucianConnectionPage.init()
@@ -260,7 +264,12 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
-                .confirmAuthorize();
+                .confirmAuthorize()
+                .saveFilterSettings();;
+
+        ConnectionsListPage
+                .init()
+                .setActiveConnection(connectionName, true);
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 
