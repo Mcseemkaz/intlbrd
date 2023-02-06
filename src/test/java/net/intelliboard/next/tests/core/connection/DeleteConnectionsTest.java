@@ -40,7 +40,10 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                         connectionName,
                         CreateConnectionPage.MOODLE_CLIENT_ID,
                         CreateConnectionPage.MOODLE_LMS_URL)
-                .saveFilterSettings();
+                .saveFilterSettings()
+                .setActiveConnection(connectionName, true);
+
+        waitForPageLoaded();
 
         open(CREATE_ELLUCIAN_BANNER_CONNECTION);
 

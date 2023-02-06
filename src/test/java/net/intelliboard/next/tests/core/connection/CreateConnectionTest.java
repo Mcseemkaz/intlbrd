@@ -418,7 +418,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
                                 mainConnectionName,
                                 CreateConnectionPage.MOODLE_CLIENT_ID,
                                 CreateConnectionPage.MOODLE_LMS_URL)
-                .saveFilterSettings();
+                .saveFilterSettings()
+                .setActiveConnection(mainConnectionName, true);
 
         assertThat(ConnectionsListPage.init()
                 .findConnectionByName(mainConnectionName)
