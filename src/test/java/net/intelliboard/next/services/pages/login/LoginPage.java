@@ -19,7 +19,7 @@ public class LoginPage {
     @Getter
     private SelenideElement errorMessageLogin = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-email']]");
     @Getter
-    private SelenideElement errorMessagePassword = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-password']]");
+    private SelenideElement errorMessagePassword = $x("(//div[contains (@class,'login-password')]//div[@class='error-message'])[2]");
 
 
     static IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
