@@ -5,10 +5,13 @@ import com.codeborne.selenide.Selenide;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
 import net.intelliboard.next.services.pages.report.ReportPage;
 import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -19,6 +22,7 @@ public class MyIntelliBoardPage {
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']").shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.MY_INTELLIBOARD_PAGE);
+        PageSpinner.getSpinner().should(Condition.not(Condition.visible), Duration.ofSeconds(120));
         return new MyIntelliBoardPage();
     }
 
