@@ -17,7 +17,6 @@ public class HeaderObject {
     public static HeaderObject init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-        PageSpinner.waitPreloader();
         $x("//header//div[contains(@class, 'left-header-section')]")
                 .shouldBe(Condition.visible);
         PageSpinner.waitSpinner();
