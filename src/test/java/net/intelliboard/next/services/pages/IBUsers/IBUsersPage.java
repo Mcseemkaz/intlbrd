@@ -41,6 +41,7 @@ public class IBUsersPage {
 
     public IBUserCreatePage openIBUserCreatePage() {
         addIBUserButton.click();
+        PageSpinner.waitPreloader();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
                 .click();
         return IBUserCreatePage.init();
@@ -48,7 +49,7 @@ public class IBUsersPage {
 
     public IBUsersSyncPage openIBUserSyncPage() {
         addIBUserButton.click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]")
+        $x("//li//a[contains (@href,'users/create')]")
                 .shouldBe(Condition.visible)
                 .click();
         return IBUsersSyncPage.init();
