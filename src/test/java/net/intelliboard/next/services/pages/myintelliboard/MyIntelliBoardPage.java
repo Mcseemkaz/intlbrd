@@ -11,18 +11,18 @@ import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDelet
 import net.intelliboard.next.services.pages.report.ReportPage;
 import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MyIntelliBoardPage {
 
     public static MyIntelliBoardPage init() {
+        PageSpinner.waitPreloader();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-        $x("//div[@class='content-body']").shouldBe(Condition.visible);
+        $x("//div[@class='content-body']")
+                .shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.MY_INTELLIBOARD_PAGE);
-        PageSpinner.getSpinner().should(Condition.not(Condition.visible), Duration.ofSeconds(120));
+        PageSpinner.waitSpinner();
         return new MyIntelliBoardPage();
     }
 

@@ -82,8 +82,6 @@ class InContactTest extends IBNextAbstractTest {
                 .init()
                 .deleteEvent(eventName, date);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
-
         assertThat(
                 InContactMainPage
                         .init()
@@ -240,7 +238,7 @@ class InContactTest extends IBNextAbstractTest {
     void testInContact() throws IOException {
 
         String eventName = "SP-T86 Filtering Course";
-        LocalDateTime date = LocalDateTime.of(2023, 1, 9, 0, 0);
+        LocalDateTime date = LocalDateTime.of(2023, 2, 11, 0, 0);
 
         HeaderConnectionManager
                 .expandOpenConnectionManager()

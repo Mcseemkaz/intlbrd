@@ -3,19 +3,23 @@ package net.intelliboard.next.services.pages.incontact;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.propertiesGetValue;
 
 public class InContactMainPage {
 
 
     public static InContactMainPage init() {
         $x("//div[@id='in-contact']")
-                .shouldBe(Condition.visible, Duration.ofSeconds(30));
+                .shouldBe(Condition.visible, Duration.ofSeconds(60));
+        PageSpinner.waitSpinner();
         return new InContactMainPage();
     }
 
@@ -37,11 +41,13 @@ public class InContactMainPage {
         return this;
     }
 
-    public boolean checkEventExist(String eventName, LocalDateTime date) {
+    public boolean checkEventExist(String eventName, LocalDateTime date) throws IOException {
+        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
         openEventPopup(date);
         return $x("//td[.//p[contains (text(),'" +
                 date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
-                "')]]//p[contains (@class, 'events-text') and contains (text(),'" + eventName + "')]").exists();
+                "')]]//p[contains (@class, 'events-text') and contains (text(),'" + eventName + "')]")
+                .exists();
     }
 
     public InContactMainPage deleteEvent(String eventName, LocalDateTime date) {

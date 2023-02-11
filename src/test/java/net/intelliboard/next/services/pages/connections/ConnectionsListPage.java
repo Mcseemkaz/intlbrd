@@ -7,6 +7,7 @@ import com.codeborne.selenide.ex.ElementNotFound;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.connections.categories.ConnectionCategoriesListPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -17,11 +18,13 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ConnectionsListPage {
 
-    private SelenideElement buttonDelete = $x("//div //ul /li /a[contains(text(), 'Delete')]");
-    private SelenideElement buttonEdit = $x("//li/a[contains (@href,'/edit')]");
-    private IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
+    private final SelenideElement buttonDelete = $x("//div //ul /li /a[contains(text(), 'Delete')]");
+    private final SelenideElement buttonEdit = $x("//li/a[contains (@href,'/edit')]");
+    private final IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
 
     public static ConnectionsListPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//h1[contains (text(),'Connections')]")
                 .shouldBe(Condition.visible, Duration.ofSeconds(90));
         return new ConnectionsListPage();

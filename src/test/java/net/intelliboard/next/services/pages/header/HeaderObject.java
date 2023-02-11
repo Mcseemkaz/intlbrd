@@ -3,21 +3,24 @@ package net.intelliboard.next.services.pages.header;
 import com.codeborne.selenide.Condition;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.dashboard.CreateDashboardPage;
+
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
 import net.intelliboard.next.services.pages.inform.InFormFormCreatePage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportCreationWizardSettingsPage;
-import net.intelliboard.next.tests.core.successbar.SuccessBarTest;
+
 
 import static com.codeborne.selenide.Selenide.$x;
-
 public class HeaderObject {
 
     public static HeaderObject init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
+        PageSpinner.waitPreloader();
         $x("//header//div[contains(@class, 'left-header-section')]")
                 .shouldBe(Condition.visible);
+        PageSpinner.waitSpinner();
         return new HeaderObject();
     }
 

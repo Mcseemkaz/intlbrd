@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 
 import java.time.Duration;
@@ -14,6 +15,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class IBUserCreatePage {
 
     public static IBUserCreatePage init() {
+        PageSpinner.waitPreloader();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']//form").shouldBe(Condition.visible,
