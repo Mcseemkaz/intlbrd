@@ -23,13 +23,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("IBUser")
 @Tag("IBUser")
-public class CreateNewBySyncTest extends IBNextAbstractTest {
+class CreateNewBySyncTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = IBUsersRolesTypeEnum.class)
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T113"), @Tag("SP-T1017"), @Tag("smoke_core")})
     @DisplayName("SP-T113 SP-T1017: Adding new IB user via syncing")
-    public void testAddingIBUserBySync(IBUsersRolesTypeEnum roles) {
+    void testAddingIBUserBySync(IBUsersRolesTypeEnum roles) {
 
         HeaderObject header = HeaderObject.init();
 
@@ -61,7 +61,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T121"), @Tag("SP-T987"), @Tag("health")})
     @Description("Verify that created user can be successful deleted")
     @DisplayName("SP-T121 SP-T987: Deleting synced user")
-    public void testDeleteIBUserSynced() {
+    void testDeleteIBUserSynced() {
 
         HeaderObject header = HeaderObject.init();
 
@@ -93,7 +93,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T122"), @Tag("SP-T1018"), @Tag("smoke_core")})
     @DisplayName("SP-T122 SP-T1018: Deleting several synced users")
     @Description("Verify that synced users can be deleted successfully at the same time")
-    public void testDeleteSeveralIBUserSynced() {
+    void testDeleteSeveralIBUserSynced() {
 
         List<String> users = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -136,7 +136,7 @@ public class CreateNewBySyncTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("high"), @Tag("SP-T384")})
     @DisplayName("SP-T384: Adding all available users by syncing")
-    public void testAddAndDeleteAllIBUserSynced() {
+    void testAddAndDeleteAllIBUserSynced() {
 
         HeaderObject header = HeaderObject.init();
 
