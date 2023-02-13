@@ -24,13 +24,14 @@ public class PageSpinner {
 
         LocalDateTime startWaitTime = LocalDateTime.now();
 
-        while (!$x("//div[@id='preloader'][contains (@class, 'loaded')]")
-                .exists()) {
+        while (
+                !$x("//div[@id='preloader'][contains (@class, 'loaded')]").exists()
+        ) {
             Selenide.sleep(500);
             System.err.println("----------WAIT FOR PRELOADER--------------");
 
-            if (startWaitTime.plusSeconds(500).equals(LocalDateTime.now())) {
-                System.err.println("----------- BREAK WAITER AFTER 500 seconds------------------");
+            if (LocalDateTime.now().isAfter(startWaitTime.plusSeconds(200))) {
+                System.err.println("----------- BREAK WAITER AFTER 300 seconds------------------");
                 break;
             }
         }

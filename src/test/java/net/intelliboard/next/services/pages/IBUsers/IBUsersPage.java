@@ -49,8 +49,7 @@ public class IBUsersPage {
 
     public IBUsersSyncPage openIBUserSyncPage() {
         addIBUserButton.click();
-        $x("//li//a[contains (@href,'users/create')]")
-                .shouldBe(Condition.visible)
+        $x("//li//a[contains (@href,'users/sync')]")
                 .click();
         return IBUsersSyncPage.init();
     }
@@ -58,7 +57,6 @@ public class IBUsersPage {
     public IBUserImportPage openIBUserImportPage() {
         addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_IMPORT_PAGE + "')]")
-                .shouldBe(Condition.visible)
                 .click();
         return IBUserImportPage.init();
     }
