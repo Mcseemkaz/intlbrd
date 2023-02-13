@@ -2,7 +2,7 @@ package net.intelliboard.next.services.pages.header;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
@@ -28,8 +28,8 @@ public class HeaderConnectionManager {
                 .click(connection)
                 .perform();
 
-        IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
-        ibNextAbstractTest.waitForPageLoaded();
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//span[contains (@class, 'selected-connection')]//strong")
                 .shouldHave(Condition.text(connectionName), Duration.ofSeconds(60));
         return this;

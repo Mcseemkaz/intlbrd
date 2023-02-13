@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
 import java.time.Duration;
 
@@ -20,16 +21,17 @@ public class IBUsersPage {
     @Getter
     public SelenideElement emailError = $x("//div[contains(@class,'has-error')]//span[@class='help-block ']");
 
-    private SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
-    private SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Log In As User')]");
-    private SelenideElement userActionEditOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Edit')]");
-    private SelenideElement userActionAssignmentsOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Assignments')]");
-    private SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Delete')]");
-    private SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
-    private SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
-    private SelenideElement addIBUserButton = $x("//button[@type='submit']");
+    private final SelenideElement userActionDropdownMenu = $x("(//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]");
+    private final SelenideElement userActionLogInOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Log In As User')]");
+    private final SelenideElement userActionEditOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Edit')]");
+    private final SelenideElement userActionAssignmentsOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Assignments')]");
+    private final SelenideElement userActionDropdownDeleteOption = $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(), 'Delete')]");
+    private final SelenideElement firstUserRow = $x("(//div[contains (@class, 'sub-accounts')]//tbody//tr)[1]");
+    private final SelenideElement paginationBlock = $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']");
+    private final SelenideElement addIBUserButton = $x("//button[@type='submit']");
 
     public static IBUsersPage init() {
+        PageSpinner.waitPreloader();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']").shouldBe(Condition.visible);
@@ -39,6 +41,7 @@ public class IBUsersPage {
 
     public IBUserCreatePage openIBUserCreatePage() {
         addIBUserButton.click();
+        PageSpinner.waitPreloader();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_CREATE_PAGE + "')]")
                 .click();
         return IBUserCreatePage.init();
@@ -46,7 +49,7 @@ public class IBUsersPage {
 
     public IBUsersSyncPage openIBUserSyncPage() {
         addIBUserButton.click();
-        $x("//li//a[contains (@href,'" + IBNextURLs.USERS_SYNC_PAGE + "')]")
+        $x("//li//a[contains (@href,'users/create')]")
                 .shouldBe(Condition.visible)
                 .click();
         return IBUsersSyncPage.init();
