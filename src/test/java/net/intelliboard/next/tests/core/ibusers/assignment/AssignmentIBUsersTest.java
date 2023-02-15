@@ -162,6 +162,7 @@ class AssignmentIBUsersTest extends IBNextAbstractTest {
         assertThat(
                 IBUsersPage
                         .init()
+                        .changeScalingUsersPerPage(200)
                         .searchUserByName(firstName)
                         .isUserPresents(firstName + " " + lastName))
                 .withFailMessage("User with name %s is not existed", firstName)

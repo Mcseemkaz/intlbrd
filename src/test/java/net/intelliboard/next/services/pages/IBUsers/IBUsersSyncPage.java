@@ -64,7 +64,7 @@ public class IBUsersSyncPage {
         ConnectionRolesDropdown.click();
         DropdownElement
                 .init("Connection Role", 1)
-                .selectOption("[All Options]");
+                .selectOption("Learner Roles (Student)");
         return this;
     }
 
