@@ -6,7 +6,6 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
-import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.api.connectors.MailService;
 import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceImpl;
 import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
@@ -37,6 +36,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class UserRegistrationTest extends IBNextAbstractTest {
 
     private final String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+    private final String prefixName = "AQA_";
 
     public UserRegistrationTest() throws IOException {
     }
@@ -46,6 +46,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @DisplayName("SP-T35 SP-T1316: Successful user registration")
     void testUserSuccessRegistration() {
 
+        String fullName = "SP-T35_" + DataGenerator.getRandomString();
         String email = DataGenerator.getRandomValidEmail();
         String password = DataGenerator.getRandomValidPassword();
 
@@ -57,11 +58,11 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
-                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, email)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -71,10 +72,9 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("high"), @Tag("SP-T1125"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1125: Create an account")
     @Description("Check the success created of the new account")
-    void testCreateAccount() throws IOException {
+    void testCreateAccount() {
 
-        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
-        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String fullName = "SP-T1125_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
         MailService mailService;
 
@@ -94,11 +94,11 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
-                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -118,10 +118,8 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T811")})
     @DisplayName("SP-T811: Integrations page is opened when user logs in first time")
-    void testIntegrationsPageIsOpenedFirstTimeLogin() throws IOException {
+    void testIntegrationsPageIsOpenedFirstTimeLogin() {
 
-        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
-        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
         String password = DataGenerator.getRandomValidPassword();
         String fullName = "SP-T811_" + DataGenerator.getRandomString();
         MailService mailService;
@@ -146,7 +144,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -176,8 +174,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @DisplayName("SP-T1315: Deleting a main user account")
     void testDeleteAccount() throws IOException {
 
-        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
-        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String fullName = "SP-T81315_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
         MailService mailService;
 
@@ -197,11 +194,11 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
-                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -241,8 +238,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @DisplayName("SP-T1132: Change password")
     void testChangePassword() throws IOException {
 
-        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
-        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
+        String fullName = "SP-T1132_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
         String newPassword = DataGenerator.getRandomValidPassword();
         MailService mailService;
@@ -263,11 +259,11 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
                 .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
-                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -312,10 +308,8 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1126"), @Tag("smoke"), @Tag("smoke_core")})
     @DisplayName("SP-T1126: Edit the user profile")
     @Description("Verify that the user can edit profile")
-    void testEditUserProfile() throws IOException {
+    void testEditUserProfile() {
 
-        PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
-        String inviteCode = propertiesGetValue.getPropertyValue("invite_code");
         String password = DataGenerator.getRandomValidPassword();
         String fullName = "SP-T1126_" + DataGenerator.getRandomString();
         MailService mailService;
@@ -340,7 +334,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
                 .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
-                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
                 .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
                 .agreeTermsPolicy()
                 .submitForm();
@@ -365,7 +359,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         open(IBNextURLs.USER_PROFILE);
 
-        String changedFirst = DataGenerator.getRandomString();
+        String changedFirst = "SP-T1126_" + DataGenerator.getRandomString();
         String changedLastName = DataGenerator.getRandomString();
         String zip = DataGenerator.getRandomNumber();
         String address = DataGenerator.getRandomNumber();
