@@ -2,16 +2,16 @@ package net.intelliboard.next.services.pages.blackboard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import net.intelliboard.next.AbstractTest;
 
 import java.io.IOException;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static net.intelliboard.next.AbstractTest.propertiesGetValue;
 
 public class BlackBoardAdminBlockSettingsPage {
     public static BlackBoardAdminBlockSettingsPage init() throws IOException {
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
         $x("//span[@class='main-content-title' and contains (text(),'BLOCK SETTINGS')]")
                 .should(Condition.visible, Duration.ofSeconds(120));
 
@@ -19,7 +19,7 @@ public class BlackBoardAdminBlockSettingsPage {
     }
 
     public BlackBoardAdminBlockSettingsPage performDump() {
-        Selenide.sleep(5000);
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_LONG);
         $x("//input[@id='initDbDump']")
                 .scrollTo()
                 .should(Condition.enabled, Duration.ofSeconds(30))

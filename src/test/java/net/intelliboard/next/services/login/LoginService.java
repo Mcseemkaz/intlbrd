@@ -2,6 +2,7 @@ package net.intelliboard.next.services.login;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -27,6 +28,7 @@ public class LoginService extends IBNextAbstractTest {
         }
     }
 
+    @Step("Login into App")
     public static void loginAppUI(String userLogin, String userPass) {
 
         open(IBNextURLs.LOGIN_PAGE);

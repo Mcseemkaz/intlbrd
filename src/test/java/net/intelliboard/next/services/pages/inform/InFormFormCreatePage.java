@@ -5,8 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -33,11 +31,7 @@ public class InFormFormCreatePage extends IBNextAbstractTest {
     }
 
     public InFormFormCreatePage addColumn(String columnName) {
-        try {
-            Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         SelenideElement column = $x("//li[contains (@class,'in-form-table-column-draggable-item')][contains (text(), '" + columnName + "')]");
         SelenideElement columnsWrapper = $x("//div[@class='draggable-wrapper'][./span[text()='Columns']]/div");
@@ -55,7 +49,7 @@ public class InFormFormCreatePage extends IBNextAbstractTest {
     }
 
     public void saveForm() {
-        Selenide.sleep(1000);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         $x("//div[@class='actions']//button[@type='submit']")
                 .click();
     }

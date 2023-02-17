@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static net.intelliboard.next.AbstractTest.propertiesGetValue;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class InContactMainPage {
 
@@ -42,7 +42,7 @@ public class InContactMainPage {
     }
 
     public boolean checkEventExist(String eventName, LocalDateTime date) throws IOException {
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         openEventPopup(date);
         return $x("//td[.//p[contains (text(),'" +
                 date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +

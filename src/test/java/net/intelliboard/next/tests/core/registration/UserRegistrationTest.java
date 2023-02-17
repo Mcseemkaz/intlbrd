@@ -7,8 +7,7 @@ import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.api.connectors.MailService;
-import net.intelliboard.next.services.api.connectors.mailtramp.MailTrapServiceImpl;
-import net.intelliboard.next.services.api.connectors.onesecmail.OneSecMailServiceImpl;
+import net.intelliboard.next.services.api.connectors.MailServiceBuilder;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.login.LoginService;
 import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
@@ -76,15 +75,9 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         String fullName = "SP-T1125_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
-        MailService mailService;
+        MailService mailService = MailServiceBuilder.build();
 
-        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
-            mailService = new MailTrapServiceImpl();
-        } else if (System.getProperty("TestEnvironment").contains("prod")) {
-            mailService = new OneSecMailServiceImpl();
-        } else mailService = null;
-
-        String emailBoxName = mailService.generateNewMailBoxes();
+        String emailBoxName = mailService.generateNewMailBox();
 
         LoginService.clearCookiesAndRefresh();
 
@@ -122,15 +115,9 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         String password = DataGenerator.getRandomValidPassword();
         String fullName = "SP-T811_" + DataGenerator.getRandomString();
-        MailService mailService;
+        MailService mailService = MailServiceBuilder.build();
 
-        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
-            mailService = new MailTrapServiceImpl();
-        } else if (System.getProperty("TestEnvironment").contains("prod")) {
-            mailService = new OneSecMailServiceImpl();
-        } else mailService = null;
-
-        String emailBoxName = mailService.generateNewMailBoxes();
+        String emailBoxName = mailService.generateNewMailBox();
 
         LoginService.clearCookiesAndRefresh();
 
@@ -172,19 +159,12 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1315"), @Tag("smoke"), @Tag("smoke_core")})
     @Description("Verify that a main user account is deleted successfully and is removed from the admin page.")
     @DisplayName("SP-T1315: Deleting a main user account")
-    void testDeleteAccount() throws IOException {
+    void testDeleteAccount() {
 
         String fullName = "SP-T81315_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
-        MailService mailService;
-
-        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
-            mailService = new MailTrapServiceImpl();
-        } else if (System.getProperty("TestEnvironment").contains("prod")) {
-            mailService = new OneSecMailServiceImpl();
-        } else mailService = null;
-
-        String emailBoxName = mailService.generateNewMailBoxes();
+        MailService mailService = MailServiceBuilder.build();
+        String emailBoxName = mailService.generateNewMailBox();
 
         LoginService.clearCookiesAndRefresh();
 
@@ -214,7 +194,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .submitForm();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         HeaderObject
                 .init()
@@ -236,20 +216,14 @@ class UserRegistrationTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1132"), @Tag("smoke"), @Tag("smoke_core")})
     @Description("Verify that after changing and saving the new password the user will be able to go to the site")
     @DisplayName("SP-T1132: Change password")
-    void testChangePassword() throws IOException {
+    void testChangePassword() {
 
         String fullName = "SP-T1132_" + DataGenerator.getRandomString();
         String password = DataGenerator.getRandomValidPassword();
         String newPassword = DataGenerator.getRandomValidPassword();
-        MailService mailService;
+        MailService mailService = MailServiceBuilder.build();
 
-        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
-            mailService = new MailTrapServiceImpl();
-        } else if (System.getProperty("TestEnvironment").contains("prod")) {
-            mailService = new OneSecMailServiceImpl();
-        } else mailService = null;
-
-        String emailBoxName = mailService.generateNewMailBoxes();
+        String emailBoxName = mailService.generateNewMailBox();
 
         LoginService.clearCookiesAndRefresh();
 
@@ -279,7 +253,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .submitForm();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         open(IBNextURLs.USER_PROFILE_SECURITY_SETTINGS);
 
@@ -295,7 +269,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .openDropDownMenu()
                 .logOut();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         LoginService.clearCookiesAndRefresh();
         open(IBNextURLs.LOGIN_PAGE);
@@ -312,15 +286,9 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         String password = DataGenerator.getRandomValidPassword();
         String fullName = "SP-T1126_" + DataGenerator.getRandomString();
-        MailService mailService;
+        MailService mailService = MailServiceBuilder.build();
 
-        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
-            mailService = new MailTrapServiceImpl();
-        } else if (System.getProperty("TestEnvironment").contains("prod")) {
-            mailService = new OneSecMailServiceImpl();
-        } else mailService = null;
-
-        String emailBoxName = mailService.generateNewMailBoxes();
+        String emailBoxName = mailService.generateNewMailBox();
 
         LoginService.clearCookiesAndRefresh();
 

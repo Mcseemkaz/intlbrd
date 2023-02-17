@@ -148,7 +148,7 @@ class InContactTest extends IBNextAbstractTest {
 
         InContactMainPage inContactMainPage = InContactMainPage.init();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(
                 inContactMainPage
@@ -181,7 +181,7 @@ class InContactTest extends IBNextAbstractTest {
         inContactMainPage
                 .deleteEvent(eventName, date);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(
                 InContactMainPage
@@ -222,7 +222,7 @@ class InContactTest extends IBNextAbstractTest {
                 .init()
                 .deleteEvent(eventName, date);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(
                 InContactMainPage
@@ -254,7 +254,7 @@ class InContactTest extends IBNextAbstractTest {
                 .setCourse("20th")
                 .closeFilterModal();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(
                 InContactMainPage

@@ -43,7 +43,7 @@ class ExportReportTest extends IBNextAbstractTest {
                 .viewReport(xlsReportName)
                 .selectShareOption(ReportShareOptionEnum.XLS);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         open(EXPORT);
         File item = ExportMainPage
@@ -68,7 +68,7 @@ class ExportReportTest extends IBNextAbstractTest {
         reportPage.selectShareOption(type);
         File item = reportPage.downloadFileByInfoBlockPopup();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
         assertTrue(item.exists());
     }
 
@@ -85,7 +85,7 @@ class ExportReportTest extends IBNextAbstractTest {
                 .viewReport(xlsReportName)
                 .selectShareOption(ReportShareOptionEnum.XLS);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         open(EXPORT);
         File item = ExportMainPage
@@ -108,7 +108,7 @@ class ExportReportTest extends IBNextAbstractTest {
                 .viewReport(xlsReportName)
                 .selectShareOption(ReportShareOptionEnum.XLS);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         open(EXPORT);
         ExportMainPage

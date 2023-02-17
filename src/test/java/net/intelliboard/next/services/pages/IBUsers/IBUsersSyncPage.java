@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_LONG;
 
 public class IBUsersSyncPage {
 
@@ -110,7 +111,7 @@ public class IBUsersSyncPage {
     }
 
     public String getNameSelectedLMSUser() {
-        Selenide.sleep(3000);
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
         String fullName = $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']//span")
                 .getText();
 

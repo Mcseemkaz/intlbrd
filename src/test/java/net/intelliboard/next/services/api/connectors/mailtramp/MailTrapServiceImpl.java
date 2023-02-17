@@ -57,7 +57,7 @@ public class MailTrapServiceImpl implements MailService {
     }
 
     @Override
-    public String generateNewMailBoxes() {
+    public String generateNewMailBox() {
         return DataGenerator.getRandomValidEmail();
     }
 
