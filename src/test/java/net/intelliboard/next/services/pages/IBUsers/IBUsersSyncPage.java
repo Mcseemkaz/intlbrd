@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.elements.DropdownElement;
@@ -14,14 +15,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class IBUsersSyncPage {
 
-    private SelenideElement LMSUserDropdown =
+    private final SelenideElement LMSUserDropdown =
             $x("//div[contains(@class,'card-body')]//div[@name='lms_users_ids']//button[@class='tree-choice']");
-    private SelenideElement RolesDropdown =
+    private final SelenideElement RolesDropdown =
             $x("//div[contains(@class,'card-body')]//div[@name='role_id']//div[contains (@class,'intelli-dropdown')]");
-    private SelenideElement ConnectionRolesDropdown =
+    private final SelenideElement ConnectionRolesDropdown =
             $x("//div[contains(@class,'card-body')]//div[@name='connection_roles']//div[contains (@class,'intelli-dropdown')]");
-    private SelenideElement PageHeader = $x("//div[contains(@class,'content-header')]//h1");
-
+    private final SelenideElement PageHeader = $x("//div[contains(@class,'content-header')]//h1");
 
     public static IBUsersSyncPage init() {
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
@@ -60,11 +60,22 @@ public class IBUsersSyncPage {
         return this;
     }
 
+    @Step("Select LMS Role for User - Default Learner Roles (Student)")
     public IBUsersSyncPage selectLMSRole() {
+
+        // TODO [MO] Need to be remove when context will be the same for each envs
+        String role = "";
+
+        if (System.getProperty("TestEnvironment").contains("stage") || System.getProperty("TestEnvironment").contains("dev")) {
+            role = "Learner Roles (Student, Teacher)";
+        } else if (System.getProperty("TestEnvironment").contains("prod")) {
+            role = "Learner Roles (Student)";
+        }
+
         ConnectionRolesDropdown.click();
         DropdownElement
                 .init("Connection Role", 1)
-                .selectOption("Learner Roles (Student)");
+                .selectOption(role);
         return this;
     }
 
@@ -116,6 +127,7 @@ public class IBUsersSyncPage {
 
     public boolean isRolesPresents(String roleName) {
         ConnectionRolesDropdown.click();
-        return $x("//div[@name='connection_roles']//li//strong[contains (text(),'" + roleName + "')]").exists();
+        return $x("//div[@name='connection_roles']//li//strong[contains (text(),'" + roleName + "')]")
+                .exists();
     }
 }
