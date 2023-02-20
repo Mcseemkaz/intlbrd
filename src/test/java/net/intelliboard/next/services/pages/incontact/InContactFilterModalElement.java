@@ -59,7 +59,8 @@ public class InContactFilterModalElement {
 
     public void uploadCSVFile(ProjectFilesEnum filePath) {
         //open CSV Modal
-        $x("//div[@class='buttons-filter']//button[contains (text(),'Upload Contact Csv')]").click();
+        $x("//div[@class='buttons-filter']//button[contains (text(),'Upload Contact C')]")
+                .click();
 
         File file = new File(filePath.path);
         SelenideElement chooseFile = $x("//input[@type='file']");
