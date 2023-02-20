@@ -56,7 +56,7 @@ class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("critical"), @Tag("SP-T108"), @Tag("smoke")})
+    @Tags(value = {@Tag("critical"), @Tag("SP-T108"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T108: Creating a note in the List")
     void testCreateNoteInListContact() throws IOException {
 
@@ -237,7 +237,7 @@ class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T86"), @Tag("smoke")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T86"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T86: Course in Course dropdown")
     void testInContact() throws IOException {
 
@@ -269,7 +269,7 @@ class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T107"), @Tag("smoke")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T107"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T107: Uploading CSV contacts")
     void testUploadInContactCSVContact() {
 
