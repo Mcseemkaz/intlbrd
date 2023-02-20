@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
@@ -117,5 +118,8 @@ public class InContactMainPage {
         return InContactFilterModalElement.init();
     }
 
-
+    public int getNumberOfContacts(){
+        return $$x("//ul[contains (@class,'students')]/li[contains (@class,'row')]")
+                .size();
+    }
 }

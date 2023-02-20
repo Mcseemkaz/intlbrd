@@ -38,7 +38,7 @@ class InContactTest extends IBNextAbstractTest {
     private final LocalDateTime currentDate = LocalDateTime.now();
 
     @Test
-    @Tags(value = {@Tag("critical"), @Tag("SP-T87"), @Tag("smoke")})
+    @Tags(value = {@Tag("critical"), @Tag("SP-T87"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T87: List of students")
     void testListStudentsInContact() {
 
@@ -49,6 +49,10 @@ class InContactTest extends IBNextAbstractTest {
         HeaderObject
                 .init()
                 .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        assertThat(InContactMainPage.init().getNumberOfContacts() > 0)
+                .withFailMessage(" Contact list is empty")
+                .isTrue();
     }
 
     @Test
@@ -91,7 +95,7 @@ class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("critical"), @Tag("SP-T85"), @Tag("smoke")})
+    @Tags(value = {@Tag("critical"), @Tag("SP-T85"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T85: Turn on InContact and Bucket in the connection")
     void testTurnInContactBucketInConnection() throws InterruptedException {
 
