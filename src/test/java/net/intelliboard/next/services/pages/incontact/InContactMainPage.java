@@ -42,6 +42,18 @@ public class InContactMainPage {
         return this;
     }
 
+    public InContactMainPage addUserContactInformation(
+            String userName,
+            String key,
+            String value
+    ){
+        openAction(userName, InContactActionEnum.EDIT_MENU);
+        InContactEditUserContactInfoModal
+                .init()
+                .addData(key,value);
+        return this;
+    }
+
     public boolean checkEventExist(String eventName, LocalDateTime date) throws IOException {
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         openEventPopup(date);

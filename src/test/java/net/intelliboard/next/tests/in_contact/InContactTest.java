@@ -1,6 +1,7 @@
 package net.intelliboard.next.tests.in_contact;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.ProjectFilesEnum;
@@ -282,5 +283,25 @@ class InContactTest extends IBNextAbstractTest {
                 .openApp(HeaderAppsItemEnum.INCONTACT)
                 .openFilter()
                 .uploadCSVFile(ProjectFilesEnum.INCONTACT_IMPORT_CSV);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T221"), @Tag("smoke"), @Tag("smoke_incontact")})
+    @DisplayName("SP-T221: Adding contacts to students (pencil)")
+    @Description("Adding contacts to students (pencil)")
+    void testAddingContactsByPencil() {
+
+        String key = "key_" + DataGenerator.getRandomString();
+        String value = "value_" + DataGenerator.getRandomString();
+
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .addUserContactInformation(userName, "key", "value");
     }
 }
