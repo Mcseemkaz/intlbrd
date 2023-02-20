@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class BuilderReportFormulaSavingModal {
     public static BuilderReportFormulaSavingModal init() {
@@ -14,14 +15,14 @@ public class BuilderReportFormulaSavingModal {
 
     public BuilderReportFormulaSavingModal fillInTitle(String title) {
         SelenideElement formulaTitle = $x("//input[@id='formulaTitle']");
-        Selenide.sleep(1000);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         formulaTitle.click();
         formulaTitle.setValue(title);
         return this;
     }
 
     public BuilderReportFormulaSavingModal fillInDescription(String title) {
-        Selenide.sleep(1000);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         $x("//textarea[@name='description']").sendKeys(title);
         return this;
     }

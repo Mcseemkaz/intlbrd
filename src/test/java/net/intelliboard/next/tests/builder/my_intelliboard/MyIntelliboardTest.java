@@ -51,7 +51,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(my.isDashboardPresentsByName(dashboardName))
                 .isFalse()
@@ -68,7 +68,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
         HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         $x("//div[contains (@class,'library-empty')]").shouldBe(Condition.exist);
 
@@ -90,7 +90,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is not a favorite", dashboardName)
@@ -98,7 +98,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
 
         my.setDashboardFavorite(dashboardName);
         waitForPageLoaded();
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(my.isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is still favorite", dashboardName)

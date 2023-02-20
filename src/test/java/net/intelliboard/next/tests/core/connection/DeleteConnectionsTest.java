@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -85,7 +84,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T202")})
     @DisplayName("SP-T202: Deleting selected connections [connection mass deletion]")
-    void testDeleteSelectedConnection() throws IOException {
+    void testDeleteSelectedConnection() {
 
         int numberConnections = 3;
         ArrayList<String> connectionsList = new ArrayList<>();
@@ -115,7 +114,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         waitForPageLoaded();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         SoftAssertions softly = new SoftAssertions();
 

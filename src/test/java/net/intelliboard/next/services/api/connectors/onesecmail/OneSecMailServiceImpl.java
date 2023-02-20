@@ -25,7 +25,7 @@ public class OneSecMailServiceImpl implements MailService {
     }
 
     @Override
-    public String generateNewMailBoxes() {
+    public String generateNewMailBox() {
 
         RequestSpecBuilder builder = getPreparedMainRequestPart();
 

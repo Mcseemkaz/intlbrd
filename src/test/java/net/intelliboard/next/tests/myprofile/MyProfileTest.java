@@ -14,19 +14,17 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("My Profile")
 @Tag("My_Profile")
-public class MyProfileTest extends IBNextAbstractTest {
+class MyProfileTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1625")})
     @DisplayName("SP-T1625: Edit First Name of the Main Account")
-    public void testEditFirstNameMyProfile() {
+    void testEditFirstNameMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -55,7 +53,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1626")})
     @DisplayName("SP-T1626: Edit Last Name of the Main Account")
-    public void testEditLastNameMyProfile() {
+    void testEditLastNameMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -84,7 +82,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1628")})
     @DisplayName("SP-T1628: Edit City of the Main Account")
-    public void testEditCityMyProfile() {
+    void testEditCityMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -113,7 +111,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1629")})
     @DisplayName("SP-T1629: Edit ZIP code of the Main Account")
-    public void testEditZIPMyProfile() {
+    void testEditZIPMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -142,7 +140,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1627")})
     @DisplayName("SP-T1627: Edit Address of the Main Account")
-    public void testEditAddressMyProfile() {
+    void testEditAddressMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -171,7 +169,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1630")})
     @DisplayName("SP-T1630: Edit State of the Main Account")
-    public void testEditStateMyProfile() throws IOException {
+    void testEditStateMyProfile() {
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -187,7 +185,7 @@ public class MyProfileTest extends IBNextAbstractTest {
                 .setState(changedState)
                 .submitForm();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(changedState.shortName)
                 .isEqualTo(ibUserPage.getState());
@@ -202,7 +200,7 @@ public class MyProfileTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1638")})
     @DisplayName("SP-T1638: Check if amount of connections on My Profile page match with amount of connections on Connection page")
-    public void testCheckAmountConnectionMyProfile() {
+    void testCheckAmountConnectionMyProfile() {
 
         open(IBNextURLs.ALL_CONNECTIONS + IBNextURLs.PER_PAGE_500);
 

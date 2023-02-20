@@ -12,7 +12,6 @@ import net.intelliboard.next.services.pages.report.builder.*;
 import net.intelliboard.next.services.pages.report.create_wizard.ReportTypeEnum;
 import org.junit.jupiter.api.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -27,7 +26,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T154")})
     @DisplayName("SP-T154: Short way to create report")
-    void testCreateTableReport() throws IOException {
+    void testCreateTableReport() {
 
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "Untitled Report";
@@ -56,7 +55,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(
                 MyIntelliBoardPage
@@ -82,7 +81,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T153")})
     @DisplayName("SP-T153: Create report (long way)")
-    void testCreateTableReportLongWay() throws IOException {
+    void testCreateTableReportLongWay() {
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T153-" + DataGenerator.getRandomString();
 
@@ -117,7 +116,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(
                 MyIntelliBoardPage
@@ -131,7 +130,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                 .deleteReport(reportName)
                 .confirmDeletion();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(
                 MyIntelliBoardPage
@@ -144,7 +143,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1255")})
     @DisplayName("SP-T1255: Create report on Totara connection")
-    void testCreateTableReportTotara() throws IOException {
+    void testCreateTableReportTotara() {
         String connectionName = ConnectionsTypeEnum.TOTARA.defaultName;
         String reportName = "SP-T1255-" + DataGenerator.getRandomString();
 
@@ -179,7 +178,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(
                 MyIntelliBoardPage
@@ -204,7 +203,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T161")})
     @DisplayName("SP-T161: Сhange report's Title and Description in Settings")
-    void testChangeTitleDescriptionReport() throws IOException {
+    void testChangeTitleDescriptionReport() {
 
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T161-" + DataGenerator.getRandomString();
@@ -233,7 +232,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                         ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
                         ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         ReportBuilderMainPage
                 .init()
@@ -241,7 +240,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
@@ -256,7 +255,7 @@ class CreateReportsTest extends IBNextAbstractTest {
         // Clean-up
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         MyIntelliBoardPage
                 .init()
@@ -269,7 +268,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T164")})
     @DisplayName("SP-T164: Сhange report's Availability in Settings")
-    void testChangeReportAvailability() throws IOException {
+    void testChangeReportAvailability() {
 
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String connectionNameOther = ConnectionsTypeEnum.TOTARA.defaultName;
@@ -298,7 +297,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                         ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
                         ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         ReportBuilderMainPage
                 .init()
@@ -306,7 +305,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
@@ -350,7 +349,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T163")})
     @DisplayName("SP-T163: Change report color in the setting")
-    void testChangeReportColor() throws IOException {
+    void testChangeReportColor() {
 
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T163-" + DataGenerator.getRandomString();
@@ -378,7 +377,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                         ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
                         ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         ReportBuilderMainPage
                 .init()
@@ -386,7 +385,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 
@@ -400,7 +399,7 @@ class CreateReportsTest extends IBNextAbstractTest {
         // Clean-up
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().getReportBackgroundColors(reportName)
                 .contains(ReportSettingsColorsEnum.GREEN.rgbColor))
@@ -411,7 +410,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                 .deleteReport(reportName)
                 .confirmDeletion();
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
                 .isFalse();
@@ -420,7 +419,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T449")})
     @DisplayName("SP-T449: Create pie chart")
-    void testCreateReportPaiChart() throws IOException {
+    void testCreateReportPaiChart() {
 
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T449-" + DataGenerator.getRandomString();
@@ -453,7 +452,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                         ReportBuilderDisplayElementEnum.USERS_CATEGORY_USERS_LOGINS_COUNT,
                         BuilderRightSideBarPaiChartValuesTypeEnum.VALUE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         ReportBuilderMainPage
                 .init()
@@ -473,7 +472,7 @@ class CreateReportsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1281")})
     @DisplayName("SP-T1281: When clicking the “Cancel” button, no changes to the report are saved (adding columns).")
-    void testRevertReportChangesByCancel() throws IOException {
+    void testRevertReportChangesByCancel() {
         String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T1281-" + DataGenerator.getRandomString();
 
@@ -500,7 +499,7 @@ class CreateReportsTest extends IBNextAbstractTest {
                         ReportBuilderDisplayElementsMainEnum.USERS_CATEGORY,
                         ReportBuilderDisplayElementEnum.USERS_CATEGORY_FULL_NAME);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         ReportBuilderMainPage
                 .init()
@@ -509,7 +508,7 @@ class CreateReportsTest extends IBNextAbstractTest {
         //Clean-up
         open(MY_INTELLIBOARD_PAGE);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(MyIntelliBoardPage.init().isReportExist(reportName)).isTrue();
 

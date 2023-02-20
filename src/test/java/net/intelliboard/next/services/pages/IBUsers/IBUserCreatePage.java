@@ -11,6 +11,7 @@ import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_LONG;
 
 public class IBUserCreatePage {
 
@@ -57,7 +58,7 @@ public class IBUserCreatePage {
     }
 
     public IBUsersPage submitUserCreateForm() {
-        Selenide.sleep(5000);
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
         $x("//button[@type='submit']")
                 .click();
         return IBUsersPage.init();

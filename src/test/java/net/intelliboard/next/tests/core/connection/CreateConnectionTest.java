@@ -8,9 +8,11 @@ import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -265,7 +267,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .fillPassword(CreateConnectionPage.CANVAS_USER_PASS)
                 .loginInCanvas()
                 .confirmAuthorize()
-                .saveFilterSettings();;
+                .saveFilterSettings();
 
         ConnectionsListPage
                 .init()
@@ -362,7 +364,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1370")})
     @DisplayName("SP-T1370: Create Qwickly connection")
-    void testCreateQwicklyConnection() throws IOException {
+    void testCreateQwicklyConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String mainConnectionName = "Canvas_Main_SP-T1370" + DataGenerator.getRandomString();
 
@@ -384,7 +386,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .saveFilterSettings()
                 .setActiveConnection(mainConnectionName, true);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         open(CREATE_QWICKLY_CONNECTION);
 
@@ -475,7 +477,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL
-                        )
+                )
                 .findConnectionByName(connectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
@@ -491,7 +493,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T604")})
     @DisplayName("SP-T604: Creating of BlackBoard Collaborate sub-connection")
-    void testCreateBlackBoardCollaborateSubConnection() throws IOException {
+    void testCreateBlackBoardCollaborateSubConnection() {
 
         open(CREATE_D2L_CONNECTION);
         String mainConnectionName = "D2L_Main_SP-T604_" + DataGenerator.getRandomString();
@@ -506,7 +508,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateConnectionPage.D2L_USER_PASS)
                 .setActiveConnection(mainConnectionName, true);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time")));
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
 

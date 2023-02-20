@@ -25,10 +25,14 @@ public abstract class AbstractTest {
     static Logger logger = LoggerFactory.getLogger(AbstractTest.class);
     public static PropertiesGetValue propertiesGetValue = new PropertiesGetValue();
     public static Long WAIT_TIMEOUT_LONG;
+    public static Long SLEEP_TIMEOUT_SHORT;
+    public static Long SLEEP_TIMEOUT_LONG;
 
     static {
         try {
-            WAIT_TIMEOUT_LONG = Long.parseLong(AbstractTest.propertiesGetValue.getPropertyValue("waiting_time_seconds"));
+            WAIT_TIMEOUT_LONG = Long.parseLong(propertiesGetValue.getPropertyValue("waiting_time_seconds"));
+            SLEEP_TIMEOUT_SHORT = Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time"));
+            SLEEP_TIMEOUT_LONG = Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long"));
         } catch (IOException e) {
             e.printStackTrace();
         }

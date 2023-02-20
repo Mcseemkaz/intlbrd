@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
 import static net.intelliboard.next.services.IBNextURLs.USERS_PAGE;
@@ -26,7 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainThreeTest extends IBNextAbstractTest {
+class LibraryMainThreeTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T434")})
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - Moodle")
@@ -65,7 +63,7 @@ public class LibraryMainThreeTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T828")})
     @DisplayName("SP-T828:  The IB User does not see anything in the Library until the main account has assigned them some reports.")
-    void testIBUserHasNoReportInLibraryInitially() throws IOException {
+    void testIBUserHasNoReportInLibraryInitially() {
 
         //Create IBUser
         String firstName = "SP-T828 " + DataGenerator.getRandomString();
@@ -125,7 +123,7 @@ public class LibraryMainThreeTest extends IBNextAbstractTest {
 
         open(LIBRARY_MAIN);
 
-        Selenide.sleep(Long.parseLong(propertiesGetValue.getPropertyValue("sleep_time_long")));
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         assertThat(LibraryMainPage
                 .init()

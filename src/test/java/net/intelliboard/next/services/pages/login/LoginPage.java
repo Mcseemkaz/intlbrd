@@ -12,14 +12,14 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class LoginPage {
 
-    private SelenideElement loginField = $x("//input[@id='login-email']");
-    private SelenideElement passwordField = $x("//input[contains (@id, 'password')]");
+    private final SelenideElement loginField = $x("//input[@id='login-email']");
+    private final SelenideElement passwordField = $x("//input[contains (@id, 'password')]");
     @Getter
-    private SelenideElement buttonSubmit = $x("//button[@type='submit']");
+    private final SelenideElement buttonSubmit = $x("//button[@type='submit']");
     @Getter
-    private SelenideElement errorMessageLogin = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-email']]");
+    private final SelenideElement errorMessageLogin = $x("//div[contains (@class, 'error-message') and preceding-sibling::input[@id='login-email']]");
     @Getter
-    private SelenideElement errorMessagePassword = $x("(//div[contains (@class,'login-password')]//div[@class='error-message'])[2]");
+    private final SelenideElement errorMessagePassword = $x("(//div[contains (@class,'login-password')]//div[@class='error-message'])[2]");
 
 
     static IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();

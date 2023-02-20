@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class HeaderConnectionManager {
 
@@ -20,7 +21,7 @@ public class HeaderConnectionManager {
 
     public HeaderConnectionManager selectConnection(String connectionName) {
 
-        Selenide.sleep(1000);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         WebElement connection = $x("//div[contains(@class, 'connection-name') and contains (text(),'" + connectionName + "')]");
         Selenide
                 .actions()

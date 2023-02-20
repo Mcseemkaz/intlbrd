@@ -8,6 +8,7 @@ import net.intelliboard.next.services.pages.elements.DropdownElement;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_LONG;
 
 public class OrgRoleCreatePage {
     public static OrgRoleCreatePage init() {
@@ -38,7 +39,7 @@ public class OrgRoleCreatePage {
     }
 
     public OrgRolesMainPage saveOrgRole() {
-        Selenide.sleep(5000);
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
         $x("//button[@type='submit']")
                 .click();
         return OrgRolesMainPage.init();

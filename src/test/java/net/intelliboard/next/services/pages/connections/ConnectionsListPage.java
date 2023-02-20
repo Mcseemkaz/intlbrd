@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.*;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_LONG;
 
 public class ConnectionsListPage {
 
@@ -94,7 +95,7 @@ public class ConnectionsListPage {
             checkRadioButton.shouldHave(Condition.attribute("name", "radio-button-off-outline"));
         }
 
-        Selenide.sleep(7000);
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         return this;
     }
