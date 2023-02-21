@@ -99,7 +99,9 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
-                        CreateZoomConnectionPage.ZOOM_SECRET);
+                        CreateZoomConnectionPage.ZOOM_SECRET,
+                        ConnectionProcessingFrequencyTypeEnum.DAILY,
+                        12);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 

@@ -3,6 +3,7 @@ package net.intelliboard.next.tests.core.connection;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -29,7 +30,8 @@ public class ConnectionOperationsTest extends IBNextAbstractTest {
                         connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
-                        CreateZoomConnectionPage.ZOOM_SECRET)
+                        CreateZoomConnectionPage.ZOOM_SECRET, ConnectionProcessingFrequencyTypeEnum.DAILY,
+                        12)
                 .findConnectionByName(connectionName)
                 .selectConnection(connectionName, true);
 
@@ -60,7 +62,8 @@ public class ConnectionOperationsTest extends IBNextAbstractTest {
                         connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
-                        CreateZoomConnectionPage.ZOOM_SECRET)
+                        CreateZoomConnectionPage.ZOOM_SECRET, ConnectionProcessingFrequencyTypeEnum.DAILY,
+                        12)
                 .findConnectionByName(connectionName);
 
         ConnectionsListPage.init()

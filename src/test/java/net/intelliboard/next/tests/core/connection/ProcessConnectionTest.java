@@ -8,6 +8,7 @@ import net.intelliboard.next.services.pages.blackboard.BlackBoardMigrationServic
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -132,8 +133,12 @@ class ProcessConnectionTest extends IBNextAbstractTest {
         open(CREATE_ZOOM_CONNECTION);
         String connectionName = "Zoom_" + DataGenerator.getRandomString();
         CreateZoomConnectionPage.init()
-                .createZoomConnection(connectionName, CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
-                        CreateZoomConnectionPage.ZOOM_TOKEN, CreateZoomConnectionPage.ZOOM_SECRET)
+                .createZoomConnection(connectionName,
+                        CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                        CreateZoomConnectionPage.ZOOM_TOKEN,
+                        CreateZoomConnectionPage.ZOOM_SECRET,
+                        ConnectionProcessingFrequencyTypeEnum.DAILY,
+                        12)
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
