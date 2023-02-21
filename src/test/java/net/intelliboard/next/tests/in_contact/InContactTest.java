@@ -302,6 +302,8 @@ class InContactTest extends IBNextAbstractTest {
         HeaderObject
                 .init()
                 .openApp(HeaderAppsItemEnum.INCONTACT)
-                .addUserContactInformation(userName, "key", "value");
+                .addUserContactInformation(userName, key, value);
+
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
     }
 }

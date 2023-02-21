@@ -54,6 +54,14 @@ public class InContactMainPage {
         return this;
     }
 
+    public InContactMainPage deleteAllUserContactInformation(String userName){
+        openAction(userName, InContactActionEnum.EDIT_MENU);
+        InContactEditUserContactInfoModal
+                .init()
+                .deleteAllData();
+        return this;
+    }
+
     public boolean checkEventExist(String eventName, LocalDateTime date) throws IOException {
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         openEventPopup(date);
