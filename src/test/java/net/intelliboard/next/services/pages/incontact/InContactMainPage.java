@@ -46,15 +46,15 @@ public class InContactMainPage {
             String userName,
             String key,
             String value
-    ){
+    ) {
         openAction(userName, InContactActionEnum.EDIT_MENU);
         InContactEditUserContactInfoModal
                 .init()
-                .addData(key,value);
+                .addData(key, value);
         return this;
     }
 
-    public InContactMainPage deleteAllUserContactInformation(String userName){
+    public InContactMainPage deleteAllUserContactInformation(String userName) {
         openAction(userName, InContactActionEnum.EDIT_MENU);
         InContactEditUserContactInfoModal
                 .init()
@@ -138,8 +138,15 @@ public class InContactMainPage {
         return InContactFilterModalElement.init();
     }
 
-    public int getNumberOfContacts(){
+    public int getNumberOfContacts() {
         return $$x("//ul[contains (@class,'students')]/li[contains (@class,'row')]")
                 .size();
+    }
+
+    public boolean isUserDataExist(String userName, String key, String value) {
+        openAction(userName, InContactActionEnum.SEE_INFORMATION_MENU);
+        return InContactSeeUserContactInfoModal
+                .init()
+                .userDataExist(key, value);
     }
 }

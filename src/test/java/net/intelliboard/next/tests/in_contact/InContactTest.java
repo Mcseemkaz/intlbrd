@@ -13,6 +13,7 @@ import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
+import net.intelliboard.next.services.pages.incontact.InContactSeeUserContactInfoModal;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -294,7 +295,6 @@ class InContactTest extends IBNextAbstractTest {
         String key = "key_" + DataGenerator.getRandomString();
         String value = "value_" + DataGenerator.getRandomString();
 
-
         HeaderConnectionManager
                 .expandOpenConnectionManager()
                 .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
@@ -304,6 +304,13 @@ class InContactTest extends IBNextAbstractTest {
                 .openApp(HeaderAppsItemEnum.INCONTACT)
                 .addUserContactInformation(userName, key, value);
 
-        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
+        assertThat(InContactMainPage.init().isUserDataExist(userName, key, value))
+                .withFailMessage("User data - key: %s, value: %s for %s is not existed", key, value, userName)
+                .isTrue();
+
+        InContactSeeUserContactInfoModal
+                .init()
+                .closeModal()
+                .deleteAllUserContactInformation(userName);
     }
 }

@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.incontact;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
@@ -30,14 +31,15 @@ public class InContactEditUserContactInfoModal {
 
     public InContactMainPage deleteAllData() {
 
-        $$x("//div[@class='user-data-list-form-actions']/ion-icon[@name='trash']")
-                .iterator()
-                .next()
-                .click();
+        int size = $$x("//ion-icon[@name='trash']").size();
+
+        for (int i = 0; i < size; i++) {
+            Selenide.sleep(1000);
+            $x("//ion-icon[@name='trash']").click();
+        }
 
         buttonSubmit.click();
         PageSpinner.waitSpinner();
         return InContactMainPage.init();
     }
-
 }
