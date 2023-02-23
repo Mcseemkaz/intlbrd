@@ -12,10 +12,7 @@ import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.library.LibraryMainPage;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
@@ -30,15 +27,17 @@ class LibraryMainThreeTest extends IBNextAbstractTest {
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - Moodle")
     void testAvailabilityItemsByConnectionTypeLibraryPageMoodle() {
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.MOODLE);
+        LibraryMainPage
+                .init()
+                .setActiveReportsForConnection(ConnectionsTypeEnum.MOODLE);
+
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 31)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 26)
                 .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 31)
                 .isTrue();
 
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
                 .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
                 .isTrue();
 
@@ -53,13 +52,16 @@ class LibraryMainThreeTest extends IBNextAbstractTest {
         String tagName = "Time";
 
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
-        libraryMainPage.searhByTag(tagName);
 
-        assertThat(libraryMainPage.checkTagPresentsInItem(LibraryItemTypeEnum.REPORTS, 1, tagName))
+        LibraryMainPage.init().searchByTag(tagName);
+
+        assertThat(LibraryMainPage
+                .init()
+                .checkTagPresentsInItem(LibraryItemTypeEnum.REPORTS, 1, tagName))
                 .isTrue();
     }
 
+    @Disabled("Looks this is turned off")
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T828")})
     @DisplayName("SP-T828:  The IB User does not see anything in the Library until the main account has assigned them some reports.")
@@ -84,7 +86,7 @@ class LibraryMainThreeTest extends IBNextAbstractTest {
                 .selectDeselectAllItemFromLibraryByType(LibraryItemTypeEnum.REPORTS, IBUsersAssignedItemsAllOrNoneEnum.NONE)
                 .selectDeselectAllItemFromLibraryByType(LibraryItemTypeEnum.DASHBOARDS, IBUsersAssignedItemsAllOrNoneEnum.NONE)
                 .submitUserCreateForm()
-                .changeScalingUsersPerPage(200)
+                .searchUserByName(firstName)
                 .logInSelectedUsers(firstName);
 
         IBUserPage

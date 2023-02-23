@@ -3,7 +3,10 @@ package net.intelliboard.next.services.pages.library;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -14,15 +17,23 @@ public class LibraryMainPage {
 
     int sleepTime = 2000;
 
+
+    @Step("Library Page init")
     public static LibraryMainPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//div[contains (@class, 'data-library-wrapper')]").shouldBe(Condition.visible,
                 Duration.ofSeconds(90));
         return new LibraryMainPage();
     }
 
+    @Step("Search Library item")
     public LibraryMainPage searchLibraryItem(String searchItem) {
         $x("//div[@class='library-categories-search']/input")
-                .sendKeys(searchItem);
+                .setValue(searchItem)
+                .sendKeys(Keys.ENTER);
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         Selenide.sleep(sleepTime);
         return this;
     }
@@ -32,6 +43,7 @@ public class LibraryMainPage {
                 .size();
     }
 
+    @Step("Like Library item")
     public LibraryMainPage likeItem(String itemName) {
         if (
                 $x("//li[ .//h4[contains (text(), '" + itemName + "')]]//ion-icon")
@@ -44,6 +56,7 @@ public class LibraryMainPage {
         return this;
     }
 
+    @Step("Unlike Library item")
     public LibraryMainPage unlikeItem(String itemName) {
         if (
                 !$x("//li[ .//h4[contains (text(), '" + itemName + "')]]//ion-icon")
@@ -60,6 +73,7 @@ public class LibraryMainPage {
         return Integer.parseInt($x("//li[ .//h4[contains (text(), '" + itemName + "')]]//div[@class='data-library-item-date']").getText());
     }
 
+    @Step("Order Library item By Type")
     public LibraryMainPage orderItemsBy(LibraryOrderTypeEnum name) {
         $x("//div[contains (@class, 'data-sets-order')]//a[contains (text(),'" + name.value + "')]")
                 .click();
@@ -74,6 +88,7 @@ public class LibraryMainPage {
                 .getText();
     }
 
+    @Step("Set Active report for connection")
     public LibraryMainPage setActiveReportsForConnection(ConnectionsTypeEnum connection) {
         $x("//button[contains (@class, 'data-sets-panel')]")
                 .click();
@@ -87,7 +102,8 @@ public class LibraryMainPage {
         return this;
     }
 
-    public LibraryMainPage searhByTag(String tagName) {
+    @Step("Searh Library item by Tag")
+    public LibraryMainPage searchByTag(String tagName) {
         SelenideElement tag = $x("//li[ ./a//span[@class='title' and contains (text(),'" + tagName + "')]]");
         if (tag.isDisplayed()) {
             tag.click();
@@ -101,12 +117,13 @@ public class LibraryMainPage {
         return this;
     }
 
+    @Step("Check that Tag is presented on the particular item")
     public boolean checkTagPresentsInItem(LibraryItemTypeEnum type, int numberOfItem, String tagName) {
         Selenide
                 .actions()
                 .moveToElement($x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]"))
                 .perform();
 
-        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '"+type.value+"')]]//li[" + numberOfItem + "]//div[contains (@class, 'data-library-info-popup')]//span[contains (text(), '"+tagName+"')]").exists();
+        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//div[contains (@class, 'data-library-info-popup')]//span[contains (text(), '" + tagName + "')]").exists();
     }
 }
