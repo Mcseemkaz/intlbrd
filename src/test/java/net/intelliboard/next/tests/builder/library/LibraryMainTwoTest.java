@@ -17,7 +17,7 @@ import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainTwoTest extends IBNextAbstractTest {
+class LibraryMainTwoTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T438")})
@@ -27,29 +27,52 @@ public class LibraryMainTwoTest extends IBNextAbstractTest {
         open(LIBRARY_MAIN);
         String itemName;
         SoftAssertions softly = new SoftAssertions();
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.NAME);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.NAME);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
         softly.assertThat(itemName.startsWith("A"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.CREATION_DATE);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.CREATION_DATE);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
         softly.assertThat(itemName.startsWith("C"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.LAST_UPDATE);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-        softly.assertThat(itemName.startsWith("I"))
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.LAST_UPDATE);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
+        softly.assertThat(itemName.startsWith("Q"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.MOST_VISITED);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-        softly.assertThat(itemName.startsWith("P"))
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.MOST_VISITED);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
+        softly.assertThat(itemName.startsWith("Q"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
