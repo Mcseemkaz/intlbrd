@@ -54,4 +54,17 @@ public class CreateZoomConnectionPage extends CreateConnectionPage {
         submitForm();
         return ConnectionsListPage.init();
     }
+
+    public ConnectionsListPage createZoomConnection(
+            String zoomConnectionName,
+            String mainConnectionName,
+            String zoomToken,
+            String zoomSecret) {
+        selectConnection(mainConnectionName);
+        connectionNameField.setValue(zoomConnectionName);
+        zoomTokenField.setValue(zoomToken);
+        zoomTokenSecret.setValue(zoomSecret);
+        submitForm();
+        return ConnectionsListPage.init();
+    }
 }

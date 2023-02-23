@@ -26,12 +26,13 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
 
         open(CREATE_ZOOM_CONNECTION);
 
-        CreateZoomConnectionPage.init().createZoomConnection(
+        CreateZoomConnectionPage
+                .init()
+                .createZoomConnection(
                         connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
-                        CreateZoomConnectionPage.ZOOM_SECRET, ConnectionProcessingFrequencyTypeEnum.DAILY,
-                        12)
+                        CreateZoomConnectionPage.ZOOM_SECRET)
                 .searhConnectionByName(connectionName)
                 .selectConnection(connectionName, true);
 
@@ -66,9 +67,7 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
                         connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
-                        CreateZoomConnectionPage.ZOOM_SECRET,
-                        ConnectionProcessingFrequencyTypeEnum.DAILY,
-                        12)
+                        CreateZoomConnectionPage.ZOOM_SECRET)
                 .searhConnectionByName(connectionName);
 
         ConnectionsListPage.init()
