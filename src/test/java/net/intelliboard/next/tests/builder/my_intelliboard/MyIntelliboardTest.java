@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static com.codeborne.selenide.Selenide.$x;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -44,7 +42,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T617")})
     @DisplayName("SP-T617: Search by title")
-    void checkSearchByTitle() throws IOException {
+    void checkSearchByTitle() {
 
         String dashboardName = "Untitled";
 
@@ -61,7 +59,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T617-1")})
     @DisplayName("SP-T617-1: Search by title - No result")
-    void checkSearchByTitleNoResult() throws IOException {
+    void checkSearchByTitleNoResult() {
 
         String dashboardName = DataGenerator.getRandomString();
 
@@ -80,27 +78,42 @@ class MyIntelliboardTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("regression"), @Tag("normal"), @Tag("SP-T629")})
     @DisplayName("SP-T629: Favorite / Unfavorite Dashboard")
-    void checkFavoriteUnfavoriteDashboard() throws IOException {
+    void checkFavoriteUnfavoriteDashboard() {
         int numberOfDashboard = 1;
-        HeaderObject.init().openMyIntelliBoardPage();
-        MyIntelliBoardPage my = MyIntelliBoardPage.init();
+        HeaderObject
+                .init()
+                .openMyIntelliBoardPage();
 
         //Set favorite
-        String dashboardName = my.getNameofDasnboardByOrderNumber(numberOfDashboard);
-        my.setDashboardFavorite(dashboardName);
-        waitForPageLoaded();
+        String dashboardName = MyIntelliBoardPage
+                .init()
+                .getNameofDasnboardByOrderNumber(numberOfDashboard);
 
+        MyIntelliBoardPage
+                .init()
+                .setDashboardFavorite(dashboardName);
+
+        waitForPageLoaded();
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
-        assertThat(my.isDashboardPresentsInFavorite(dashboardName))
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is not a favorite", dashboardName)
                 .isTrue();
 
-        my.setDashboardFavorite(dashboardName);
+        MyIntelliBoardPage
+                .init()
+                .setDashboardFavorite(dashboardName);
+
         waitForPageLoaded();
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
-        assertThat(my.isDashboardPresentsInFavorite(dashboardName))
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isDashboardPresentsInFavorite(dashboardName))
                 .withFailMessage("Dashboard %s is still favorite", dashboardName)
                 .isFalse();
     }
@@ -122,7 +135,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
 
         assertThat(
                 $x("//div[@class='content-header']//h1")
-                .getText().equals(dashboardName))
+                        .getText().equals(dashboardName))
                 .withFailMessage("The title is not match")
                 .isTrue();
     }
