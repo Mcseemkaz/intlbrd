@@ -7,6 +7,7 @@ import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -177,7 +178,9 @@ public class IBUsersPage {
     }
 
     public IBUsersPage searchUserByName(String userName) {
-        $x("//input[contains (@aria-label, 'Search User')]").setValue(userName);
+        $x("//input[contains (@aria-label, 'Search User')]")
+                .setValue(userName)
+                .sendKeys(Keys.ENTER);
         return this;
     }
 

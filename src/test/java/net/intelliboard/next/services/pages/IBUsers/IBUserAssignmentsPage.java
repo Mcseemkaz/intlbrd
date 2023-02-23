@@ -4,6 +4,7 @@ import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import net.intelliboard.next.services.pages.elements.DropdownElement;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
 import java.time.Duration;
 
@@ -13,8 +14,10 @@ import static com.codeborne.selenide.Selenide.$x;
 public class IBUserAssignmentsPage {
 
     public static IBUserAssignmentsPage init() {
-        $x("//form[contains (@action ,'/assign')]")
-                .shouldBe(Condition.visible, Duration.ofSeconds(30));
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
+        $x("//div[contains (@class ,'assign-wrapper')]")
+                .shouldBe(Condition.visible, Duration.ofSeconds(120));
         return new IBUserAssignmentsPage();
     }
 
