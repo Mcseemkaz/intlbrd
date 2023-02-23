@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
+import io.qameta.allure.Link;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
@@ -11,10 +12,7 @@ import net.intelliboard.next.services.pages.connections.connection.ConnectionCon
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
@@ -64,8 +62,9 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
         ConnectionsListPage
                 .init()
                 .editConnection(connectionName)
-                .expandEllucianSubConnectionArea()
                 .deleteEllucianSubConnection();
+
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
         assertThat(
                 ConnectionConnectionSettingsMainPage
@@ -80,6 +79,8 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
+//    @Disabled("Create connection has a bug with the fields")
+    @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Flaky
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T202")})
@@ -91,7 +92,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         //Create connections
         while (numberConnections > 0) {
-            String connectionName = "AQA_Mass_" + DataGenerator.getRandomString();
+            String connectionName = "SP-T202_" + DataGenerator.getRandomString();
             open(CREATE_ZOOM_CONNECTION);
 
             CreateZoomConnectionPage.init().createZoomConnection(
@@ -121,7 +122,6 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
         SoftAssertions softly = new SoftAssertions();
 
         connectionsList
-                .stream()
                 .forEach(k ->
                         softly.assertThat(
                                         ConnectionsListPage

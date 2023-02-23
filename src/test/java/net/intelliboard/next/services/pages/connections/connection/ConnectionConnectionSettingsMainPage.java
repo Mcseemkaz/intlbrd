@@ -15,9 +15,9 @@ public class ConnectionConnectionSettingsMainPage extends MainConnectionPage {
 
     SelenideElement buttonProcessData =
             $x("//div[@class='content-header']//a[contains (@href,'/process') and contains (@class,'success')]");
-    SelenideElement ellucianBlockChevronIcon = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]/div/ion-icon");
-    SelenideElement ellucianBlock = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]");
-    SelenideElement ellucianBlockDeleteButton = $x("//div[contains (@class,'card') and .//div[contains (text(),'Ellucian Tokens')]]//a[contains (@href,'/delete')]");
+    SelenideElement ellucianBlockChevronIcon = $x("//div[contains (@class,'card') and not (contains(@class,'header')) and .//div[contains (text(),'Ellucian Tokens')]]/div/ion-icon");
+    SelenideElement ellucianBlock = $x("//div[contains (@class,'card') and not(contains(@class,'header')) and .//div[contains (text(),'Ellucian Tokens')]]");
+    SelenideElement ellucianBlockDeleteButton = $x("//div[contains (@class,'card') and not(contains(@class,'header')) and .//div[contains (text(),'Ellucian Tokens')]]//button[contains (@class,'error')]");
 
     public static ConnectionConnectionSettingsMainPage init() {
         $x("//form[contains (@id,'create-connection-form')]")
@@ -31,10 +31,9 @@ public class ConnectionConnectionSettingsMainPage extends MainConnectionPage {
     }
 
     public ConnectionConnectionSettingsMainPage expandEllucianSubConnectionArea() {
-        if (!isEllucianConnectionExist()) {
-            throw new NoSuchElementException();
+        if (!ellucianBlock.has(Condition.cssClass ("card open"))) {
+            ellucianBlockChevronIcon.click();
         }
-        ellucianBlockChevronIcon.click();
         ellucianBlock.shouldHave(Condition.attribute("class", "card open"));
         return this;
     }
@@ -44,7 +43,9 @@ public class ConnectionConnectionSettingsMainPage extends MainConnectionPage {
     }
 
     public ConnectionConnectionSettingsMainPage deleteEllucianSubConnection() {
+        expandEllucianSubConnectionArea();
         ellucianBlockDeleteButton.click();
+        $x("//div[@class='modal-content']//a[contains (@class,'error')]").click();
         IBNextAbstractTest.waitPage();
         return this;
     }

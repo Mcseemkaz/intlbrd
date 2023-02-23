@@ -461,7 +461,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(mainConnectionName);
     }
 
-    @Disabled("Create connection has a bug with the fields")
+//    @Disabled("Create connection has a bug with the fields")
     @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T600")})
@@ -491,7 +491,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
-    @Disabled("Create connection has a bug with the fields")
+//    @Disabled("Create connection has a bug with the fields")
     @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T604")})
