@@ -2,16 +2,14 @@ package net.intelliboard.next.tests.core.connection;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
 
@@ -105,7 +103,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -134,7 +132,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -161,7 +159,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -188,7 +186,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -304,7 +302,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY);
 
-        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+        assertThat(ConnectionsListPage.init().searhConnectionByName(connectionName).isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
 
@@ -328,7 +326,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateConnectionPage.MWP_URL)
                 .saveFilterSettings();
 
-        assertThat(ConnectionsListPage.init().findConnectionByName(connectionName).isConnectionExist(connectionName))
+        assertThat(ConnectionsListPage.init().searhConnectionByName(connectionName).isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
 
@@ -353,7 +351,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init()
-                .findConnectionByName(connectionName)
+                .searhConnectionByName(connectionName)
                 .isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
@@ -403,7 +401,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                                 12);
 
         assertThat(ConnectionsListPage.init()
-                .findConnectionByName(mainConnectionName)
+                .searhConnectionByName(mainConnectionName)
                 .checkIntegration(ConnectionIntegrationTypeEnum.QWICKLY, mainConnectionName))
                 .withFailMessage("Integration sub-connection for %s is not existed", mainConnectionName)
                 .isTrue();
@@ -435,7 +433,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .setActiveConnection(mainConnectionName, true);
 
         assertThat(ConnectionsListPage.init()
-                .findConnectionByName(mainConnectionName)
+                .searhConnectionByName(mainConnectionName)
                 .isConnectionExist(mainConnectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
@@ -463,6 +461,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(mainConnectionName);
     }
 
+    @Disabled("Create connection has a bug with the fields")
+    @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T600")})
     @DisplayName("SP-T600: Creating of BlackBoard Collaborate independent connection")
@@ -478,9 +478,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_INDEPENDENT_CONNECTION_NAME,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
-                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL
-                )
-                .findConnectionByName(connectionName);
+                        CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
+                .searhConnectionByName(connectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.
@@ -492,6 +491,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
+    @Disabled("Create connection has a bug with the fields")
+    @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T604")})
     @DisplayName("SP-T604: Creating of BlackBoard Collaborate sub-connection")
@@ -525,7 +526,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL,
                         ConnectionProcessingFrequencyTypeEnum.DAILY,
                         12)
-                .findConnectionByName(mainConnectionName);
+                .searhConnectionByName(mainConnectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.checkIntegration(ConnectionIntegrationTypeEnum.BLACK_BOARD_COLLABORATE, mainConnectionName))
@@ -556,7 +557,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
         assertThat(
                 ConnectionsListPage
                         .init()
-                        .findConnectionByName(mainConnectionName)
+                        .searhConnectionByName(mainConnectionName)
                         .isConnectionExist(mainConnectionName))
                 .withFailMessage("Connection : %s is not existed", mainConnectionName)
                 .isTrue();

@@ -101,7 +101,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                             CreateZoomConnectionPage.ZOOM_SECRET,
                             ConnectionProcessingFrequencyTypeEnum.DAILY,
                             12)
-                    .findConnectionByName(connectionName);
+                    .searhConnectionByName(connectionName);
             connectionsList.add(connectionName);
             numberConnections--;
         }
@@ -179,7 +179,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -228,7 +228,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -273,7 +273,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.findConnectionByName(connectionName);
+        connectionsListPage.searhConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
