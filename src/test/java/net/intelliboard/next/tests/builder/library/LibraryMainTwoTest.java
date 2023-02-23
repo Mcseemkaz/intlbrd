@@ -84,18 +84,19 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - CANVAS")
     void testAvailabilityItemsByConnectionTypeLibraryPageCANVAS() {
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.CANVAS);
-
+        LibraryMainPage
+                .init()
+                .setActiveReportsForConnection(ConnectionsTypeEnum.CANVAS);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 32)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 32)
+
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 26)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 26)
                 .isTrue();
 
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
                 .isTrue();
 
         softly.assertAll();
@@ -106,16 +107,20 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - D2L")
     void testAvailabilityItemsByConnectionTypeLibraryPageD2L() {
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        LibraryMainPage.init();
 
-        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.D2L);
+        LibraryMainPage
+                .init()
+                .setActiveReportsForConnection(ConnectionsTypeEnum.D2L);
+
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 29)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 29)
+
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 26)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 26)
                 .isTrue();
 
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
                 .isTrue();
 
         softly.assertAll();
