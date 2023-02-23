@@ -8,10 +8,9 @@ import net.intelliboard.next.services.ProjectFilesEnum;
 import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class InContactFilterModalElement {
-
-    int sleepTimeLocal = 1000;
 
     public static InContactFilterModalElement init() {
         $x("//div[contains (@class, 'top-filters__popup')]")
@@ -24,12 +23,12 @@ public class InContactFilterModalElement {
         searchValue("Courses", courseName);
         selectValue("Courses", courseName);
         submitSelection("Courses");
-        Selenide.sleep(sleepTimeLocal);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         return this;
     }
 
     private void openDropdown(String dropdownLabel) {
-        Selenide.sleep(sleepTimeLocal);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         $x("//label[contains (text(), '" + dropdownLabel + "')]/following-sibling::div//div[@class='tree-select']")
                 .click();
     }
@@ -43,15 +42,15 @@ public class InContactFilterModalElement {
         $x("//label[contains (text(), '" +
                 dropdownLabel + "')]/following-sibling::div//div[contains (@class,'tree-select-option')]//mark[contains (text(),'" +
                 value + "')]").click();
-        Selenide.sleep(sleepTimeLocal);
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
     }
 
-    private void submitSelection(String dropdownLabel){
+    private void submitSelection(String dropdownLabel) {
         $x("//label[contains (text(), '" + dropdownLabel + "')]/following-sibling::div//div[contains (@class,'tree-action')]//button")
                 .click();
     }
 
-    public InContactMainPage closeFilterModal(){
+    public InContactMainPage closeFilterModal() {
         $x("//button[contains (@class,'closed_button')]")
                 .click();
         return InContactMainPage.init();

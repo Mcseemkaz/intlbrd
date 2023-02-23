@@ -1,9 +1,11 @@
 package net.intelliboard.next.services.pages.incontact;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class InContactEditUserContactInfoModal {
@@ -27,13 +29,17 @@ public class InContactEditUserContactInfoModal {
         return InContactMainPage.init();
     }
 
-    public InContactMainPage deleteData(String key) {
-        inputKey.setValue(key);
-        inputValue.setValue(key);
-        addRowButton.click();
+    public InContactMainPage deleteAllData() {
+
+        int size = $$x("//ion-icon[@name='trash']").size();
+
+        for (int i = 0; i < size; i++) {
+            Selenide.sleep(1000);
+            $x("//ion-icon[@name='trash']").click();
+        }
+
         buttonSubmit.click();
         PageSpinner.waitSpinner();
         return InContactMainPage.init();
     }
-
 }
