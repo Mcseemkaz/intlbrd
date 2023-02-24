@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections.connection.zoom;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
@@ -31,13 +32,13 @@ public class CreateZoomConnectionPage extends CreateConnectionPage {
         }
     }
 
-
     public static CreateZoomConnectionPage init() {
         $x("//form[contains (@action,'" + IBNextURLs.CREATE_ZOOM_CONNECTION + "')]")
                 .shouldBe(Condition.visible, Duration.ofSeconds(60));
         return new CreateZoomConnectionPage();
     }
 
+    @Step("Create Zoom connection with AutoProcessing")
     public ConnectionsListPage createZoomConnection(
             String zoomConnectionName,
             String mainConnectionName,
@@ -54,7 +55,7 @@ public class CreateZoomConnectionPage extends CreateConnectionPage {
         submitForm();
         return ConnectionsListPage.init();
     }
-
+    @Step("Create Zoom connection without AutoProcessing")
     public ConnectionsListPage createZoomConnection(
             String zoomConnectionName,
             String mainConnectionName,

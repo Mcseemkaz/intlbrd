@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -41,6 +42,7 @@ public class IBUsersPage {
         return new IBUsersPage();
     }
 
+    @Step("Open Create User Page")
     public IBUserCreatePage openIBUserCreatePage() {
         addIBUserButton.click();
         PageSpinner.waitPreloader();
@@ -49,6 +51,7 @@ public class IBUsersPage {
         return IBUserCreatePage.init();
     }
 
+    @Step("Open Sync User Page")
     public IBUsersSyncPage openIBUserSyncPage() {
         addIBUserButton.click();
         $x("//li//a[contains (@href,'users/sync')]")
@@ -56,6 +59,7 @@ public class IBUsersPage {
         return IBUsersSyncPage.init();
     }
 
+    @Step("Open Import User Page")
     public IBUserImportPage openIBUserImportPage() {
         addIBUserButton.click();
         $x("//li//a[contains (@href,'" + IBNextURLs.USERS_IMPORT_PAGE + "')]")
@@ -72,6 +76,7 @@ public class IBUsersPage {
                 .isDisplayed();
     }
 
+    @Step("Delete User by Name")
     public IBUsersPage deleteUser(String userFirstName) {
         getThreeDotMenuUser(userFirstName)
                 .click();
@@ -81,6 +86,7 @@ public class IBUsersPage {
         return this;
     }
 
+    @Step("Delete the first user in the list")
     public IBUsersPage deleteUser() {
         $x("(//td/following-sibling::td//button[contains(@class,'dropdown-toggle')])[1]").click();
         userActionDropdownDeleteOption.click();
@@ -88,6 +94,7 @@ public class IBUsersPage {
         return this;
     }
 
+    @Step("Log in in selected user")
     public void logInSelectedUsers(String userFirstName) {
         getThreeDotMenuUser(userFirstName)
                 .click();
@@ -95,6 +102,7 @@ public class IBUsersPage {
                 .click();
     }
 
+    @Step("Edit Selected User")
     public IBUserCreatePage editSelectedUser(String userFirstName) {
         getThreeDotMenuUser(userFirstName)
                 .click();
@@ -103,6 +111,7 @@ public class IBUsersPage {
         return IBUserCreatePage.init();
     }
 
+    @Step("Open Assignment User Page")
     public IBUserAssignmentsPage assignmentsUser(String userFirstName) {
         getThreeDotMenuUser(userFirstName)
                 .click();
@@ -115,16 +124,19 @@ public class IBUsersPage {
         return $x("//td[ ./span[contains(text(),'" + userFirstName + "')]]/following-sibling::td//button[contains(@class,'dropdown-toggle')]");
     }
 
+    @Step("Check user by name")
     public IBUsersPage checkedUserByName(String firstUserName) {
         $x("//td[ ./span[contains(text(),'" + firstUserName + "')]]/preceding-sibling::td").click();
         return this;
     }
 
+    @Step("Check all users in the list")
     public IBUsersPage checkedAllUsers() {
         $x("//table//thead//th[contains (@class,'table-checkbox')]//div").click();
         return this;
     }
 
+    @Step("Delete selected users by Action menu")
     public IBUsersPage deleteSelectedUsersByActionDropdown() {
         userActionDropdownMenu.click();
         $x("((//div[@class='card']//div[@class='intelli-dropdown dropdown'])[2]//a)[2]").click();
@@ -157,6 +169,7 @@ public class IBUsersPage {
         return this;
     }
 
+    @Step("Scaling the users list")
     //TODO MO - add Enum for attributes scaling
     public IBUsersPage changeScalingUsersPerPage(int usersPerPage) {
 
@@ -172,12 +185,14 @@ public class IBUsersPage {
 
     //TODO MO - add Enum for pagination
     // "next" "prev"
+    @Step("Change the page by pagination")
     public IBUsersPage changePaginationPage(String nextOrPrev) {
         paginationBlock.shouldBe(Condition.visible);
         $x("//div[contains (@class,'pagination-wrapper')]//ul[@class='pagination']//a[@rel='" + nextOrPrev + "']").click();
         return IBUsersPage.init();
     }
 
+    @Step("Search User by first name")
     public IBUsersPage searchUserByName(String userName) {
         $x("//input[contains (@aria-label, 'Search User')]")
                 .setValue(userName)
@@ -185,6 +200,7 @@ public class IBUsersPage {
         return this;
     }
 
+    @Step("Open Org Roles Page")
     public OrgRolesMainPage openOrgRolesPage() {
         $x("//a[contains (@href,'/roles')]").click();
         return OrgRolesMainPage.init();
