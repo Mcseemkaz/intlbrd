@@ -15,6 +15,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class HeaderObject {
 
     public static HeaderObject init() {
+        PageSpinner.waitPreloader();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//header//div[contains(@class, 'left-header-section')]")

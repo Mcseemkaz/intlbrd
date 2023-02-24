@@ -194,16 +194,14 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T119: Deleting several created users")
     void testDeleteFewCreatedIBUsers() {
 
-        HeaderObject header = HeaderObject.init();
-
-        String firstName1 = DataGenerator.getRandomString();
+        String firstName1 = "SP-T119_1_" + DataGenerator.getRandomString();
         String lastName1 = DataGenerator.getRandomString();
 
-        String firstName2 = DataGenerator.getRandomString();
+        String firstName2 = "SP-T119_2_" + DataGenerator.getRandomString();
         String lastName2 = DataGenerator.getRandomString();
 
         //Create user #1
-        header
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -215,8 +213,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
                 .selectConnection()
                 .submitUserCreateForm();
-        //Create user #1
-        header
+        //Create user #2
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -231,6 +229,7 @@ class CreateNewUsersTest extends IBNextAbstractTest {
 
         //Delete Users
         IBUsersPage.init()
+                .changeScalingUsersPerPage(200)
                 .checkedUserByName(firstName1)
                 .checkedUserByName(firstName2)
                 .deleteSelectedUsersByActionDropdown();
@@ -247,7 +246,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
         assertThat(IBUsersPage
                 .init()
                 .changeScalingUsersPerPage(200)
-                .isUserPresents(firstName2)).withFailMessage("IB User with name %s has not been deleted", firstName2)
+                .isUserPresents(firstName2))
+                .withFailMessage("IB User with name %s has not been deleted", firstName2)
                 .isFalse();
     }
 

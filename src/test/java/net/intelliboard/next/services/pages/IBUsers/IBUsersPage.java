@@ -33,6 +33,7 @@ public class IBUsersPage {
 
     public static IBUsersPage init() {
         PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']").shouldBe(Condition.visible);
