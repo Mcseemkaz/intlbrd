@@ -309,24 +309,28 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     void testScalingNumberUsers() {
 
         //Create new users
-        HeaderObject header = HeaderObject.init();
-        IBUsersPage ibUsersPage = IBUsersPage.init();
+        HeaderObject.init();
+        IBUsersPage.init();
 
         // Delete exist users
-        while (ibUsersPage.isFirstUserPresented()) {
-            ibUsersPage.deleteUser();
+        while (IBUsersPage
+                .init()
+                .isFirstUserPresented()) {
+            IBUsersPage
+                    .init()
+                    .deleteUser();
         }
 
         // Add users for checking pagination
         int users = 12;
         for (int i = 0; i < users; i++) {
-            header
+            HeaderObject.init()
                     .openDropDownMenu()
                     .openMyIBUsersPage()
                     .openIBUserCreatePage()
                     .selectRole(IBUsersRolesTypeEnum.MANAGER)
                     .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
-                    .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, "SP-T116_" + DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
@@ -334,17 +338,20 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                     .submitUserCreateForm();
         }
 
-        ibUsersPage.changePaginationPage("next");
-        ibUsersPage.changeScalingUsersPerPage(25);
+        IBUsersPage.init().changePaginationPage("next");
+        IBUsersPage.init().changeScalingUsersPerPage(25);
 
-        assertThat(ibUsersPage.isPaginationPresented())
+        assertThat(IBUsersPage.init().isPaginationPresented())
                 .withFailMessage("Pagination is broken")
                 .isFalse();
 
-        while (ibUsersPage.isFirstUserPresented())
-            ibUsersPage
+        while (IBUsersPage
+                .init()
+                .isFirstUserPresented()) {
+            IBUsersPage.init()
                     .checkedAllUsers()
                     .deleteSelectedUsersByActionDropdown();
+        }
     }
 
     @Flaky
