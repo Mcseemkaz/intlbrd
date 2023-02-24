@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
@@ -308,9 +309,7 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T116: Scaling the number of users")
     void testScalingNumberUsers() {
 
-        //Create new users
-        HeaderObject.init();
-        IBUsersPage.init();
+        open(IBNextURLs.USERS_PAGE);
 
         // Delete exist users
         while (IBUsersPage
@@ -338,10 +337,18 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                     .submitUserCreateForm();
         }
 
-        IBUsersPage.init().changePaginationPage("next");
-        IBUsersPage.init().changeScalingUsersPerPage(25);
+        IBUsersPage
+                .init()
+                .changePaginationPage("next");
 
-        assertThat(IBUsersPage.init().isPaginationPresented())
+        IBUsersPage
+                .init()
+                .changeScalingUsersPerPage(25);
+
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .isPaginationPresented())
                 .withFailMessage("Pagination is broken")
                 .isFalse();
 
