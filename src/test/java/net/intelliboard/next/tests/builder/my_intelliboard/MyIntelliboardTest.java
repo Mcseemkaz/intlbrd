@@ -87,7 +87,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         //Set favorite
         String dashboardName = MyIntelliBoardPage
                 .init()
-                .getNameofDasnboardByOrderNumber(numberOfDashboard);
+                .getNameofDashboardByOrderNumber(numberOfDashboard);
 
         MyIntelliBoardPage
                 .init()

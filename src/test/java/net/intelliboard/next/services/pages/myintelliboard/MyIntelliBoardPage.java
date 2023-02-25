@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.myintelliboard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
@@ -31,11 +32,13 @@ public class MyIntelliBoardPage {
                 .exists();
     }
 
+    @Step("Search element on Dashboard")
     public MyIntelliBoardPage searchDashboard(String searchString) {
         $x("//input[contains (@class,'input-search')]").setValue(searchString);
         return this;
     }
 
+    @Step("Set Dashboard favorite")
     public MyIntelliBoardPage setDashboardFavorite(String dashboardName) {
         Selenide.actions()
                 .moveToElement($x("//li[.//h4[contains (text(),'"+dashboardName+"')]]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -62,7 +65,7 @@ public class MyIntelliBoardPage {
         return DashboardPage.init();
     }
 
-    public String getNameofDasnboardByOrderNumber(int number) {
+    public String getNameofDashboardByOrderNumber(int number) {
         return $x("//div[contains(@class,'cards-view')]//li[" + number + "]//div[contains (@class,'data-library-item')]//div[contains(@class,'data-library-item-info')]//h4")
                 .getText();
     }
@@ -117,4 +120,32 @@ public class MyIntelliBoardPage {
         return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4")
                 .exists();
     }
+
+
+    // Generic method
+    public ReportBuilderMainPage editCharts(String reportName) {
+        Selenide
+                .actions()
+                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//span[@class='dropdown-trigger']"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Edit')]"))
+                .perform();
+        return ReportBuilderMainPage.init();
+    }
+
+    public DashboardDeleteModalPage deleteCharts(String reportName) {
+        Selenide
+                .actions()
+                .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//span[@class='dropdown-trigger']"))
+                .click($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains(@class,'dropdown-menu')]//a[contains (text(),'Delete')]"))
+                .perform();
+        return DashboardDeleteModalPage.init();
+    }
+
+    public boolean isChartExist(String reportName) {
+        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]")
+                .exists();
+    }
+
 }

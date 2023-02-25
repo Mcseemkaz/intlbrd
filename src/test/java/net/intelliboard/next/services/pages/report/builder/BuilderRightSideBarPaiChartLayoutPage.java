@@ -2,12 +2,15 @@ package net.intelliboard.next.services.pages.report.builder;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class BuilderRightSideBarPaiChartLayoutPage {
 
     public static BuilderRightSideBarPaiChartLayoutPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//div[@class='data-controls-section']").shouldBe(Condition.visible);
         return new BuilderRightSideBarPaiChartLayoutPage();
     }
