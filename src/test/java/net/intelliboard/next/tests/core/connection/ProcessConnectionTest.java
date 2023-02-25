@@ -131,8 +131,9 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1121: Processing Zoom connection")
     void testProcessConnectionZoom() throws InterruptedException {
         open(CREATE_ZOOM_CONNECTION);
-        String connectionName = "Zoom_" + DataGenerator.getRandomString();
-        CreateZoomConnectionPage.init()
+        String connectionName = "SP-T1121_" + DataGenerator.getRandomString();
+        CreateZoomConnectionPage
+                .init()
                 .createZoomConnection(connectionName,
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
@@ -142,6 +143,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
                 .waitingProcessingComplete();
 
         open(ALL_CONNECTIONS);
+
         ConnectionsListPage connectionsListPage = ConnectionsListPage
                 .init();
 
