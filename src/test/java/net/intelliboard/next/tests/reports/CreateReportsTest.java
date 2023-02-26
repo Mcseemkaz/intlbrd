@@ -463,7 +463,7 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         MyIntelliBoardPage
                 .init()
-                .deleteCharts(reportName)
+                .deleteChart(reportName)
                 .confirmDeletion();
 
         assertThat(

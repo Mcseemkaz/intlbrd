@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.signup;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.IBNextURLs;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -17,6 +18,7 @@ public class SignUpFormPage {
         return new SignUpFormPage();
     }
 
+    @Step("Fill in Form Field")
     public SignUpFormPage fillInFormField(SignUpFormFieldTypeEnum fieldType, String value) {
         if (fieldType.value.contains("select")) {
             $x(fieldType.value).selectOption(value);
@@ -26,6 +28,7 @@ public class SignUpFormPage {
         return this;
     }
 
+    @Step("Submit Registration Form")
     public void submitForm() {
         String winHandleBefore = WebDriverRunner.getWebDriver().getWindowHandle();
         $x("//button[@type='submit']").click();
@@ -34,6 +37,7 @@ public class SignUpFormPage {
                 .shouldBe(Condition.visible);
     }
 
+    @Step("Agree Terms&Policy")
     public SignUpFormPage agreeTermsPolicy() {
         Selenide
                 .actions()

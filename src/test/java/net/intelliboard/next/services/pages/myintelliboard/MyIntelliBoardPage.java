@@ -41,12 +41,13 @@ public class MyIntelliBoardPage {
     @Step("Set Dashboard favorite")
     public MyIntelliBoardPage setDashboardFavorite(String dashboardName) {
         Selenide.actions()
-                .moveToElement($x("//li[.//h4[contains (text(),'"+dashboardName+"')]]//div[contains (@class,'data-library-item-wrapper')]"))
-                .click($x("//li[.//h4[contains (text(),'"+dashboardName+"')]]//button"))
+                .moveToElement($x("//li[.//h4[contains (text(),'" + dashboardName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
+                .click($x("//li[.//h4[contains (text(),'" + dashboardName + "')]]//button"))
                 .perform();
         return this;
     }
 
+    @Step("View Dashboard by order number")
     public MyIntelliBoardPage openView(int numberDashboard) {
         Selenide.actions()
                 .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -56,6 +57,7 @@ public class MyIntelliBoardPage {
         return this;
     }
 
+    @Step("Edit Dashboard")
     public DashboardPage openEdit(int numberDashboard) {
         Selenide.actions()
                 .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -80,6 +82,7 @@ public class MyIntelliBoardPage {
                 .exists();
     }
 
+    @Step("Delete Report")
     public DashboardDeleteModalPage deleteReport(String reportName) {
         Selenide
                 .actions()
@@ -90,6 +93,7 @@ public class MyIntelliBoardPage {
         return DashboardDeleteModalPage.init();
     }
 
+    @Step("Edit Report")
     public ReportBuilderMainPage editReport(String reportName) {
         Selenide
                 .actions()
@@ -106,8 +110,8 @@ public class MyIntelliBoardPage {
         return ReportPage.init();
     }
 
-    public String getReportBackgroundColors(String reportName){
-        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'"+reportName+"')]]//div[@class='data-library-item-wrapper']")
+    public String getReportBackgroundColors(String reportName) {
+        return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[@class='data-library-item-wrapper']")
                 .getAttribute("style");
     }
 
@@ -122,8 +126,8 @@ public class MyIntelliBoardPage {
     }
 
 
-    // Generic method
-    public ReportBuilderMainPage editCharts(String reportName) {
+    @Step("Edit Chart")
+    public ReportBuilderMainPage editChart(String reportName) {
         Selenide
                 .actions()
                 .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -133,7 +137,8 @@ public class MyIntelliBoardPage {
         return ReportBuilderMainPage.init();
     }
 
-    public DashboardDeleteModalPage deleteCharts(String reportName) {
+    @Step("Delete Chart")
+    public DashboardDeleteModalPage deleteChart(String reportName) {
         Selenide
                 .actions()
                 .moveToElement($x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Charts')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -147,5 +152,4 @@ public class MyIntelliBoardPage {
         return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]")
                 .exists();
     }
-
 }

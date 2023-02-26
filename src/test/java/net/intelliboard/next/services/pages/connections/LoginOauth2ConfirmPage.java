@@ -16,8 +16,6 @@ public class LoginOauth2ConfirmPage {
     private SelenideElement getButtonAuthorize() {
         return $x("//input[@type='submit' and (contains(@value,'Authorize'))]");
     }
-//    private SelenideElement buttonAuthorize = $x("//input[@type='submit' and (contains(@value,'Authorize'))]");
-//    private SelenideElement buttonWaiting = $x("//input[@type='submit' and (contains(@value,'Please wait...'))]");
 
     public static LoginOauth2ConfirmPage init() {
 
@@ -34,7 +32,8 @@ public class LoginOauth2ConfirmPage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        getButtonAuthorize().click(ClickOptions.withTimeout(Duration.ofSeconds(120)));
+        getButtonAuthorize()
+                .click(ClickOptions.withTimeout(Duration.ofSeconds(120)));
         return LmsFilterSettingPage.init();
     }
 }

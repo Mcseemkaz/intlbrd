@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.signup;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.IBNextURLs;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -17,11 +18,13 @@ public class SignUpInvitePage {
         return new SignUpInvitePage();
     }
 
+    @Step("Proceed Registration")
     public SignUpFormPage continueRegistration() {
         $x("//button[@type='submit']").click();
         return SignUpFormPage.init();
     }
 
+    @Step("Fill in Invitation Code")
     public SignUpInvitePage fillInInviteCode(String inviteCode) {
         $x("//input[@id='invite_code']").setValue(inviteCode);
         return this;
