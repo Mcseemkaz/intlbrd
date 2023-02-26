@@ -3,6 +3,7 @@ package net.intelliboard.next.services.webdriver;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class WebDriverService {
 
+    @Step("Init Web Driver")
     public void initWebDriver(String type, int timeout, String resolution, TestInfo testInfo) {
 
         switch (type) {
