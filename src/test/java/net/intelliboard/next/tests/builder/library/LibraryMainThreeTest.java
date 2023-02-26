@@ -33,12 +33,12 @@ class LibraryMainThreeTest extends IBNextAbstractTest {
                 .setActiveReportsForConnection(ConnectionsTypeEnum.MOODLE);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 26)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 31)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 27)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 27)
                 .isTrue();
 
         softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
                 .isTrue();
 
         softly.assertAll();
