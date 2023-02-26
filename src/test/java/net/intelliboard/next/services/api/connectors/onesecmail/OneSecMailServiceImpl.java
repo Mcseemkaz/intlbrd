@@ -1,5 +1,6 @@
 package net.intelliboard.next.services.api.connectors.onesecmail;
 
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import net.intelliboard.next.services.api.connectors.MailService;
@@ -18,12 +19,14 @@ public class OneSecMailServiceImpl implements MailService {
     private final String BASE_URI = "https://www.1secmail.com";
     private final String BASE_PATH = "/api/v1/";
 
+    @Step("Get Registration Link in the Email")
     @Override
     public String getRegistrationLink(String emailBoxName) {
         String messageHTMLBody = getMessageById(emailBoxName).getHtmlBody();
         return getCutRegistrationLink(messageHTMLBody);
     }
 
+    @Step("Generate new Email Box")
     @Override
     public String generateNewMailBox() {
 

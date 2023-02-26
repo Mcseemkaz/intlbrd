@@ -10,6 +10,7 @@ import net.intelliboard.next.services.pages.login.LoginPage;
 
 import java.io.IOException;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public class LoginService extends IBNextAbstractTest {
@@ -34,12 +35,16 @@ public class LoginService extends IBNextAbstractTest {
         open(IBNextURLs.LOGIN_PAGE);
         clearCookiesAndRefresh();
 
-        LoginPage.init()
-                .fillInLoginFiled(userLogin)
-                .fillInPassFiled(userPass)
-                .submitForm();
+        while ($x("//form[@class='auth-form']").isDisplayed()) {
+
+            LoginPage.init()
+                    .fillInLoginFiled(userLogin)
+                    .fillInPassFiled(userPass)
+                    .submitForm();
+        }
     }
 
+    @Step("Clear Cookies and Refresh")
     public static void clearCookiesAndRefresh() {
         WebDriverRunner.clearBrowserCache();
         WebDriverRunner.getWebDriver().manage().deleteAllCookies();

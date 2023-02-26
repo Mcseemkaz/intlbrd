@@ -1,5 +1,6 @@
 package net.intelliboard.next.services.api.connectors.mailtramp;
 
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import net.intelliboard.next.services.api.connectors.MailService;
@@ -34,6 +35,7 @@ public class MailTrapServiceImpl implements MailService {
         return messagesList.stream().findFirst().get();
     }
 
+    @Step("Get Registration Link in the Email")
     @Override
     public String getRegistrationLink(String emailBoxName) {
 
@@ -56,6 +58,7 @@ public class MailTrapServiceImpl implements MailService {
         return getCutRegistrationLink(messageBody);
     }
 
+    @Step("Generate new Email Box")
     @Override
     public String generateNewMailBox() {
         return DataGenerator.getRandomValidEmail();
