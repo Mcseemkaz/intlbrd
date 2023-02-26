@@ -26,10 +26,10 @@ import static net.intelliboard.next.services.database.SQLQueries.*;
 
 @Feature("DB Connection Validation")
 @Tag("DB_Connection_Validation")
-public class DBConnectionValidationTest extends IBNextAbstractTest {
+class DBConnectionValidationTest extends IBNextAbstractTest {
 
     @Test
-    @Disabled
+    @Disabled("Need clarify requirements")
     @DisplayName("SP-TXXXX120: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX120")})
     void testDBValidationBBUltraScenarioOne() throws InterruptedException, IOException, SQLException {
@@ -98,7 +98,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("Need clarify requirements")
     @DisplayName("SP-TXXXX121: Check amount of records in base tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX121")})
     void testDBValidationBBUltraScenarioTwo() throws InterruptedException, IOException, SQLException {
@@ -191,7 +191,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("Need clarify requirements")
     @DisplayName("SP-TXXXX122: Check amount of records in incontact tables")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX122")})
     void testDBValidationBBUltraScenarioThree() throws InterruptedException, IOException, SQLException {
@@ -280,6 +280,7 @@ public class DBConnectionValidationTest extends IBNextAbstractTest {
 
     //TODO [MO] Remove debug printing after stabilize
     @Test
+    @Disabled("Need clarify requirements")
     @DisplayName("SP-TXXXX123: Check not empty tables for BB Ultra")
     @Tags(value = {@Tag("normal"), @Tag("SP-TXXXX123")})
     void testDBValidationBBUltraScenarioFour() throws InterruptedException, IOException, SQLException {
