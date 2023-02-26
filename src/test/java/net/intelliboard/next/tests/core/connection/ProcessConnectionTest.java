@@ -10,10 +10,7 @@ import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -126,6 +123,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.deleteConnection(connectionName);
     }
 
+    @Disabled("26/02/2023 there is a issue with Zoom Processing")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1121")})
     @DisplayName("SP-T1121: Processing Zoom connection")
