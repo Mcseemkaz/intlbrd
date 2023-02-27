@@ -8,7 +8,6 @@ import net.intelliboard.next.services.pages.blackboard.BlackBoardMigrationServic
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
-import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -28,7 +27,7 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T228 SP-T1120: Processing D2L connection")
     void testProcessConnectionD2L() throws InterruptedException {
         open(CREATE_D2L_CONNECTION);
-        String connectionName = "D2L_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1120_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
                 .createD2LConnection(connectionName, CreateConnectionPage.D2L_URL, CreateConnectionPage.D2L_CLIENT_ID,
                         CreateConnectionPage.D2L_CLIENT_SECRET, CreateConnectionPage.D2L_USER_LOGIN, CreateConnectionPage.D2L_USER_PASS);
@@ -52,9 +51,12 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T226 SP-T1118: Processing Moodle connection")
     void testProcessConnectionMoodle() throws InterruptedException {
         open(CREATE_MOODLE_CONNECTION);
-        String connectionName = "Moodle_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1118_" + DataGenerator.getRandomString();
         CreateConnectionPage.init()
-                .createMoodleConnection(connectionName, CreateConnectionPage.MOODLE_CLIENT_ID, CreateConnectionPage.MOODLE_LMS_URL)
+                .createMoodleConnection(
+                        connectionName,
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -74,10 +76,16 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @Description("Verify that Canvas connection processes correctly")
     void testProcessConnectionCanvas() throws InterruptedException {
         open(CREATE_CANVAS_CONNECTION);
-        String connectionName = "Canvas_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init().
-                createCanvasConnection(connectionName, CreateConnectionPage.CANVAS_CLIENT_ID, CreateConnectionPage.CANVAS_LMS_URL,
-                        CreateConnectionPage.CANVAS_CLIENT_SECRET, CreateConnectionPage.CANVAS_DATA_CLIENT_ID, CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
+        String connectionName = "SP-T1119_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init().
+                createCanvasConnection(
+                        connectionName,
+                        CreateConnectionPage.CANVAS_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_LMS_URL,
+                        CreateConnectionPage.CANVAS_CLIENT_SECRET,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_ID,
+                        CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET);
 
         LoginCanvasPage.init()
                 .fillEmail(CreateConnectionPage.CANVAS_USER_LOGIN)
@@ -107,9 +115,13 @@ class ProcessConnectionTest extends IBNextAbstractTest {
         blackBoardMigrationService.performMigrationProcess();
 
         open(CREATE_BLACKBOARD_CONNECTION);
-        String connectionName = "Blackboard_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createBlackboardConnection(connectionName, CreateConnectionPage.BLACKBOARD_CLIENT_ID, CreateConnectionPage.BLACKBOARD_LMS_URL)
+        String connectionName = "SP-T1112_" + DataGenerator.getRandomString();
+        CreateConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -155,8 +167,12 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     void testProcessConnectionIlyas() throws InterruptedException {
         open(CREATE_ILIAS_CONNECTION);
         String connectionName = "SP-T1122_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createILIASConnection(connectionName, CreateConnectionPage.ILIAS_URL, CreateConnectionPage.ILIAS_TOKEN,
+        CreateConnectionPage
+                .init()
+                .createILIASConnection(
+                        connectionName,
+                        CreateConnectionPage.ILIAS_URL,
+                        CreateConnectionPage.ILIAS_TOKEN,
                         CreateConnectionPage.ILIAS_KEY)
                 .editConnection(connectionName)
                 .processData()
@@ -176,8 +192,12 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     void testProcessConnectionSakai() throws InterruptedException {
         open(CREATE_SAKAI_CONNECTION);
         String connectionName = "SP-T1105_" + DataGenerator.getRandomString();
-        CreateConnectionPage.init()
-                .createSAKAIConnection(connectionName, CreateConnectionPage.SAKAI_URL, CreateConnectionPage.SAKAI_TOKEN,
+        CreateConnectionPage
+                .init()
+                .createSAKAIConnection(
+                        connectionName,
+                        CreateConnectionPage.SAKAI_URL,
+                        CreateConnectionPage.SAKAI_TOKEN,
                         CreateConnectionPage.SAKAI_KEY)
                 .editConnection(connectionName)
                 .processData()
@@ -195,12 +215,15 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1251")})
     @DisplayName("SP-T1251: Processing Totara connection")
     void testProcessConnectionTotara() throws InterruptedException {
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "SP-T1251" + DataGenerator.getRandomString();
-
         open(CREATE_TOTARA_CONNECTION);
 
-        createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY)
+        CreateConnectionPage
+                .init()
+                .createTOTARAConnection(
+                        connectionName,
+                        CreateConnectionPage.TOTARA_URL,
+                        CreateConnectionPage.TOTARA_KEY)
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
@@ -217,12 +240,13 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1252")})
     @DisplayName("SP-T1252: Process MWP moodle.intelliboard connection")
     void testProcessConnectionMWPMoodle() throws InterruptedException {
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+
         String connectionName = "SP-T1252_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage
+        CreateConnectionPage
+                .init()
                 .createMoodleConnection(
                         connectionName,
                         CreateConnectionPage.MWP_KEY,
@@ -245,12 +269,13 @@ class ProcessConnectionTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("normal"), @Tag("SP-T1253")})
     @DisplayName("SP-T1253: Process MWP moodleworkplace.intelliboard connection")
     void testProcessConnectionMWPWorkspace() throws InterruptedException {
-        CreateConnectionPage createConnectionPage = new CreateConnectionPage();
+
         String connectionName = "SP-T1253_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
-        createConnectionPage
+        CreateConnectionPage
+                .init()
                 .createMoodleConnection(
                         connectionName,
                         CreateConnectionPage.MWP_W_KEY,

@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.IBNextURLs.ALL_CONNECTIONS;
-import static net.intelliboard.next.services.IBNextURLs.CREATE_TOTARA_CONNECTION;
+import static net.intelliboard.next.services.IBNextURLs.*;
 
 @Feature("Process Connection")
 @Tag("Connection_Processing")
@@ -23,20 +22,19 @@ class ConnectionRegressionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1618: Checking 'Go to Dashboard' button")
     void testCheckBackDashboardButtonProcessingPage() throws InterruptedException {
         String connectionName = "SP-T1618_" + DataGenerator.getRandomString();
-        open(CREATE_TOTARA_CONNECTION);
+        open(CREATE_MOODLE_CONNECTION);
 
-        CreateConnectionPage
-                .init()
-                .createTOTARAConnection(
+        CreateConnectionPage.init()
+                .createMoodleConnection(
                         connectionName,
-                        CreateConnectionPage.TOTARA_URL,
-                        CreateConnectionPage.TOTARA_KEY)
+                        CreateConnectionPage.MOODLE_CLIENT_ID,
+                        CreateConnectionPage.MOODLE_LMS_URL)
+                .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete()
                 .backToDashBoardConnectionList();
 
-        open(ALL_CONNECTIONS);
         ConnectionsListPage
                 .init()
                 .deleteConnection(connectionName);
