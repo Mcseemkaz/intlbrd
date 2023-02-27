@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
@@ -63,9 +64,12 @@ public class ProcessPage {
 
     @Step("Go back to Dashboard")
     public MyIntelliBoardPage backToDashBoardConnectionList(){
-        if(isProcess100Percent()){
-            $x("//a[contains (text(),'Go to Dashboard')]").click();
+        SelenideElement goToDashboardButton = $x("//a[contains (@class,'success')]");
+        while(!goToDashboardButton.isDisplayed()){
+            Selenide.sleep(200);
+            System.err.println("------wait dashboard--------");
         }
+        goToDashboardButton.click();
         return MyIntelliBoardPage.init();
     }
 }

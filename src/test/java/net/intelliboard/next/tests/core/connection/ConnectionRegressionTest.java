@@ -20,7 +20,7 @@ class ConnectionRegressionTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1618")})
     @DisplayName("SP-T1618: Checking 'Go to Dashboard' button")
-    void testCheckBackDashboardButtonProcessingPage() throws InterruptedException {
+    void testCheckBackDashboardButtonProcessingPage() {
         String connectionName = "SP-T1618_" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
 
@@ -32,8 +32,9 @@ class ConnectionRegressionTest extends IBNextAbstractTest {
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
-                .waitingProcessingComplete()
                 .backToDashBoardConnectionList();
+
+        open(ALL_CONNECTIONS);
 
         ConnectionsListPage
                 .init()
