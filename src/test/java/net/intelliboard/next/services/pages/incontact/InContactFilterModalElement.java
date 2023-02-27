@@ -76,7 +76,7 @@ public class InContactFilterModalElement {
     }
 
     public InContactMultiSelectModal openMultiFilter() {
-        $x("//button[contains (text(),'Multi Select')]").click();
+        $x("//button[contains (text(),'Multi')]").click();
         return InContactMultiSelectModal.init();
     }
 }
