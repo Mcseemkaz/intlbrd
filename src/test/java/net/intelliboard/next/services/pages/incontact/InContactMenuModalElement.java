@@ -35,7 +35,7 @@ public class InContactMenuModalElement {
     }
 
     public InContactMenuModalElement setTextMessage(String textMessage) {
-        $x("//div[@class='log-form-popup']//textarea")
+        $x("//textarea")
                 .sendKeys(textMessage);
         return this;
     }

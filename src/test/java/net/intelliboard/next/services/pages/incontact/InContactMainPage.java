@@ -62,7 +62,7 @@ public class InContactMainPage {
         return this;
     }
 
-    public boolean checkEventExist(String eventName, LocalDateTime date) throws IOException {
+    public boolean checkEventExist(String eventName, LocalDateTime date) {
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
         openEventPopup(date);
         return $x("//td[.//p[contains (text(),'" +
@@ -82,6 +82,8 @@ public class InContactMainPage {
                 .switchTo()
                 .alert()
                 .accept();
+
+        PageSpinner.waitSpinner();
         return this;
     }
 

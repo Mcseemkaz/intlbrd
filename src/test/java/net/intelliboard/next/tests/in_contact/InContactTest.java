@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.IBNextURLs.*;
+import static net.intelliboard.next.services.IBNextURLs.ALL_CONNECTIONS;
+import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNECTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("InContact")
@@ -60,7 +60,7 @@ class InContactTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("critical"), @Tag("SP-T108"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T108: Creating a note in the List")
-    void testCreateNoteInListContact() throws IOException {
+    void testCreateNoteInListContact() {
 
         String eventName = "SP-T108_" + DataGenerator.getRandomString();
         LocalDateTime date = LocalDateTime.now();
@@ -135,7 +135,7 @@ class InContactTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T128"), @Tag("smoke")})
     @DisplayName("SP-T128: View a note in the list")
-    void testViewNoteInListContact() throws IOException {
+    void testViewNoteInListContact() {
 
         String eventName = "SP-T128_" + DataGenerator.getRandomString();
         LocalDateTime date = LocalDateTime.now();
@@ -200,7 +200,7 @@ class InContactTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T110"), @Tag("smoke")})
     @DisplayName("SP-T110: Deleting a note in the List")
-    void testDeleteNoteInListContact() throws IOException {
+    void testDeleteNoteInListContact() {
 
         String eventName = "SP-T110_" + DataGenerator.getRandomString();
         LocalDateTime date = LocalDateTime.now();
@@ -241,7 +241,7 @@ class InContactTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T86"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T86: Course in Course dropdown")
-    void testInContact() throws IOException {
+    void testInContact() {
 
         String eventName = "SP-T86 Filtering Course";
         LocalDateTime date = LocalDateTime.of(2023, 2, 11, 0, 0);
@@ -312,5 +312,72 @@ class InContactTest extends IBNextAbstractTest {
                 .init()
                 .closeModal()
                 .deleteAllUserContactInformation(userName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T92"), @Tag("smoke"), @Tag("smoke_incontact")})
+    @DisplayName("SP-T92: Contact type in Communication dropdown")
+    @Description("Contact type in Communication dropdown")
+    void testContactTypeCommunicationDropdown() {
+
+        String contactType = "Email";
+        String eventName = "SP-T86 Filtering Course";
+        LocalDateTime date = LocalDateTime.of(2023, 2, 11, 0, 0);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openFilter()
+                .setCommunication(contactType);
+
+        assertThat(InContactMainPage
+                .init()
+                .checkEventExist(eventName, date))
+                .withFailMessage("Event %s has not communication %s", eventName, contactType)
+                .isTrue();
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T93"), @Tag("smoke"), @Tag("smoke_incontact")})
+    @DisplayName("SP-T93: Adding data in the Multi Select")
+    @Description("Adding data in the Multi Select")
+    void testAddingDataMultiSelect() {
+
+        String contactType = "Email";
+        String course = "20th";
+        String student = "Alona";
+        String eventName = "SP-T92_" + DataGenerator.getRandomString();
+        LocalDateTime date = LocalDateTime.now();
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openFilter()
+                .openMultiFilter()
+                .setCourse(course)
+                .setStudent(student)
+                .setDate(date)
+                .setTextMessage(eventName)
+                .setOption("Communication", "[All Options]")
+                .setOption("Behavior", "[All Options]")
+                .submitForm();
+
+        assertThat(InContactMainPage
+                .init()
+                .checkEventExist(eventName, date))
+                .withFailMessage("Event %s has not communication %s", eventName, contactType)
+                .isTrue();
+
+        InContactMainPage
+                .init()
+                .deleteEvent(eventName, date);
     }
 }
