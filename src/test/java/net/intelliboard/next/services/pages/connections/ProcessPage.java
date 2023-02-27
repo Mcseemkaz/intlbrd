@@ -67,7 +67,6 @@ public class ProcessPage {
         SelenideElement goToDashboardButton = $x("//a[contains (@class,'success')]");
         while(!goToDashboardButton.isDisplayed()){
             Selenide.sleep(200);
-            System.err.println("------wait dashboard--------");
         }
         goToDashboardButton.click();
         return MyIntelliBoardPage.init();

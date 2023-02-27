@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Selenide.open;
-import static net.intelliboard.next.services.IBNextURLs.*;
+import static net.intelliboard.next.services.IBNextURLs.ALL_CONNECTIONS;
+import static net.intelliboard.next.services.IBNextURLs.CREATE_BLACKBOARD_CONNECTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("InContact")
