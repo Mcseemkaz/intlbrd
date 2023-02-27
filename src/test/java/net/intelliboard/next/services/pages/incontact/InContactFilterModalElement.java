@@ -29,7 +29,7 @@ public class InContactFilterModalElement {
 
     public InContactFilterModalElement setCommunication(String setType) {
         openDropdown("Communication");
-        $x("//label[contains (text(), 'Communication')]/following-sibling::div//div[contains (@class,'intelli-dropdown')]//label[contains (@title,'"+setType+"')]")
+        $x("//label[contains (text(), 'Communication')]/following-sibling::div//div[contains (@class,'intelli-dropdown')]//label[contains (@title,'" + setType + "')]")
                 .click();
         submitSelection("Communication");
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
@@ -73,5 +73,10 @@ public class InContactFilterModalElement {
         File file = new File(filePath.path);
         SelenideElement chooseFile = $x("//input[@type='file']");
         chooseFile.uploadFile(file);
+    }
+
+    public InContactMultiSelectModal openMultiFilter() {
+        $x("//button[contains (text(),'Multi Select')]").click();
+        return InContactMultiSelectModal.init();
     }
 }
