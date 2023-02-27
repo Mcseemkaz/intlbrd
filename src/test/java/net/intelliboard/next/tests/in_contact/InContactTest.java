@@ -313,4 +313,31 @@ class InContactTest extends IBNextAbstractTest {
                 .closeModal()
                 .deleteAllUserContactInformation(userName);
     }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T92"), @Tag("smoke"), @Tag("smoke_incontact")})
+    @DisplayName("SP-T92: Contact type in Communication dropdown")
+    @Description("Contact type in Communication dropdown")
+    void testContactTypeCommunicationDropdown() throws IOException {
+
+        String contactType = "Email";
+        String eventName = "SP-T86 Filtering Course";
+        LocalDateTime date = LocalDateTime.of(2023, 2, 11, 0, 0);
+
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.CANVAS.defaultName);
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openFilter()
+                .setCommunication(contactType);
+
+        assertThat(InContactMainPage
+                .init()
+                .checkEventExist(eventName, date))
+                .withFailMessage("Event %s has not communication %s", eventName, contactType)
+                .isTrue();
+    }
 }

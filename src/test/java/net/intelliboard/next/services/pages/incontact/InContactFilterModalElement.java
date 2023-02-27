@@ -27,9 +27,18 @@ public class InContactFilterModalElement {
         return this;
     }
 
+    public InContactFilterModalElement setCommunication(String setType) {
+        openDropdown("Communication");
+        $x("//label[contains (text(), 'Communication')]/following-sibling::div//div[contains (@class,'intelli-dropdown')]//label[contains (@title,'"+setType+"')]")
+                .click();
+        submitSelection("Communication");
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
+        return this;
+    }
+
     private void openDropdown(String dropdownLabel) {
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
-        $x("//label[contains (text(), '" + dropdownLabel + "')]/following-sibling::div//div[@class='tree-select']")
+        $x("//label[contains (text(), '" + dropdownLabel + "')]/following-sibling::div//div[contains (@class,'intelli-dropdown')]")
                 .click();
     }
 
