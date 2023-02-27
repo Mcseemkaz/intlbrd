@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.connections.categories.ConnectionCategoriesListPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
@@ -31,8 +32,9 @@ public class ConnectionsListPage {
         return new ConnectionsListPage();
     }
 
+    @Step("Delete Connection")
     public ConnectionsListPage deleteConnection(String connectionName) {
-        findConnectionByName(connectionName);
+        searhConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonDelete
@@ -44,7 +46,8 @@ public class ConnectionsListPage {
         return this;
     }
 
-    public ConnectionsListPage findConnectionByName(String connectionName) {
+    @Step("Search connection by name")
+    public ConnectionsListPage searhConnectionByName(String connectionName) {
         $x("//input[contains(@class, 'search-input')][@placeholder='Search']")
                 .setValue(connectionName)
                 .sendKeys(Keys.ENTER);
@@ -64,8 +67,9 @@ public class ConnectionsListPage {
         return isConnection.exists();
     }
 
+    @Step("Edit connection")
     public ConnectionConnectionSettingsMainPage editConnection(String connectionName) {
-        findConnectionByName(connectionName);
+        searhConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonEdit.click();
@@ -73,19 +77,20 @@ public class ConnectionsListPage {
     }
 
     public boolean checkLastProcessing(String connectionName, LocalDateTime date) {
-        findConnectionByName(connectionName);
+        searhConnectionByName(connectionName);
         String processingDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[contains(text(),'" + processingDate + "')]").exists();
     }
 
     public boolean checkIntegration(ConnectionIntegrationTypeEnum integration, String connectionName) {
-        findConnectionByName(connectionName);
+        searhConnectionByName(connectionName);
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'" + integration.value + "')]]")
                 .exists();
     }
 
+    @Step("Set Connection Active")
     public ConnectionsListPage setActiveConnection(String connectionName, boolean setActive) {
-        findConnectionByName(connectionName);
+        searhConnectionByName(connectionName);
         SelenideElement checkRadioButton = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//td[contains (@class, 'status-cell')]//ion-icon");
         if (checkRadioButton.getAttribute("name").contains("off") && setActive == true) {
             checkRadioButton.click();
@@ -100,6 +105,7 @@ public class ConnectionsListPage {
         return this;
     }
 
+    @Step("Select Connection")
     public ConnectionsListPage selectConnection(String connectionName, boolean setSelected) {
         SelenideElement checkbox = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//input[@type='checkbox']");
         if (setSelected == true && checkbox.isSelected() == false) {
@@ -121,6 +127,7 @@ public class ConnectionsListPage {
         return this;
     }
 
+    @Step("Mass deletion connection by Action menu")
     public ConnectionsListPage deleteSelectedConnectionsByActionDropdown() {
         openActionMenu();
         $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Delete Selected')]")
@@ -131,6 +138,7 @@ public class ConnectionsListPage {
         return this;
     }
 
+    @Step("Deactivate selected connection by Action menu")
     public ConnectionsListPage deactivateSelectedConnectionByActionMenu() {
         openActionMenu();
         $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Deactivate Selected')]")
@@ -164,6 +172,7 @@ public class ConnectionsListPage {
                 .size();
     }
 
+    @Step("Open Processing History")
     public ConnectionProcessingHistoryMainPage openProcessingConnectionsHistory() {
         $x("//a[contains (@href,'/audit')]").click();
         return ConnectionProcessingHistoryMainPage.init();

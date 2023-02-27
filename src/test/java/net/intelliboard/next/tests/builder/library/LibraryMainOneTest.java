@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainOneTest extends IBNextAbstractTest {
+class LibraryMainOneTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T428")})
@@ -23,15 +23,18 @@ public class LibraryMainOneTest extends IBNextAbstractTest {
     void testSearchByNameLibraryPage() {
 
         String libraryItemName = "Needs Grading";
+        int size = 1;
 
         open(LIBRARY_MAIN);
 
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        LibraryMainPage
+                .init()
+                .searchLibraryItem(libraryItemName);
 
-        libraryMainPage.searchLibraryItem(libraryItemName);
-
-        assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 3)
-                .withFailMessage("Number of found reports is not 3")
+        assertThat(LibraryMainPage
+                .init()
+                .getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == size)
+                .withFailMessage("Number of found reports is not %s", size)
                 .isTrue();
     }
 
@@ -41,15 +44,18 @@ public class LibraryMainOneTest extends IBNextAbstractTest {
     void testSearchByTagLibraryPage() {
 
         String libraryItemName = "Grading";
+        int size = 2;
 
         open(LIBRARY_MAIN);
 
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        LibraryMainPage
+                .init()
+                .searchLibraryItem(libraryItemName);
 
-        libraryMainPage.searchLibraryItem(libraryItemName);
-
-        assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 4)
-                .withFailMessage("Number of found reports is not 3")
+        assertThat(LibraryMainPage
+                .init()
+                .getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == size)
+                .withFailMessage("Number of found reports is not %s", size)
                 .isTrue();
     }
 
@@ -63,21 +69,33 @@ public class LibraryMainOneTest extends IBNextAbstractTest {
 
         open(LIBRARY_MAIN);
 
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        LibraryMainPage
+                .init()
+                .searchLibraryItem(libraryItemName);
 
-        libraryMainPage.searchLibraryItem(libraryItemName);
+        likesBefore = LibraryMainPage
+                .init()
+                .getNumberOfLikesItem(libraryItemName);
 
-        likesBefore = libraryMainPage.getNumberOfLikesItem(libraryItemName);
-        libraryMainPage.likeItem(libraryItemName);
-        likesAfter = libraryMainPage.getNumberOfLikesItem(libraryItemName);
+        LibraryMainPage
+                .init()
+                .likeItem(libraryItemName);
+
+        likesAfter = LibraryMainPage
+                .init()
+                .getNumberOfLikesItem(libraryItemName);
 
         assertThat(likesAfter == likesBefore + 1)
                 .withFailMessage("Number of likes do not equal")
                 .isTrue();
 
-        libraryMainPage.unlikeItem(libraryItemName);
+        LibraryMainPage
+                .init()
+                .unlikeItem(libraryItemName);
 
-        likesAfter = libraryMainPage.getNumberOfLikesItem(libraryItemName);
+        likesAfter = LibraryMainPage
+                .init()
+                .getNumberOfLikesItem(libraryItemName);
 
         assertThat(likesAfter == likesBefore)
                 .withFailMessage("Number of likes do not equal")

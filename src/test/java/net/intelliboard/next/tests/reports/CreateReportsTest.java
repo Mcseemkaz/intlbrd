@@ -430,7 +430,8 @@ class CreateReportsTest extends IBNextAbstractTest {
                 .expandOpenConnectionManager()
                 .selectConnection(connectionName);
 
-        HeaderObject.init()
+        HeaderObject
+                .init()
                 .createReport()
                 .fillName(reportName)
                 .fillDescription(DataGenerator.getRandomString())
@@ -462,10 +463,14 @@ class CreateReportsTest extends IBNextAbstractTest {
 
         MyIntelliBoardPage
                 .init()
-                .deleteReport(reportName)
+                .deleteChart(reportName)
                 .confirmDeletion();
 
-        assertThat(MyIntelliBoardPage.init().isReportExist(reportName))
+        assertThat(
+                MyIntelliBoardPage
+                        .init()
+                        .isChartExist(reportName))
+                .withFailMessage("Chart %s is not delete", reportName)
                 .isFalse();
     }
 

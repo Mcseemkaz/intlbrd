@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Feature("IBUser")
@@ -194,16 +195,14 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T119: Deleting several created users")
     void testDeleteFewCreatedIBUsers() {
 
-        HeaderObject header = HeaderObject.init();
-
-        String firstName1 = DataGenerator.getRandomString();
+        String firstName1 = "SP-T119_1_" + DataGenerator.getRandomString();
         String lastName1 = DataGenerator.getRandomString();
 
-        String firstName2 = DataGenerator.getRandomString();
+        String firstName2 = "SP-T119_2_" + DataGenerator.getRandomString();
         String lastName2 = DataGenerator.getRandomString();
 
         //Create user #1
-        header
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -215,8 +214,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                 .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
                 .selectConnection()
                 .submitUserCreateForm();
-        //Create user #1
-        header
+        //Create user #2
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserCreatePage()
@@ -231,6 +230,7 @@ class CreateNewUsersTest extends IBNextAbstractTest {
 
         //Delete Users
         IBUsersPage.init()
+                .changeScalingUsersPerPage(200)
                 .checkedUserByName(firstName1)
                 .checkedUserByName(firstName2)
                 .deleteSelectedUsersByActionDropdown();
@@ -247,7 +247,8 @@ class CreateNewUsersTest extends IBNextAbstractTest {
         assertThat(IBUsersPage
                 .init()
                 .changeScalingUsersPerPage(200)
-                .isUserPresents(firstName2)).withFailMessage("IB User with name %s has not been deleted", firstName2)
+                .isUserPresents(firstName2))
+                .withFailMessage("IB User with name %s has not been deleted", firstName2)
                 .isFalse();
     }
 
@@ -308,25 +309,27 @@ class CreateNewUsersTest extends IBNextAbstractTest {
     @DisplayName("SP-T116: Scaling the number of users")
     void testScalingNumberUsers() {
 
-        //Create new users
-        HeaderObject header = HeaderObject.init();
-        IBUsersPage ibUsersPage = IBUsersPage.init();
+        open(IBNextURLs.USERS_PAGE);
 
         // Delete exist users
-        while (ibUsersPage.isFirstUserPresented()) {
-            ibUsersPage.deleteUser();
+        while (IBUsersPage
+                .init()
+                .isFirstUserPresented()) {
+            IBUsersPage
+                    .init()
+                    .deleteUser();
         }
 
         // Add users for checking pagination
         int users = 12;
         for (int i = 0; i < users; i++) {
-            header
+            HeaderObject.init()
                     .openDropDownMenu()
                     .openMyIBUsersPage()
                     .openIBUserCreatePage()
                     .selectRole(IBUsersRolesTypeEnum.MANAGER)
                     .fillInField(CreateIBUsersFormFieldTypeEnum.EMAIL, DataGenerator.getRandomValidEmail())
-                    .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, DataGenerator.getRandomString())
+                    .fillInField(CreateIBUsersFormFieldTypeEnum.FIRST_NAME, "SP-T116_" + DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.LAST_NAME, DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.JOB_TITLE, DataGenerator.getRandomString())
                     .fillInField(CreateIBUsersFormFieldTypeEnum.PASSWORD, DataGenerator.getRandomValidPassword())
@@ -334,17 +337,28 @@ class CreateNewUsersTest extends IBNextAbstractTest {
                     .submitUserCreateForm();
         }
 
-        ibUsersPage.changePaginationPage("next");
-        ibUsersPage.changeScalingUsersPerPage(25);
+        IBUsersPage
+                .init()
+                .changePaginationPage("next");
 
-        assertThat(ibUsersPage.isPaginationPresented())
+        IBUsersPage
+                .init()
+                .changeScalingUsersPerPage(25);
+
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .isPaginationPresented())
                 .withFailMessage("Pagination is broken")
                 .isFalse();
 
-        while (ibUsersPage.isFirstUserPresented())
-            ibUsersPage
+        while (IBUsersPage
+                .init()
+                .isFirstUserPresented()) {
+            IBUsersPage.init()
                     .checkedAllUsers()
                     .deleteSelectedUsersByActionDropdown();
+        }
     }
 
     @Flaky

@@ -20,14 +20,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("Report")
 @Tag("Report_Formula")
-public class ReportWithFormulaTest extends IBNextAbstractTest {
+class ReportWithFormulaTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T692")})
     @DisplayName("SP-T692: Add Formula to the report")
-    public void testAddFormulaToReport() {
+    void testAddFormulaToReport() {
 
-        String connectionName = "Automation Canvans";
+        String connectionName = ConnectionsTypeEnum.CANVAS.defaultName;
         String reportName = "SP-T692-" + DataGenerator.getRandomString();
         String formulaTitle = "Formula-" + DataGenerator.getRandomString();
         String description = "Formula-" + DataGenerator.getRandomString();
@@ -38,7 +38,8 @@ public class ReportWithFormulaTest extends IBNextAbstractTest {
                 .expandOpenConnectionManager()
                 .selectConnection(connectionName);
 
-        HeaderObject.init()
+        HeaderObject
+                .init()
                 .createReport()
                 .fillName(reportName)
                 .fillDescription(DataGenerator.getRandomString())

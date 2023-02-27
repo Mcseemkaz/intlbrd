@@ -4,17 +4,18 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
-import lombok.extern.java.Log;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.login.LoginService;
-import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
-import org.junit.jupiter.api.*;
+import net.intelliboard.next.services.pages.login.LoginPage;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 @Feature("Login")

@@ -16,16 +16,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Feature("IBUser")
 @Tag("IBUser")
-public class IBUsersPageTest extends IBNextAbstractTest {
+class IBUsersPageTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T116"), @Tag("health")})
     @DisplayName("SP-T116: Scaling the number of users")
-    public void testScalingPerPageIBUsers() {
+    void testScalingPerPageIBUsers() {
 
-        HeaderObject header = HeaderObject.init();
-
-        header
+        HeaderObject
+                .init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .changeScalingUsersPerPage(25)
@@ -37,7 +36,7 @@ public class IBUsersPageTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T115")})
     @DisplayName("SP-T115: Pagination at IB users page work correctly")
-    public void testPaginationIBUsers() {
+    void testPaginationIBUsers() {
 
         HeaderObject.init()
                 .openDropDownMenu()
@@ -56,8 +55,10 @@ public class IBUsersPageTest extends IBNextAbstractTest {
                 .checkedAllUsers()
                 .deleteSelectedUsersByActionDropdown();
 
-        assertThat(IBUsersPage.init().areUsersPresents())
-                .isTrue()
-                .as("Some users are presented in the table");
+        assertThat(
+                IBUsersPage
+                        .init()
+                        .areUsersPresents()).withFailMessage("Some users are presented in the table")
+                .isTrue();
     }
 }

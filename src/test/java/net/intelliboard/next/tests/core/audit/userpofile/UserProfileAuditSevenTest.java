@@ -21,12 +21,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("User_Audit")
 @Feature("User Profile Audit")
-public class UserProfileAuditSevenTest extends IBNextAbstractTest {
+class UserProfileAuditSevenTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1368")})
     @DisplayName("SP-T1368: Removing logs of user after deleting him")
-    public void testIBUserAuditLogRemovingWhenHisDeleted() {
+    void testIBUserAuditLogRemovingWhenHisDeleted() {
 
         open(IBNextURLs.USERS_PAGE);
 
@@ -52,7 +52,7 @@ public class UserProfileAuditSevenTest extends IBNextAbstractTest {
         // Login into IBUser + do some action + Logout
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage.init()
-                .changeScalingUsersPerPage(200)
+                .searchUserByName(firstName)
                 .logInSelectedUsers(fullName);
 
         IBUserLoginNotificationAlertElement
@@ -78,7 +78,10 @@ public class UserProfileAuditSevenTest extends IBNextAbstractTest {
 
         // Delete IB User
         open(IBNextURLs.USERS_PAGE);
-        IBUsersPage.init().deleteUser(firstName);
+        IBUsersPage
+                .init()
+                .searchUserByName(firstName)
+                .deleteUser(firstName);
 
         // Check that Audit logs do not exist
 

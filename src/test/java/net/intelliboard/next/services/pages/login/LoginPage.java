@@ -2,8 +2,10 @@ package net.intelliboard.next.services.pages.login;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.signup.SignUpInvitePage;
 
 import java.time.Duration;
@@ -31,24 +33,29 @@ public class LoginPage {
         return new LoginPage();
     }
 
+    @Step("Fill in Login field")
     public LoginPage fillInLoginFiled(String login) {
         loginField.setValue(login);
         return this;
     }
 
+    @Step("Fill in Password field")
     public LoginPage fillInPassFiled(String pass) {
         passwordField.setValue(pass);
         return this;
     }
 
+    @Step("Go To Registration Page")
     public SignUpInvitePage goToRegistration() {
         $x("//a[contains (@class,'signup')]").click();
         return SignUpInvitePage.init();
     }
 
+    @Step("Submit Login Form and Login in The App")
     public void submitForm() {
         buttonSubmit.click();
-        $x("//header").shouldBe(Condition.visible, Duration.ofSeconds(100));
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         ibNextAbstractTest.waitForPageLoaded();
     }
 }

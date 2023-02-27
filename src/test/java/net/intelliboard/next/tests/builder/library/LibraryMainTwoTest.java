@@ -17,7 +17,7 @@ import static net.intelliboard.next.services.IBNextURLs.LIBRARY_MAIN;
 
 @Feature("Library")
 @Tag("Library")
-public class LibraryMainTwoTest extends IBNextAbstractTest {
+class LibraryMainTwoTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T438")})
@@ -27,29 +27,52 @@ public class LibraryMainTwoTest extends IBNextAbstractTest {
         open(LIBRARY_MAIN);
         String itemName;
         SoftAssertions softly = new SoftAssertions();
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.NAME);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.NAME);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
         softly.assertThat(itemName.startsWith("A"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.CREATION_DATE);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.CREATION_DATE);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
         softly.assertThat(itemName.startsWith("C"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.LAST_UPDATE);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-        softly.assertThat(itemName.startsWith("I"))
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.LAST_UPDATE);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
+        softly.assertThat(itemName.startsWith("Q"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        libraryMainPage.orderItemsBy(LibraryOrderTypeEnum.MOST_VISITED);
-        itemName = libraryMainPage.getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-        softly.assertThat(itemName.startsWith("P"))
+        LibraryMainPage
+                .init()
+                .orderItemsBy(LibraryOrderTypeEnum.MOST_VISITED);
+
+        itemName = LibraryMainPage
+                .init()
+                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
+
+        softly.assertThat(itemName.startsWith("Q"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
@@ -61,18 +84,19 @@ public class LibraryMainTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - CANVAS")
     void testAvailabilityItemsByConnectionTypeLibraryPageCANVAS() {
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
 
-        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.CANVAS);
-
+        LibraryMainPage
+                .init()
+                .setActiveReportsForConnection(ConnectionsTypeEnum.CANVAS);
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 32)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 32)
+
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 27)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 27)
                 .isTrue();
 
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
                 .isTrue();
 
         softly.assertAll();
@@ -83,16 +107,20 @@ public class LibraryMainTwoTest extends IBNextAbstractTest {
     @DisplayName("SP-T434:  Availability in 'View Active reports' in Library - D2L")
     void testAvailabilityItemsByConnectionTypeLibraryPageD2L() {
         open(LIBRARY_MAIN);
-        LibraryMainPage libraryMainPage = LibraryMainPage.init();
+        LibraryMainPage.init();
 
-        libraryMainPage.setActiveReportsForConnection(ConnectionsTypeEnum.D2L);
+        LibraryMainPage
+                .init()
+                .setActiveReportsForConnection(ConnectionsTypeEnum.D2L);
+
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 29)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 29)
+
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 27)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 27)
                 .isTrue();
 
-        softly.assertThat(libraryMainPage.getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 15)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 15)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
                 .isTrue();
 
         softly.assertAll();

@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.elements.DropdownElement;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.Duration;
@@ -25,6 +26,8 @@ public class IBUsersSyncPage {
     private final SelenideElement PageHeader = $x("//div[contains(@class,'content-header')]//h1");
 
     public static IBUsersSyncPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']").shouldBe(Condition.visible);

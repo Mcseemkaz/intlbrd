@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 
@@ -30,6 +31,7 @@ public class ProcessPage {
                 .contains("Completed");
     }
 
+    @Step("Wait that Process is completed")
     public ProcessPage waitingProcessingComplete() throws InterruptedException {
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime currentTime;
@@ -59,6 +61,7 @@ public class ProcessPage {
         return ConnectionConnectionSettingsMainPage.init();
     }
 
+    @Step("Go back to Dashboard")
     public MyIntelliBoardPage backToDashBoardConnectionList(){
         if(isProcess100Percent()){
             $x("//a[contains (text(),'Go to Dashboard')]").click();

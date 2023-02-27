@@ -35,7 +35,7 @@ public class IBNextAbstractTest extends AbstractTest {
         WebDriver driver = WebDriverRunner.getWebDriver();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIMEOUT_SHORT);
             WebDriverWait waitForLoad = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(10));
             waitForLoad.until(
                     webDriver -> (((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete")
@@ -51,7 +51,7 @@ public class IBNextAbstractTest extends AbstractTest {
         WebDriver driver = WebDriverRunner.getWebDriver();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIMEOUT_SHORT);
             WebDriverWait waitForLoad = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(10));
             waitForLoad.until(
                     webDriver -> (((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete")

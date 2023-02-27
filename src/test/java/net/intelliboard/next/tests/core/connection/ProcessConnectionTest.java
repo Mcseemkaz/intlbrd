@@ -8,11 +8,9 @@ import net.intelliboard.next.services.pages.blackboard.BlackBoardMigrationServic
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -125,20 +123,25 @@ class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.deleteConnection(connectionName);
     }
 
+    @Disabled("26/02/2023 there is a issue with Zoom Processing")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1121")})
     @DisplayName("SP-T1121: Processing Zoom connection")
     void testProcessConnectionZoom() throws InterruptedException {
         open(CREATE_ZOOM_CONNECTION);
-        String connectionName = "Zoom_" + DataGenerator.getRandomString();
-        CreateZoomConnectionPage.init()
-                .createZoomConnection(connectionName, CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
-                        CreateZoomConnectionPage.ZOOM_TOKEN, CreateZoomConnectionPage.ZOOM_SECRET)
+        String connectionName = "SP-T1121_" + DataGenerator.getRandomString();
+        CreateZoomConnectionPage
+                .init()
+                .createZoomConnection(connectionName,
+                        CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
+                        CreateZoomConnectionPage.ZOOM_TOKEN,
+                        CreateZoomConnectionPage.ZOOM_SECRET)
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();
 
         open(ALL_CONNECTIONS);
+
         ConnectionsListPage connectionsListPage = ConnectionsListPage
                 .init();
 

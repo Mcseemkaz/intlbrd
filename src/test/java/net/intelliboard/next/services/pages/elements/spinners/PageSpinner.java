@@ -1,8 +1,6 @@
 package net.intelliboard.next.services.pages.elements.spinners;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 
@@ -10,12 +8,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class PageSpinner {
 
-    @Getter
-    static SelenideElement spinner = $x("//div[@class='loader-inner']");
-//    static SelenideElement spinner = $x("//div[@class='loader-container']");
-
     public static void waitSpinner() {
         while ($x("(//div[@class='loader-inner'])[2]").isDisplayed()) {
+            System.err.println("---------------WAIT SPINNER------------");
             Selenide.sleep(500);
         }
     }

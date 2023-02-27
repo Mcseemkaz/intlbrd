@@ -21,18 +21,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("User_Audit")
 @Feature("User Profile Audit")
-public class UserProfileAuditSixTest extends IBNextAbstractTest {
+class UserProfileAuditSixTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1367")})
     @DisplayName("SP-T1367: Displaying new log of IB user after the log in of ib user")
-    public void testIBUserLoginDisplayingInProfileAuditLog() {
+    void testIBUserLoginDisplayingInProfileAuditLog() {
 
         open(IBNextURLs.USERS_PAGE);
 
-        HeaderObject header = HeaderObject.init();
-
-        header
+        HeaderObject.init()
                 .openDropDownMenu()
                 .openMyIBUsersPage()
                 .openIBUserSyncPage()
@@ -40,21 +38,23 @@ public class UserProfileAuditSixTest extends IBNextAbstractTest {
                 .selectRole(IBUsersRolesTypeEnum.ALL_ACCESS)
                 .selectFirstLMSUser();
 
-        IBUsersSyncPage ibUsersSyncPage = IBUsersSyncPage.init();
-        String selectedLMSUser = StringUtils.substringBefore(ibUsersSyncPage.getNameSelectedLMSUser(), "(");
+        String selectedLMSUser = StringUtils.substringBefore(IBUsersSyncPage.init().getNameSelectedLMSUser(), "(");
 
-        ibUsersSyncPage.syncUsers();
+        IBUsersSyncPage
+                .init()
+                .syncUsers();
 
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage.init()
-                .changeScalingUsersPerPage(200)
+                .searchUserByName(selectedLMSUser.substring(0, 5))
                 .logInSelectedUsers(selectedLMSUser);
 
         IBUserLoginNotificationAlertElement
                 .init()
                 .logOut();
 
-        header
+        HeaderObject
+                .init()
                 .openDropDownMenu()
                 .openMyAccountProfilePage()
                 .openAuditLogs()
@@ -71,6 +71,7 @@ public class UserProfileAuditSixTest extends IBNextAbstractTest {
         //Clean up
         open(IBNextURLs.USERS_PAGE);
         IBUsersPage.init()
+                .searchUserByName(selectedLMSUser.substring(0, 5))
                 .deleteUser(selectedLMSUser.substring(0, 5));
     }
 }

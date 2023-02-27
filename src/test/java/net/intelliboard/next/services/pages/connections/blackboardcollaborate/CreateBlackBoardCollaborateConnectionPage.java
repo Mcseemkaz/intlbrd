@@ -15,9 +15,9 @@ import static net.intelliboard.next.AbstractTest.propertiesGetValue;
 
 public class CreateBlackBoardCollaborateConnectionPage extends CreateConnectionPage {
 
-    private SelenideElement blackBoardCollaborateAPIKey = $x("//input[@id='bb_collaborate_api_key']");
-    private SelenideElement blackBoardCollaborateSecret = $x("//input[@id='bb_collaborate_secret']");
-    private SelenideElement blackBoardCollaborateEndpoint = $x("//input[@id='bb_collaborate_api_endpoint']");
+    private final SelenideElement blackBoardCollaborateAPIKey = $x("//input[@id='bb_collaborate_api_key']");
+    private final SelenideElement blackBoardCollaborateSecret = $x("//input[@id='bb_collaborate_secret']");
+    private final SelenideElement blackBoardCollaborateEndpoint = $x("//input[@id='bb_collaborate_api_endpoint']");
 
     public static String BLACK_BOARD_COLLABORATE_API_KEY;
     public static String BLACK_BOARD_COLLABORATE_SECRET;

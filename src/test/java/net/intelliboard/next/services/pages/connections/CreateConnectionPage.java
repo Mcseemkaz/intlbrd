@@ -2,9 +2,11 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.elements.DatePickerElement;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.openqa.selenium.Keys;
 
 import java.io.IOException;
@@ -107,22 +109,25 @@ public class CreateConnectionPage {
     }
 
     protected SelenideElement connectionNameField = $x("//input[@id='lmsName']");
-    private SelenideElement clientIdField = $x("//input[@id='clientId']");
-    private SelenideElement lmsUrlField = $x("//input[@id='lmsUrl']");
-    private SelenideElement clientSecretField = $x("//input[@id='clientSecret']");
-    private SelenideElement dataClientIdField = $x("//input[@id='dataClientId']");
-    private SelenideElement dataClientSecretField = $x("//input[@id='dataClientSecret']");
-    private SelenideElement buttonContinue = $x("//button[@type='submit']");
+    private final SelenideElement clientIdField = $x("//input[@id='clientId']");
+    private final SelenideElement lmsUrlField = $x("//input[@id='lmsUrl']");
+    private final SelenideElement clientSecretField = $x("//input[@id='clientSecret']");
+    private final SelenideElement dataClientIdField = $x("//input[@id='dataClientId']");
+    private final SelenideElement dataClientSecretField = $x("//input[@id='dataClientSecret']");
+    private final SelenideElement buttonContinue = $x("//button[@type='submit']");
     private SelenideElement d2lId = $x("//input[@name='client_id']");
-    private SelenideElement d2lSecret = $x("//input[@name='client_secret']");
-    private SelenideElement sakaiTokenField = $x("//input[@id='clientId']");
+    private final SelenideElement d2lSecret = $x("//input[@name='client_secret']");
+    private final SelenideElement sakaiTokenField = $x("//input[@id='clientId']");
 
     public static CreateConnectionPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//form[contains (@id,'create-connection-form')]")
                 .shouldBe(Condition.exist, Duration.ofSeconds(60));
         return new CreateConnectionPage();
     }
 
+    @Step("Create Moodle Connection")
     public LmsFilterSettingPage createMoodleConnection(String lmsName, String clientId, String lmsUrl) {
         connectionNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
@@ -131,6 +136,7 @@ public class CreateConnectionPage {
         return LmsFilterSettingPage.init();
     }
 
+    @Step("Create Canvas Connection")
     public void createCanvasConnection(String lmsName, String clientId, String lmsUrl, String clientSecret,
                                        String dataClientId, String dataClientSecret) {
         connectionNameField.setValue(lmsName);
@@ -142,6 +148,7 @@ public class CreateConnectionPage {
         submitForm();
     }
 
+    @Step("Create BlackBoard Connection")
     public LmsFilterSettingPage createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
         connectionNameField.setValue(lmsName);
         clientIdField.setValue(clientId);
@@ -150,7 +157,7 @@ public class CreateConnectionPage {
         return LmsFilterSettingPage.init();
     }
 
-
+    @Step("Create D2L Connection")
     public ConnectionsListPage createD2LConnection(String lmsName, String D2LUrl, String D2LId, String D2LSecret,
                                                    String D2LLogin, String D2Lpassword) {
         connectionNameField.setValue(lmsName);
@@ -167,6 +174,7 @@ public class CreateConnectionPage {
                 .saveFilterSettings();
     }
 
+    @Step("Create ILIAS Connection")
     public ConnectionsListPage createILIASConnection(String lmsName, String IliasUrl, String IliasToken, String IliasKey) {
         connectionNameField.setValue(lmsName);
         lmsUrlField.setValue(IliasUrl);
@@ -178,7 +186,7 @@ public class CreateConnectionPage {
                 .init()
                 .saveFilterSettings();
     }
-
+    @Step("Create SAKAI Connection")
     public ConnectionsListPage createSAKAIConnection(String lmsName, String SAKAIUrl, String SAKAIToken,
                                                      String SAKAYKey) {
         connectionNameField.setValue(lmsName);
@@ -191,6 +199,7 @@ public class CreateConnectionPage {
                 .saveFilterSettings();
     }
 
+    @Step("Create TOTARA Connection")
     public ConnectionsListPage createTOTARAConnection(String connectionName, String TOTARAUrl, String TOTARAToken) {
         connectionNameField.setValue(connectionName);
         lmsUrlField.setValue(TOTARAUrl);
@@ -201,6 +210,7 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
+    @Step("Create QWICKLY Connection")
     public ConnectionsListPage createQWICKLYConnection(String mainConnectionName, String qwicklyDataFeedUrl, String qwicklyKey, String qwicklySecret, ConnectionProcessingFrequencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='qwickly_data_feed_url']").sendKeys(qwicklyDataFeedUrl);
@@ -212,6 +222,7 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
+    @Step("Create Mongoose Connection")
     public ConnectionsListPage createMongooseConnection(String mainConnectionName, String mogooseAPIKey, String mongooseSecret, String mongooseTeamCode, LocalDateTime date, ConnectionProcessingFrequencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='mongoose_cadence_api_key']").sendKeys(mogooseAPIKey);
@@ -226,6 +237,7 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
+    @Step("Create Hubspot Connection")
     public ConnectionsListPage createHubspotConnection(String mainConnectionName, String hubspotAPIKey, ConnectionProcessingFrequencyTypeEnum type, int time) {
         selectConnection(mainConnectionName);
         $x("//input[@id='hubspot_token']").sendKeys(hubspotAPIKey);
@@ -235,6 +247,7 @@ public class CreateConnectionPage {
         return ConnectionsListPage.init();
     }
 
+    @Step("Select Connection")
     public CreateConnectionPage selectConnection(String connectionName) {
         $x("//div[contains(@class, 'intelli-dropdown')]//button[@class='tree-choice']")
                 .click();
