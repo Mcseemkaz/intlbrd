@@ -133,7 +133,7 @@ class InContactTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("high"), @Tag("SP-T128"), @Tag("smoke")})
+    @Tags(value = {@Tag("high"), @Tag("SP-T128"), @Tag("smoke"), @Tag("smoke_incontact")})
     @DisplayName("SP-T128: View a note in the list")
     void testViewNoteInListContact() {
 
