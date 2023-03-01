@@ -37,8 +37,8 @@ class LibraryMainThreeTest extends IBNextAbstractTest {
                 .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 27)
                 .isTrue();
 
-        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 17)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 17)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 19)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.DASHBOARDS.value, 19)
                 .isTrue();
 
         softly.assertAll();
