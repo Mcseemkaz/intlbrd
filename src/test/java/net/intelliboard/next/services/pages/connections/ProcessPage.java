@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 
 import java.time.Duration;
@@ -15,6 +16,8 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ProcessPage {
 
     public static ProcessPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//div[@class='progress-tracker']")
                 .shouldBe(Condition.visible, Duration.ofSeconds(100));
         return new ProcessPage();

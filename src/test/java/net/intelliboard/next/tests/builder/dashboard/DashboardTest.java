@@ -108,7 +108,7 @@ public class DashboardTest extends IBNextAbstractTest {
         assertThat(dashboardPage.getDashboardTitle().equals(dashboardName));
 
         dashboardPage
-                .openDashboardforEdditing()
+                .openDashboardForEdditing()
                 .openSettingsModal()
                 .deleteDashboard()
                 .isDashboardPresentsByName(dashboardName);

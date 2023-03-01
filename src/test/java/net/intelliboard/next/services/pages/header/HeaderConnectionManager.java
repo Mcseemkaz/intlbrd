@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.header;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.openqa.selenium.WebElement;
 
@@ -12,6 +13,7 @@ import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class HeaderConnectionManager {
 
+    @Step("Expand Connection Manager")
     public static HeaderConnectionManager expandOpenConnectionManager() {
         $x("//div[contains(@class, 'connection-selector')]").click();
         $x("//div[contains(@class, 'dropdown connections-folder')]")
@@ -19,6 +21,7 @@ public class HeaderConnectionManager {
         return new HeaderConnectionManager();
     }
 
+    @Step("Select Connection")
     public HeaderConnectionManager selectConnection(String connectionName) {
 
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);

@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.elements;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -24,6 +25,7 @@ public class DropdownElement {
         return new DropdownElement(dropdownLabel, numberOfElementOnPage);
     }
 
+    @Step("Select Dropdown option")
     public DropdownElement selectOption(String value) {
 
         if (!$x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
@@ -45,6 +47,7 @@ public class DropdownElement {
         return this;
     }
 
+    @Step("Search value in Dropdown")
     public DropdownElement searchValue(String searchValue) {
         $x("(//div[@class='tree-select'][./preceding-sibling::label[contains (text(), '" +
                 dropdownLabel + "')]])[" +

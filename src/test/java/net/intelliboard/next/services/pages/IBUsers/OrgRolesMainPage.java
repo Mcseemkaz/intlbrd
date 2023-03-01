@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -12,20 +13,22 @@ public class OrgRolesMainPage {
         ibNextAbstractTest.waitForPageLoaded();
         $x("//main//h1[contains (text(),'Roles')]")
                 .shouldBe(Condition.visible);
-
         return new OrgRolesMainPage();
     }
 
+    @Step("GOpen Add Role")
     public OrgRoleCreatePage openAddRole() {
         $x("//a[contains (@href, '/roles/create')]").click();
         return OrgRoleCreatePage.init();
     }
 
+    @Step("Is Role Exist")
     public boolean isOrgRoleExist(String orgRoleName) {
         return $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" + orgRoleName + "')]]]")
                 .exists();
     }
 
+    @Step("Delete Org Role")
     public OrgRolesMainPage deleteOrgRole(String orgRoleName) {
         openActionMenu(orgRoleName);
 
@@ -43,6 +46,7 @@ public class OrgRolesMainPage {
                 .click();
     }
 
+    @Step("Edit Org Role")
     public OrgRolePage editOrgRole(String orgRoleName) {
         openActionMenu(orgRoleName);
         $x("//tr[./td[.//a[@title='Settings' and contains (text(),'" +

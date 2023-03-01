@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.auditlogs;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.elements.DatePickerElement;
 import org.openqa.selenium.Keys;
@@ -18,6 +19,7 @@ public class UserAuditLogsPage {
         return new UserAuditLogsPage();
     }
 
+    @Step("Search Audit by Field")
     //TODO MO - Refactoring - extract to Table Element
     public UserAuditLogsPage searchByField(String searchValue) {
         $x("//input[@placeholder='Search' and contains (@class,'search-input')]")
@@ -26,12 +28,14 @@ public class UserAuditLogsPage {
         return this;
     }
 
+    @Step("Get Audit Table Column value")
     //TODO MO - Refactoring - extract to Table Element
     public String getValueCellByRowNumber(UserProfileAuditTableColumnEnum columnEnum, int numberRow) {
         return $x("//tbody//tr[" + numberRow + "]//td[" + columnEnum.numberColumn + "]")
                 .getText();
     }
 
+    @Step("Search Audit by User")
     public UserAuditLogsPage searchByUser(String userName) {
         $x("//div[@name='user_id']//div[contains (@class, 'intelli-dropdown')]//button")
                 .click();
@@ -42,6 +46,7 @@ public class UserAuditLogsPage {
         return this;
     }
 
+    @Step("Search Audit by Date")
     public UserAuditLogsPage searchByDate(LocalDateTime dateFrom, LocalDateTime dateTo) {
         $x("//input[@placeholder='Date Filter' and contains (@class, 'form-control')]")
                 .click();
@@ -56,6 +61,7 @@ public class UserAuditLogsPage {
                 .exists();
     }
 
+    @Step("Sort Audit by Column")
     public UserAuditLogsPage sortByColumn(UserProfileAuditTableColumnEnum columnEnum) {
         $x("//th/a[text()='" + columnEnum.value + "']")
                 .should(Condition.visible, Duration.ofSeconds(120))

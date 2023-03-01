@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.pages.elements;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Step;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,7 @@ public class DatePickerElement {
         $x("//span[contains (@class,'flatpickr-weekday')]").click();
     }
 
+    @Step("Set DayPicker Day Month Period")
     public DatePickerElement setDayOfMonth(LocalDateTime dateFrom, LocalDateTime dateTo) {
         String dayOfMonthFrom = Integer.toString(dateFrom.getDayOfMonth());
         String dayOfMonthTo = Integer.toString(dateTo.getDayOfMonth());
@@ -30,6 +32,7 @@ public class DatePickerElement {
         return this;
     }
 
+    @Step("Set DayPicker Day Month")
     public DatePickerElement setDayOfMonth(LocalDateTime date) {
 
         String dayOfMonthFrom = Integer.toString(date.getDayOfMonth());

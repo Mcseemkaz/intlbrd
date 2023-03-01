@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.elements.DropdownElement;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
@@ -31,6 +32,7 @@ public class IBUserAssignmentsPage {
         options.should(CollectionCondition.sizeGreaterThan(0), Duration.ofSeconds(30));
     }
 
+    @Step("Add First Element in block")
     public IBUserAssignmentsPage addFirstElementInBlock(String assignmentDataBlockName) {
         //Load assignment data
         loadData(assignmentDataBlockName);
@@ -52,6 +54,7 @@ public class IBUserAssignmentsPage {
         return this;
     }
 
+    @Step("Remove First Element in block")
     public IBUserAssignmentsPage removeFirstElementInBlock(String assignmentDataBlockName) {
         //Load assignment data
         loadData(assignmentDataBlockName);

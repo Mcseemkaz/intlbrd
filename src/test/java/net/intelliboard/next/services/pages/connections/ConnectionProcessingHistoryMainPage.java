@@ -2,6 +2,8 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
@@ -11,11 +13,14 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ConnectionProcessingHistoryMainPage {
 
     public static ConnectionProcessingHistoryMainPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         $x("//div[@class='content-body' and ./div[contains (@class,'audit-progress')]]//div[@class='panel']")
                 .shouldBe(Condition.visible, Duration.ofSeconds(120));
         return new ConnectionProcessingHistoryMainPage();
     }
 
+    @Step("Search Connection by name")
     public ConnectionProcessingHistoryMainPage searchConnectionByName(String connectionName) {
         $x("//input[contains(@class, 'search-input') and (@placeholder='Search')]")
                 .setValue(connectionName)
