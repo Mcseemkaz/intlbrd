@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
@@ -25,6 +26,7 @@ public class IBUserImportPage {
      * @param connection that will be selected
      * @return IBUserImportPage.class
      */
+    @Step("Select LMS")
     public IBUserImportPage selectLMS(ConnectionsTypeEnum connection) {
 
         SelenideElement lmsDropdownDown =
@@ -41,12 +43,13 @@ public class IBUserImportPage {
      * @param role that will be selected
      * @return IBUserImportPage.class
      */
+    @Step("Select Role")
     public IBUserImportPage selectRole(IBUsersRolesTypeEnum role) {
 
-        if (!$x("//div[contains (@label,'Role')]//span[contains (text(),'"+ role.value +"')]").exists()) {
+        if (!$x("//div[contains (@label,'Role')]//span[contains (text(),'" + role.value + "')]").exists()) {
             $x("//div[contains (@label,'Role')]")
                     .click();
-            $x("//div[contains (@label,'Role')]//li[.//label[contains (@title,'"+ role.value +"')]]")
+            $x("//div[contains (@label,'Role')]//li[.//label[contains (@title,'" + role.value + "')]]")
                     .click();
         }
         return this;
@@ -56,6 +59,7 @@ public class IBUserImportPage {
      * @param connectionName Connection Name that will be associated with IBUser
      * @return IBUserImportPage.class
      */
+    @Step("Select Connection")
     public IBUserImportPage selectConnection(String connectionName) {
 
         SelenideElement connection = $x("//input[contains (@id, 'connections') and contains (@id, '" + connectionName + "')]");
@@ -69,6 +73,7 @@ public class IBUserImportPage {
      * @param filePath CSV file path
      * @return IBUserImportPage.class
      */
+    @Step("Upload Import CSV File")
     public IBUserImportPage uploadImportCSVFile(ProjectFilesEnum filePath) {
         File file = new File(filePath.path);
         SelenideElement chooseFile = $x("//input[@id='file']");
@@ -76,6 +81,7 @@ public class IBUserImportPage {
         return this;
     }
 
+    @Step("Submit Form")
     public IBUsersPage submitForm() {
         $x("//button[@type='submit']").click();
         return IBUsersPage.init();

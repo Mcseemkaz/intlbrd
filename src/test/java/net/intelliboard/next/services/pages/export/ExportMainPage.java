@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.export;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.report.ReportExportFormat;
 
 import java.io.File;
@@ -32,13 +33,15 @@ public class ExportMainPage {
                 .click();
     }
 
+    @Step("Download Export item")
     public File downloadItem(String itemName, LocalDateTime itemCreatedDate, ReportExportFormat type) throws FileNotFoundException {
         openActionMenu(itemName, itemCreatedDate, type);
         return $x("//ul[contains (@class,'dropdown-menu')]//a[contains (text(),'Download')]")
                 .download();
     }
 
-    public ExportMainPage deleteItem(String itemName, LocalDateTime itemCreatedDate, ReportExportFormat type) throws FileNotFoundException {
+    @Step("Delete Export Item")
+    public ExportMainPage deleteItem(String itemName, LocalDateTime itemCreatedDate, ReportExportFormat type) {
         openActionMenu(itemName, itemCreatedDate, type);
         $x("//ul[contains (@class,'dropdown-menu')]//a[contains (text(),'Delete')]")
                 .click();

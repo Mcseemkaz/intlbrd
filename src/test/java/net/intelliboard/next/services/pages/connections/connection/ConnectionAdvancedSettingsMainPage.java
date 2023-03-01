@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections.connection;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 
 import java.time.Duration;
@@ -28,6 +29,7 @@ public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
         defaultGradeSchemaBlock.should(Condition.visible);
     }
 
+    @Step("Change Grade Rate")
     //TODO [MO] Finished with Grades list & Move Grade to Enum
     public ConnectionAdvancedSettingsMainPage changeGradeRate(String grade, String rate) {
         openDefaultGradingScheme();
@@ -54,6 +56,7 @@ public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
         return this;
     }
 
+    @Step("Set Incontact")
     public ConnectionAdvancedSettingsMainPage setIncontact() {
         openIncontactBlock();
         if (!$x("//input[@id='inContact']").isSelected()) {
@@ -71,11 +74,12 @@ public class ConnectionAdvancedSettingsMainPage extends MainConnectionPage {
         inContactBlock.shouldBe(Condition.visible);
     }
 
+    @Step("Save Connection Settings")
     @Override
     public ConnectionsListPage saveConnectionSettings() {
         saveButton.click();
         ibNextAbstractTest.waitForPageLoaded();
-        Selenide.sleep(15000);
+        Selenide.sleep(10000);
         saveButton.click();
         return ConnectionsListPage.init();
     }

@@ -2,6 +2,7 @@ package net.intelliboard.next.services.pages.connections.categories;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import org.openqa.selenium.Keys;
 
@@ -17,17 +18,20 @@ public class ConnectionCategoriesListPage extends IBNextAbstractTest {
         return new ConnectionCategoriesListPage();
     }
 
+    @Step("Open Connection Category")
     public CreateConnectionCategoryPage openConnectionCategory() {
         $x("//a[contains (@href,'/categories/create')]").click();
         return CreateConnectionCategoryPage.init();
     }
 
+    @Step("Create Category")
     public ConnectionCategoriesListPage createCategory(String categoryName) {
         return openConnectionCategory()
                 .fillInCategoryName(categoryName)
                 .saveCategory();
     }
 
+    @Step("Search Category")
     //TODO MO - Need refactoring - extract Search element as a separate for multi using places
     public ConnectionCategoriesListPage searchCategory(String categoryName) {
         $x("//input[contains (@class, 'search-input') and (@placeholder='Search')]")
@@ -41,6 +45,7 @@ public class ConnectionCategoriesListPage extends IBNextAbstractTest {
                 .exists();
     }
 
+    @Step("Select Category")
     public ConnectionCategoriesListPage selectCategory(String categoryName, boolean setSelected) {
         SelenideElement checkbox = $x("//a[contains(text(),'" + categoryName + "')]//ancestor-or-self::tr//input[@type='checkbox']");
         if (setSelected == true && checkbox.isSelected() == false) {
@@ -54,6 +59,7 @@ public class ConnectionCategoriesListPage extends IBNextAbstractTest {
         return this;
     }
 
+    @Step("Delete selected categories by Action menu")
     public ConnectionCategoriesListPage deleteSelectedCategoriesByActionDropdown() {
         openActionMenu();
         $x("//div[contains(@class, 'intelli-dropdown')][.//strong[contains(text(), 'Action')]]//div[contains(@class, 'dropdown-menu')]//ul//li//a[contains(text(),'Delete Selected')]")

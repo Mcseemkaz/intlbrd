@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.IBUsers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
@@ -17,6 +18,7 @@ public class IBUserCreatePage {
 
     public static IBUserCreatePage init() {
         PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
         $x("//div[@class='content-body']//form").shouldBe(Condition.visible,
@@ -25,11 +27,13 @@ public class IBUserCreatePage {
         return new IBUserCreatePage();
     }
 
+    @Step("Fill in field")
     public IBUserCreatePage fillInField(CreateIBUsersFormFieldTypeEnum fieldType, String value) {
         $x(fieldType.value).setValue(value);
         return this;
     }
 
+    @Step("Select Role")
     public IBUserCreatePage selectRole(IBUsersRolesTypeEnum role) {
         $x("//div[@name='role']//button").click();
         $x("//strong[text()='" + role.value + "']")
@@ -37,6 +41,7 @@ public class IBUserCreatePage {
         return this;
     }
 
+    @Step("Select Connection")
     public IBUserCreatePage selectConnection() {
         SelenideElement firstConnection =
                 $x("(//input[contains (@id, 'connections')])[1]");
@@ -48,6 +53,7 @@ public class IBUserCreatePage {
         return this;
     }
 
+    @Step("Select Connection")
     public IBUserCreatePage selectConnection(String connectionName) {
         SelenideElement connection =
                 $x("//input[contains (@id, 'connections') and following-sibling::label[contains (text(),'" + connectionName + "')]]");
