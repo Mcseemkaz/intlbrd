@@ -5,6 +5,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
+import net.intelliboard.next.services.helpers.AllureReportEnvPropertiesManager;
 import net.intelliboard.next.services.login.LoginCookieHandler;
 import net.intelliboard.next.services.looger.TestsWatcherImpl;
 import net.intelliboard.next.services.webdriver.WebDriverService;
@@ -66,6 +67,6 @@ public abstract class AbstractTest {
         TestsWatcherImpl.testResultsStatus.forEach((k, v) -> System.out.printf("| %s | %s |%n", k, v));
         System.out.println("----------------------------------------------------------------");
         LoginCookieHandler.setIsCookieSet(false);
-
+        AllureReportEnvPropertiesManager.allureEnvPropertiesWrite();
     }
 }
