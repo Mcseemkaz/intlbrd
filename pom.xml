@@ -13,7 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenide.version>6.11.0</selenide.version>
+        <selenide.version>6.12.0</selenide.version>
         <allure.report.version>2.20.0</allure.report.version>
         <environment>stage</environment>
     </properties>
@@ -24,7 +24,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -64,12 +63,6 @@
             <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>slf4j-reload4j</artifactId>-->
-        <!--            <version>2.0.3</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -136,10 +129,10 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar"
                     </argLine>
                     <properties>
-                    <property>
-                        <name>listener</name>
-                        <value>io.qameta.allure.junit5.AllureJunit5</value>
-                    </property>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.junit5.AllureJunit5</value>
+                        </property>
                     </properties>
                     <systemProperties>
                         <property>
