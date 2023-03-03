@@ -14,6 +14,7 @@ import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
 import net.intelliboard.next.services.pages.incontact.InContactSeeUserContactInfoModal;
+import net.intelliboard.next.services.pages.incontact.InContactViewOptionEnum;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -376,6 +377,50 @@ class InContactTest extends IBNextAbstractTest {
                 .withFailMessage("Event %s has not communication %s", eventName, contactType)
                 .isTrue();
 
+        InContactMainPage
+                .init()
+                .deleteEvent(eventName, date);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T261"), @Tag("smoke"), @Tag("smoke_incontact")})
+    @DisplayName("SP-T261: Adding an event in the 'Stored Logs' pop-up")
+    @Description("Adding an event in the 'Stored Logs' pop-up")
+    void testAddingStoreLogEvent() {
+
+        String sisIds = "45454d";
+        String eventName = "SP-T261_" + DataGenerator.getRandomString();
+        String course = "LTI";
+        LocalDateTime date = LocalDateTime.now();
+
+        //Select Connection Moodle
+        HeaderConnectionManager
+                .expandOpenConnectionManager()
+                .selectConnection(ConnectionsTypeEnum.MOODLE.defaultName);
+
+        //Create Store Log event
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openFilter()
+                .openStoredLog()
+                .setSisIDs(sisIds)
+                .setCourse(course)
+                .setTextMessage(eventName)
+                .setDate(date)
+                .setOption("Communication", "[All Options]")
+                .setOption("Behavior", "[All Options]")
+                .submitForm();
+        //Check that event exist
+        InContactMainPage
+                .init()
+                .switchMode(InContactViewOptionEnum.ALBUMS);
+
+        assertThat(InContactMainPage.init().checkEventExist(eventName, date))
+                .withFailMessage("Event Stored Logs : %s is not existed", eventName)
+                .isTrue();
+
+        //Delete Event
         InContactMainPage
                 .init()
                 .deleteEvent(eventName, date);
