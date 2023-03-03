@@ -390,7 +390,7 @@ class InContactTest extends IBNextAbstractTest {
 
         String sisIds = "45454d";
         String eventName = "SP-T261_" + DataGenerator.getRandomString();
-        String course = "Core";
+        String course = "LTI";
         LocalDateTime date = LocalDateTime.now();
 
         //Select Connection Moodle
