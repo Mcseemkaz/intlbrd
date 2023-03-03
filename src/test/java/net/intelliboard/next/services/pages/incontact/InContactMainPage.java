@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +14,6 @@ import static com.codeborne.selenide.Selenide.$x;
 import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class InContactMainPage {
-
 
     public static InContactMainPage init() {
         $x("//div[@id='in-contact']")
@@ -150,5 +148,10 @@ public class InContactMainPage {
         return InContactSeeUserContactInfoModal
                 .init()
                 .userDataExist(key, value);
+    }
+
+    public void switchMode(InContactViewOptionEnum viewOptionEnum) {
+        $x("//button[ ./ion-icon[@name='" + viewOptionEnum.value + "']]")
+                .click();
     }
 }

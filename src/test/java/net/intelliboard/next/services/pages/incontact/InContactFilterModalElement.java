@@ -79,4 +79,11 @@ public class InContactFilterModalElement {
         $x("//button[contains (text(),'Multi')]").click();
         return InContactMultiSelectModal.init();
     }
+
+    public InContactAddEventStoredLogModal openStoredLog(){
+        $x("//button[contains (text(),'In Contact Bucket') or contains (text(),'Stored Logs')]")
+                .click();
+        return InContactAddEventStoredLogModal
+                .init();
+    }
 }
