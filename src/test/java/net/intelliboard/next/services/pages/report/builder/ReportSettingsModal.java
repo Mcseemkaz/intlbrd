@@ -9,7 +9,8 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ReportSettingsModal {
     public static ReportSettingsModal init() {
-        $x("//div[@class='builder-settings-wrapper']").shouldBe(Condition.visible, Duration.ofSeconds(30));
+        $x("//div[@class='builder-settings-wrapper']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(30));
         return new ReportSettingsModal();
     }
 
