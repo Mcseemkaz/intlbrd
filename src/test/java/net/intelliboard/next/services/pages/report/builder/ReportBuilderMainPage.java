@@ -26,7 +26,7 @@ public class ReportBuilderMainPage {
 
     @Step("Save Report to Dashboard")
     public ReportPage saveReportToDashboard() {
-        $x("//button[contains(text(),'Save to Dashboard')]").click();
+        $x("//button[contains(text(),'Save')]").click();
         return ReportPage.init();
     }
 
