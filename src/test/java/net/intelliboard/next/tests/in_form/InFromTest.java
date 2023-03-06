@@ -8,6 +8,7 @@ import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import net.intelliboard.next.services.pages.inform.AddNewInFormTablePage;
 import net.intelliboard.next.services.pages.inform.InFormColumnType;
 import net.intelliboard.next.services.pages.inform.InFormPage;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
@@ -17,6 +18,9 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -55,7 +59,7 @@ class InFromTest extends IBNextAbstractTest {
 
     //TODO [MO] DropDown Issue
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("SP-T94")})
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T94"), @Tag("smoke_inform")})
     @DisplayName("SP-T94: Create Inform form")
     void testCreateInFormForm() {
 
@@ -114,5 +118,43 @@ class InFromTest extends IBNextAbstractTest {
                 .isFalse();
 
 
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T80"), @Tag("smoke_inform")})
+    @Description("Add columns with all data type to the inform table")
+    @DisplayName("SP-T80: Add columns with all data type to the inform table")
+    void testAddAllDataTypesInFormTable() throws InterruptedException {
+
+        String inFromTableName = "SP-T80 Automation Table_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openAddTablePage();
+
+        Arrays.stream(InFormColumnType.values()).forEach(k -> {
+            try {
+                AddNewInFormTablePage.init().addColumn(k, "Value_" + DataGenerator.getRandomString());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        AddNewInFormTablePage
+                .init()
+                .fillInTableTitle(inFromTableName)
+                .saveInformTable();
+
+        assertThat(InFormPage.init().isTableExist(inFromTableName))
+                .withFailMessage("InForm Table is not created : %s", inFromTableName)
+                .isTrue();
+
+        InFormPage
+                .init()
+                .deleteTable(inFromTableName);
     }
 }

@@ -1,5 +1,7 @@
 package net.intelliboard.next.services.pages.inform;
 
+import java.util.stream.Stream;
+
 public enum InFormColumnType {
 
     TEXT("Text"),
@@ -15,6 +17,7 @@ public enum InFormColumnType {
     BOOLEAN("Boolean");
 
     String value;
+
 
     InFormColumnType(String value) {
         this.value = value;
