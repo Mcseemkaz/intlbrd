@@ -19,13 +19,14 @@ public class ReportBuilderMainPage {
         PageSpinner.waitSpinner();
         IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
         ibNextAbstractTest.waitForPageLoaded();
-        $x("//main[@class='builder-page']").shouldBe(Condition.visible, Duration.ofSeconds(90));
+        $x("//main[@class='builder-page']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(90));
         return new ReportBuilderMainPage();
     }
 
     @Step("Save Report to Dashboard")
     public ReportPage saveReportToDashboard() {
-        $x("//button[contains(text(),'Save to Dashboard')]").click();
+        $x("//button[contains(text(),'Save')]").click();
         return ReportPage.init();
     }
 

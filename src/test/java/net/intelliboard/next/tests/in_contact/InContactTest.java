@@ -72,11 +72,12 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage.init()
                 .addNewMenu("Kena",
                         date,
-                        eventName
-                );
+                        eventName);
 
         assertThat(
                 InContactMainPage
@@ -147,11 +148,12 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage.init()
                 .addNewMenu("Kena",
                         date,
-                        eventName
-                );
+                        eventName);
 
         InContactMainPage inContactMainPage = InContactMainPage.init();
 
@@ -212,11 +214,13 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .addNewMenu("Kena",
                         date,
-                        eventName
-                );
+                        eventName);
 
         assertThat(
                 InContactMainPage
@@ -282,7 +286,10 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .openFilter()
                 .uploadCSVFile(ProjectFilesEnum.INCONTACT_IMPORT_CSV);
     }
@@ -302,7 +309,10 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .addUserContactInformation(userName, key, value);
 
         assertThat(InContactMainPage.init().isUserDataExist(userName, key, value))
@@ -331,7 +341,10 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .openFilter()
                 .setCommunication(contactType);
 
@@ -360,7 +373,10 @@ class InContactTest extends IBNextAbstractTest {
 
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .openFilter()
                 .openMultiFilter()
                 .setCourse(course)
@@ -401,7 +417,10 @@ class InContactTest extends IBNextAbstractTest {
         //Create Store Log event
         HeaderObject
                 .init()
-                .openApp(HeaderAppsItemEnum.INCONTACT)
+                .openApp(HeaderAppsItemEnum.INCONTACT);
+
+        InContactMainPage
+                .init()
                 .openFilter()
                 .openStoredLog()
                 .setSisIDs(sisIds)

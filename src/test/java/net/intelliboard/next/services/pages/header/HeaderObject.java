@@ -70,13 +70,11 @@ public class HeaderObject {
     }
 
     @Step("Open App Menu")
-    public InContactMainPage openApp(HeaderAppsItemEnum type) {
+    public void openApp(HeaderAppsItemEnum type) {
         openMenuItem(HeaderMenuItemEnum.APPS);
         $x("//header//ul[@class='header-menu-item-sublist']//li[.//a[contains (text(), '" + type.value + "')]]")
                 .click();
-        return InContactMainPage.init();
     }
-
 
     @Step("Open Menu item")
     public void openMenuItem(HeaderMenuItemEnum type) {
