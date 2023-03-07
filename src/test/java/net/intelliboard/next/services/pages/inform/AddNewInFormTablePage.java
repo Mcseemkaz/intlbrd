@@ -5,11 +5,12 @@ import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static net.intelliboard.next.AbstractTest.SLEEP_TIMEOUT_SHORT;
 
 public class AddNewInFormTablePage {
 
-    private SelenideElement saveColumnButton = $x("//div[@class='add-column-container']//button[@aria-label='Save Column']");
-    private SelenideElement saveInFormTableButton = $x("//div[@class='in-form-table-builder-container']/button[@type='submit']");
+    private final SelenideElement saveColumnButton = $x("//div[@class='add-column-container']//button[@aria-label='Save Column']");
+    private final SelenideElement saveInFormTableButton = $x("//div[@class='in-form-table-builder-container']/button[@type='submit']");
 
 
     public static AddNewInFormTablePage init() {
@@ -37,7 +38,7 @@ public class AddNewInFormTablePage {
         saveColumnButton.click();
         $x("//div[contains (@class, 'in-form-table-column-item') and .//button[contains (@aria-label,'" + value + "')]]")
                 .shouldBe(Condition.visible);
-        Thread.sleep(2000);
+        Thread.sleep(SLEEP_TIMEOUT_SHORT);
         return this;
     }
 
