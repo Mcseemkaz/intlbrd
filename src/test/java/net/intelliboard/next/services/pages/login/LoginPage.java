@@ -23,12 +23,12 @@ public class LoginPage {
     @Getter
     private final SelenideElement errorMessagePassword = $x("(//div[contains (@class,'login-password')]//div[@class='error-message'])[2]");
 
+    private static final SelenideElement authForm = $x("//form[@class='auth-form']");
 
     static IBNextAbstractTest ibNextAbstractTest = new IBNextAbstractTest();
 
     public static LoginPage init() {
-        $x("//form[@class='auth-form']")
-                .shouldBe(Condition.visible, Duration.ofSeconds(100));
+        authForm.shouldBe(Condition.visible, Duration.ofSeconds(100));
         ibNextAbstractTest.waitForPageLoaded();
         return new LoginPage();
     }
@@ -54,6 +54,7 @@ public class LoginPage {
     @Step("Submit Login Form and Login in The App")
     public void submitForm() {
         buttonSubmit.click();
+        authForm.should(Condition.not(Condition.visible), Duration.ofSeconds(100));
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
         ibNextAbstractTest.waitForPageLoaded();

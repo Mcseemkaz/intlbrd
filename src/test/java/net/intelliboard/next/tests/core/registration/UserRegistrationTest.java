@@ -14,6 +14,7 @@ import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
 import net.intelliboard.next.services.pages.IBUsers.UserProfileSecuritySettings;
 import net.intelliboard.next.services.pages.elements.enums.DateFormatEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
@@ -196,6 +197,10 @@ class UserRegistrationTest extends IBNextAbstractTest {
 
         Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
+
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -254,6 +259,11 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .submitForm();
 
         Selenide.sleep(SLEEP_TIMEOUT_LONG);
+
+        // For new users it is open a Release Notes modal for each deploy, so we need to close it before operation
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
 
         open(IBNextURLs.USER_PROFILE_SECURITY_SETTINGS);
 
@@ -318,12 +328,18 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .submitForm();
 
+
         assertThat(
                 WelcomePage
                         .init()
                         .isWelcomeMessageIsExist(fullName))
                 .withFailMessage("Welcome message is not exist")
                 .isTrue();
+
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
 
         open(IBNextURLs.USER_PROFILE);
 
