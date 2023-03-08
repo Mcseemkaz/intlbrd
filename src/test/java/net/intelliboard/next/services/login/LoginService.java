@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
 import net.intelliboard.next.services.pages.login.LoginPage;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class LoginService extends IBNextAbstractTest {
         open(IBNextURLs.LOGIN_PAGE);
         clearCookiesAndRefresh();
 
+        // Fix issue with cookies that does not apply and headless login is failed
         while ($x("//form[@class='auth-form']").isDisplayed()) {
 
             LoginPage.init()
