@@ -2,9 +2,9 @@ package net.intelliboard.next.services.pages.inform;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
-import net.intelliboard.next.services.pages.report.builder.ReportBuilderMainPage;
 import net.intelliboard.next.services.pages.report.builder.ReportSettingsModal;
 import org.openqa.selenium.Keys;
 
@@ -22,11 +22,13 @@ public class InFormPage {
         return new InFormPage();
     }
 
+    @Step("Open InForm Add Table Page")
     public AddNewInFormTablePage openAddTablePage() {
         $x("//a[contains (@href,'/in-form/create')]").click();
         return AddNewInFormTablePage.init();
     }
 
+    @Step("Search InForm Table")
     public InFormPage searchInfoTable(String tableName) {
         $x("//div[@class='table-panel']//input[contains (@class, 'search-input')]")
                 .setValue(tableName)
@@ -36,6 +38,7 @@ public class InFormPage {
         return InFormPage.init();
     }
 
+    @Step("Delete inForm Table")
     public InFormPage deleteTable(String tableName) {
         openActionMenu(tableName);
         $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(),'Delete')]")
@@ -44,6 +47,7 @@ public class InFormPage {
         return this;
     }
 
+    @Step("Generated Standard Report")
     public ReportSettingsModal generateStandardReport(String tableName) {
         openActionMenu(tableName);
         $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(),'Generate Standard Report')]")
@@ -51,6 +55,7 @@ public class InFormPage {
         return ReportSettingsModal.init();
     }
 
+    @Step("Is Table Exist")
     public boolean isTableExist(String tableName) {
         return getTableElement(tableName).exists();
     }
@@ -78,5 +83,12 @@ public class InFormPage {
                 .init()
                 .submitDeletion();
         return this;
+    }
+
+    @Step("Open InForm Importing List")
+    public ImportInFormListPage openImportFileList() {
+        $x("//a[contains (@href,'/in-form/import')]")
+                .click();
+        return ImportInFormListPage.init();
     }
 }

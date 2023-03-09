@@ -1,16 +1,14 @@
 package net.intelliboard.next.tests.in_form;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
-import net.intelliboard.next.services.pages.inform.AddNewInFormTablePage;
-import net.intelliboard.next.services.pages.inform.InFormColumnType;
-import net.intelliboard.next.services.pages.inform.InFormPage;
+import net.intelliboard.next.services.pages.inform.*;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -19,12 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.in;
 
 @Feature("InForm")
 @Tag("InForm")
@@ -124,7 +120,7 @@ class InFromTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("SP-T80"), @Tag("smoke_inform")})
     @Description("Add columns with all data type to the inform table")
     @DisplayName("SP-T80: Add columns with all data type to the inform table")
-    void testAddAllDataTypesInFormTable() throws InterruptedException {
+    void testAddAllDataTypesInFormTable() {
 
         String inFromTableName = "SP-T80 Automation Table_" + DataGenerator.getRandomString();
 
@@ -156,5 +152,106 @@ class InFromTest extends IBNextAbstractTest {
         InFormPage
                 .init()
                 .deleteTable(inFromTableName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T891"), @Tag("smoke_inform")})
+    @Description("CSV import for New table")
+    @DisplayName("SP-T891: CSV import for New table")
+    void testImportCSVNeInFormTable() throws InterruptedException {
+
+        //Open InForm Import
+        String inFormTableName = "SP-T891_CVS_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openImportFileList()
+                .importFile()
+                .selectTable("New Table")
+                .fillInTableName(inFormTableName)
+                .uploadFile(ProjectFilesEnum.INFORM_IMPORT_CSV)
+                .proceedNext();
+
+        InFormImportConfiguration
+                .init()
+                .saveInform()
+                .waitingProcessingComplete();
+
+        open(IBNextURLs.INFORM_LIST_PAGE);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
+                .isTrue();
+
+        InFormPage
+                .init()
+                .deleteTable(inFormTableName);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
+                .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T891-XLS"), @Tag("smoke_inform")})
+    @Description("XLS import for New table")
+    @DisplayName("SP-T891: XLS import for New table")
+    void testImportXLSNeInFormTable() throws InterruptedException {
+
+        //Open InForm Import
+        String inFormTableName = "SP-T891_XLS_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openImportFileList()
+                .importFile()
+                .selectTable("New Table")
+                .fillInTableName(inFormTableName)
+                .uploadFile(ProjectFilesEnum.INFORM_IMPORT_XLS)
+                .proceedNext();
+
+        InFormXLSSheetSelector
+                .init()
+                .saveSheetConfiguration()
+                .saveInform()
+                .waitingProcessingComplete();
+
+        open(IBNextURLs.INFORM_LIST_PAGE);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
+                .isTrue();
+
+        InFormPage
+                .init()
+                .deleteTable(inFormTableName);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
+                .isFalse();
     }
 }
