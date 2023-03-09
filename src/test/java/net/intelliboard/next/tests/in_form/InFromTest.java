@@ -1,10 +1,10 @@
 package net.intelliboard.next.tests.in_form;
 
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
@@ -19,12 +19,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.in;
 
 @Feature("InForm")
 @Tag("InForm")
@@ -124,7 +122,7 @@ class InFromTest extends IBNextAbstractTest {
     @Tags(value = {@Tag("smoke"), @Tag("SP-T80"), @Tag("smoke_inform")})
     @Description("Add columns with all data type to the inform table")
     @DisplayName("SP-T80: Add columns with all data type to the inform table")
-    void testAddAllDataTypesInFormTable() throws InterruptedException {
+    void testAddAllDataTypesInFormTable() {
 
         String inFromTableName = "SP-T80 Automation Table_" + DataGenerator.getRandomString();
 
@@ -156,5 +154,52 @@ class InFromTest extends IBNextAbstractTest {
         InFormPage
                 .init()
                 .deleteTable(inFromTableName);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = ProjectFilesEnum.class, names = {"INFORM_IMPORT_CSV", "INFORM_IMPORT_XLS"})
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T891"), @Tag("smoke_inform")})
+    @Description("CSV import for New table")
+    @DisplayName("SP-T891: CSV import for New table")
+    void testImportCSVNeInFormTable(ProjectFilesEnum fileType) throws InterruptedException {
+
+        //Open InForm Import
+        String inFormTableName = "SP-T891_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openImportFileList()
+                .importFile()
+                .selectTable("New Table")
+                .fillInTableName(inFormTableName)
+                .uploadFile(fileType)
+                .proceedNext()
+                .saveInform()
+                .waitingProcessingComplete();
+
+        open(IBNextURLs.INFORM_LIST_PAGE);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
+                .isTrue();
+
+
+        InFormPage
+                .init()
+                .deleteTable(inFormTableName);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
+                .isFalse();
     }
 }
