@@ -8,9 +8,7 @@ import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
-import net.intelliboard.next.services.pages.inform.AddNewInFormTablePage;
-import net.intelliboard.next.services.pages.inform.InFormColumnType;
-import net.intelliboard.next.services.pages.inform.InFormPage;
+import net.intelliboard.next.services.pages.inform.*;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -156,15 +154,14 @@ class InFromTest extends IBNextAbstractTest {
                 .deleteTable(inFromTableName);
     }
 
-    @ParameterizedTest
-    @EnumSource(value = ProjectFilesEnum.class, names = {"INFORM_IMPORT_CSV", "INFORM_IMPORT_XLS"})
+    @Test
     @Tags(value = {@Tag("smoke"), @Tag("SP-T891"), @Tag("smoke_inform")})
     @Description("CSV import for New table")
     @DisplayName("SP-T891: CSV import for New table")
-    void testImportCSVNeInFormTable(ProjectFilesEnum fileType) throws InterruptedException {
+    void testImportCSVNeInFormTable() throws InterruptedException {
 
         //Open InForm Import
-        String inFormTableName = "SP-T891_" + DataGenerator.getRandomString();
+        String inFormTableName = "SP-T891_CVS_" + DataGenerator.getRandomString();
 
         HeaderObject
                 .init()
@@ -176,8 +173,11 @@ class InFromTest extends IBNextAbstractTest {
                 .importFile()
                 .selectTable("New Table")
                 .fillInTableName(inFormTableName)
-                .uploadFile(fileType)
-                .proceedNext()
+                .uploadFile(ProjectFilesEnum.INFORM_IMPORT_CSV)
+                .proceedNext();
+
+        InFormImportConfiguration
+                .init()
                 .saveInform()
                 .waitingProcessingComplete();
 
@@ -186,10 +186,10 @@ class InFromTest extends IBNextAbstractTest {
         assertThat(
                 InFormPage
                         .init()
+                        .searchInfoTable(inFormTableName)
                         .isTableExist(inFormTableName))
                 .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
                 .isTrue();
-
 
         InFormPage
                 .init()
@@ -198,6 +198,58 @@ class InFromTest extends IBNextAbstractTest {
         assertThat(
                 InFormPage
                         .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
+                .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T891-XLS"), @Tag("smoke_inform")})
+    @Description("XLS import for New table")
+    @DisplayName("SP-T891: XLS import for New table")
+    void testImportXLSNeInFormTable() throws InterruptedException {
+
+        //Open InForm Import
+        String inFormTableName = "SP-T891_XLS_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openImportFileList()
+                .importFile()
+                .selectTable("New Table")
+                .fillInTableName(inFormTableName)
+                .uploadFile(ProjectFilesEnum.INFORM_IMPORT_XLS)
+                .proceedNext();
+
+        InFormXLSSheetSelector
+                .init()
+                .saveSheetConfiguration()
+                .saveInform()
+                .waitingProcessingComplete();
+
+        open(IBNextURLs.INFORM_LIST_PAGE);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
+                .isTrue();
+
+        InFormPage
+                .init()
+                .deleteTable(inFormTableName);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
                         .isTableExist(inFormTableName))
                 .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
                 .isFalse();

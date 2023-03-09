@@ -10,6 +10,9 @@ import java.io.File;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ImportInformModal {
+
+    private ProjectFilesEnum fileType;
+
     public static ImportInformModal init() {
         $x("//form[not (@id='logout-form')]")
                 .should(Condition.visible);
@@ -33,16 +36,28 @@ public class ImportInformModal {
     public ImportInformModal uploadFile(ProjectFilesEnum filePath) {
         File file = new File(filePath.path);
         $x("//input[@id='importfile']").uploadFile(file);
+
+        switch (filePath){
+            case INFORM_IMPORT_CSV:
+                fileType = ProjectFilesEnum.INFORM_IMPORT_CSV;
+                break;
+            case INFORM_IMPORT_XLS:
+                fileType = ProjectFilesEnum.INFORM_IMPORT_XLS;
+        }
+
         return this;
     }
 
     @Step("Proceed to next step")
-    public InFormImportConfiguration proceedNext() {
+    public <T> T proceedNext() {
         $x("//button[@type='submit']")
                 .click();
 
         PageSpinner.waitSpinner();
         PageSpinner.waitPreloader();
-        return InFormImportConfiguration.init();
+        if(fileType.name().equalsIgnoreCase(ProjectFilesEnum.INFORM_IMPORT_CSV.name())){
+            return (T) InFormImportConfiguration.init();
+        } else {
+        return (T) InFormXLSSheetSelector.init();}
     }
 }
