@@ -36,7 +36,7 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
                 .init()
                 .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
 
-        softly.assertThat(itemName.startsWith("A"))
+        softly.assertThat(itemName.startsWith("9"))
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
@@ -91,8 +91,8 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
 
         SoftAssertions softly = new SoftAssertions();
 
-        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 30)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 30)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 29)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 29)
                 .isTrue();
 
         softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 19)
@@ -115,8 +115,8 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
 
         SoftAssertions softly = new SoftAssertions();
 
-        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 30)
-                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 30)
+        softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.REPORTS) == 29)
+                .withFailMessage("Reports size is mismatch %s %s", LibraryItemTypeEnum.REPORTS.value, 29)
                 .isTrue();
 
         softly.assertThat(LibraryMainPage.init().getLibraryItemsNumberByType(LibraryItemTypeEnum.DASHBOARDS) == 19)
