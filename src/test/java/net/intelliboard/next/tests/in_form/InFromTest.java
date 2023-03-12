@@ -205,13 +205,13 @@ class InFromTest extends IBNextAbstractTest {
     }
 
     @Test
-    @Tags(value = {@Tag("smoke"), @Tag("SP-T891-XLS"), @Tag("smoke_inform")})
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T890"), @Tag("smoke_inform")})
     @Description("XLS import for New table")
-    @DisplayName("SP-T891: XLS import for New table")
+    @DisplayName("SP-T890: XLS import for New table")
     void testImportXLSNeInFormTable() throws InterruptedException {
 
         //Open InForm Import
-        String inFormTableName = "SP-T891_XLS_" + DataGenerator.getRandomString();
+        String inFormTableName = "SP-T890_XLS_" + DataGenerator.getRandomString();
 
         HeaderObject
                 .init()
