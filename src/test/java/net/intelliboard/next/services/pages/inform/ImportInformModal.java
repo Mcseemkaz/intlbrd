@@ -1,7 +1,9 @@
 package net.intelliboard.next.services.pages.inform;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
+import net.intelliboard.next.AbstractTest;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 
@@ -45,6 +47,7 @@ public class ImportInformModal {
                 fileType = ProjectFilesEnum.INFORM_IMPORT_XLS;
         }
 
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
         return this;
     }
 
