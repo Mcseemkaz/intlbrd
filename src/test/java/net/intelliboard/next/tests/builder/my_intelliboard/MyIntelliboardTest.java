@@ -47,7 +47,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         String dashboardName = "Untitled";
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
-        HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
+        HeaderObject.init().openMyIntelliBoardPage().searchItem(dashboardName);
 
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
@@ -64,7 +64,7 @@ class MyIntelliboardTest extends IBNextAbstractTest {
         String dashboardName = DataGenerator.getRandomString();
 
         MyIntelliBoardPage my = MyIntelliBoardPage.init();
-        HeaderObject.init().openMyIntelliBoardPage().searchDashboard(dashboardName);
+        HeaderObject.init().openMyIntelliBoardPage().searchItem(dashboardName);
 
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
 
