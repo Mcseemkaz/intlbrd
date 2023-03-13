@@ -4,7 +4,7 @@ public enum LibraryItemTypeEnum {
 
     DASHBOARDS("Dashboards"),
     REPORTS("Reports"),
-    INFORM("In Form");
+    INFORM("Form");
 
     public String value;
 
