@@ -33,7 +33,7 @@ public class MyIntelliBoardPage {
     }
 
     @Step("Search element on Dashboard")
-    public MyIntelliBoardPage searchDashboard(String searchString) {
+    public MyIntelliBoardPage searchItem(String searchString) {
         $x("//input[contains (@class,'input-search')]").setValue(searchString);
         return this;
     }
@@ -57,7 +57,7 @@ public class MyIntelliBoardPage {
         return this;
     }
 
-    @Step("Edit Dashboard")
+    @Step("Edit Dashboard by order number")
     public DashboardPage openEdit(int numberDashboard) {
         Selenide.actions()
                 .moveToElement($x("//div[@class='data-library-list']//li[" + numberDashboard + "]//div[contains (@class,'data-library-item-wrapper')]"))
@@ -72,6 +72,7 @@ public class MyIntelliBoardPage {
                 .getText();
     }
 
+    @Step("Check that item is in Favorite")
     public boolean isDashboardPresentsInFavorite(String dashboardName) {
         return $x("//div[@class='data-library-list' and  .//h2[contains (text(),'Favorites')]]//h4[@class='title' and contains (text(),'" + dashboardName + "')]")
                 .exists();
@@ -115,16 +116,10 @@ public class MyIntelliBoardPage {
                 .getAttribute("style");
     }
 
-    public String getItemName(LibraryItemTypeEnum type, int numberOfItem) {
-        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4[@class='title']")
-                .getText();
-    }
-
     public boolean isItemPresentsByOrderNumber(LibraryItemTypeEnum type, int numberOfItem) {
         return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4")
                 .exists();
     }
-
 
     @Step("Edit Chart")
     public ReportBuilderMainPage editChart(String reportName) {
@@ -152,4 +147,24 @@ public class MyIntelliBoardPage {
         return $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'Reports')] and not(@style)]//li[.//h4[contains (text(),'" + reportName + "')]]")
                 .exists();
     }
+
+    //Generic methods for refactoring
+    @Step("Check that item is in Favorite")
+    public boolean isItemPresentsInFavorite(LibraryItemTypeEnum dashboardItemType, String itemName) {
+        return $x("//div[@class='data-library-list' and  .//h2[contains (text(),'" + dashboardItemType.value + "')]]//h4[@class='title' and contains (text(),'" + itemName + "')]")
+                .exists();
+    }
+
+    @Step("Get item Name")
+    public String getItemName(LibraryItemTypeEnum type, int numberOfItem) {
+        return $x("//div[@class='data-library-list' and .//h2[contains (text(), '" + type.value + "')]]//li[" + numberOfItem + "]//h4[@class='title']")
+                .getText();
+    }
+
+    @Step("Open Item")
+    public void viewItem(LibraryItemTypeEnum dashboardItemType, String itemName) {
+        $x("//div[@class='data-library-list' and ./header/h2[contains (text(),'" + dashboardItemType.value + "')] and not(@style)]//li[.//h4[contains (text(),'" + itemName + "')]]//div[contains (@class,'data-library-item-wrapper')]")
+                .click();
+    }
+
 }

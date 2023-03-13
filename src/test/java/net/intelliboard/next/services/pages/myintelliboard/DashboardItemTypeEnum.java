@@ -1,6 +1,6 @@
-package net.intelliboard.next.services.pages.library;
+package net.intelliboard.next.services.pages.myintelliboard;
 
-public enum LibraryItemTypeEnum {
+public enum DashboardItemTypeEnum {
 
     DASHBOARDS("Dashboards"),
     REPORTS("Reports"),
@@ -8,7 +8,7 @@ public enum LibraryItemTypeEnum {
 
     public String value;
 
-    LibraryItemTypeEnum(String value) {
+    DashboardItemTypeEnum(String value) {
         this.value = value;
     }
 }

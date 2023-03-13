@@ -6,9 +6,11 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
+import net.intelliboard.next.services.pages.elements.NotificationPopUpElement;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.inform.*;
+import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -17,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -253,5 +257,70 @@ class InFromTest extends IBNextAbstractTest {
                         .isTableExist(inFormTableName))
                 .withFailMessage("Imported InForm Table: %s is still existed", inFormTableName)
                 .isFalse();
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T82"), @Tag("smoke_inform")})
+    @Description("Save Inform table")
+    @DisplayName("SP-T82: Save Inform table")
+    void testSaveInFormTable() {
+
+        String inFromTableName = "SP-T82 Automation Table_" + DataGenerator.getRandomString();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openAddTablePage();
+
+        Arrays.stream(InFormColumnType.values()).forEach(k -> {
+            try {
+                AddNewInFormTablePage.init().addColumn(k, "Value_" + DataGenerator.getRandomString());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        AddNewInFormTablePage
+                .init()
+                .fillInTableTitle(inFromTableName)
+                .saveInformTable();
+
+        assertThat(InFormPage.init().isTableExist(inFromTableName))
+                .withFailMessage("InForm Table is not created : %s", inFromTableName)
+                .isTrue();
+
+        InFormPage
+                .init()
+                .deleteTable(inFromTableName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T95"), @Tag("smoke_inform")})
+    @Description("Save data to the Inform form")
+    @DisplayName("SP-T95: Save data to the Inform form")
+    void testSaveDataInFormForm() {
+        String itemName = "Automation Form";
+        String textFieldName = "Text";
+        String textFieldNumber = "Number";
+        String text = "Record at SP-T95: " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String number = DataGenerator.getRandomNumber();
+
+        //Open exist InForm Form
+        MyIntelliBoardPage
+                .init()
+                .viewItem(LibraryItemTypeEnum.INFORM, itemName);
+
+        InFormViewPage
+                .init()
+                .inputTextArea(textFieldName, text)
+                .inputInput(textFieldNumber, number)
+                .saveFormData();
+
+        assertThat(NotificationPopUpElement.init().getPopUpText().equals("Data Saved"))
+                .withFailMessage("Notification for Save Data in InForm failed")
+                .isTrue();
     }
 }
