@@ -3,10 +3,12 @@ package net.intelliboard.next.services.pages.myintelliboard;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
+import net.intelliboard.next.AbstractTest;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.dashboard.DashboardPage;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
+import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.modals.DashboardDeleteModalPage;
 import net.intelliboard.next.services.pages.report.ReportPage;
@@ -24,6 +26,13 @@ public class MyIntelliBoardPage {
         $x("//div[@class='content-body']")
                 .shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.MY_INTELLIBOARD_PAGE);
+
+        // TODO [MO] need fix that to reduce time of test
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
+
         return new MyIntelliBoardPage();
     }
 
