@@ -27,7 +27,7 @@ public class MyIntelliBoardPage {
                 .shouldBe(Condition.visible);
         ibNextAbstractTest.checkPageURL(IBNextURLs.MY_INTELLIBOARD_PAGE);
 
-        // TODO [MO] need fix that to reduce time of test
+        //TODO [MO] need fix that to reduce time of test
         Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
         if (ReleaseNotesModal.releaseModal.isDisplayed()) {
             ReleaseNotesModal.init().closeReleaseModal();
