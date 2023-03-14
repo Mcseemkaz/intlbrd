@@ -1,9 +1,13 @@
 package net.intelliboard.next.services.pages.IBUsers;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import net.intelliboard.next.AbstractTest;
 import net.intelliboard.next.services.pages.auditlogs.UserAuditLogsPage;
+import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
+import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
 import net.intelliboard.next.services.pages.loginlogs.UserLoginLogsPage;
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,8 +21,18 @@ public class IBUserPage {
     SelenideElement LoginLogsButton = $x("//a[contains (@href, '/login-logs')]//h3");
 
     public static IBUserPage init() {
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
+
         $x("//div[contains(@class, 'profile-content-header')]")
                 .shouldBe(Condition.visible);
+
+        //TODO [MO] need fix that to reduce time of test
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
+
         return new IBUserPage();
     }
 
