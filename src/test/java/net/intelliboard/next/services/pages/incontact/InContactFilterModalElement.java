@@ -80,10 +80,23 @@ public class InContactFilterModalElement {
         return InContactMultiSelectModal.init();
     }
 
-    public InContactAddEventStoredLogModal openStoredLog(){
+    public InContactAddEventStoredLogModal openStoredLog() {
         $x("//button[contains (text(),'In Contact Bucket') or contains (text(),'Stored Logs')]")
                 .click();
         return InContactAddEventStoredLogModal
                 .init();
+    }
+
+    public InContactFilterModalElement setDuration(InContactFilterDurationEnum duration) {
+        $x("//div[@class='option' and .//span[contains (text(), 'Date')]]//ul")
+                .click();
+        if (duration.value.equals(InContactFilterDurationEnum.CUSTOM.value)) {
+            //TODO MO Put Logic For Custom DatePicker
+        } else {
+            $x("//div[@class='option' and .//span[contains (text(), 'Date')]]//li[./span[contains (text(),'" + duration.value + "')]]")
+                    .click();
+        }
+
+        return this;
     }
 }
