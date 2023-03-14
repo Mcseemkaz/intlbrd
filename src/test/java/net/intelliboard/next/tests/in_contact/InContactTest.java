@@ -12,6 +12,7 @@ import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import net.intelliboard.next.services.pages.incontact.InContactFilterDurationEnum;
 import net.intelliboard.next.services.pages.incontact.InContactMainPage;
 import net.intelliboard.next.services.pages.incontact.InContactSeeUserContactInfoModal;
 import net.intelliboard.next.services.pages.incontact.InContactViewOptionEnum;
@@ -263,6 +264,7 @@ class InContactTest extends IBNextAbstractTest {
                 .init()
                 .openFilter()
                 .setCourse("20th")
+                .setDuration(InContactFilterDurationEnum.LAST_90_DAYS)
                 .closeFilterModal();
 
         Selenide.sleep(SLEEP_TIMEOUT_SHORT);
