@@ -348,9 +348,11 @@ class InContactTest extends IBNextAbstractTest {
         InContactMainPage
                 .init()
                 .openFilter()
-                .setCommunication(contactType);
+                .setCommunication(contactType)
+                .setDuration(InContactFilterDurationEnum.LAST_90_DAYS);
 
-        assertThat(InContactMainPage
+        assertThat(
+        InContactMainPage
                 .init()
                 .checkEventExist(eventName, date))
                 .withFailMessage("Event %s has not communication %s", eventName, contactType)
