@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.login;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
@@ -21,6 +22,7 @@ public class AutoLoginService {
         }
     }
 
+    @Step("Auto Login by Link")
     public static void autoLogin() {
         Selenide.open(String.format(IBNextURLs.AUTO_LOGIN, AUTO_LOGIN_EMAIL, AUTO_LOGIN_TOKEN));
         Selenide.open(IBNextURLs.MY_INTELLIBOARD_PAGE);
