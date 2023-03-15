@@ -27,6 +27,9 @@ class LoginTest extends IBNextAbstractTest {
     @DisplayName("SP-T22 SP-T1163: Verify success login to IB Next")
     @Tags(value = {@Tag("smoke"), @Tag("critical"), @Tag("SP-T22"), @Tag("SP-T1163"), @Tag("smoke_core")})
     void testLoginApp() {
+        LoginService.clearCookiesAndRefresh();
+        open(IBNextURLs.LOGIN_PAGE);
+
         LoginService.loginAppUI(LoginService.getUSER_LOGIN(),
                 LoginService.getUSER_PASS());
     }
