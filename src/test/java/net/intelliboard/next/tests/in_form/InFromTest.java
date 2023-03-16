@@ -323,4 +323,48 @@ class InFromTest extends IBNextAbstractTest {
                 .withFailMessage("Notification for Save Data in InForm failed")
                 .isTrue();
     }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T96"), @Tag("smoke_inform")})
+    @Description("Saved in Inform data is visible in 'Show' page in Inform table")
+    @DisplayName("SP-T96: Saved in Inform data is visible in 'Show' page in Inform table")
+    void testShowsSavedDataInFormForm() {
+        String itemName = "Automation Form";
+        String itemTable = "Automation InFormTable";
+        String textFieldName = "Text";
+        String textFieldNumber = "Number";
+        String text = "Record at SP-T96: " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String number = DataGenerator.getRandomNumber();
+
+        //Open exist InForm Form
+        MyIntelliBoardPage
+                .init()
+                .viewItem(LibraryItemTypeEnum.INFORM, itemName);
+
+        InFormViewPage
+                .init()
+                .inputTextArea(textFieldName, text)
+                .inputInput(textFieldNumber, number)
+                .saveFormData();
+
+        assertThat(NotificationPopUpElement.init().getPopUpText().equals("Data Saved"))
+                .withFailMessage("Notification for Save Data in InForm failed")
+                .isTrue();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        assertThat(InFormPage
+                .init()
+                .searchInfoTable(itemTable)
+                .openShows(itemTable)
+                .isRecordExist(text))
+                .withFailMessage("Record with item: %s is not existed", text)
+                .isTrue();
+
+        InFormRecordsShowPage
+                .init()
+                .deleteRow(text);
+    }
 }

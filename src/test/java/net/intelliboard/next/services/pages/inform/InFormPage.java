@@ -71,9 +71,6 @@ public class InFormPage {
     }
 
     private InFormPage confirmDelete() {
-
-//        ConfirmationDeleteFormPopup confirmationDeleteFormPopup = new ConfirmationDeleteFormPopup();
-//        if (confirmationDeleteFormPopup.isConfirmationDeleteFormPopupExist()) {
         ConfirmationDeleteFormPopup
                 .init()
                 .submitFormDeletion();
@@ -90,5 +87,13 @@ public class InFormPage {
         $x("//a[contains (@href,'/in-form/import')]")
                 .click();
         return ImportInFormListPage.init();
+    }
+
+    @Step("Open InForm Shows")
+    public InFormRecordsShowPage openShows(String itemName){
+        openActionMenu(itemName);
+        $x("//ul[contains (@class, 'dropdown-menu')]//a[contains (text(),'Show')]")
+                .click();
+        return InFormRecordsShowPage.init();
     }
 }

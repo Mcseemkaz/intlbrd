@@ -13,7 +13,7 @@ public class DataGenerator {
     }
 
     public static String getRandomNumber() {
-        return Faker.instance().number().digits(8);
+        return String.valueOf(Faker.instance().number().randomNumber(10, true));
     }
 
     public static String getRandomValidPassword() {
