@@ -25,4 +25,10 @@ public class TableElementBody {
         $x("//tr[ ./td/span[contains (text(), '" + recordItem + "')]]/td/div[contains (@class,'checkbox')]")
                 .click();
     }
+
+    @Step("Check is Table Empty")
+    public boolean isTableEmpty() {
+        return $x("//div[@class='table-empty']")
+                .exists();
+    }
 }

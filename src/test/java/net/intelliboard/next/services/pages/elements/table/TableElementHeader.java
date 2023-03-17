@@ -25,6 +25,16 @@ public class TableElementHeader {
         PageSpinner.waitSpinner();
     }
 
+    @Step("Delete All Rows")
+    public void deleteAllRowsByAction() {
+        openActionMenu();
+        $x("//a[contains (text(),'Delete All')]")
+                .click();
+        Selenide.confirm();
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
+    }
+
 
     private void openActionMenu() {
         $x("//div[contains (@class, 'table-panel')]//strong[contains (text(),'Action')]")
