@@ -24,9 +24,21 @@ public class InFormRecordsShowPage {
         return TableElementBody.init().isRecordExist(recordItem);
     }
 
-    @Step("Delete row")
+    @Step("Delete record in InForm Table")
     public void deleteRow(String itemName) {
-        TableElementBody.init().checkRow(itemName);
-        TableElementHeader.init().deleteSelectedRowsByAction();
+        TableElementBody
+                .init()
+                .checkRow(itemName);
+        TableElementHeader
+                .init()
+                .deleteSelectedRowsByAction();
+    }
+
+    @Step("Delete all records in InForm Table")
+    public InFormRecordsShowPage deleteAllRecords() {
+        TableElementHeader
+                .init()
+                .deleteAllRowsByAction();
+        return this;
     }
 }

@@ -7,6 +7,7 @@ import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.elements.NotificationPopUpElement;
+import net.intelliboard.next.services.pages.elements.table.TableElementBody;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.inform.*;
@@ -366,5 +367,108 @@ class InFromTest extends IBNextAbstractTest {
         InFormRecordsShowPage
                 .init()
                 .deleteRow(text);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T347"), @Tag("smoke_inform")})
+    @Description("Imported data are visible in the 'Show' option")
+    @DisplayName("SP-T347: Imported data are visible in the 'Show' option - XLS")
+    void testImportedXLSAreVisible() throws InterruptedException {
+
+        //Open InForm Import
+        String inFormTableName = "SP-T347_XLS_" + DataGenerator.getRandomString();
+        String record = "Triss Marigold";
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .openImportFileList()
+                .importFile()
+                .selectTable("New Table")
+                .fillInTableName(inFormTableName)
+                .uploadFile(ProjectFilesEnum.INFORM_IMPORT_XLS)
+                .proceedNext();
+
+        InFormXLSSheetSelector
+                .init()
+                .saveSheetConfiguration()
+                .saveInform()
+                .waitingProcessingComplete();
+
+        open(IBNextURLs.INFORM_LIST_PAGE);
+
+        assertThat(
+                InFormPage
+                        .init()
+                        .searchInfoTable(inFormTableName)
+                        .isTableExist(inFormTableName))
+                .withFailMessage("Imported InForm Table: %s does not existed", inFormTableName)
+                .isTrue();
+
+        assertThat(InFormPage
+                .init()
+                .openShows(inFormTableName)
+                .isRecordExist(record))
+                .withFailMessage("Record: %s is not exist", record)
+                .isTrue();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        InFormPage
+                .init()
+                .deleteTable(inFormTableName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T100"), @Tag("smoke_inform")})
+    @Description("Delete all data from 'Show' page")
+    @DisplayName("SP-T100: Delete all data from 'Show' page")
+    void testDeleteSavedDataInFormForm() {
+        String itemName = "Automation Form";
+        String itemTable = "Automation InFormTable";
+        String textFieldName = "Text";
+        String textFieldNumber = "Number";
+        String text = "Record at SP-T100: " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String number = DataGenerator.getRandomNumber();
+
+        //Open exist InForm Form
+        MyIntelliBoardPage
+                .init()
+                .viewItem(LibraryItemTypeEnum.INFORM, itemName);
+
+        InFormViewPage
+                .init()
+                .inputTextArea(textFieldName, text)
+                .inputInput(textFieldNumber, number)
+                .saveFormData();
+
+        assertThat(NotificationPopUpElement.init().getPopUpText().equals("Data Saved"))
+                .withFailMessage("Notification for Save Data in InForm failed")
+                .isTrue();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        assertThat(InFormPage
+                .init()
+                .searchInfoTable(itemTable)
+                .openShows(itemTable)
+                .isRecordExist(text))
+                .withFailMessage("Record with item: %s is not existed", text)
+                .isTrue();
+
+        InFormRecordsShowPage
+                .init()
+                .deleteAllRecords();
+
+        assertThat(TableElementBody.init().isTableEmpty())
+                .withFailMessage("InForm Table is not empty")
+                .isTrue();
     }
 }
