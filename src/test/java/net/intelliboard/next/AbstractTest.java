@@ -6,6 +6,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import net.intelliboard.next.services.ConsoleColors;
 import net.intelliboard.next.services.PropertiesGetValue;
 import net.intelliboard.next.services.helpers.AllureReportEnvPropertiesManager;
+import net.intelliboard.next.services.login.AutoLoginService;
 import net.intelliboard.next.services.login.LoginCookieHandler;
 import net.intelliboard.next.services.looger.TestsWatcherImpl;
 import net.intelliboard.next.services.webdriver.WebDriverService;
@@ -51,8 +52,18 @@ public abstract class AbstractTest {
         driver.initWebDriver(
                 propertiesGetValue.getPropertyValue("browser"),
                 Integer.parseInt(propertiesGetValue.getPropertyValue("timeout")),
-                propertiesGetValue.getPropertyValue("resolution"), testInfo);
-        LoginCookieHandler.run();
+                propertiesGetValue.getPropertyValue("resolution"),
+                testInfo);
+
+        //TODO [MO] Added temporary AUTOLOGIN
+        switch (System.getProperty("TestEnvironment")) {
+            case ("stage"):
+                AutoLoginService.autoLogin();
+                break;
+            default:
+                LoginCookieHandler.run();
+                break;
+        }
     }
 
     @AfterEach

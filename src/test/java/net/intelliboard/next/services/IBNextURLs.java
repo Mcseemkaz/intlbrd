@@ -22,6 +22,8 @@ public class IBNextURLs {
 
     //Login Page
     public static final String LOGIN_PAGE = MAIN_URL + "/login";
+    public static final String AUTO_LOGIN = MAIN_URL + "/auth/login-without-password?email=%s&token=%s";
+
 
     //Users
     public static final String USERS_PAGE = MAIN_URL + "/users";
