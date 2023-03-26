@@ -9,4 +9,7 @@ public interface MailService {
 
     @Step("Generate Email Box")
     String generateNewMailBox();
+
+    @Step("Check Email Box and get Auth Code")
+    String getAuthCode(String emailBoxName);
 }

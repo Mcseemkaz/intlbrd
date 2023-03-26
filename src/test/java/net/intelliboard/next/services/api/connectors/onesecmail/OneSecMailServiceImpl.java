@@ -47,6 +47,13 @@ public class OneSecMailServiceImpl implements MailService {
         return StringUtils.substringBetween(jsonString, "\"", "\"");
     }
 
+    @Step("Get Auth Code")
+    @Override
+    public String getAuthCode(String emailBoxName) {
+        String messageTextBody = getMessageById(emailBoxName).getTextBody();
+        return getCutAuthCode(messageTextBody);
+    }
+
     private OneSecMailMessagesShortPOJO[] getMessagesList(String emailBoxName) {
 
         RequestSpecBuilder builder = getPreparedMainRequestPart();
@@ -87,7 +94,6 @@ public class OneSecMailServiceImpl implements MailService {
                 .as(OneSecMailMessagePOJO.class);
     }
 
-
     private String getFirstEmailId(String emailBox) {
 
         OneSecMailMessagesShortPOJO[] emailList;
@@ -117,6 +123,10 @@ public class OneSecMailServiceImpl implements MailService {
         return StringUtils.substringBetween(body, "href=\"", "\"");
     }
 
+    private String getCutAuthCode(String body) {
+        return StringUtils.substringAfter(body, ": ");
+    }
+
     private String getEmailLogin(String emailBox) {
         return StringUtils.substringBefore(emailBox, "@");
     }
@@ -131,4 +141,6 @@ public class OneSecMailServiceImpl implements MailService {
         builder.setBasePath(BASE_PATH);
         return builder;
     }
+
+
 }

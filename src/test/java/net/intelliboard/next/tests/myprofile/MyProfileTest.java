@@ -1,14 +1,20 @@
 package net.intelliboard.next.tests.myprofile;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
+import net.intelliboard.next.services.api.connectors.MailService;
+import net.intelliboard.next.services.api.connectors.MailServiceBuilder;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.helpers.UnitedStatesListEnum;
+import net.intelliboard.next.services.login.LoginService;
 import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
+import net.intelliboard.next.services.pages.login.LoginPage;
+import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
