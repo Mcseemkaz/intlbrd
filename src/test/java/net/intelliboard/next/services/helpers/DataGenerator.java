@@ -23,4 +23,8 @@ public class DataGenerator {
     public static UnitedStatesListEnum getRandomUSState(){
         return UnitedStatesListEnum.randomState();
     }
+
+    public static char[] convertStringToArray(String string) {
+        return string.toCharArray();
+    }
 }

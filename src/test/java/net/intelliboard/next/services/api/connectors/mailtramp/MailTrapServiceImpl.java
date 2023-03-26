@@ -21,6 +21,8 @@ public class MailTrapServiceImpl implements MailService {
     private final String API_TOKEN = "dd9e1b53344f7004c1c01c9956f9ae7c";
     private final String ACCOUNT_ID = "112881";
     private final String INBOX_ID = "1317990";
+    private final String API_MESSAGE_HTML = "/api/accounts/{account_id}/inboxes/{inbox_id}/messages/{message_id}/body.htmlsource";
+    private final String API_MESSAGE_TXT = "/api/accounts/{account_id}/inboxes/{inbox_id}/messages/{message_id}/body.txt";
 
     private String getMessageById(String emailBoxName) {
         MailTrapMessagePOJO[] messages = getMessagesList();
@@ -49,7 +51,7 @@ public class MailTrapServiceImpl implements MailService {
 
         String messageBody = given(spec)
                 .when()
-                .get("/api/accounts/{account_id}/inboxes/{inbox_id}/messages/{message_id}/body.htmlsource")
+                .get(API_MESSAGE_HTML)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -57,6 +59,29 @@ public class MailTrapServiceImpl implements MailService {
 
         return getCutRegistrationLink(messageBody);
     }
+
+    @Override
+    public String getAuthCode(String emailBoxName) {
+
+        String message_id = getMessageById(emailBoxName);
+        RequestSpecBuilder builder = getPreparedMainRequestPart();
+        builder.addPathParam("message_id", message_id);
+        builder.setContentType("text/html; charset=utf-8");
+        RequestSpecification spec = builder.build();
+
+        getAuthorization();
+
+        String messageBody = given(spec)
+                .when()
+                .get(API_MESSAGE_TXT)
+                .then()
+                .statusCode(200)
+                .extract()
+                .asString();
+
+        return getCurrentAuthCode(messageBody);
+    }
+
 
     @Step("Generate new Email Box")
     @Override
@@ -113,5 +138,9 @@ public class MailTrapServiceImpl implements MailService {
 
     private String getCutRegistrationLink(String body) {
         return StringUtils.substringBetween(body, "href=\"", "\"");
+    }
+
+    private String getCurrentAuthCode(String body) {
+        return StringUtils.substringAfter(body, ": ");
     }
 }

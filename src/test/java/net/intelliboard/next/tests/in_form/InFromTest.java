@@ -13,10 +13,7 @@ import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.inform.*;
 import net.intelliboard.next.services.pages.library.LibraryItemTypeEnum;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -33,8 +30,8 @@ class InFromTest extends IBNextAbstractTest {
 
     @ParameterizedTest
     @EnumSource(value = InFormColumnType.class)
-    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T89")})
-    @DisplayName("SP-T89: Create Inform table")
+    @Tags(value = {@Tag("smoke"), @Tag("normal"), @Tag("SP-T79"), @Tag("smoke_inform")})
+    @DisplayName("SP-T79: Create Inform table")
     void createInformTableTest(InFormColumnType value) throws InterruptedException {
 
         String tableName = "SP-T89_" + value + DataGenerator.getRandomString();
@@ -477,6 +474,66 @@ class InFromTest extends IBNextAbstractTest {
     @Description("Delete saved data with 3 dots option")
     @DisplayName("SP-T99: Delete saved data with 3 dots option")
     void testDeleteInFormFormDataByThreeDots() {
+        String itemName = "Automation Form";
+        String itemTable = "Automation InFormTable";
+        String textFieldName = "Text";
+        String textFieldNumber = "Number";
+        String text = "Record at SP-T99: " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        String number = DataGenerator.getRandomNumber();
+
+        //Open exist InForm Form
+        MyIntelliBoardPage
+                .init()
+                .viewItem(LibraryItemTypeEnum.INFORM, itemName);
+
+        InFormViewPage
+                .init()
+                .inputTextArea(textFieldName, text)
+                .inputInput(textFieldNumber, number)
+                .saveFormData();
+
+        assertThat(NotificationPopUpElement.init().getPopUpText().equals("Data Saved"))
+                .withFailMessage("Notification for Save Data in InForm failed")
+                .isTrue();
+
+        HeaderObject
+                .init()
+                .openApp(HeaderAppsItemEnum.INFORM);
+
+        assertThat(InFormPage
+                .init()
+                .searchInfoTable(itemTable)
+                .openShows(itemTable)
+                .isRecordExist(text))
+                .withFailMessage("Record with item: %s is not existed", text)
+                .isTrue();
+
+        InFormRecordsShowPage
+                .init()
+                .deleteRow(text);
+    }
+
+    @Disabled
+    @Test
+    @Tags(value = {@Tag("smoke"), @Tag("SP-T249"), @Tag("smoke_inform")})
+    @Description("After delete Inform table all data sets that contain Inform data are also deleted")
+    @DisplayName("SP-T249: After delete Inform table all data sets that contain Inform data are also deleted")
+    void testCheckAllDataDeletedAfterDeleteInFormTable() {
+
+        //Create a InFormTable
+
+        //Create InForm Form
+
+        //
+
+
+
+
+
+
+
+
+
         String itemName = "Automation Form";
         String itemTable = "Automation InFormTable";
         String textFieldName = "Text";

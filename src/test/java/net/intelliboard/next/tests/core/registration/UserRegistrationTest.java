@@ -15,6 +15,7 @@ import net.intelliboard.next.services.pages.IBUsers.UserProfileSecuritySettings;
 import net.intelliboard.next.services.pages.elements.enums.DateFormatEnum;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
+import net.intelliboard.next.services.pages.login.LoginMFAPage;
 import net.intelliboard.next.services.pages.login.LoginPage;
 import net.intelliboard.next.services.pages.signup.IBRegistrationConfirmationPage;
 import net.intelliboard.next.services.pages.signup.SignUpFormFieldTypeEnum;
@@ -388,5 +389,101 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .isTrue();
 
         softly.assertAll();
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T1133"), @Tag("smoke"), @Tag("smoke_core")})
+    @Description("Verify that the user can use email type  of authentication to the successful log in to the account")
+    @DisplayName("SP-T1133: The user can use email of authentication to log in to the account")
+    void testUserMFAbyEmail() {
+
+        //User registration
+        String password = DataGenerator.getRandomValidPassword();
+        String fullName = "SP-T1133_" + DataGenerator.getRandomString();
+        MailService mailService = MailServiceBuilder.build();
+
+        String emailBoxName = mailService.generateNewMailBox();
+
+        LoginService.clearCookiesAndRefresh();
+
+        open(IBNextURLs.MAIN_URL);
+        LoginPage.init()
+                .goToRegistration()
+                .fillInInviteCode(inviteCode)
+                .continueRegistration()
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
+                .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
+                .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.CONFIRM_PASSWORD, password)
+                .fillInFormField(SignUpFormFieldTypeEnum.INSTITUTION, prefixName + DataGenerator.getRandomString())
+                .fillInFormField(SignUpFormFieldTypeEnum.PHONE_NUMBER, DataGenerator.getRandomNumber())
+                .agreeTermsPolicy()
+                .submitForm();
+
+        //Login user
+        String registrationURL = mailService.getRegistrationLink(emailBoxName);
+
+        open(registrationURL);
+
+        IBRegistrationConfirmationPage
+                .init()
+                .goToMyLogin()
+                .fillInLoginFiled(emailBoxName)
+                .fillInPassFiled(password)
+                .submitForm();
+
+
+        assertThat(
+                WelcomePage
+                        .init()
+                        .isWelcomeMessageIsExist(fullName))
+                .withFailMessage("Welcome message is not exist")
+                .isTrue();
+
+        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
+        }
+
+        //Change Profile MFA by Email
+        open(IBNextURLs.USER_PROFILE_SECURITY_SETTINGS);
+
+        UserProfileSecuritySettings
+                .init()
+                .turnMFA()
+                .turnMFAEmail();
+
+        //Logout
+        HeaderObject
+                .init()
+                .openDropDownMenu()
+                .logOut();
+
+        LoginService.clearCookiesAndRefresh();
+        //Login and check MFA Email code
+        open(IBNextURLs.LOGIN_PAGE);
+
+        LoginPage
+                .init()
+                .fillInLoginFiled(emailBoxName)
+                .fillInPassFiled(password)
+                .continueLogin();
+
+//        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
+        System.out.println("KEKEK");
+
+        Selenide.sleep(SLEEP_TIMEOUT_LONG);
+
+        String authCode = mailService.getAuthCode(emailBoxName);
+
+        LoginMFAPage
+                .init()
+                .fillInAuthCode(DataGenerator.convertStringToArray(authCode))
+                .submitForm();
+
+        //Accept
+        WelcomePage
+                .init();
     }
 }

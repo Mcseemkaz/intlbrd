@@ -53,10 +53,15 @@ public class LoginPage {
 
     @Step("Submit Login Form and Login in The App")
     public void submitForm() {
-        buttonSubmit.click();
+        continueLogin();
         authForm.should(Condition.not(Condition.visible), Duration.ofSeconds(100));
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
         ibNextAbstractTest.waitForPageLoaded();
+    }
+
+    @Step("Proceed Login")
+    public void continueLogin() {
+        buttonSubmit.click();
     }
 }
