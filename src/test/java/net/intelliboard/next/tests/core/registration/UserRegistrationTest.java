@@ -8,6 +8,7 @@ import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.api.connectors.MailService;
 import net.intelliboard.next.services.api.connectors.MailServiceBuilder;
+import net.intelliboard.next.services.helpers.CountryRegistrationManager;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.login.LoginService;
 import net.intelliboard.next.services.pages.IBUsers.IBUserPage;
@@ -58,7 +59,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, email)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -88,7 +89,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -128,7 +129,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -175,7 +176,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -238,7 +239,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -308,7 +309,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -411,7 +412,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .goToRegistration()
                 .fillInInviteCode(inviteCode)
                 .continueRegistration()
-                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, "United States")
+                .fillInFormField(SignUpFormFieldTypeEnum.COUNTRY, CountryRegistrationManager.getCountryByEnvironment())
                 .fillInFormField(SignUpFormFieldTypeEnum.FULL_NAME, fullName)
                 .fillInFormField(SignUpFormFieldTypeEnum.EMAIL, emailBoxName)
                 .fillInFormField(SignUpFormFieldTypeEnum.PASSWORD, password)
@@ -433,7 +434,6 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .submitForm();
 
-
         assertThat(
                 WelcomePage
                         .init()
@@ -454,7 +454,6 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .turnMFA()
                 .turnMFAEmail();
 
-        //Logout
         HeaderObject
                 .init()
                 .openDropDownMenu()
@@ -470,9 +469,6 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .continueLogin();
 
-//        Selenide.sleep(SLEEP_TIMEOUT_SHORT);
-        System.out.println("KEKEK");
-
         Selenide.sleep(SLEEP_TIMEOUT_LONG);
 
         String authCode = mailService.getAuthCode(emailBoxName);
@@ -482,7 +478,6 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInAuthCode(DataGenerator.convertStringToArray(authCode))
                 .submitForm();
 
-        //Accept
         WelcomePage
                 .init();
     }
