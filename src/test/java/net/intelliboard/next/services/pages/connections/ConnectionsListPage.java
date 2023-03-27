@@ -34,7 +34,7 @@ public class ConnectionsListPage {
 
     @Step("Delete Connection")
     public ConnectionsListPage deleteConnection(String connectionName) {
-        searhConnectionByName(connectionName);
+        searchConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonDelete
@@ -47,17 +47,12 @@ public class ConnectionsListPage {
     }
 
     @Step("Search connection by name")
-    public ConnectionsListPage searhConnectionByName(String connectionName) {
+    public ConnectionsListPage searchConnectionByName(String connectionName) {
         $x("//input[contains(@class, 'search-input')][@placeholder='Search']")
                 .setValue(connectionName)
                 .sendKeys(Keys.ENTER);
-        /*
-         * Old implementation in cycle searching
-         * */
-//        while (!(isConnectionExist(connectionName))) {
-//            $x("//a[@rel='next']").click();
         ibNextAbstractTest.waitForPageLoaded();
-//        }
+        PageSpinner.waitSpinner();
         return this;
     }
 
@@ -69,7 +64,7 @@ public class ConnectionsListPage {
 
     @Step("Edit connection")
     public ConnectionConnectionSettingsMainPage editConnection(String connectionName) {
-        searhConnectionByName(connectionName);
+        searchConnectionByName(connectionName);
         $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//button[contains (@class,'dropdown-toggle')]")
                 .click();
         buttonEdit.click();
@@ -77,20 +72,20 @@ public class ConnectionsListPage {
     }
 
     public boolean checkLastProcessing(String connectionName, LocalDateTime date) {
-        searhConnectionByName(connectionName);
+        searchConnectionByName(connectionName);
         String processingDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[contains(text(),'" + processingDate + "')]").exists();
     }
 
     public boolean checkIntegration(ConnectionIntegrationTypeEnum integration, String connectionName) {
-        searhConnectionByName(connectionName);
+        searchConnectionByName(connectionName);
         return $x("//tr[ .//td[contains(@class, 'connection-name')]//a[contains(text(),'" + connectionName + "')]]//td[.//*[contains (@alt,'" + integration.value + "')]]")
                 .exists();
     }
 
     @Step("Set Connection Active")
     public ConnectionsListPage setActiveConnection(String connectionName, boolean setActive) {
-        searhConnectionByName(connectionName);
+        searchConnectionByName(connectionName);
         SelenideElement checkRadioButton = $x("//a[contains(text(),'" + connectionName + "')]//ancestor-or-self::tr//td[contains (@class, 'status-cell')]//ion-icon");
         if (checkRadioButton.getAttribute("name").contains("off") && setActive == true) {
             checkRadioButton.click();

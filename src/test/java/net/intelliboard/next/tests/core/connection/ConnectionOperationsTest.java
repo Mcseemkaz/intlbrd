@@ -4,7 +4,6 @@ import io.qameta.allure.Link;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
-import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -33,7 +32,7 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
                         CreateZoomConnectionPage.ZOOM_SECRET)
-                .searhConnectionByName(connectionName)
+                .searchConnectionByName(connectionName)
                 .selectConnection(connectionName, true);
 
         ConnectionsListPage.init()
@@ -41,7 +40,7 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
 
         assertThat(ConnectionsListPage
                 .init()
-                .searhConnectionByName(connectionName)
+                .searchConnectionByName(connectionName)
                 .isConnectionActivation(connectionName, false))
                 .isTrue();
 
@@ -68,14 +67,14 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
                         CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                         CreateZoomConnectionPage.ZOOM_TOKEN,
                         CreateZoomConnectionPage.ZOOM_SECRET)
-                .searhConnectionByName(connectionName);
+                .searchConnectionByName(connectionName);
 
         ConnectionsListPage.init()
                 .setActiveConnection(connectionName, false);
 
         assertThat(ConnectionsListPage
                 .init()
-                .searhConnectionByName(connectionName)
+                .searchConnectionByName(connectionName)
                 .isConnectionActivation(connectionName, false))
                 .isTrue();
 

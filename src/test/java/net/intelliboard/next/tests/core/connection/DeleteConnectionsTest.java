@@ -100,7 +100,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                             CreateZoomConnectionPage.ZOOM_INDEPENDENT_CONNECTION_NAME,
                             CreateZoomConnectionPage.ZOOM_TOKEN,
                             CreateZoomConnectionPage.ZOOM_SECRET)
-                    .searhConnectionByName(connectionName);
+                    .searchConnectionByName(connectionName);
             connectionsList.add(connectionName);
             numberConnections--;
         }
@@ -177,7 +177,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -226,7 +226,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -271,7 +271,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)

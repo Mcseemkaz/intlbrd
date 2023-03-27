@@ -101,7 +101,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -130,7 +130,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -157,7 +157,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -184,7 +184,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
-        connectionsListPage.searhConnectionByName(connectionName);
+        connectionsListPage.searchConnectionByName(connectionName);
 
         assertThat(connectionsListPage.isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
@@ -300,7 +300,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         createConnectionPage.createTOTARAConnection(connectionName, CreateConnectionPage.TOTARA_URL, CreateConnectionPage.TOTARA_KEY);
 
-        assertThat(ConnectionsListPage.init().searhConnectionByName(connectionName).isConnectionExist(connectionName))
+        assertThat(ConnectionsListPage.init().searchConnectionByName(connectionName).isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
 
@@ -324,7 +324,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateConnectionPage.MWP_URL)
                 .saveFilterSettings();
 
-        assertThat(ConnectionsListPage.init().searhConnectionByName(connectionName).isConnectionExist(connectionName))
+        assertThat(ConnectionsListPage.init().searchConnectionByName(connectionName).isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
 
@@ -349,7 +349,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .saveFilterSettings();
 
         assertThat(ConnectionsListPage.init()
-                .searhConnectionByName(connectionName)
+                .searchConnectionByName(connectionName)
                 .isConnectionExist(connectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
@@ -399,7 +399,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                                 12);
 
         assertThat(ConnectionsListPage.init()
-                .searhConnectionByName(mainConnectionName)
+                .searchConnectionByName(mainConnectionName)
                 .checkIntegration(ConnectionIntegrationTypeEnum.QWICKLY, mainConnectionName))
                 .withFailMessage("Integration sub-connection for %s is not existed", mainConnectionName)
                 .isTrue();
@@ -431,7 +431,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .setActiveConnection(mainConnectionName, true);
 
         assertThat(ConnectionsListPage.init()
-                .searhConnectionByName(mainConnectionName)
+                .searchConnectionByName(mainConnectionName)
                 .isConnectionExist(mainConnectionName))
                 .withFailMessage("Connection : %s is not existed", connectionName)
                 .isTrue();
@@ -477,7 +477,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_API_KEY,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_SECRET,
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL)
-                .searhConnectionByName(connectionName);
+                .searchConnectionByName(connectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.
@@ -524,7 +524,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                         CreateBlackBoardCollaborateConnectionPage.BLACK_BOARD_COLLABORATE_URL,
                         ConnectionProcessingFrequencyTypeEnum.DAILY,
                         12)
-                .searhConnectionByName(mainConnectionName);
+                .searchConnectionByName(mainConnectionName);
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
         assertThat(connectionsListPage.checkIntegration(ConnectionIntegrationTypeEnum.BLACK_BOARD_COLLABORATE, mainConnectionName))
@@ -555,7 +555,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
         assertThat(
                 ConnectionsListPage
                         .init()
-                        .searhConnectionByName(mainConnectionName)
+                        .searchConnectionByName(mainConnectionName)
                         .isConnectionExist(mainConnectionName))
                 .withFailMessage("Connection : %s is not existed", mainConnectionName)
                 .isTrue();
