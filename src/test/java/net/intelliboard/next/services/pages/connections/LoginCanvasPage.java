@@ -16,6 +16,7 @@ public class LoginCanvasPage {
     private final SelenideElement passwordField = $x("//input[@id='pseudonym_session_password']");
     private final SelenideElement buttonLogIn = $x("//button[@type='submit']");
 
+    @Step("Canvas Login Page init")
     public static LoginCanvasPage init() {
         $x("//div[contains (@class,'ic-Login')]").shouldBe(Condition.visible, Duration.ofSeconds(90));
         String currentURL = WebDriverRunner.getWebDriver().getCurrentUrl();
