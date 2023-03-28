@@ -1,5 +1,6 @@
 package net.intelliboard.next.tests.core.connection;
 
+import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
@@ -12,6 +13,7 @@ import static net.intelliboard.next.services.IBNextURLs.CREATE_ZOOM_CONNECTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Tag("Connection Operations")
+@Feature("Connection Operations")
 class ConnectionOperationsTest extends IBNextAbstractTest {
 
     //    @Disabled("Create connection has a bug with the fields")
