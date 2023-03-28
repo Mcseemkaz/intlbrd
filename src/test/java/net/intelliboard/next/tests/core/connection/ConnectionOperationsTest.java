@@ -14,7 +14,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Tag("Connection Operations")
 class ConnectionOperationsTest extends IBNextAbstractTest {
 
-//    @Disabled("Create connection has a bug with the fields")
+    //    @Disabled("Create connection has a bug with the fields")
     @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @DisplayName("SP-T206: Deactivating connection by actions")
@@ -49,7 +49,6 @@ class ConnectionOperationsTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
-    @Disabled("Create connection has a bug with the fields")
     @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @DisplayName("SP-T203: Deactivating connection by clicking at radiobutton")
