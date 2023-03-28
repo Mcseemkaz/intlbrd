@@ -115,10 +115,11 @@ public class CreateConnectionPage {
     private final SelenideElement dataClientIdField = $x("//input[@id='dataClientId']");
     private final SelenideElement dataClientSecretField = $x("//input[@id='dataClientSecret']");
     private final SelenideElement buttonContinue = $x("//button[@type='submit']");
-    private SelenideElement d2lId = $x("//input[@name='client_id']");
+    private final SelenideElement d2lId = $x("//input[@name='client_id']");
     private final SelenideElement d2lSecret = $x("//input[@name='client_secret']");
     private final SelenideElement sakaiTokenField = $x("//input[@id='clientId']");
 
+    @Step("Create Connection Page init")
     public static CreateConnectionPage init() {
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();

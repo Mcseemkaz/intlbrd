@@ -3,6 +3,7 @@ package net.intelliboard.next.services.pages.connections;
 import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import net.intelliboard.next.IBNextAbstractTest;
 
 import java.time.Duration;
@@ -17,6 +18,7 @@ public class LoginOauth2ConfirmPage {
         return $x("//input[@type='submit' and (contains(@value,'Authorize'))]");
     }
 
+    @Step("Login Canvas Auth Page init")
     public static LoginOauth2ConfirmPage init() {
 
         ibNextAbstractTest.waitForPageLoaded();
@@ -25,6 +27,7 @@ public class LoginOauth2ConfirmPage {
         return new LoginOauth2ConfirmPage();
     }
 
+    @Step("Confirm Auth")
     public LmsFilterSettingPage confirmAuthorize() {
         ibNextAbstractTest.waitForPageLoaded();
         try {
