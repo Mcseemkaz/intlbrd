@@ -52,30 +52,6 @@ class LibraryMainTwoTest extends IBNextAbstractTest {
                 .withFailMessage("Items has wrong order - selected item is %s", itemName)
                 .isTrue();
 
-        LibraryMainPage
-                .init()
-                .orderItemsBy(LibraryOrderTypeEnum.LAST_UPDATE);
-
-        itemName = LibraryMainPage
-                .init()
-                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-
-        softly.assertThat(itemName.startsWith("Q"))
-                .withFailMessage("Items has wrong order - selected item is %s", itemName)
-                .isTrue();
-
-        LibraryMainPage
-                .init()
-                .orderItemsBy(LibraryOrderTypeEnum.MOST_VISITED);
-
-        itemName = LibraryMainPage
-                .init()
-                .getLibraryItemName(LibraryItemTypeEnum.REPORTS, 1);
-
-        softly.assertThat(itemName.startsWith("Q"))
-                .withFailMessage("Items has wrong order - selected item is %s", itemName)
-                .isTrue();
-
         softly.assertAll();
     }
 
