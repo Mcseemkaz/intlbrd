@@ -7,6 +7,7 @@ import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionFiltersActiveStateEnum;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
 import net.intelliboard.next.services.pages.connections.connection.blackboard.ConnectionFilterSettingsBlackBoardPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.canvas.ConnectionFilterSettingsCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.d2l.ConnectionFilterSettingsD2LPage;
 import net.intelliboard.next.services.pages.connections.connection.ilias.ConnectionFiltersSettingsIliasPage;
@@ -21,12 +22,12 @@ import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 
 @Tag("Connection_Settings")
-public class ConnectionFiltersTest extends IBNextAbstractTest {
+class ConnectionFiltersTest extends IBNextAbstractTest {
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1345")})
     @DisplayName("SP-T1345: Editing Course activity filter on Canvas")
-    public void testEditingConnectionFiltersCanvas() {
+    void testEditingConnectionFiltersCanvas() {
 
         String connectionName = "AQA_SP-T1345_" + DataGenerator.getRandomString();
 
@@ -60,18 +61,18 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T866")})
     @DisplayName("SP-T866: Editing Course filters on Blackboard")
-    public void testEditingConnectionFiltersBlackBoard() {
+    void testEditingConnectionFiltersBlackBoard() {
 
         String connectionName = "AQA_SP-T866_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
@@ -88,7 +89,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T849")})
     @DisplayName("SP-T849: Editing Course filters on Canvas")
-    public void testEditingConnectionFiltersCoursesCanvas() {
+    void testEditingConnectionFiltersCoursesCanvas() {
 
         String connectionName = "AQA_SP-T849_" + DataGenerator.getRandomString();
 
@@ -124,7 +125,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T929")})
     @DisplayName("SP-T929: Editing Course filters on D2L")
-    public void testEditConnectionFilteringD2L() {
+    void testEditConnectionFilteringD2L() {
 
         open(CREATE_D2L_CONNECTION);
         String connectionName = "AQA_SP-T929_" + DataGenerator.getRandomString();
@@ -152,7 +153,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1386")})
     @DisplayName("SP-T1386: Editing Course filters on ilias")
-    public void testEditConnectionFilteringIlias() {
+    void testEditConnectionFilteringIlias() {
 
         open(CREATE_ILIAS_CONNECTION);
         String connectionName = "AQA_SP-T1386_" + DataGenerator.getRandomString();
@@ -177,7 +178,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T860")})
     @DisplayName("SP-T860: Editing Course filters on Moodle")
-    public void testCreateMWPConnectionMoodle() {
+    void testCreateMWPConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
         String connectionName = "AQA_SP-T860_" + DataGenerator.getRandomString();
 
@@ -201,7 +202,7 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1390")})
     @DisplayName("SP-T1390: Editing Course filters on Sakai")
-    public void testCreateSAKAIConnection() {
+    void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
         String connectionName = "AQA_SP-T1390_" + DataGenerator.getRandomString();
@@ -210,8 +211,8 @@ public class ConnectionFiltersTest extends IBNextAbstractTest {
                 .createSAKAIConnection(
                         connectionName,
                         CreateConnectionPage.SAKAI_URL,
-                        CreateConnectionPage.SAKAI_TOKEN,
-                        CreateConnectionPage.SAKAI_KEY)
+                        CreateConnectionPage.SAKAI_TOKEN
+                )
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
 

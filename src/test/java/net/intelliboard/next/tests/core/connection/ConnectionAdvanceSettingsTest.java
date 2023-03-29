@@ -6,22 +6,23 @@ import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionAdvancedSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Selenide.open;
 import static net.intelliboard.next.services.IBNextURLs.*;
 
 @Tag("Connection_Settings")
-public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
+class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
 
-    private String grade = "A";
-    private String rate = "70";
+    private final String grade = "A";
+    private final String rate = "70";
 
 
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T851")})
     @DisplayName("SP-T851: Editing Default Grading Scheme in filters on Canvas")
-    public void testEditDefaultGradingSchemaCanvas() {
+    void testEditDefaultGradingSchemaCanvas() {
 
         String connectionName = "AQA_SP-T851_" + DataGenerator.getRandomString();
 
@@ -52,11 +53,11 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
                 .deleteConnection(connectionName);
     }
 
-    @Disabled
+    @Disabled("Not relevant now")
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T862")})
     @DisplayName("SP-T862: Editing Default Grading Scheme in filters on Moodle")
-    public void testEditDefaultGradingSchemaMoodle() {
+    void testEditDefaultGradingSchemaMoodle() {
 
         String connectionName = "AQA_SP-T862_" + DataGenerator.getRandomString();
         open(CREATE_MOODLE_CONNECTION);
@@ -80,7 +81,7 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1382")})
     @DisplayName("SP-T1382: Editing Default Grading Scheme in filters on D2L")
-    public void testEditDefaultGradingSchemaD2L() {
+    void testEditDefaultGradingSchemaD2L() {
         open(CREATE_D2L_CONNECTION);
         String connectionName = "AQA_SP-T1382_" + DataGenerator.getRandomString();
         CreateConnectionPage
@@ -105,17 +106,17 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T868")})
     @DisplayName("SP-T868: Editing Default Grading Scheme in filters on Blackboard")
-    public void testEditDefaultGradingSchemaBlackboard() {
+    void testEditDefaultGradingSchemaBlackboard() {
 
         String connectionName = "AQA_SP-T868_" + DataGenerator.getRandomString();
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.ADVANCED_SETTINGS);
@@ -130,7 +131,7 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1388")})
     @DisplayName("SP-T1388: Editing Default Grading Scheme in filters on ilias")
-    public void testEditDefaultGradingSchemaIlias() {
+    void testEditDefaultGradingSchemaIlias() {
 
         String connectionName = "AQA_SP-T1388_" + DataGenerator.getRandomString();
         open(CREATE_ILIAS_CONNECTION);
@@ -155,7 +156,7 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
     @Test
     @Tags(value = {@Tag("normal"), @Tag("SP-T1393")})
     @DisplayName("SP-T1393: Editing Default Grading Scheme in filters on Sakai")
-    public void testEditDefaultGradingSchemaSakai() {
+    void testEditDefaultGradingSchemaSakai() {
 
         String connectionName = "AQA_SP-T1393_" + DataGenerator.getRandomString();
         open(CREATE_SAKAI_CONNECTION);
@@ -165,8 +166,8 @@ public class ConnectionAdvanceSettingsTest extends IBNextAbstractTest {
                 .createSAKAIConnection(
                         connectionName,
                         CreateConnectionPage.SAKAI_URL,
-                        CreateConnectionPage.SAKAI_TOKEN,
-                        CreateConnectionPage.SAKAI_KEY)
+                        CreateConnectionPage.SAKAI_TOKEN
+                )
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.ADVANCED_SETTINGS);
 

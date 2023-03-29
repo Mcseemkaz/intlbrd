@@ -8,7 +8,7 @@ import net.intelliboard.next.services.ProjectFilesEnum;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.ConnectionsTypeEnum;
-import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import net.intelliboard.next.services.pages.header.HeaderAppsItemEnum;
 import net.intelliboard.next.services.pages.header.HeaderConnectionManager;
 import net.intelliboard.next.services.pages.header.HeaderObject;
@@ -108,12 +108,12 @@ class InContactTest extends IBNextAbstractTest {
         String connectionName = "SP-T85_" + DataGenerator.getRandomString();
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .setActiveConnection(connectionName, true)
                 .editConnection(connectionName)

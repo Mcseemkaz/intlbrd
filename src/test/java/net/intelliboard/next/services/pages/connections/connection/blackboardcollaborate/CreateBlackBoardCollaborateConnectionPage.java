@@ -1,4 +1,4 @@
-package net.intelliboard.next.services.pages.connections.blackboardcollaborate;
+package net.intelliboard.next.services.pages.connections.connection.blackboardcollaborate;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

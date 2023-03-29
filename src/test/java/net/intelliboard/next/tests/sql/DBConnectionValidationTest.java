@@ -8,10 +8,10 @@ import net.intelliboard.next.services.database.DataBaseConnectorService;
 import net.intelliboard.next.services.database.SQLQueries;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
-import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionAdvancedSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionTabsEnum;
 import net.intelliboard.next.services.pages.connections.connection.MainConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 
@@ -39,12 +39,12 @@ class DBConnectionValidationTest extends IBNextAbstractTest {
         String connectionName = "BB_Ultra_SQL-" + DataGenerator.getRandomString();
         String connectionID;
         open(CREATE_BLACKBOARD_CONNECTION);
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -108,12 +108,12 @@ class DBConnectionValidationTest extends IBNextAbstractTest {
         String connectionName = "BB_Ultra_SQL-" + DataGenerator.getRandomString();
         String connectionID;
         open(CREATE_BLACKBOARD_CONNECTION);
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -201,12 +201,12 @@ class DBConnectionValidationTest extends IBNextAbstractTest {
         String connectionName = "BB_Ultra_SQL-3-" + DataGenerator.getRandomString();
         String connectionID;
         open(CREATE_BLACKBOARD_CONNECTION);
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.ADVANCED_SETTINGS);
@@ -290,12 +290,12 @@ class DBConnectionValidationTest extends IBNextAbstractTest {
         String connectionName = "BB_Ultra_SQL-4-" + DataGenerator.getRandomString();
         String connectionID;
         open(CREATE_BLACKBOARD_CONNECTION);
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -359,12 +359,12 @@ class DBConnectionValidationTest extends IBNextAbstractTest {
         String connectionName = "BB_Ultra_SQL-5-" + DataGenerator.getRandomString();
         String connectionID;
         open(CREATE_BLACKBOARD_CONNECTION);
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()

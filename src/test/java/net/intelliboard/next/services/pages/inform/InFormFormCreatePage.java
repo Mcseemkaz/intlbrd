@@ -6,7 +6,6 @@ import com.codeborne.selenide.SelenideElement;
 import net.intelliboard.next.IBNextAbstractTest;
 
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class InFormFormCreatePage extends IBNextAbstractTest {
     public static InFormFormCreatePage init() {
@@ -35,8 +34,8 @@ public class InFormFormCreatePage extends IBNextAbstractTest {
 
         SelenideElement column = $x("//li[contains (@class,'in-form-table-column-draggable-item')][contains (text(), '" + columnName + "')]");
         SelenideElement columnsWrapper = $x("//div[@class='draggable-wrapper'][./span[text()='Columns']]/div");
-        executeJavaScript("arguments[0].setAttribute(arguments[1], arguments[2]);", column, "draggable", "true");
-        executeJavaScript("arguments[0].setAttribute(arguments[1], arguments[2]);", column, "class", "in-form-table-column-draggable-item sortable-chosen sortable-ghost");
+//        executeJavaScript("arguments[0].setAttribute(arguments[1], arguments[2]);", column, "draggable", "true");
+//        executeJavaScript("arguments[0].setAttribute(arguments[1], arguments[2]);", column, "class", "in-form-table-column-draggable-item sortable-chosen sortable-ghost");
 
         Selenide
                 .actions()
