@@ -193,7 +193,7 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
     @DisplayName("SP-T1083: Deleting BlackBoard connection")
     void testDeleteBlackboardConnection() {
 
-        String connectionName = "Blackboard_SP-T1083_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1083_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
@@ -203,6 +203,25 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                         connectionName,
                         CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
                         CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1083"), @Tag("smoke"), @Tag("smoke_core")})
+    @DisplayName("SP-T1083: Deleting BlackBoard ULTRA connection")
+    void testDeleteBlackboardULTRAConnection() {
+
+        String connectionName = "SP-T1083_" + DataGenerator.getRandomString();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+
+        CreateBlackBoardConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .deleteConnection(connectionName);
     }
