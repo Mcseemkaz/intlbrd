@@ -8,6 +8,7 @@ import net.intelliboard.next.services.pages.blackboard.BlackBoardMigrationServic
 import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.connections.CreateConnectionPage;
 import net.intelliboard.next.services.pages.connections.LoginCanvasPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
 
@@ -116,12 +117,12 @@ class ProcessConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_BLACKBOARD_CONNECTION);
         String connectionName = "SP-T1112_" + DataGenerator.getRandomString();
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
@@ -197,8 +198,8 @@ class ProcessConnectionTest extends IBNextAbstractTest {
                 .createSAKAIConnection(
                         connectionName,
                         CreateConnectionPage.SAKAI_URL,
-                        CreateConnectionPage.SAKAI_TOKEN,
-                        CreateConnectionPage.SAKAI_KEY)
+                        CreateConnectionPage.SAKAI_TOKEN
+                )
                 .editConnection(connectionName)
                 .processData()
                 .waitingProcessingComplete();

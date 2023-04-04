@@ -10,6 +10,7 @@ import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
@@ -196,12 +197,12 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
                 .saveFilterSettings()
                 .deleteConnection(connectionName);
     }
@@ -266,8 +267,8 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
                 .createSAKAIConnection(
                         connectionName,
                         CreateConnectionPage.SAKAI_URL,
-                        CreateConnectionPage.SAKAI_TOKEN,
-                        CreateConnectionPage.SAKAI_KEY);
+                        CreateConnectionPage.SAKAI_TOKEN
+                );
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 

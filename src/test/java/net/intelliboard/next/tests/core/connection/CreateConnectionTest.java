@@ -6,7 +6,8 @@ import io.qameta.allure.Link;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.helpers.DataGenerator;
 import net.intelliboard.next.services.pages.connections.*;
-import net.intelliboard.next.services.pages.connections.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboard.CreateBlackBoardConnectionPage;
+import net.intelliboard.next.services.pages.connections.connection.blackboardcollaborate.CreateBlackBoardCollaborateConnectionPage;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionProcessingFrequencyTypeEnum;
 import net.intelliboard.next.services.pages.connections.connection.zoom.CreateZoomConnectionPage;
 import org.junit.jupiter.api.*;
@@ -69,16 +70,35 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T91 SP-T599 SP-T976: Creating a Blackboard connection")
     void testCreateBlackboardConnection() {
 
-        String connectionName = "Blackboard_SP-T599_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T599_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
-        CreateConnectionPage
+        CreateBlackBoardConnectionPage
                 .init()
                 .createBlackboardConnection(
                         connectionName,
-                        CreateConnectionPage.BLACKBOARD_CLIENT_ID,
-                        CreateConnectionPage.BLACKBOARD_LMS_URL)
+                        CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T599"), @Tag("SP-T91"), @Tag("SP-T976"), @Tag("smoke_core")})
+    @DisplayName("SP-T91 SP-T599 SP-T976: Creating a Blackboard ULTRA connection")
+    void testCreateBlackboardUltraConnection() {
+
+        String connectionName = "SP-T599_ULTRA_" + DataGenerator.getRandomString();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+
+        CreateBlackBoardConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .deleteConnection(connectionName);
     }
@@ -90,7 +110,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_ZOOM_CONNECTION);
 
-        String connectionName = "Zoom_SP-T106_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T106_" + DataGenerator.getRandomString();
         CreateZoomConnectionPage
                 .init()
                 .createZoomConnection(
@@ -117,7 +137,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     void testCreateD2LConnection() {
 
         open(CREATE_D2L_CONNECTION);
-        String connectionName = "D2L_SP-T103_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T103_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createD2LConnection(
@@ -146,7 +166,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     void testCreateIliasConnection() {
 
         open(CREATE_ILIAS_CONNECTION);
-        String connectionName = "Ilias_SP-T104_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T104_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createILIASConnection(
@@ -173,14 +193,14 @@ class CreateConnectionTest extends IBNextAbstractTest {
     void testCreateSAKAIConnection() {
 
         open(CREATE_SAKAI_CONNECTION);
-        String connectionName = "SAKAI_SP-T823_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T823_" + DataGenerator.getRandomString();
         CreateConnectionPage
                 .init()
                 .createSAKAIConnection(
                         connectionName,
                         CreateConnectionPage.SAKAI_URL,
-                        CreateConnectionPage.SAKAI_TOKEN,
-                        CreateConnectionPage.SAKAI_KEY);
+                        CreateConnectionPage.SAKAI_TOKEN
+                );
 
         ConnectionsListPage connectionsListPage = ConnectionsListPage.init();
 
@@ -294,7 +314,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1397: Create Totara connection")
     void testCreateTotaraConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "Totara_SP-T1397_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1397_" + DataGenerator.getRandomString();
 
         open(CREATE_TOTARA_CONNECTION);
 
@@ -314,7 +334,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1250: Create MWP connection for moodle.intelliboard")
     void testCreateMWPConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_Moodle_SP-T1250_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1250_" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
@@ -338,7 +358,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1249, SP-T1398: Create MWP connection for moodleworkplace.intelliboard")
     void testCreateMWPWorkspaceConnectionMoodle() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String connectionName = "MWP_MoodleWorkspace_SP-T1249" + DataGenerator.getRandomString();
+        String connectionName = "SP-T1249" + DataGenerator.getRandomString();
 
         open(CREATE_MWP_MOODLE_CONNECTION);
 
@@ -364,7 +384,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
     @DisplayName("SP-T1370: Create Qwickly connection")
     void testCreateQwicklyConnection() {
         CreateConnectionPage createConnectionPage = new CreateConnectionPage();
-        String mainConnectionName = "Canvas_Main_SP-T1370" + DataGenerator.getRandomString();
+        String mainConnectionName = "SP-T1370_Main" + DataGenerator.getRandomString();
 
         open(CREATE_CANVAS_CONNECTION);
         createConnectionPage.createCanvasConnection
@@ -459,7 +479,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .deleteConnection(mainConnectionName);
     }
 
-//    @Disabled("Create connection has a bug with the fields")
+    //    @Disabled("Create connection has a bug with the fields")
     @Link("https://intelliboard.atlassian.net/browse/SP-9506")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T600")})
@@ -468,7 +488,7 @@ class CreateConnectionTest extends IBNextAbstractTest {
 
         open(CREATE_BLACKBOARD_COLLABORATE_CONNECTION);
 
-        String connectionName = "BBCollaborate_SP-T600_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T600_" + DataGenerator.getRandomString();
         CreateBlackBoardCollaborateConnectionPage
                 .init()
                 .createBBCollaborateConnection(

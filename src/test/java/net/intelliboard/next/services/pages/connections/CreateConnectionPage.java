@@ -28,10 +28,6 @@ public class CreateConnectionPage {
     public static String CANVAS_DATA_CLIENT_SECRET;
     public static String CANVAS_USER_LOGIN;
     public static String CANVAS_USER_PASS;
-    public static String BLACKBOARD_CLIENT_ID;
-    public static String BLACKBOARD_LMS_URL;
-    public static String BLACKBOARD_ULTRA_CLIENT_ID;
-    public static String BLACKBOARD_ULTRA_LMS_URL;
     public static String D2L_URL;
     public static String D2L_CLIENT_ID;
     public static String D2L_CLIENT_SECRET;
@@ -72,10 +68,6 @@ public class CreateConnectionPage {
             CreateConnectionPage.CANVAS_DATA_CLIENT_SECRET = propertiesGetValue.getPropertyValue("canvas_data_client_secret");
             CreateConnectionPage.CANVAS_USER_LOGIN = propertiesGetValue.getPropertyValue("canvas_user_login");
             CreateConnectionPage.CANVAS_USER_PASS = propertiesGetValue.getPropertyValue("canvas_user_pass");
-            CreateConnectionPage.BLACKBOARD_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_learn2_url");
-            CreateConnectionPage.BLACKBOARD_ULTRA_LMS_URL = propertiesGetValue.getPropertyValue("blackboard_ultra_url");
-            CreateConnectionPage.BLACKBOARD_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_learn2_client_id");
-            CreateConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID = propertiesGetValue.getPropertyValue("blackboard_ultra_client_id");
             CreateConnectionPage.D2L_URL = propertiesGetValue.getPropertyValue("d2l_url");
             CreateConnectionPage.D2L_CLIENT_ID = propertiesGetValue.getPropertyValue("d2l_connection_id");
             CreateConnectionPage.D2L_CLIENT_SECRET = propertiesGetValue.getPropertyValue("d2l_connection_secret");
@@ -108,9 +100,10 @@ public class CreateConnectionPage {
         }
     }
 
-    protected SelenideElement connectionNameField = $x("//input[@id='lmsName']");
-    private final SelenideElement clientIdField = $x("//input[@id='clientId']");
-    private final SelenideElement lmsUrlField = $x("//input[@id='lmsUrl']");
+    protected final SelenideElement connectionNameField = $x("//input[@id='lmsName']");
+    protected final SelenideElement clientIdField = $x("//input[@id='clientId']");
+    protected final SelenideElement lmsUrlField = $x("//input[@id='lmsUrl']");
+    private final static SelenideElement connectionForm = $x("//form[contains (@id,'create-connection-form')]");
     private final SelenideElement clientSecretField = $x("//input[@id='clientSecret']");
     private final SelenideElement dataClientIdField = $x("//input[@id='dataClientId']");
     private final SelenideElement dataClientSecretField = $x("//input[@id='dataClientSecret']");
@@ -123,7 +116,7 @@ public class CreateConnectionPage {
     public static CreateConnectionPage init() {
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
-        $x("//form[contains (@id,'create-connection-form')]")
+        connectionForm
                 .shouldBe(Condition.exist, Duration.ofSeconds(60));
         return new CreateConnectionPage();
     }
@@ -147,15 +140,6 @@ public class CreateConnectionPage {
         dataClientIdField.setValue(dataClientId);
         dataClientSecretField.setValue(dataClientSecret);
         submitForm();
-    }
-
-    @Step("Create BlackBoard Connection")
-    public LmsFilterSettingPage createBlackboardConnection(String lmsName, String clientId, String lmsUrl) {
-        connectionNameField.setValue(lmsName);
-        clientIdField.setValue(clientId);
-        lmsUrlField.setValue(lmsUrl);
-        submitForm();
-        return LmsFilterSettingPage.init();
     }
 
     @Step("Create D2L Connection")
@@ -187,9 +171,9 @@ public class CreateConnectionPage {
                 .init()
                 .saveFilterSettings();
     }
+
     @Step("Create SAKAI Connection")
-    public ConnectionsListPage createSAKAIConnection(String lmsName, String SAKAIUrl, String SAKAIToken,
-                                                     String SAKAYKey) {
+    public ConnectionsListPage createSAKAIConnection(String lmsName, String SAKAIUrl, String SAKAIToken) {
         connectionNameField.setValue(lmsName);
         lmsUrlField.setValue(SAKAIUrl);
         sakaiTokenField.setValue(SAKAIToken);
