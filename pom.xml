@@ -14,7 +14,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.report.version>2.21.0</allure.report.version>
-        <selenide.version>6.12.0</selenide.version>
+        <selenide.version>6.12.3</selenide.version>
         <environment>stage</environment>
     </properties>
 
@@ -28,12 +28,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.5</version>
+            <version>2.14.2</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.2.0</version>
+            <version>5.3.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.26</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -55,19 +55,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.0</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.9.0</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.3</version>
+            <version>2.0.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -78,19 +78,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.0</version>
+            <version>5.9.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>3.24.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.4.2</version>
+            <version>42.5.4</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
