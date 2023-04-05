@@ -136,6 +136,36 @@ class ProcessConnectionTest extends IBNextAbstractTest {
         connectionsListPage.deleteConnection(connectionName);
     }
 
+    @Test
+    @Tags(value = {@Tag("high"), @Tag("SP-T1112"), @Tag("SP-T235"), @Tag("smoke_core")})
+    @DisplayName("SP-T235 SP-T1112: Processing Blackboard ULTRA connection")
+    void testProcessConnectionBlackboardULTRA() throws InterruptedException, IOException {
+
+        // Migration BB before processing
+        BlackBoardMigrationService blackBoardMigrationService = new BlackBoardMigrationService();
+        blackBoardMigrationService.performMigrationProcess();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+        String connectionName = "SP-T1112_" + DataGenerator.getRandomString();
+        CreateBlackBoardConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .processData()
+                .waitingProcessingComplete();
+
+        open(ALL_CONNECTIONS);
+        ConnectionsListPage connectionsListPage = ConnectionsListPage
+                .init();
+
+        connectionsListPage.checkLastProcessing(connectionName, LocalDateTime.now());
+        connectionsListPage.deleteConnection(connectionName);
+    }
+
     @Disabled("26/02/2023 there is a issue with Zoom Processing")
     @Test
     @Tags(value = {@Tag("high"), @Tag("SP-T1121")})
