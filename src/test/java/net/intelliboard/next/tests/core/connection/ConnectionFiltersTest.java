@@ -63,7 +63,7 @@ class ConnectionFiltersTest extends IBNextAbstractTest {
     @DisplayName("SP-T866: Editing Course filters on Blackboard")
     void testEditingConnectionFiltersBlackBoard() {
 
-        String connectionName = "AQA_SP-T866_" + DataGenerator.getRandomString();
+        String connectionName = "SP-T866_" + DataGenerator.getRandomString();
 
         open(CREATE_BLACKBOARD_CONNECTION);
 
@@ -73,6 +73,34 @@ class ConnectionFiltersTest extends IBNextAbstractTest {
                         connectionName,
                         CreateBlackBoardConnectionPage.BLACKBOARD_CLIENT_ID,
                         CreateBlackBoardConnectionPage.BLACKBOARD_LMS_URL)
+                .saveFilterSettings()
+                .editConnection(connectionName)
+                .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
+
+        ConnectionFilterSettingsBlackBoardPage
+                .init()
+                .selectCourseStatusAllCourses()
+                .selectCourseFilterTermFirst()
+                .selectFilterNodeFirst()
+                .saveConnectionSettings()
+                .deleteConnection(connectionName);
+    }
+
+    @Test
+    @Tags(value = {@Tag("normal"), @Tag("SP-T866")})
+    @DisplayName("SP-T866: Editing Course filters on Blackboard ULTRA")
+    void testEditingConnectionFiltersBlackBoardULTRA() {
+
+        String connectionName = "SP-T866_ULTRA_" + DataGenerator.getRandomString();
+
+        open(CREATE_BLACKBOARD_CONNECTION);
+
+        CreateBlackBoardConnectionPage
+                .init()
+                .createBlackboardConnection(
+                        connectionName,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_CLIENT_ID,
+                        CreateBlackBoardConnectionPage.BLACKBOARD_ULTRA_LMS_URL)
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .openSettingsTab(ConnectionTabsEnum.FILTERS_SETTINGS);
