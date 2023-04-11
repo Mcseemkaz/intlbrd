@@ -25,7 +25,6 @@ public class AutoLoginService {
     @Step("Auto Login by Link")
     public static void autoLogin() {
         Selenide.open(String.format(IBNextURLs.AUTO_LOGIN, AUTO_LOGIN_EMAIL, AUTO_LOGIN_TOKEN));
-        Selenide.open(IBNextURLs.MY_INTELLIBOARD_PAGE);
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
     }
