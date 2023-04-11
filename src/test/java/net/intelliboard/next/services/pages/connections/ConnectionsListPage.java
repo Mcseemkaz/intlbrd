@@ -96,7 +96,8 @@ public class ConnectionsListPage {
         }
 
         Selenide.sleep(SLEEP_TIMEOUT_LONG);
-
+        PageSpinner.waitPreloader();
+        PageSpinner.waitSpinner();
         return this;
     }
 
@@ -162,7 +163,7 @@ public class ConnectionsListPage {
                 .size();
     }
 
-    public int getNumberActiveConnections(){
+    public int getNumberActiveConnections() {
         return $$x("//table/tbody/tr[./td/button[contains (@aria-label,'Deactivate')]]")
                 .size();
     }

@@ -9,6 +9,7 @@ import net.intelliboard.next.services.pages.IBUsers.CreateIBUsersFormFieldTypeEn
 import net.intelliboard.next.services.pages.IBUsers.IBUserAssignmentsPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersPage;
 import net.intelliboard.next.services.pages.IBUsers.IBUsersRolesTypeEnum;
+import net.intelliboard.next.services.pages.connections.ConnectionsListPage;
 import net.intelliboard.next.services.pages.header.HeaderObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -160,6 +161,12 @@ public class UnassignmentIBUsersTest extends IBNextAbstractTest {
         String firstName = "SP-T847_" + DataGenerator.getRandomString();
         String lastName = DataGenerator.getRandomString();
         String connectionName = MOODLE.defaultName;
+
+        //Check that connection is active
+        open(IBNextURLs.ALL_CONNECTIONS);
+        ConnectionsListPage.init()
+                .searchConnectionByName(connectionName)
+                .setActiveConnection(connectionName, true);
 
         HeaderObject.init()
                 .openDropDownMenu()
