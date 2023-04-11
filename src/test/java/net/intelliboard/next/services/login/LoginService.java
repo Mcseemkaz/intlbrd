@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import lombok.Getter;
+import net.intelliboard.next.AbstractTest;
 import net.intelliboard.next.IBNextAbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
 import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
@@ -43,6 +44,12 @@ public class LoginService extends IBNextAbstractTest {
                     .fillInLoginFiled(userLogin)
                     .fillInPassFiled(userPass)
                     .submitForm();
+        }
+
+
+        Selenide.sleep(AbstractTest.SLEEP_TIMEOUT_SHORT);
+        if (ReleaseNotesModal.releaseModal.isDisplayed()) {
+            ReleaseNotesModal.init().closeReleaseModal();
         }
     }
 
