@@ -1,6 +1,7 @@
 package net.intelliboard.next.services.login;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import net.intelliboard.next.AbstractTest;
 import net.intelliboard.next.services.IBNextURLs;
@@ -9,6 +10,7 @@ import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.header.ReleaseNotesModal;
 
 import java.io.IOException;
+import java.time.Duration;
 
 public class AutoLoginService {
 
@@ -26,6 +28,9 @@ public class AutoLoginService {
 
     @Step("Auto Login by Link")
     public static void autoLogin() {
+        Selenide.open("");
+
+        WebDriverRunner.getWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(120));
         Selenide.open(String.format(IBNextURLs.AUTO_LOGIN, AUTO_LOGIN_EMAIL, AUTO_LOGIN_TOKEN));
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
