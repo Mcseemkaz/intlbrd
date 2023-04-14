@@ -56,8 +56,8 @@ class DeleteConnectionsTest extends IBNextAbstractTest {
         assertThat(
                 ConnectionsListPage
                         .init()
-                        .checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
-                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE)
+                        .checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_BANNER, connectionName))
+                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_BANNER)
                 .isTrue();
 
         ConnectionsListPage

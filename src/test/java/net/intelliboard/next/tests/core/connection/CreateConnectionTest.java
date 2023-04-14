@@ -300,8 +300,8 @@ class CreateConnectionTest extends IBNextAbstractTest {
                 .selectProcessingTime(12)
                 .submitForm();
 
-        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE, connectionName))
-                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_COLLEAGUE.value)
+        assertThat(ConnectionsListPage.init().checkIntegration(ConnectionIntegrationTypeEnum.ELLUCIAN_BANNER, connectionName))
+                .withFailMessage("Integration connection %s is not exist", ConnectionIntegrationTypeEnum.ELLUCIAN_BANNER.value)
                 .isTrue();
 
         ConnectionsListPage
