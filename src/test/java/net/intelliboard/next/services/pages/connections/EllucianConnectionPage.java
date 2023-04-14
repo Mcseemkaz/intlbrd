@@ -18,7 +18,7 @@ public class EllucianConnectionPage extends CreateConnectionPage {
 
     @Step("Fill in Ellucian Token")
     public EllucianConnectionPage fillInEllucianToken(String token) {
-        $x("//input[@id='ellution_token_id' or @id='ellution_token_secret']").setValue(token);
+        $x("//input[@id='ellution_token_id' or @id='ellution_token_secret' or @id='ellucian_banner_token_secret' or @id='ellucian_colleague_token_id']").setValue(token);
         return this;
     }
 
