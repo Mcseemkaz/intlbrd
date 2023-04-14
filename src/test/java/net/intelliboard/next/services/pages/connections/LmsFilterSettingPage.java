@@ -26,7 +26,7 @@ public class LmsFilterSettingPage {
     public ConnectionsListPage saveFilterSettings() {
         PageSpinner.waitPreloader();
         PageSpinner.waitSpinner();
-        buttonSave.shouldBe(Condition.interactable, Duration.ofSeconds(280))
+        buttonSave.shouldBe(Condition.visible, Duration.ofSeconds(280))
                 .click();
         return ConnectionsListPage.init();
     }

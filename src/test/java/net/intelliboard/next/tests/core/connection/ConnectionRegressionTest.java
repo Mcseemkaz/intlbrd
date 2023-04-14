@@ -32,6 +32,7 @@ class ConnectionRegressionTest extends IBNextAbstractTest {
                 .saveFilterSettings()
                 .editConnection(connectionName)
                 .processData()
+                .waitingProcessingComplete()
                 .backToDashBoardConnectionList();
 
         open(ALL_CONNECTIONS);

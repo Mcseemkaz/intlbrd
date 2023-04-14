@@ -2,14 +2,15 @@ package net.intelliboard.next.services.pages.connections;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import net.intelliboard.next.services.pages.connections.connection.ConnectionConnectionSettingsMainPage;
 import net.intelliboard.next.services.pages.elements.spinners.PageSpinner;
 import net.intelliboard.next.services.pages.myintelliboard.MyIntelliBoardPage;
+import org.openqa.selenium.TimeoutException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -36,25 +37,28 @@ public class ProcessPage {
     }
 
     @Step("Wait that Process is completed")
-    public ProcessPage waitingProcessingComplete() throws InterruptedException {
+    public ProcessPage waitingProcessingComplete() {
+
+        int waitingTime = 15;
+        int shortWaitingTime = 4;
+
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime currentTime;
-        LocalDateTime deltaTimeOverall = startTime.plusMinutes(15);
 
         while (!isCompleted()) {
+            if (LocalDateTime.now().isAfter(startTime.plus(waitingTime, ChronoUnit.MINUTES))) {
+                throw new TimeoutException("The processing is timeout exceed");
+            } else {
+                System.out.println("-------Waiting processing : from " + startTime + " to " + startTime.plus(waitingTime, ChronoUnit.MINUTES) + " now is " + LocalDateTime.now());
+            }
             currentTime = LocalDateTime.now();
-            LocalDateTime deltaTime = currentTime.plusMinutes(5);
             while (!isCompleted()) {
-                Thread.sleep(200);
-                currentTime = LocalDateTime.now();
-                if (currentTime.isAfter(deltaTime)) {
+                Selenide.sleep(500);
+                if (LocalDateTime.now().isAfter(currentTime.plus(shortWaitingTime, ChronoUnit.MINUTES))) {
                     break;
                 }
             }
             Selenide.refresh();
-            if (currentTime.isAfter(deltaTimeOverall)) {
-                break;
-            }
         }
         return this;
     }
@@ -66,12 +70,8 @@ public class ProcessPage {
     }
 
     @Step("Go back to Dashboard")
-    public MyIntelliBoardPage backToDashBoardConnectionList(){
-        SelenideElement goToDashboardButton = $x("//a[contains (@class,'success')]");
-        while(!goToDashboardButton.isDisplayed()){
-            Selenide.sleep(200);
-        }
-        goToDashboardButton.click();
+    public MyIntelliBoardPage backToDashBoardConnectionList() {
+        $x("//a[contains (@class,'success')]").click();
         return MyIntelliBoardPage.init();
     }
 }
