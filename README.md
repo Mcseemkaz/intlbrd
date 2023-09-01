@@ -1,4 +1,4 @@
-# IntelliBoard Next Automation Testing 
+# INNext Automation Testing 
 
 This repository is used for storing of Functional automation test cases.
 

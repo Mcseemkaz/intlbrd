@@ -469,7 +469,7 @@ class UserRegistrationTest extends IBNextAbstractTest {
                 .fillInPassFiled(password)
                 .continueLogin();
 
-        Selenide.sleep(SLEEP_TIMEOUT_LONG);
+        Selenide.sleep(30000);
 
         String authCode = mailService.getAuthCode(emailBoxName);
 
